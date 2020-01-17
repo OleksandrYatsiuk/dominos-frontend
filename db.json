@@ -1,0 +1,26 @@
+{
+  "pizzas": [
+    {
+      "title": "create",
+      "id": 1579108125252,
+      "completed": false,
+      "date": "2020-01-15T17:08:45.252Z"
+    },
+    {
+      "title": "чорний хуй",
+      "id": 1579109511698,
+      "completed": false,
+      "date": "2020-01-15T17:31:51.698Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
