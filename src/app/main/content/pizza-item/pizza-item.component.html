@@ -1,0 +1,32 @@
+<div class="pizza-item" *ngFor="let pizza of rootService.root;">
+    <div class="pizza-block">
+        <div class="image-pizza">
+            <img src="../../assets/data/pizza.jpg" alt="Замовити піцу">
+        </div>
+        <div class="pizza-title-row">
+            <a href="">{{pizza.name}}</a>
+        </div>
+        <div class="pizza-info-row">
+            <span>{{pizza.ingredients}}</span>
+            <a href="">Замінити інгредієнти</a>
+        </div>
+        <div class="pizza-details">
+            <div class="pizza-sizes">
+                <button>Маленька</button>
+                <button>Середня</button>
+                <button>Велика</button>
+            </div>
+            <div class="pizza-option">
+                <button>Стандарт</button>
+                <button>Тонке</button><br>
+                <button>Філадельфія</button>
+                <button>Борт Хот-Дог</button>
+            </div>
+        </div>
+        <div class="pizza-price">
+            <span>{{pizza.price}}</span>
+            <span>&nbsp;грн</span>
+            <button>В кошик</button>
+        </div>
+    </div>
+</div>

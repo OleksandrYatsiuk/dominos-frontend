@@ -1,0 +1,120 @@
+.pizza-item {
+  display: flex;
+  position: relative;
+  height: 504px;
+  width: 315px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pizza-block {
+  padding: 10px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: snow;
+  border-radius: 20px;
+  margin: auto;
+
+  .image-pizza {
+    width: 100%;
+    height: 176px;
+    margin: auto;
+    border-radius: 20px;
+  }
+  img {
+    border-radius: 10px;
+  }
+}
+.pizza-block:hover {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pizza-title-row {
+  margin: 7px;
+  font-family: Open Sans, sans-serif;
+
+  a {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: #222;
+  }
+}
+.pizza-info-row {
+  display: flex;
+  height: 55px;
+  flex-direction: column;
+  margin: 20px 0 0 10px;
+
+  span {
+    font-size: 11px;
+    color: #4f4f4f;
+    transition: color 0.3s ease;
+    line-height: 146%;
+    padding-bottom: 2px;
+  }
+  a {
+    font-size: 11px;
+    color: #222;
+  }
+  a:hover {
+    color: black;
+  }
+}
+.pizza-details {
+  width: 100%;
+  height: 100px;
+}
+
+.pizza-details div button {
+  height: 30px;
+  border-radius: 15px;
+  float: left;
+  margin-top: 2px;
+}
+
+.pizza-sizes button {
+  width: 33%;
+}
+.pizza-option button {
+  width: 50%;
+}
+.pizza-price {
+  margin-top: 10px;
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+
+  span {
+    font: outline;
+    font-size: 17px;
+    color: gray;
+    vertical-align: middle;
+  }
+  button {
+    float: right;
+    width: 50%;
+    background: #e31837;
+    border-radius: 15px;
+    border: 0px;
+    height: 50px;
+    color: snow;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: Open Sans, sans-serif;
+  }
+  button:focus {
+    border: 1px solid #4f4f4f;
+  }
+  button:hover {
+    background: rgb(165, 13, 13);
+  }
+}

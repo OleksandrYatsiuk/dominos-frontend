@@ -1,66 +1,47 @@
-ul {
-  margin-top: 1rem;
-  padding: 0;
-  margin: 0;
-  margin-top: 1rem;
+.dp-slider {
+  width: 100%;
+  height: 400px;
+  padding: 0 -5px;
+  text-align: center;
+
+  .slider {
+    text-align: center;
+    width: 100%;
+    height: 90%;
+
+    img {
+      display: block;
+      border-radius: 50px;
+      width: 99%;
+      height: 100%;
+      font-size: 100%;
+      object-fit: cover;
+      padding: 0 6px;
+    }
+
+    .slider-dots {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      min-width: auto;
+      text-align: center;
+    }
+  }
 
   li {
-    position: relative;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-
-    input {
-      margin-right: 1rem;
-    }
-    small {
-      position: absolute;
-      right: 40px;
-      bottom: 5px;
-      font-size: 0.8rem;
-    }
+    display: inline-block;
+    margin-right: 1em;
   }
-}
 
-.done {
-  text-decoration: line-through;
-}
-.rm {
-  $color: red;
-  border-radius: 50%;
-  background: $color;
-  color: #fff;
-  font-size: 1rem;
-  border: none;
-  width: 20px;
-  height: 20px;
-  transition: 0.3s all;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &:hover {
-    background: darken($color, 20%);
-  }
-}
-
-.filter {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 1rem;
-  height: 30px;
-
-  input {
-    width: 100%;
-    height: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
-    padding: 0 0.5rem;
+  button {
+    display: block;
+    width: 1em;
+    height: 1em;
+    padding: 0;
+    border-radius: 50%;
+    border: 1px solid #4f4f4f;
+    color: rgba(0, 0, 0, 0);
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0);
   }
 }
