@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Root } from './root.service';
 
-
-
 @Pipe({
     name: "pizzaFilter"
 })

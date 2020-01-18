@@ -6,14 +6,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { CreatePizzaComponent } from './create-pizza/create-pizza.component';
 import { FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './shared/pizza-filter.pipe';
-import { HeaderComponent } from './main/header/header.component'
+import { HeaderComponent } from './shared/header/header.component';
+import { ContentComponent } from './main/content/content.component';
+import { PizzaItemComponent } from './main/content/pizza-item/pizza-item.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     CreatePizzaComponent,
     PizzaFilterPipe,
-    HeaderComponent
+    HeaderComponent,
+    PizzaItemComponent,
+    ContentComponent,
   ],
   imports: [
     BrowserModule,
