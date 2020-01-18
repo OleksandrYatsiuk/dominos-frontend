@@ -1,13 +1,23 @@
-<div class="dp-slider">
-    <div class="slider">
-        <img src="../../assets/data/399_slider_mobile_pepsi.jpg" alt="Pepsi">
-    </div>
-    <div class="items">
-        <ul class="slider-dots">
-            <li><button>1</button></li>
-            <li><button>2</button></li>
-            <li><button>3</button></li>
-        </ul>
-    </div>
+
+<div class="slider">
+  <ngb-carousel #carousel interval="5000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+      <ng-template ngbSlide *ngFor="let img of images; index as i">
+        <div class="carousel-caption">
+          <h3>My slide {{i + 1}} title</h3>
+        </div>
+        <a href="https://www.google.fr/?q=Number+{{i+1}}" target="_blank" rel="nofollow noopener noreferrer">
+          <div class="picsum-img-wrapper">
+            <img [src]="img" alt="My image {{i + 1}} description">
+          </div>
+        </a>
+      </ng-template>
+    </ngb-carousel>
+</div>
+<div class="items">
+    <ul class="slider-dots">
+        <li><button>1</button></li>
+        <li><button>2</button></li>
+        <li><button>3</button></li>
+    </ul>
 </div>
 <app-content></app-content>

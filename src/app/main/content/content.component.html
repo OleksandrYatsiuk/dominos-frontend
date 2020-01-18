@@ -1,9 +1,12 @@
 <div class="pizza-list">
     <h2>Піца: Краща ціна</h2>
     <!-- <div class="product-block"> -->
-        <ul>
-            <app-pizza-item></app-pizza-item>
-        </ul>
+      <div class="parent">
+          <div *ngFor="let pizza of pizzas" class="child">
+              <app-pizza-item [item]="pizza"></app-pizza-item>
+          </div>
+      </div>
+
     <!-- </div> -->
 
 </div>

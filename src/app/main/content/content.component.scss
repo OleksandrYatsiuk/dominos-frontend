@@ -1,3 +1,9 @@
+
+:host {
+  float: flex;
+  margin: 10px;
+  padding-top: 10px;
+}
 .pizza-list {
   width: 100%;
   max-height: 1000px;
@@ -13,8 +19,16 @@ h2 {
 .product-block {
   width: 100%;
 }
-app-pizza-item {
-  float: flex;
-  margin: 10px;
-  padding-top: 10px;
+
+
+
+.parent {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
 }
+
+.child {
+  flex: 1 1 200px;
+}
+

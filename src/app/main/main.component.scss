@@ -8,6 +8,13 @@
     text-align: center;
     width: 100%;
     height: 90%;
+    &-dots {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      min-width: auto;
+      text-align: center;
+    }
 
     img {
       display: block;
@@ -19,13 +26,6 @@
       padding: 0 6px;
     }
 
-    .slider-dots {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      min-width: auto;
-      text-align: center;
-    }
   }
 
   li {
@@ -44,4 +44,7 @@
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
   }
+}
+.picsum-img-wrapper > img {
+  width: 100%;
 }

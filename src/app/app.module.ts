@@ -5,16 +5,16 @@ import { MainComponent } from './main/main.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CreatePizzaComponent } from './create-pizza/create-pizza.component';
 import { FormsModule } from '@angular/forms';
-import { PizzaFilterPipe } from './shared/pizza-filter.pipe';
 import { HeaderComponent } from './shared/header/header.component';
 import { ContentComponent } from './main/content/content.component';
 import { PizzaItemComponent } from './main/content/pizza-item/pizza-item.component';
+import { AppRoutingModule } from './router.module';
+import { SharedModule } from './shared/shared.module';
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     CreatePizzaComponent,
-    PizzaFilterPipe,
     HeaderComponent,
     PizzaItemComponent,
     ContentComponent,
@@ -22,7 +22,9 @@ import { PizzaItemComponent } from './main/content/pizza-item/pizza-item.compone
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

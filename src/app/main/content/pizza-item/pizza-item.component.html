@@ -1,13 +1,15 @@
-<div class="pizza-item" *ngFor="let pizza of rootService.root;">
+<div class="pizza-item">
     <div class="pizza-block">
         <div class="image-pizza">
             <img src="../../assets/data/pizza.jpg" alt="Замовити піцу">
         </div>
         <div class="pizza-title-row">
-            <a href="">{{pizza.name}}</a>
+            <a href="">{{item.name}}</a>
         </div>
         <div class="pizza-info-row">
-            <span>{{pizza.ingredients}}</span>
+            <span *ngFor="let ingredient of item.ingredients">
+              <p>{{ingredient}},</p>
+            </span>
             <a href="">Замінити інгредієнти</a>
         </div>
         <div class="pizza-details">
@@ -24,7 +26,7 @@
             </div>
         </div>
         <div class="pizza-price">
-            <span>{{pizza.price}}</span>
+            <span>{{item.price}}</span>
             <span>&nbsp;грн</span>
             <button>В кошик</button>
         </div>
