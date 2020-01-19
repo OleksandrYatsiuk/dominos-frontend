@@ -12,7 +12,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.rootService.$bashChanges
-      .subscribe(res => console.log(res));
+      .subscribe(res => {
+        console.log(localStorage.getItem('1'));
+
+      });
   }
 
 }

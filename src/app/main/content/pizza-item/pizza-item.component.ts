@@ -12,6 +12,11 @@ export class PizzaItemComponent {
   constructor(private rootService: RootService) {}
   onClickMe(item) {
     this.rootService.$bashChanges.next(item);
-     localStorage.setItem(item.id, JSON.stringify(item));
+    if (!localStorage.getItem('basket')) {
+    localStorage.setItem('basket', JSON.stringify(item));
+   } else {
+    const count = JSON.parse(localStorage.getItem('basket'));
+    console.log(count);
+   }
   }
 }
