@@ -82,7 +82,7 @@ img {
 }
 
 .pizza-sizes button {
-  width: 33%;
+  width: calc(100%/3);
 }
 .pizza-option button {
   width: 50%;
@@ -113,6 +113,7 @@ img {
   }
   button:focus {
     border: 1px solid #4f4f4f;
+
   }
   button:hover {
     background: rgb(165, 13, 13);

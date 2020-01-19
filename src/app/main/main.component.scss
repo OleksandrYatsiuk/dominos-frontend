@@ -8,30 +8,8 @@
     text-align: center;
     width: 100%;
     height: 90%;
-    &-dots {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      min-width: auto;
-      text-align: center;
-    }
-
-    img {
-      display: block;
-      border-radius: 50px;
-      width: 99%;
-      height: 100%;
-      font-size: 100%;
-      object-fit: cover;
-      padding: 0 6px;
-    }
-
   }
 
-  li {
-    display: inline-block;
-    margin-right: 1em;
-  }
 
   button {
     display: block;

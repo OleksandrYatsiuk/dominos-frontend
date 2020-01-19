@@ -10,6 +10,7 @@ import { ContentComponent } from './main/content/content.component';
 import { PizzaItemComponent } from './main/content/pizza-item/pizza-item.component';
 import { AppRoutingModule } from './router.module';
 import { SharedModule } from './shared/shared.module';
+import { BasketComponent } from './basket/basket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +19,7 @@ import { SharedModule } from './shared/shared.module';
     HeaderComponent,
     PizzaItemComponent,
     ContentComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
