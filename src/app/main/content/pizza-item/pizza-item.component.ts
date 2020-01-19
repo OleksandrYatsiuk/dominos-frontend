@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { RootService } from '../../../shared/root.service';
 
 
@@ -9,4 +9,9 @@ import { RootService } from '../../../shared/root.service';
 })
 export class PizzaItemComponent {
   @Input() item;
+  constructor(private rootService: RootService) {}
+  onClickMe(item) {
+    this.rootService.$bashChanges.next(item);
+     localStorage.setItem(item.id, JSON.stringify(item));
+  }
 }
