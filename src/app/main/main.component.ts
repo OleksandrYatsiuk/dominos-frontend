@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RootService } from '../shared/root.service';
-import { NgbCarousel, NgbSlideEventSource, NgbSlideEvent } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbCarousel,
+  NgbSlideEventSource,
+  NgbSlideEvent
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-main',
@@ -8,14 +12,33 @@ import { NgbCarousel, NgbSlideEventSource, NgbSlideEvent } from '@ng-bootstrap/n
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  images = [944, 1011, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
+  images = [
+    {
+      title: 'Domino`s Club',
+      subTitle: 'Програма підвищення задоволення',
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2019/08/14/PL_1920x736_1.jpg'
+    },
+    {
+      title: 'Оновлена акція! -30% на кожну другу піцу',
+      subTitle: '',
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2019/09/02/-40_slider.jpg'
+    },
+    {
+      title: 'Разом дешевше',
+      subTitle: '3 середні піци та пляшку 1л Pepsi усього за 399.99 грн!',
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2019/11/26/399_slider_pepsi_2_1.jpg'
+    }
+  ];
 
   paused = false;
   unpauseOnArrow = false;
   pauseOnIndicator = false;
   pauseOnHover = true;
 
-  @ViewChild('carousel', {static : true}) carousel: NgbCarousel;
+  @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
 
   togglePaused() {
     if (this.paused) {
@@ -27,30 +50,31 @@ export class MainComponent implements OnInit {
   }
 
   onSlide(slideEvent: NgbSlideEvent) {
-    if (this.unpauseOnArrow && slideEvent.paused &&
-      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT || slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)) {
+    if (
+      this.unpauseOnArrow &&
+      slideEvent.paused &&
+      (slideEvent.source === NgbSlideEventSource.ARROW_LEFT ||
+        slideEvent.source === NgbSlideEventSource.ARROW_RIGHT)
+    ) {
       this.togglePaused();
     }
-    if (this.pauseOnIndicator && !slideEvent.paused && slideEvent.source === NgbSlideEventSource.INDICATOR) {
+    if (
+      this.pauseOnIndicator &&
+      !slideEvent.paused &&
+      slideEvent.source === NgbSlideEventSource.INDICATOR
+    ) {
       this.togglePaused();
     }
   }
   constructor(private rootService: RootService) { }
 
-  private loading: boolean = true;
-  private search: string = "";
-
   ngOnInit() {
-    this.rootService.fetchItems().subscribe(() => {
-      this.loading = false;
-    });
+    this.rootService.fetchItems().subscribe(() => { });
   }
 
   removeItem(id: number) {
-    this.rootService.removeItem(id)
-      .subscribe(() => {
-        this.ngOnInit();
-      })
+    this.rootService.removeItem(id).subscribe(() => {
+      this.ngOnInit();
+    });
   }
-
 }

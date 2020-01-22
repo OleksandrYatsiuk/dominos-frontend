@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PizzaFilterPipe } from './pizza-filter.pipe';
 
 
@@ -8,7 +8,7 @@ import { PizzaFilterPipe } from './pizza-filter.pipe';
   declarations: [PizzaFilterPipe],
   imports: [
     CommonModule,
-    NgbModule
+    NgbModule,
   ],
   exports: [NgbModule]
 })
