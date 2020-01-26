@@ -1,8 +1,8 @@
-<div class="pizza-list">
-  <h2>Піца: Краща ціна</h2>
+<div *ngFor="let category of pizzas | keyvalue; index as i" class="pizza-list">
+  <h2>Піца: {{ category.key }}</h2>
   <div class="parent">
-    <div *ngFor="let pizza of pizzas" class="child">
-      <app-pizza-item [item]="pizza"></app-pizza-item>
+    <div *ngFor="let pizza of category.value | keyvalue" class="child">
+      <app-pizza-item [item]="pizza.value"></app-pizza-item>
     </div>
   </div>
 </div>

@@ -1,34 +1,31 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { SharedModule } from './shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { MainComponent } from './main/main.component';
-import { HttpClientModule } from '@angular/common/http';
 import { CreatePizzaComponent } from './create-pizza/create-pizza.component';
-import { FormsModule } from '@angular/forms';
 import { ContentComponent } from './main/content/content.component';
 import { PizzaItemComponent } from './main/content/pizza-item/pizza-item.component';
-import { AppRoutingModule } from './router.module';
-import { SharedModule } from './shared/shared.module';
-import { BasketComponent } from './basket/basket.component';
-import { HeaderComponent } from './shared/header/header.component';
-import { FooterComponent } from './shared/footer/footer.component';
+import { DeliveryComponent } from './delivery/delivery.component';
+import { ShippingFormComponent } from './delivery/shipping-form/shipping-form.component';
+import { HeaderComponent, FooterComponent } from './shared';
+
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     CreatePizzaComponent,
+    HeaderComponent,
+    FooterComponent,
     PizzaItemComponent,
     ContentComponent,
-    BasketComponent,
-    HeaderComponent,
-    FooterComponent
+    ShippingFormComponent,
+    MainComponent,
+    DeliveryComponent,
   ],
   imports: [
-    BrowserModule,
     HttpClientModule,
-    FormsModule,
-    AppRoutingModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

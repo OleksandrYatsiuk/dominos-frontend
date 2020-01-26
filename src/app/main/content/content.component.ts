@@ -9,7 +9,7 @@ import { RootService } from 'src/app/shared/root.service';
 export class ContentComponent implements OnInit {
   pizzas: any[];
 
-  constructor(private rootService: RootService) {}
+  constructor(private rootService: RootService) { }
 
   ngOnInit() {
     this.rootService.fetchItems().subscribe(res => {

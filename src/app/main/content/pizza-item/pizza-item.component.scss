@@ -18,13 +18,14 @@
   padding: 10px;
   background: white;
 
+  &:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+
   .image-pizza > img {
     height: 176px;
     border-radius: 10px;
   }
-}
-.pizza-block:hover {
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .pizza-description {
@@ -57,9 +58,9 @@
     }
     a {
       color: #222;
-    }
-    a:hover {
-      color: black;
+      &:hover {
+        color: black;
+      }
     }
   }
 }
@@ -86,10 +87,11 @@
     button {
       width: calc(100% / 3);
       border-radius: 15px;
-    }
-    button:active {
-      background: #4f4f4f;
-      color: white;
+
+      &:active {
+        background: #4f4f4f;
+        color: white;
+      }
     }
   }
 
@@ -103,11 +105,11 @@
       border-radius: 15px;
       background: #f8f8f8;
       margin-bottom: 5px;
-    }
 
-    button:active {
-      background: #4f4f4f;
-      color: white;
+      &:active {
+        background: #4f4f4f;
+        color: white;
+      }
     }
   }
 }
@@ -134,11 +136,12 @@
     font-size: 18px;
     font-weight: 700;
     font-family: Open Sans, sans-serif;
-  }
-  button:focus {
-    border: 1px solid #4f4f4f;
-  }
-  button:hover {
-    background: rgb(165, 13, 13);
+
+    &:focus {
+      border: 1px solid #4f4f4f;
+    }
+    &:hover {
+      background: rgb(165, 13, 13);
+    }
   }
 }
