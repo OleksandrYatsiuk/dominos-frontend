@@ -1,0 +1,76 @@
+<div class="shipping-form">
+  <div class="form-contacts">
+    <form [formGroup]="formDelivery" (ngSubmit)="onSubmit()">
+      <h3>Контакти</h3>
+
+      <div class="row-form">
+        <input
+          type="text"
+          formControlName="firstName"
+          placeholder="First Name"
+        />
+        <input type="text" formControlName="phone" placeholder="Phone" />
+        <input type="text" formControlName="email" placeholder="Email" />
+      </div>
+
+      <h3>Aдреса</h3>
+
+      <div formGroupName="address">
+        <div class="row-form">
+          <input type="text" formControlName="street" placeholder="Street" />
+        </div>
+        <div class="row-form">
+          <input type="text" formControlName="house" placeholder="House" />
+          <input type="text" formControlName="flat" placeholder="Flat" />
+          <input
+            type="text"
+            formControlName="entrance"
+            placeholder="Entrance"
+          />
+        </div>
+        <div class="row-form">
+          <input type="text" formControlName="code" placeholder="Code" />
+          <input type="text" formControlName="floor" placeholder="Floor" />
+        </div>
+        <div class="row-form">
+          <textarea type="text" formControlName="comment" placeholder="Comment">
+          </textarea>
+        </div>
+      </div>
+
+      <h3>Дата та час</h3>
+
+      <div formGroupName="date">
+        <div class="row-form">
+          <input type="text" formControlName="date" placeholder="Date" />
+          <input type="text" formControlName="time" placeholder="Time" />
+        </div>
+      </div>
+
+      <h3>Оплата</h3>
+
+      <div formGroupName="payment">
+        <div class="row-form">
+          <input type="text" formControlName="coupon" placeholder="Coupon" />
+          <input
+            type="text"
+            formControlName="remainder"
+            placeholder="Remainder"
+          />
+        </div>
+        <div class="row-form">
+          <input
+            type="text"
+            formControlName="type"
+            placeholder="Payment Type"
+          />
+        </div>
+      </div>
+      <div class="payment-result">
+        <span>Total</span>
+        <span>88.99 грн</span>
+        <button type="submit">Order</button>
+      </div>
+    </form>
+  </div>
+</div>
