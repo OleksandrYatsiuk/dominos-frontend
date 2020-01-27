@@ -10,6 +10,8 @@ import { RootService } from '../../../shared/root.service';
 
 export class PizzaItemComponent {
 
+  imageSrc = require('../../../../assets/data/pizza.jpg');
+
   @Input() item;
   active = false;
   basket = [];
