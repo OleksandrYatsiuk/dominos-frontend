@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { RootService } from '../../../shared/root.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -11,43 +12,54 @@ import { RootService } from '../../../shared/root.service';
 export class PizzaItemComponent {
 
   @Input() item;
-  active = false;
+
   basket = [];
-  price;
-  isActive: boolean = false;
-  sizes = ['Маленька', 'Середня', "Велика"];
 
-  constructor(private rootService: RootService) { }
 
-  updateLocalStorage(storage: string, newValue: object) {
-    const count = JSON.parse(storage);
-    count.push({ id: newValue['id'], price: newValue['price'] });
-    localStorage.setItem('basket', JSON.stringify(count));
+  constructor(private fb: FormBuilder) { }
+
+  pizzaForm: FormGroup;
+
+  ngOnInit() {
+
+    this.pizzaForm = this.fb.group({
+      size: ["Маленька", []],
+      form: ["Стандарт", []],
+    })
+
+  }
+
+
+  submit(item) {
+    console.log(item);
+    const size = this.pizzaForm.controls.size.value;
+    console.log(size);
   }
 
 
 
-  onClickMe(item) {
-    // this.rootService.$bashChanges.next(item);
-    this.price ? this.price : item.price.low;
-    if (!localStorage.getItem('basket')) {
-      this.basket.push({ id: item.id, price: this.price });
-      localStorage.setItem('basket', JSON.stringify([{ id: item.id, price: this.price }]));
-    } else {
-      this.updateLocalStorage(localStorage.getItem('basket'), { id: item.id, price: this.price });
-    }
-  }
+  // updateLocalStorage(storage: string, newValue: object) {
+  //   const count = JSON.parse(storage);
+  //   count.push({ id: newValue['id'], price: newValue['price'] });
+  //   localStorage.setItem('basket', JSON.stringify(count));
+  // }
 
-  getPizzaPrice(item, $event) {
-    switch ($event.srcElement.innerText) {
-      case this.sizes[0]:
-        return this.price = item.price.low;
-      case this.sizes[1]:
-        this.isActive = !this.isActive;
-        return this.price = item.price.medium;
-      case this.sizes[2]:
-        this.isActive = !this.isActive;
-        return this.price = item.price.high;
-    }
-  }
+  // onClick(event, i) {
+  //   console.log(i);
+  //   console.log(event);
+  // }
+
+  // onClickMe(item) {
+  //   this.price ? this.price : item.price.low;
+  //   if (!localStorage.getItem('basket')) {
+  //     this.basket.push({ id: item.id, price: this.price });
+  //     localStorage.setItem('basket', JSON.stringify([{ id: item.id, price: this.price }]));
+  //   } else {
+  //     this.updateLocalStorage(localStorage.getItem('basket'), { id: item.id, price: this.price });
+  //   }
+  // }
+
+  // clickEvent() {
+  //   this.status = !this.status;
+  // }
 }

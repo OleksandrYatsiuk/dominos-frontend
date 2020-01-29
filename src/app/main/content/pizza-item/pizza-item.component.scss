@@ -1,147 +1,125 @@
-.active {
-  background: #4f4f4f !important;
-  color: white;
-}
-.pizza-item {
-  display: flex;
+.product-block {
   height: 504px;
-  width: 315px;
-  padding: 10px;
-  margin: 0px;
+  max-width: 315px;
+  margin: 10px;
+
+  .item {
+    height: 100%;
+    border-radius: 20px;
+    padding: 10px;
+    background: white;
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 
-.pizza-block {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  padding: 10px;
-  background: white;
+.product-row {
+  display: flex;
 
-  &:hover {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  }
-
-  .image-pizza > img {
+  img {
+    width: 100%;
     height: 176px;
     border-radius: 10px;
   }
 }
-
-.pizza-description {
+.size {
   width: 100%;
-  text-align: left;
-
-  .pizza-title-row {
-    margin: 20px 0 0 10px;
-
-    a {
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      color: #222;
-    }
-  }
-
-  .pizza-info-row {
-    display: flex;
-    height: 55px;
-    flex-direction: column;
-    margin: 20px 0 0 10px;
-    font-size: 11px;
-
-    span {
-      color: #4f4f4f;
-      transition: color 0.3s ease;
-      line-height: 146%;
-      padding-bottom: 2px;
-    }
-    a {
-      color: #222;
-      &:hover {
-        color: black;
-      }
-    }
-  }
-}
-
-.pizza-details div button {
-  background-color: transparent;
-  border: 0px;
-  outline: none;
-  height: 30px;
-}
-
-.pizza-details {
-  width: 100%;
-  height: 100px;
-
-  .pizza-sizes {
-    width: 100%;
-    height: 30px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    background: #f8f8f8;
-    display: flex;
-    border-radius: 15px;
-
-    button {
-      width: calc(100% / 3);
-      border-radius: 15px;
-
-      &:active {
-        background: #4f4f4f;
-        color: white;
-      }
-    }
-  }
-
-  .pizza-option {
-    display: inline-block;
-    width: 100%;
-    padding-top: 10px;
-
-    button {
-      width: calc(100% / 2);
-      border-radius: 15px;
-      background: #f8f8f8;
-      margin-bottom: 5px;
-
-      &:active {
-        background: #4f4f4f;
-        color: white;
-      }
-    }
-  }
-}
-
-.pizza-price {
-  display: flex;
-  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 15px;
+  background-color: #f8f8f8;
+  text-align: center;
+  justify-content: center;
+  vertical-align: middle;
   margin-top: 20px;
 
-  .currency {
-    width: 50%;
-    color: black;
-    margin: auto;
-    font-weight: bolder;
+  label {
+    width: calc(100% / 3);
+    height: 100%;
+    cursor: pointer;
   }
+}
+input:checked + span {
+  display: inline-block;
+  border: 0px;
+  border-radius: 15px;
+  width: 100%;
+  height: 100%;
+  color: snow;
+  background-color: #4f4f4f;
+}
 
-  button {
+input[type="radio"] {
+  display: none;
+  padding-left: 15px;
+}
+.form {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+  flex: wrap;
+  label {
     width: 50%;
-    background: #e31837;
+    background: #f8f8f8;
     border-radius: 15px;
-    border: 0px;
-    height: 50px;
-    color: snow;
-    font-size: 18px;
-    font-weight: 700;
-    font-family: Open Sans, sans-serif;
+    cursor: pointer;
+    padding: 0px;
+    height: 30px;
+  }
+}
+.price {
+  width: 50%;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+button {
+  font-size: 20px;
+  font-weight: 600;
+  width: 50%;
+  height: 50px;
+  color: snow;
+  background-color: #e31837;
+  border: 2px solid rgb(201, 191, 191);
+  border-radius: 15px;
+  margin-top: 10px;
+  outline: none;
+  cursor: pointer;
+  &:hover {
+    background-color: rgb(148, 13, 13);
+  }
+  &:active {
+    background-color: black;
+  }
+}
 
-    &:focus {
-      border: 1px solid #4f4f4f;
-    }
-    &:hover {
-      background: rgb(165, 13, 13);
-    }
+.currency {
+  margin-top: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+}
+
+.product_name {
+  font-weight: bold;
+  margin: 15px 10px 10px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: black;
+}
+.product_ingredients {
+  color: #4f4f4f;
+  font-size: 11px;
+  margin: 10px 10px 2px;
+}
+.change_ingredients {
+  color: #746767;
+  font-size: 13px;
+  padding: 0px 10px 15px;
+  text-decoration: underline;
+  &:hover {
+    color: black;
   }
 }

@@ -1,37 +1,87 @@
-<div class="pizza-item">
-  <div class="pizza-block">
-    <div class="image-pizza">
-      <img src="../../assets/data/pizza.jpg" alt="Замовити піцу" />
-    </div>
-    <div class="pizza-description">
-      <div class="pizza-title-row">
-        <a href="">{{ item.name }}</a>
+<div class="product-block">
+  <div class="item">
+    <form [formGroup]="pizzaForm" (submit)="submit(item)">
+      <div class="product-row">
+        <img src="../../assets/data/pizza.jpg" alt="Замовити піцу" />
       </div>
-      <div class="pizza-info-row">
-        <span> {{ item.ingredients }}</span>
-        <a href="">Замінити інгредієнти</a>
+      <div class="product-row">
+        <a href="/" class="product_name">{{ item.name }}</a>
       </div>
-      <div class="pizza-details">
-        <div class="pizza-sizes">
-          <button
-            (click)="getPizzaPrice(item, $event)"
-            *ngFor="let size of sizes"
-          >
-            {{ size }}
-          </button>
+      <div class="product-row">
+        <span class="product_ingredients">
+          {{ item.ingredients }}
+        </span>
+      </div>
+      <div class="product-row">
+        <a href="#" class="change_ingredients">Замінити інгредієнти</a>
+      </div>
+      <div class="product-row">
+        <div class="size">
+          <label class="radio">
+            <input
+              type="radio"
+              name="size"
+              formControlName="size"
+              value="Маленька"
+            />
+            <span>Маленька</span>
+          </label>
+          <label class="radio">
+            <input
+              type="radio"
+              name="size"
+              formControlName="size"
+              value="Середня"
+            />
+            <span> Середня </span>
+          </label>
+          <label class="radio">
+            <input
+              type="radio"
+              name="size"
+              formControlName="size"
+              value="Велика"
+            />
+            <span>Велика</span>
+          </label>
         </div>
-        <div class="pizza-option">
-          <button>Стандарт</button>
-          <button>Тонке</button>
-          <button>Філадельфія</button>
-          <button>Борт Хот-Дог</button>
+      </div>
+
+      <div class="product-row">
+        <div class="form">
+          <label>
+            <input type="radio" formControlName="form" value="Стандарт" />
+            <span>Стандарт</span>
+          </label>
+          <label>
+            <input type="radio" formControlName="form" value="Тонке" />
+            <span>Тонке</span>
+          </label>
+          <label>
+            <input type="radio" formControlName="form" value="Філадельфія" />
+            <span>Філадельфія</span>
+          </label>
+          <label>
+            <input type="radio" formControlName="form" value="Борт Хот-Дог" />
+            <span>Борт Хот-Дог</span>
+          </label>
         </div>
       </div>
-    </div>
-    <div class="pizza-price">
-      <div class="currency" *ngIf="!price">{{ item.price.low }}&nbsp;грн</div>
-      <div class="currency" *ngIf="price">{{ price }}&nbsp;грн</div>
-      <button (click)="onClickMe(item)">В кошик</button>
-    </div>
+      <div class="product-row">
+        <div class="price">
+          <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">
+            {{ item.price.low }}
+          </span>
+          <span *ngIf="pizzaForm.controls.size.value === 'Середня'">
+            {{ item.price.medium }}
+          </span>
+          <span *ngIf="pizzaForm.controls.size.value === 'Велика'">
+            {{ item.price.high }}
+          </span>
+          <span class="currency">грн</span>
+        </div>
+        <button type="submit">В кошик</button>
+      </div>
+    </form>
   </div>
 </div>

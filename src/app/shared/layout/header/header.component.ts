@@ -8,7 +8,7 @@ import { RootService } from '../../root.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private rootService: RootService) { }
+  constructor() { }
 
   ngOnInit() {
   }
