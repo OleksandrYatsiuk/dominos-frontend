@@ -23,8 +23,10 @@ export class PizzaItemComponent {
   ngOnInit() {
 
     this.pizzaForm = this.fb.group({
+      weight: ["", []],
       size: ["Маленька", []],
       form: ["Стандарт", []],
+
     })
 
   }

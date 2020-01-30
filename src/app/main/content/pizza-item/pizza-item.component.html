@@ -2,7 +2,22 @@
   <div class="item">
     <form [formGroup]="pizzaForm" (submit)="submit(item)">
       <div class="product-row">
-        <img src="../../assets/data/pizza.jpg" alt="Замовити піцу" />
+        <div class="product_image">
+          <div class="photo">
+            <img src="../../assets/data/pizza.jpg" alt="Замовити піцу" />
+          </div>
+          <div class="product_weight">
+            <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">
+              {{ item.weight.small }} г
+            </span>
+            <span *ngIf="pizzaForm.controls.size.value === 'Середня'">
+              {{ item.weight.middle }} г
+            </span>
+            <span *ngIf="pizzaForm.controls.size.value === 'Велика'">
+              {{ item.weight.big }} г
+            </span>
+          </div>
+        </div>
       </div>
       <div class="product-row">
         <a href="/" class="product_name">{{ item.name }}</a>
