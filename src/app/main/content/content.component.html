@@ -1,27 +1,26 @@
+<div class="filter">
+  <select (change)="sortBy($event)">
+    <option value="" selected disabled hidden>Сортування</option>
+    <option value="asc">Ціна: Нижча-Вища </option>
+    <option value="desc">Ціна: Вища-Нижча </option>
+  </select>
+</div>
 <div class="pizza-list">
-  <div class="title">
-    <h2>Піца: Краща Ціна</h2>
-  </div>
-  <div class="product-block">
-    <div *ngFor="let pizza of best" class="child">
-      <app-pizza-item [item]="pizza"></app-pizza-item>
-    </div>
-  </div>
-  <div class="title">
-    <h2>Піца: Фірмові</h2>
-  </div>
-  <div class="product-block">
-    <div *ngFor="let pizza of firms" class="child">
-      <app-pizza-item [item]="pizza"></app-pizza-item>
-    </div>
-  </div>
-  <div class="title">
-    <h2>Піца: Класичні</h2>
-  </div>
-
-  <div class="product-block">
-    <div *ngFor="let pizza of classic" class="child">
+  <div class="product-block" *ngIf="sortedList; else sortCategories">
+    <div *ngFor="let pizza of all" class="child">
       <app-pizza-item [item]="pizza"></app-pizza-item>
     </div>
   </div>
 </div>
+<ng-template #sortCategories>
+  <div class="pizza-list categories" *ngFor="let pizza of categories">
+    <div class="title">
+      <h2>Піца: {{ pizza.category }}</h2>
+    </div>
+    <div class="product-block">
+      <div *ngFor="let item of pizza.items" class="child">
+        <app-pizza-item [item]="item"></app-pizza-item>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -11,15 +11,46 @@ export class ContentComponent implements OnInit {
   best: any[];
   firms: any[];
   classic: any[];
+  all: any[];
+  sortedList: null;
+  categories: any[];
 
   constructor(private rootService: RootService) { }
 
   ngOnInit() {
     this.rootService.fetchItems().subscribe(res => {
-      this.best = res.filter(el => el.category === "Краща Ціна");
-      this.firms = res.filter(el => el.category === "Фірмові");
-      this.classic = res.filter(el => el.category === "Класичні");
+
+      this.categories = [
+        {
+          category: "Краща Ціна",
+          items: res.filter(el => el.category === "Краща Ціна")
+        },
+        {
+          category: "Фірмові",
+          items: res.filter(el => el.category === "Фірмові")
+        },
+        {
+          category: "Класичні",
+          items: res.filter(el => el.category === "Класичні")
+        }
+      ];
+      this.all = res;
     });
+  }
+
+  sortBy(order) {
+
+    this.sortedList = order.target.value;
+    if (this.sortedList === "asc") {
+      this.all = this.all.sort((a, b) => {
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      });
+    } else {
+      this.all.sort((a, b) => {
+        return a.name - b.name;
+      });
+      this.all.reverse();
+    }
   }
 
 }

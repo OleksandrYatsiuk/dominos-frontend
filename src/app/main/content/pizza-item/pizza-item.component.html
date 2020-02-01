@@ -4,7 +4,10 @@
       <div class="product-row">
         <div class="product_image">
           <div class="photo">
-            <img src="../../assets/data/pizza.jpg" alt="Замовити піцу" />
+            <img
+              src="../../assets/data/pizzas/{{ item.id }}.jpg"
+              alt="Замовити піцу"
+            />
           </div>
           <div class="product_weight">
             <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">
