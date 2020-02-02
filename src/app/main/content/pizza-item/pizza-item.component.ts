@@ -11,8 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class PizzaItemComponent {
 
-  imageSrc = require('../../../../assets/data/pizza.jpg');
-
   @Input() item;
 
   basket = [];
