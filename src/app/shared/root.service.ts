@@ -13,7 +13,7 @@ export class RootService {
   removeItem(id: number) {
     return this.http.delete(`http://localhost:3000/pizzas/${id}`);
   }
-  createPizza(pizza: any) {
-    return this.http.post<any[]>('http://localhost:3000/pizzas', pizza);
+  createPizza(data: any) {
+    return this.http.post<any[]>('http://localhost:3000/pizzas', data);
   }
 }

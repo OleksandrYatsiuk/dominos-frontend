@@ -1,0 +1,62 @@
+.modal-header {
+  background-color: black;
+  color: snow;
+  button {
+    outline: none;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+button {
+  color: snow;
+}
+.btn-outline-grey {
+  background-color: gray;
+  &:hover {
+    color: snow;
+    background-color: black;
+  }
+}
+
+.btn-outline-confirm {
+  background-color: rgb(12, 153, 235);
+  &:hover {
+    color: snow;
+    background-color: black;
+  }
+}
+
+.close {
+  color: snow;
+}
+
+.modal-footer {
+  background-color: rgb(247, 236, 236);
+}
+
+.row-form {
+  display: flex;
+  flex: wrap;
+}
+
+input {
+  width: 100%;
+  height: 34px;
+  padding-left: 10px;
+  border-radius: 20px;
+  outline: none;
+  margin: 5px;
+  border: 1px solid grey;
+
+  &.ng-pristine.ng-invalid.ng-touched {
+    border: 1px solid #aa4436;
+  }
+  &.ng-touched.ng-dirty.ng-invalid {
+    border: 1px solid #aa4436;
+  }
+}
+
+.weight input {
+  width: calc(30%);
+}
