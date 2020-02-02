@@ -1,0 +1,74 @@
+<form [formGroup]="formCreatingPizza" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title">Створення піци</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row-form">
+      <input type="text" formControlName="name" placeholder="name" />
+    </div>
+    <div class="row-form">
+      <select formControlName="category">
+        <option value="" selected disabled hidden>Вибір категорії</option>
+        <option value="Краща Ціна"> Краща Ціна </option>
+        <option value="Класичні">Класичні </option>
+        <option value="Фірмові">Фірмові </option>
+      </select>
+
+      <input
+        type="text"
+        formControlName="ingredients"
+        placeholder="ingredients"
+      />
+    </div>
+    <div formGroupName="weight">
+      <div class="row-form">
+        <div class="weight">
+          <h4>Pizza weight:</h4>
+          <input type="text" formControlName="small" placeholder="small" />
+          <input type="text" formControlName="middle" placeholder="middle" />
+          <input type="text" formControlName="big" placeholder="big" />
+        </div>
+      </div>
+    </div>
+    <div formGroupName="price">
+      <div class="row-form">
+        <div class="weight">
+          <h4>Pizza price:</h4>
+          <input type="text" formControlName="low" placeholder="low" />
+          <input type="text" formControlName="medium" placeholder="medium" />
+          <input type="text" formControlName="high" placeholder="high" />
+        </div>
+      </div>
+    </div>
+    <div class="row-form">
+      <h5>Upload photo:</h5>
+
+      <input
+        type="file"
+        formControlName="photo"
+        placeholder="photo"
+        (change)="onFileChange($event)"
+      />
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-grey"
+      (click)="activeModal.close('Close click')"
+    >
+      Close
+    </button>
+    <button type="submit" class="btn btn-outline-confirm">
+      Confirm
+    </button>
+  </div>
+</form>

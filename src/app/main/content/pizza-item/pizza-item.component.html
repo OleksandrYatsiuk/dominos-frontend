@@ -5,7 +5,7 @@
         <div class="product_image">
           <div class="photo">
             <img
-              src="../../assets/data/pizzas/{{ item.id }}.jpg"
+              src="../../assets/data/pizzas/{{ item.photo ||1}}.jpg"
               alt="Замовити піцу"
             />
           </div>
@@ -23,7 +23,7 @@
         </div>
       </div>
       <div class="product-row">
-        <a href="/" class="product_name">{{ item.name }}</a>
+        <a href="/" class="product_name">Піца {{ item.name }}</a>
       </div>
       <div class="product-row">
         <span class="product_ingredients">

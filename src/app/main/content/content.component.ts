@@ -39,18 +39,14 @@ export class ContentComponent implements OnInit {
   }
 
   sortBy(order) {
-
     this.sortedList = order.target.value;
+    this.all.sort((a, b) => {
+      return a.price.low - b.price.low;
+    })
     if (this.sortedList === "asc") {
-      this.all = this.all.sort((a, b) => {
-        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
-      });
+      this.all = this.all;
     } else {
-      this.all.sort((a, b) => {
-        return a.name - b.name;
-      });
-      this.all.reverse();
+      this.all = this.all.reverse();
     }
   }
-
 }
