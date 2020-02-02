@@ -22,11 +22,12 @@
         <option value="Фірмові">Фірмові </option>
       </select>
 
-      <input
-        type="text"
-        formControlName="ingredients"
-        placeholder="ingredients"
-      />
+      <select formControlName="ingredients">
+        <option value="" selected disabled hidden>Вибір інгредієнтів</option>
+        <option value="Краща Ціна">
+          <input type="checkbox" /> Краща Ціна
+        </option>
+      </select>
     </div>
     <div formGroupName="weight">
       <div class="row-form">

@@ -30,7 +30,22 @@ button {
 .close {
   color: snow;
 }
+select {
+  width: 50%;
+  padding: 2px;
+  border: 1px solid gray;
+  border-radius: 25px;
+  height: 34px;
+  margin: 5px;
+  outline: none;
 
+  &.ng-pristine.ng-invalid.ng-touched {
+    border: 1px solid #aa4436;
+  }
+  &.ng-touched.ng-dirty.ng-invalid {
+    border: 1px solid #aa4436;
+  }
+}
 .modal-footer {
   background-color: rgb(247, 236, 236);
 }
@@ -46,7 +61,7 @@ input {
   padding-left: 10px;
   border-radius: 20px;
   outline: none;
-  margin: 5px;
+  margin-bottom: 5px;
   border: 1px solid grey;
 
   &.ng-pristine.ng-invalid.ng-touched {
@@ -58,5 +73,6 @@ input {
 }
 
 .weight input {
-  width: calc(30%);
+  margin: 10px 2px;
+  width: calc(95% / 3);
 }
