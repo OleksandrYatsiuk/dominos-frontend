@@ -50,13 +50,13 @@
       </div>
     </div>
     <div class="row-form">
+      <img [src]="url" height="200" *ngIf="url"> <br/><br/>
       <h5>Upload photo:</h5>
-
       <input
         type="file"
         formControlName="photo"
         placeholder="photo"
-        (change)="onFileChange($event)"
+        (change)="onSelectFile($event)"
       />
     </div>
   </div>
@@ -64,7 +64,7 @@
     <button
       type="button"
       class="btn btn-outline-grey"
-      (click)="activeModal.close('Close click')"
+      (click)="close()"
     >
       Close
     </button>

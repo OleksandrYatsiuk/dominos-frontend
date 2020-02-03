@@ -69,12 +69,11 @@ export class MainComponent implements OnInit {
   constructor(private rootService: RootService) { }
 
   ngOnInit() {
-    this.rootService.fetchItems().subscribe(() => { });
   }
 
   removeItem(id: number) {
-    this.rootService.removeItem(id).subscribe(() => {
-      this.ngOnInit();
-    });
+    // this.rootService.removeItem(id).subscribe(() => {
+    //   this.ngOnInit();
+    // });
   }
 }

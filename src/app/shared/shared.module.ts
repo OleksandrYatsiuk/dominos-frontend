@@ -1,28 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
-// import { HeaderComponent, FooterComponent } from './layout'
-import { AppRoutingModule } from '../app-routing.module';
+import { PizzaItemComponent } from './components/pizza-item/pizza-item.component';
+import { HeaderComponent, FooterComponent } from './layout';
+import { HttpClientModule } from '@angular/common/http';
+import { ModalContentComponent } from './components/modal-conponent/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
-    // HeaderComponent,
-    // FooterComponent,
-    PizzaFilterPipe
+    PizzaItemComponent,
+    HeaderComponent,
+    FooterComponent,
+    PizzaFilterPipe,
+    ModalContentComponent,
   ],
-  imports: [],
-  exports: [
-    // HeaderComponent,
-    // FooterComponent,
+  imports: [
+    FormsModule,
     CommonModule,
-    BrowserModule,
+    ReactiveFormsModule,
+    HttpClientModule,
     NgbModule,
-    AppRoutingModule,
-    ReactiveFormsModule
-  ]
+    RouterModule
+  ],
+  exports: [
+    NgbModule,
+    ModalContentComponent,
+    PizzaItemComponent,
+    HeaderComponent,
+    FooterComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
+  entryComponents: [ModalContentComponent]
+
 })
 export class SharedModule { }

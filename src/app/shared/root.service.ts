@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class RootService {
-
+  updatePizzaList = new BehaviorSubject(null);
   constructor(private http: HttpClient) {
   }
   fetchItems(): Observable<any[]> {

@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
-import { RootService } from '../../../shared/root.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
@@ -9,10 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./pizza-item.component.scss']
 })
 
-export class PizzaItemComponent {
-
+export class PizzaItemComponent implements OnInit{
   @Input() item;
-
   basket = [];
 
 
@@ -23,12 +20,10 @@ export class PizzaItemComponent {
   ngOnInit() {
 
     this.pizzaForm = this.fb.group({
-      weight: ["", []],
-      size: ["Маленька", []],
-      form: ["Стандарт", []],
-
-    })
-
+      weight: ['', []],
+      size: ['Маленька', []],
+      form: ['Стандарт', []],
+    });
   }
 
 

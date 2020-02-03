@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'pizzaFilter'
 })
 export class PizzaFilterPipe implements PipeTransform {
-  transform(root: any[], search = ""): any[] {
+  transform(root: any[], search = ''): any[] {
     if (!search.trim()) {
       return root;
     }
