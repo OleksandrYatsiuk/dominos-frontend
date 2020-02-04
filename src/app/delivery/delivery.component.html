@@ -3,14 +3,18 @@
     <h1>Оформлення замовлення</h1>
     <div class="shipping">
       <div class="shipping-bar">
-        <a routerLink="/">
+        <a routerLink="shipping" routerLinkActive="active">
           <span>Доставка</span>
         </a>
-        <a routerLink="/">
+        <a routerLink="carryout" routerLinkActive="active">
           <span>Самовивіз</span>
         </a>
       </div>
-      <shipping-form></shipping-form>
+      <div class="shipping-form">
+        <div class="form-contacts">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
     </div>
   </div>
   <div class="basket-list">
