@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from '../shared/root.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery',
@@ -8,13 +9,14 @@ import { RootService } from '../shared/root.service';
 })
 export class DeliveryComponent implements OnInit {
 
-  constructor(private rootService: RootService) {
+  constructor(
+    private router: Router,
+    private rootService: RootService) {
 
   }
   ngOnInit() {
 
   }
-
 
 
 }

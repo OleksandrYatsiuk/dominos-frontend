@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DeliveryComponent } from './delivery/delivery.component';
+
 import { BrowserModule } from '@angular/platform-browser';
+import { DeliveryModule } from './delivery/delivery.module';
 
 // Lazy loading for modules
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
-  // {
-  //   path: 'delivery',
-  //   loadChildren: () => import('./orders/orders.module').then(mod => mod.OrdersModule)
-  // },
-  { path: 'delivery', component: DeliveryComponent },
+  { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 
 ];
