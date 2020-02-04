@@ -17,19 +17,19 @@ export class MainComponent implements OnInit {
       title: 'Domino`s Club',
       subTitle: 'Програма підвищення задоволення',
       photo:
-        'https://media.dominos.ua/slider/slide_image/2019/08/14/PL_1920x736_1.jpg'
+        '../../assets/data/carusel/pl.jpg'
     },
     {
       title: 'Оновлена акція! -30% на кожну другу піцу',
       subTitle: '',
       photo:
-        'https://media.dominos.ua/slider/slide_image/2019/09/02/-40_slider.jpg'
+        '../../assets/data/carusel/slider.jpg'
     },
     {
       title: 'Разом дешевше',
       subTitle: '3 середні піци та пляшку 1л Pepsi усього за 399.99 грн!',
       photo:
-        'https://media.dominos.ua/slider/slide_image/2019/11/26/399_slider_pepsi_2_1.jpg'
+        '../../assets/data/carusel/pepsi.jpg'
     }
   ];
 
