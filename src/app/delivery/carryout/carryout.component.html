@@ -1,1 +1,40 @@
-<h3>carryout works!</h3>
+<form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
+    <h3>Контакти</h3>
+
+    <div class="row-form">
+        <input type="text" formControlName="firstName" placeholder="First Name" />
+        <input type="text" formControlName="phone" placeholder="Phone" />
+        <input type="text" formControlName="email" placeholder="Email" />
+    </div>
+
+    <h3>Ресторан</h3>
+    <div formGroupName="restaurant">
+        <div class="row-form">
+            <input type="text" formControlName="restaurant" placeholder="Restaurant" />
+        </div>
+        <div class="row-form">
+            <textarea type="text" formControlName="comment" placeholder="Comment">
+        </textarea>
+        </div>
+    </div>
+    <h3>Дата</h3>
+    <div formGroupName="date">
+        <div class="row-form">
+            <input type="text" formControlName="date" placeholder="Date" />
+            <input type="text" formControlName="time" placeholder="Time" />
+        </div>
+    </div>
+    <h3>Оплата</h3>
+    <div formGroupName="payment">
+        <div class="row-form">
+            <input type="text" formControlName="coupon" placeholder="Coupon" />
+            <input type="text" formControlName="remainder" placeholder="Remainder" />
+            <input type="text" formControlName="type" placeholder="Тype" />
+        </div>
+    </div>
+    <div class="payment-result">
+        <span>Total</span>
+        <span>88.99 грн</span>
+        <button type="submit">Order</button>
+      </div>
+</form>

@@ -1,0 +1,54 @@
+.row-form {
+  display: flex;
+}
+
+input {
+  width: 100%;
+  height: 34px;
+  padding-left: 10px;
+  border-radius: 20px;
+  outline: none;
+  margin: 5px;
+  border: 1px solid grey;
+
+  &.ng-pristine.ng-invalid.ng-touched {
+    border: 1px solid #aa4436;
+  }
+  &.ng-touched.ng-dirty.ng-invalid {
+    border: 1px solid #aa4436;
+  }
+}
+
+.payment-result {
+  padding-top: 10px;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 252px;
+
+  span {
+    font-size: 28px;
+    font-weight: bolder;
+  }
+}
+
+button {
+  height: 50px;
+  width: 100%;
+  margin: 10px 0px;
+  background: #e31837;
+  border-radius: 15px;
+  border: 0px;
+  outline: none;
+  color: snow;
+  font-size: 18px;
+
+  &:hover {
+    background: rgb(143, 7, 7);
+  }
+  &:active {
+    background: black;
+  }
+}
