@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from 'src/app/shared/root.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalContentComponent } from 'src/app/shared/components/modal-conponent/modal.component';
 
 @Component({
   selector: 'app-content',
@@ -14,12 +16,22 @@ export class ContentComponent implements OnInit {
   all: any[];
   sortedList: null;
   categories: any[];
+  ref: any;
 
-  constructor(private rootService: RootService) { }
+  constructor(private rootService: RootService,
+              private modalService: NgbModal) { }
 
   ngOnInit() {
+    this.getPizzaList();
+    this.rootService.updatePizzaList.subscribe(res => {
+      if (res && res === 'created') {
+        this.getPizzaList();
+      }
+    });
+  }
+  getPizzaList() {
     this.rootService.fetchItems().subscribe(res => {
-
+      console.log(res);
       this.categories = [
         {
           category: "Краща Ціна",

@@ -22,11 +22,12 @@
         <option value="Фірмові">Фірмові </option>
       </select>
 
-      <input
-        type="text"
-        formControlName="ingredients"
-        placeholder="ingredients"
-      />
+      <select formControlName="ingredients">
+        <option value="" selected disabled hidden>Вибір інгредієнтів</option>
+        <option value="Краща Ціна">
+          <input type="checkbox" /> Краща Ціна
+        </option>
+      </select>
     </div>
     <div formGroupName="weight">
       <div class="row-form">
@@ -49,13 +50,13 @@
       </div>
     </div>
     <div class="row-form">
+      <img [src]="url" height="200" *ngIf="url"> <br/><br/>
       <h5>Upload photo:</h5>
-
       <input
         type="file"
         formControlName="photo"
         placeholder="photo"
-        (change)="onFileChange($event)"
+        (change)="onSelectFile($event)"
       />
     </div>
   </div>
@@ -63,7 +64,7 @@
     <button
       type="button"
       class="btn btn-outline-grey"
-      (click)="activeModal.close('Close click')"
+      (click)="close()"
     >
       Close
     </button>
