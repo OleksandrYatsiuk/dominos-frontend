@@ -26,9 +26,9 @@
         <a href="/" class="product_name">Піца {{ item.name }}</a>
       </div>
       <div class="product-row">
-        <span class="product_ingredients">
-          {{ item.ingredients }}
-        </span>
+        <div class="product_ingredients">
+          <span> {{ item.ingredients.join(", ") }} </span>
+        </div>
       </div>
       <div class="product-row">
         <a href="#" class="change_ingredients">Замінити інгредієнти</a>

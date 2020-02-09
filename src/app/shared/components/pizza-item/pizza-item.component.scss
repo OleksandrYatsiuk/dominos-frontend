@@ -110,7 +110,10 @@ button {
 .product_ingredients {
   color: #4f4f4f;
   font-size: 11px;
-  margin: 10px 10px 2px;
+  margin-left: 10px;
+  span {
+    margin-bottom: 5px;
+  }
 }
 .change_ingredients {
   color: #746767;

@@ -67,23 +67,6 @@
       },
       "category": "Краща Ціна",
       "id": 4
-    },
-    {
-      "name": "gyfty",
-      "category": "Класичні",
-      "ingredients": "Краща Ціна",
-      "photo": "",
-      "weight": {
-        "small": "hjhj",
-        "middle": "ghvhg",
-        "big": "gyf"
-      },
-      "price": {
-        "low": 119.99,
-        "medium": "fgcf",
-        "high": "fcyfc"
-      },
-      "id": 5
     }
   ]
 }
