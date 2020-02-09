@@ -8,11 +8,9 @@
       </div>
     </nav>
     <div class="market">
-      <div class="count">
-        <div class="info-quantity">00</div>
-      </div>
-      <div class="total-price">
-        199.99 грн
+      <div class="count">{{ count }}</div>
+      <div class="total-price" *ngIf="amount > 0">
+        <span>{{ amount }} грн </span>
       </div>
       <button>
         <a routerLink="/delivery/shipping">Замовити</a>

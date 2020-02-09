@@ -58,6 +58,8 @@
 
 .market {
   display: flex;
+  justify-content: space-between;
+  padding: 2px;
   background-color: white;
   max-width: 320px;
   height: 50px;
@@ -68,23 +70,20 @@
     height: 45px;
     border-radius: 50%;
     background: #4f4f4f;
-    margin: 2.5px;
     cursor: pointer;
-
-    .info-quantity {
-      width: 100%;
-      margin-left: 25%;
-      height: 50%;
-      color: white;
-    }
+    color: snow;
+    text-align: center;
+    padding: 9px;
   }
 
   .total-price {
-    height: 100%;
-    padding: 5px;
-    padding-top: 5%;
-    font-size: 14px;
+    width: 120px;
+    text-align: center;
+    padding: 9px;
 
+    span {
+      font-size: 14px;
+    }
     &:hover {
       color: black;
     }
@@ -95,7 +94,6 @@ button {
   width: 145px;
   height: 46px;
   border-radius: 23px;
-  margin: 2px;
   border: 1px solid snow;
   background: #e31837;
   color: white;
@@ -111,6 +109,7 @@ button {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
   color: snow;
 }

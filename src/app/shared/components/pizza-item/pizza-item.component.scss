@@ -71,7 +71,6 @@ input[type="radio"] {
 }
 .price {
   width: 50%;
-  justify-content: center;
   text-align: center;
   margin: auto;
 }
@@ -82,9 +81,8 @@ button {
   height: 50px;
   color: snow;
   background-color: #e31837;
-  border: 2px solid rgb(201, 191, 191);
+  border: 0px;
   border-radius: 15px;
-  margin-top: 10px;
   outline: none;
   cursor: pointer;
   &:hover {
@@ -148,5 +146,23 @@ button {
       font-size: 11px;
       color: snow;
     }
+  }
+}
+
+.checked_product {
+  display: flex;
+  height: 100%;
+  width: 50%;
+  justify-content: space-between;
+  background-color: rgb(228, 228, 228);
+  border-radius: 15px;
+
+  button {
+    width: 30%;
+  }
+  p {
+    margin-bottom: 0px;
+    padding: 8px;
+    font-size: 22px;
   }
 }

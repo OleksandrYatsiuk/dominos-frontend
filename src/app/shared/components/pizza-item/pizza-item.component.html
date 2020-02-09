@@ -1,11 +1,11 @@
 <div class="product-block">
   <div class="item">
-    <form [formGroup]="pizzaForm" (submit)="submit(item)">
+    <form [formGroup]="pizzaForm">
       <div class="product-row">
         <div class="product_image">
           <div class="photo">
             <img
-              src="../../assets/data/pizzas/{{ item.photo ||1}}.jpg"
+              src="../../assets/data/pizzas/{{ item.photo || 1 }}.jpg"
               alt="Замовити піцу"
             />
           </div>
@@ -98,7 +98,12 @@
           </span>
           <span class="currency">грн</span>
         </div>
-        <button type="submit">В кошик</button>
+        <div class="checked_product" *ngIf="count">
+          <button (click)="removeFromCard(item)">-</button>
+          <p>{{ count }}</p>
+          <button (click)="addToCard(item)">+</button>
+        </div>
+        <button *ngIf="!count" (click)="addToCard(item)">В кошик</button>
       </div>
     </form>
   </div>

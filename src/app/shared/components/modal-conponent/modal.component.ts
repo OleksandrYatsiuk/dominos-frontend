@@ -53,9 +53,6 @@ export class ModalContentComponent implements OnInit {
         high: ['', [Validators.required]],
       }),
     });
-    // this.formCreatingPizza.valueChanges.subscribe(res => {
-    //   console.log(res);
-    // });
   }
 
 
@@ -73,12 +70,6 @@ export class ModalContentComponent implements OnInit {
 
   onSubmit() {
     console.log(this.formCreatingPizza.value);
-
-    // if (this.formCreatingPizza.valid) {
-    //   this.create();
-    // } else {
-    //   this.validateAllFormFields(this.formCreatingPizza); //{7}
-    // }
   }
 
   close() {
