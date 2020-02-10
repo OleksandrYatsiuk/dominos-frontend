@@ -24,11 +24,6 @@ export class ContentComponent implements OnInit {
 
   ngOnInit() {
     this.getPizzaList();
-    this.rootService.updatePizzaList.subscribe(res => {
-      if (res && res === 'created') {
-        this.getPizzaList();
-      }
-    });
   }
   getPizzaList() {
     this.rootService.fetchItems().subscribe(res => {

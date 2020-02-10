@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalContentComponent } from './components/modal-conponent/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
+import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
     FooterComponent,
     PizzaFilterPipe,
     ModalContentComponent,
+    BasketCardItemComponent,
   ],
   imports: [
     FormsModule,
@@ -29,11 +31,12 @@ import { RouterModule } from '@angular/router';
     NgbModule,
     ModalContentComponent,
     PizzaItemComponent,
+    BasketCardItemComponent,
     HeaderComponent,
     FooterComponent,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
   ],
   entryComponents: [ModalContentComponent]
 

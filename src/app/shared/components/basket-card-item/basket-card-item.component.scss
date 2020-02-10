@@ -31,13 +31,34 @@ img {
   font-weight: bolder;
 }
 .quantity_control {
+  display: flex;
+  justify-content: space-between;
   border: 0px;
   border-radius: 15px;
-  background-color: #e31837;
+  background-color: #e4e4e4;
   width: 90px;
   height: 30px;
-  color: snow;
   text-align: center;
+  button {
+    height: 100%;
+    width: 35%;
+    color: snow;
+    background-color: #e31837;
+    border: 0px;
+    border-radius: 15px;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(148, 13, 13);
+    }
+    &:active {
+      background-color: black;
+    }
+  }
+  p {
+    padding: 3px;
+    height: 100%;
+  }
 }
 p {
   margin: 0px;

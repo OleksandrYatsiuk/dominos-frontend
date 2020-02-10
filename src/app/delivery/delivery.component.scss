@@ -3,11 +3,8 @@
 
   &_order {
     width: 55%;
-
-    .basket-list {
-      width: 45%;
-    }
   }
+
   h1 {
     margin: 20px;
     font-size: 16px;
@@ -63,16 +60,21 @@ a {
   background-color: white;
 }
 .list {
-  margin: 10px;
-  border-radius: 20px 20px;
   background-color: snow;
+  border-bottom: 1px solid gray;
 }
 .result {
   width: 100%;
-  border-radius: 0 0 20px 20px;
-  border-top: 1px solid gray;
   text-align: right;
   padding-right: 10px;
   font-size: 20px;
   font-weight: bold;
+}
+
+.board {
+  background-color: snow;
+  margin: 10px;
+  padding: 10px;
+  border: 0px;
+  border-radius: 30px;
 }

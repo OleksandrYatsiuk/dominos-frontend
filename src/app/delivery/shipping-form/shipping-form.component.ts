@@ -57,7 +57,7 @@ export class ShippingFormComponent {
     if (this.formDelivery.valid) {
       console.log('form submitted');
     } else {
-      this.validateAllFormFields(this.formDelivery); //{7}
+      this.validateAllFormFields(this.formDelivery);
     }
   }
 

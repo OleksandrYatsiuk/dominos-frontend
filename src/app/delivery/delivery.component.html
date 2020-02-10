@@ -13,12 +13,14 @@
       </div>
     </div>
   </div>
-  <div class="basket-list">
+  <div class="order-list">
     <h1>Ваше замовлення</h1>
-    <div class="list">
-      <app-order-list></app-order-list>
+    <div class="board">
+      <div class="list" *ngFor="let item of list">
+        <app-basket-card-item [item]="item"></app-basket-card-item>
+      </div>
       <div class="result">
-         80 $
+        80 $
       </div>
     </div>
   </div>

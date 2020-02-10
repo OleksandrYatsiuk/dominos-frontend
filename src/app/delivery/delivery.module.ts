@@ -5,7 +5,6 @@ import { DeliveryComponent } from './delivery.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { DeliveryRoutingModule } from './delivery-routing.module';
 import { CarryoutComponent } from './carryout/carryout.component';
-import { OrderListComponent } from './order-list/order-list.component';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import { OrderListComponent } from './order-list/order-list.component';
     DeliveryComponent,
     ShippingFormComponent,
     CarryoutComponent,
-    OrderListComponent
   ]
 })
 export class DeliveryModule { }

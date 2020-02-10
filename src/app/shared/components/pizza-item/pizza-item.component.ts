@@ -10,11 +10,11 @@ import { BasketService } from '../../layout/basket.service';
 })
 
 export class PizzaItemComponent implements OnInit {
+
   @Input() item;
 
-  public totalCount: number = 0;
   public count: number = 0;
-  public basketAmount: number = 0;
+
   public get storage() {
     return JSON.parse(localStorage.getItem('basket'));
   }
@@ -26,14 +26,10 @@ export class PizzaItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getActualBasketAmount();
-    const storage = JSON.parse(localStorage.getItem('basket'));
-    if (storage) {
-      if (storage[this.item.id]) {
-        this.count = storage[this.item.id].count;
-      }
-    };
-    this.basketService.updateBasket(this.totalCount, this.basketAmount);
+    this.basketService.actualBasket();
+    if (this.storage && this.storage[this.item.id]) {
+      this.count = this.storage[this.item.id].count;
+    }
 
     this.pizzaForm = this.fb.group({
       size: ['Маленька', []],
@@ -43,29 +39,12 @@ export class PizzaItemComponent implements OnInit {
 
   pizzaForm: FormGroup;
 
-
   addToCard(item) {
     this.addToLocalStorage(item);
-    this.getActualBasketAmount();
-    this.basketService.updateBasket(this.totalCount, this.basketAmount);
   }
 
   removeFromCard(item) {
     this.deleteItemLocalStorage(item);
-    this.getActualBasketAmount();
-    this.basketService.updateBasket(this.totalCount, this.basketAmount);
-  }
-
-  getActualBasketAmount() {
-    let total = 0, count = 0;
-
-    for (let key in this.storage) {
-      let item = this.storage[key];
-      count += item.count;
-      total += item.price * item.count;
-    }
-    this.basketAmount = +total.toFixed(2);
-    this.totalCount = count;
   }
 
   addToLocalStorage(value: object) {
@@ -73,30 +52,30 @@ export class PizzaItemComponent implements OnInit {
     storage ? this.storage : storage = {};
     const ID = value['id'];
     if (storage[ID] === undefined) {
-      storage[ID] = { id: ID, price: value['price']['low'], count: this.count = 1 };
+      storage[ID] = { id: ID, price: value['price']['low'], count: this.count = 1, pizza: value };
     } else {
       storage[ID].count++;
       this.count = storage[ID].count;
     }
     this.setStorage = storage;
+    this.basketService.actualBasket();
   }
 
   deleteItemLocalStorage(value: object) {
     let storage = this.storage;
     const ID = value['id'];
-    if (storage !== null) {
-      if (storage[ID] !== undefined) {
-        storage[ID].count--;
-        this.count = storage[ID].count;
-        if (storage[ID].count <= 0) {
-          delete storage[ID];
-        };
-        if (Object.keys(storage).length === 0) {
-          localStorage.removeItem('basket');
-        } else {
-          this.setStorage = storage;
-        }
+    if (storage !== null && storage[ID] !== undefined) {
+      storage[ID].count--;
+      this.count = storage[ID].count;
+      if (storage[ID].count <= 0) {
+        delete storage[ID];
+      };
+      if (Object.keys(storage).length === 0) {
+        localStorage.removeItem('basket');
+      } else {
+        this.setStorage = storage;
       }
+      this.basketService.actualBasket();
     }
   }
 }

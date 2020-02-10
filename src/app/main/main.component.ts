@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { RootService } from '../shared/root.service';
 import {
   NgbCarousel,
   NgbSlideEventSource,
@@ -66,14 +65,9 @@ export class MainComponent implements OnInit {
       this.togglePaused();
     }
   }
-  constructor(private rootService: RootService) { }
+  constructor() { }
 
   ngOnInit() {
   }
 
-  removeItem(id: number) {
-    // this.rootService.removeItem(id).subscribe(() => {
-    //   this.ngOnInit();
-    // });
-  }
 }
