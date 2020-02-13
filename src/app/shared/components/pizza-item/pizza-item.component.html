@@ -87,23 +87,15 @@
       </div>
       <div class="product-row">
         <div class="price">
-          <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">
-            {{ item.price.low }}
-          </span>
-          <span *ngIf="pizzaForm.controls.size.value === 'Середня'">
-            {{ item.price.medium }}
-          </span>
-          <span *ngIf="pizzaForm.controls.size.value === 'Велика'">
-            {{ item.price.high }}
-          </span>
-          <span class="currency">грн</span>
+          <span> {{ price }}</span>
+          <span class="currency"> грн</span>
         </div>
-        <div class="checked_product" *ngIf="count">
+        <div class="checked_product" *ngIf="count !== 0">
           <button (click)="removeFromCard(item)">-</button>
           <p>{{ count }}</p>
           <button (click)="addToCard(item)">+</button>
         </div>
-        <button *ngIf="!count" (click)="addToCard(item)">В кошик</button>
+        <button *ngIf="count == 0" (click)="addToCard(item)">В кошик</button>
       </div>
     </form>
   </div>

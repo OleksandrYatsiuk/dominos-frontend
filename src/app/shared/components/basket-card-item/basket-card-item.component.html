@@ -1,13 +1,11 @@
 <div class="product">
   <img src="../../../assets/data/basket/texas.jpg" alt="pizza" />
   <div class="product_description">
-    <div class="product_title">Піца {{ item.pizza.name }}</div>
+    <div class="product_title">Піца {{ item.name }}</div>
     <p>
-      <span>
-        {{ item.pizza.ingredients }}
-      </span>
+      <span> {{ item.ingredients }} </span>
     </p>
-    <div class="product_size">{{ item.pizza.weight.small }} г</div>
+    <div class="product_size">{{ item.size }}</div>
     <div class="product_footer">
       <div class="product_price">{{ item.price }} грн</div>
       <div class="quantity_control">

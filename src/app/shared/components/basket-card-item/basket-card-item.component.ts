@@ -12,8 +12,7 @@ export class BasketCardItemComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(
-  ) {
+  ngOnInit() {
   }
 
 }

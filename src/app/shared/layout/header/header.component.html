@@ -8,7 +8,7 @@
       </div>
     </nav>
     <div class="market">
-      <div class="count">{{ count }}</div>
+      <div class="count">{{ count|json }}</div>
       <div class="total-price" *ngIf="amount > 0">
         <span>{{ amount }} грн </span>
       </div>

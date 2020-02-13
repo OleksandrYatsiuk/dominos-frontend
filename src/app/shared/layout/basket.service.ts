@@ -12,15 +12,14 @@ export class BasketService {
   public amount: number;
   public count: number;
 
-
-
-
   public actualBasket() {
     let total = 0, count = 0;
     for (let key in this.storage) {
       let item = this.storage[key];
-      count += item.count;
-      total += item.price * item.count;
+      for (let size in item) {
+        count += item[size].count;
+        total += item[size].price * item[size].count;
+      }
     }
     let basket = {
       amount: +total.toFixed(2),
@@ -28,13 +27,8 @@ export class BasketService {
     }
     this.amount = basket.amount;
     this.count = basket.count;
-    this.updateBasket(basket.count, basket.amount);
+    this.updateBasketAmount.emit(this.amount);
+    this.updateBasketCount.emit(this.count);
     return basket;
   };
-
-
-  public updateBasket(count, amount) {
-    this.updateBasketAmount.emit(amount);
-    this.updateBasketCount.emit(count);
-  }
 }

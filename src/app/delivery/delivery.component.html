@@ -19,9 +19,7 @@
       <div class="list" *ngFor="let item of list">
         <app-basket-card-item [item]="item"></app-basket-card-item>
       </div>
-      <div class="result">
-        80 $
-      </div>
+      <div class="result">{{ totalAmount }} грн</div>
     </div>
   </div>
 </div>
