@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { BasketService } from '../../layout/basket.service';
 
 @Component({
   selector: 'app-basket-card-item',
@@ -8,11 +9,20 @@ import { Component, OnInit, Input } from '@angular/core';
 export class BasketCardItemComponent implements OnInit {
 
   @Input() item;
+  @Output() count;
 
-
-  constructor() { }
+  constructor(private basketService: BasketService) { }
 
   ngOnInit() {
   }
 
+  addToCard(item) {
+    item.count = this.basketService.addToLocalStorage(item, item.size, item.price);
+    this.count = item.count;
+  }
+
+  removeFromCard(item) {
+    item.count = this.basketService.deleteItemLocalStorage(item, item.size);
+    this.count = item.count;
+  }
 }

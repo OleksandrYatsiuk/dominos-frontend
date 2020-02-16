@@ -66,52 +66,11 @@ export class PizzaItemComponent implements OnInit {
   };
 
   addToCard(item) {
-    this.addToLocalStorage(item);
+    this.count = this.basketService.addToLocalStorage(item, this.pizzaForm.controls.size.value, this.price);
   }
 
   removeFromCard(item) {
-    this.deleteItemLocalStorage(item);
-  }
-
-  addToLocalStorage(value: object) {
-    let size = this.pizzaForm.controls.size.value;
-    let storage = this.storage;
-    storage ? this.storage : storage = {};
-    const ID = value['id'];
-    if (storage[ID] === undefined) {
-      storage[ID] = {};
-      storage[ID][size] = { price: this.price, count: 0, name: this.item.name, size: size, ingredients: this.item.ingredients };
-    }
-    if (storage[ID][size] === undefined) {
-      storage[ID][size] = { price: this.price, count: this.count = 1, name: this.item.name, size: size, ingredients: this.item.ingredients }
-    } else {
-      storage[ID][size].count++;
-      this.count = storage[ID][size].count;
-    }
-    this.setStorage = storage;
-    this.basketService.actualBasket();
-  }
-
-  deleteItemLocalStorage(value: object) {
-    let size = this.pizzaForm.controls.size.value;
-    let storage = this.storage;
-    const ID = value['id'];
-    if (storage !== null && storage[ID] !== undefined) {
-      storage[ID][size].count--;
-      this.count = storage[ID][size].count;
-      if (storage[ID][size].count <= 0) {
-        delete storage[ID][size];
-      };
-      if (Object.keys(storage[ID]).length === 0) {
-        delete storage[ID];
-      }
-      if (Object.keys(storage).length === 0) {
-        localStorage.removeItem('basket');
-      } else {
-        this.setStorage = storage;
-      }
-      this.basketService.actualBasket();
-    }
+    this.count = this.basketService.deleteItemLocalStorage(item, this.pizzaForm.controls.size.value);
   }
 }
 

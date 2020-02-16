@@ -10,7 +10,7 @@ import { BasketService } from '../shared/layout/basket.service';
 })
 export class DeliveryComponent implements OnInit {
 
-  public totalAmount: number;
+  public totalAmount: number = 0;
 
   public get list() {
     let index = [];
@@ -27,6 +27,7 @@ export class DeliveryComponent implements OnInit {
   constructor(
     private basketService: BasketService,
     private rootService: RootService) {
+    this.basketService.updateBasketAmount.subscribe(cnt => this.totalAmount = cnt);
   }
 
   ngOnInit() {
