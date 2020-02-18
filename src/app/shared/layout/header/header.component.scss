@@ -10,9 +10,21 @@
     height: 50px;
     width: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
     background: #4f4f4f;
+    justify-content: flex-end;
+
+    button {
+      background-color: gray;
+      height: 34px;
+      border: 0px;
+      margin: 0px 10px;
+
+      &:hover {
+        background-color: snow;
+        color: black;
+      }
+    }
   }
 
   .main-header {
@@ -120,4 +132,9 @@ a {
   cursor: pointer;
   text-decoration: none;
   color: snow;
+}
+.disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  pointer-events: none;
 }

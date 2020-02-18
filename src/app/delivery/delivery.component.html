@@ -19,7 +19,8 @@
       <div class="list" *ngFor="let item of list">
         <app-basket-card-item [item]="item"></app-basket-card-item>
       </div>
-      <div class="result">{{ totalAmount }} грн</div>
+      <div class="result" *ngIf="totalAmount >= 1">{{ totalAmount }} грн</div>
+      <div class="result" *ngIf="totalAmount < 1">Basket is empty!</div>
     </div>
   </div>
 </div>

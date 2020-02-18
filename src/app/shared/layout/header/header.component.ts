@@ -25,8 +25,6 @@ export class HeaderComponent implements OnInit {
     this.basket.updateBasketCount.subscribe(cnt => this.count = cnt);
   }
 
-
-
   open() {
     this.modalService.open(ModalContentComponent);
   }

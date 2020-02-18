@@ -27,21 +27,22 @@ export class ContentComponent implements OnInit {
   }
   getPizzaList() {
     this.rootService.fetchItems().subscribe(res => {
+      const response = res['result'];
       this.categories = [
         {
           category: "Краща Ціна",
-          items: res.filter(el => el.category === "Краща Ціна")
+          items: response.filter(el => el.category === "Краща Ціна")
         },
         {
           category: "Фірмові",
-          items: res.filter(el => el.category === "Фірмові")
+          items: response.filter(el => el.category === "Фірмові")
         },
         {
           category: "Класичні",
-          items: res.filter(el => el.category === "Класичні")
+          items: response.filter(el => el.category === "Класичні")
         }
       ];
-      this.all = res;
+      this.all = response;
     });
   }
 

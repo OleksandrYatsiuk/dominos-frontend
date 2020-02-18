@@ -1,14 +1,17 @@
 <div class="dp-header-desktop">
-  <div class="fake-header">Fake Header</div>
+  <div class="fake-header">
+    <a>
+      <button (click)="open()">Додати піцу</button>
+    </a>
+    <a class="disabled">
+      <button (click)="login()">Авторизація</button>
+    </a>
+  </div>
   <div class="main-header">
     <a class="logo" routerLink="/"> Domino's Pizza </a>
-    <nav class="navigation">
-      <div class="nav-link">
-        <a (click)="open()">Додати піцу</a>
-      </div>
-    </nav>
-    <div class="market">
-      <div class="count">{{ count|json }}</div>
+    <nav class="navigation"></nav>
+    <div class="market" [ngClass]="{ disabled: count === 0 }">
+      <div class="count">{{ count }}</div>
       <div class="total-price" *ngIf="amount > 0">
         <span>{{ amount }} грн </span>
       </div>
