@@ -25,7 +25,7 @@ import { BasketCardItemComponent } from './components/basket-card-item/basket-ca
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     NgbModule,
@@ -38,6 +38,7 @@ import { BasketCardItemComponent } from './components/basket-card-item/basket-ca
     ReactiveFormsModule,
     RouterModule,
   ],
+  providers: [],
   entryComponents: [ModalContentComponent]
 
 })

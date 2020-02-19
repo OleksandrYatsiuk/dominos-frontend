@@ -34,13 +34,13 @@ export class ContentComponent implements OnInit {
           items: response.filter(el => el.category === "Краща Ціна")
         },
         {
+          category: "Класичні",
+          items: response.filter(el => el.category === "Класичні")
+        },
+        {
           category: "Фірмові",
           items: response.filter(el => el.category === "Фірмові")
         },
-        {
-          category: "Класичні",
-          items: response.filter(el => el.category === "Класичні")
-        }
       ];
       this.all = response;
     });

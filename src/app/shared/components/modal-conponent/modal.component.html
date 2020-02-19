@@ -1,4 +1,4 @@
-<form [formGroup]="formCreatingPizza" (ngSubmit)="onSubmit()">
+<form [formGroup]="formCreatingPizza" (ngSubmit)="create()">
   <div class="modal-header">
     <h4 class="modal-title">Створення піци</h4>
     <button
@@ -22,11 +22,13 @@
         <option value="Фірмові">Фірмові </option>
       </select>
 
-      <select formControlName="ingredients">
+      <select class="dropdown" formControlName="ingredients">
         <option value="" selected disabled hidden>Вибір інгредієнтів</option>
-        <option value="Краща Ціна">
-          <input type="checkbox" /> Краща Ціна
-        </option>
+        <option
+          *ngFor="let ingredient of ingredients"
+          value="{{ ingredient.name }}"
+          >{{ ingredient.name }}</option
+        >
       </select>
     </div>
     <div formGroupName="weight">
@@ -50,7 +52,7 @@
       </div>
     </div>
     <div class="row-form">
-      <img [src]="url" height="200" *ngIf="url"> <br/><br/>
+      <img [src]="url" height="200" *ngIf="url" /> <br /><br />
       <h5>Upload photo:</h5>
       <input
         type="file"
@@ -61,11 +63,7 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-outline-grey"
-      (click)="close()"
-    >
+    <button type="button" class="btn btn-outline-grey" (click)="close()">
       Close
     </button>
     <button type="submit" class="btn btn-outline-confirm">

@@ -76,3 +76,8 @@ input {
   margin: 10px 2px;
   width: calc(95% / 3);
 }
+.dropdown {
+  background: #f8f8f8;
+  cursor: pointer;
+  overflow-y: scroll;
+}

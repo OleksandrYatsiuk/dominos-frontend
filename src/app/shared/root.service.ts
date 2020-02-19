@@ -18,4 +18,7 @@ export class RootService {
   createPizza(data: Pizza[]) {
     return this.http.post<any>('http://localhost:1337/pizza', data);
   }
+  getIngredientsList() {
+    return this.http.get<any[]>('http://localhost:1337/ingredients');
+  }
 }

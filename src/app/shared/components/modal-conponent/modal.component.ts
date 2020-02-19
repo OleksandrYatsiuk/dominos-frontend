@@ -13,10 +13,11 @@ import { RootService } from '../../root.service';
 
 export class ModalContentComponent implements OnInit {
   @Input() name;
+
   formCreatingPizza: FormGroup;
   public imagePath;
+  public ingredients: Array<any>
   url: any;
-
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -37,6 +38,10 @@ export class ModalContentComponent implements OnInit {
     public activeModal: NgbActiveModal) { }
 
   ngOnInit() {
+
+    this.rootService.getIngredientsList().subscribe(res => {
+      this.ingredients = res['result'];
+    });
     this.formCreatingPizza = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(15)]],
       category: ['', [Validators.required]],
@@ -54,6 +59,9 @@ export class ModalContentComponent implements OnInit {
       }),
     });
   }
+
+
+
 
 
   validateAllFormFields(formDelivery: FormGroup) {
@@ -80,9 +88,9 @@ export class ModalContentComponent implements OnInit {
   create() {
     return this.rootService.createPizza(
       this.formCreatingPizza.value).subscribe(res => {
-      console.log(res);
-      this.activeModal.close('Close click');
-    });
+        console.log(res);
+        this.activeModal.close('Close click');
+      });
 
   }
 
