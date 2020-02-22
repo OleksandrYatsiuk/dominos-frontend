@@ -26,8 +26,13 @@
         <a href="/" class="product_name">Піца {{ item.name }}</a>
       </div>
       <div class="product-row">
-        <div class="product_ingredients">
-          <span> {{ item.ingredients.join(", ") }} </span>
+        <div
+          class="product_ingredients"
+          *ngFor="let ingredient of item.ingredients"
+        >
+          <span>
+            {{ ingredient.name || ingredient }}
+          </span>
         </div>
       </div>
       <div class="product-row">

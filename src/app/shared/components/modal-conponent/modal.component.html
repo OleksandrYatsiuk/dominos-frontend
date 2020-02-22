@@ -21,15 +21,15 @@
         <option value="Класичні">Класичні </option>
         <option value="Фірмові">Фірмові </option>
       </select>
-
-      <select class="dropdown" formControlName="ingredients">
-        <option value="" selected disabled hidden>Вибір інгредієнтів</option>
-        <option
-          *ngFor="let ingredient of ingredients"
-          value="{{ ingredient.name }}"
-          >{{ ingredient.name }}</option
-        >
-      </select>
+      <ng-multiselect-dropdown
+        formControlName="ingredients"
+        [placeholder]="'select'"
+        [data]="ingredients"
+        [settings]="dropdownSettings"
+        (onSelect)="onItemSelect($event)"
+        (onSelectAll)="onSelectAll($event)"
+      >
+      </ng-multiselect-dropdown>
     </div>
     <div formGroupName="weight">
       <div class="row-form">

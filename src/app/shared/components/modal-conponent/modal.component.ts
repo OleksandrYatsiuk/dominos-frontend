@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../root.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 
 @Component({
@@ -13,6 +14,11 @@ import { RootService } from '../../root.service';
 
 export class ModalContentComponent implements OnInit {
   @Input() name;
+  optionsSelect: Array<any>;
+
+  dropdownList = [];
+  selectedItems = [];
+  dropdownSettings: IDropdownSettings = {};
 
   formCreatingPizza: FormGroup;
   public imagePath;
@@ -41,7 +47,23 @@ export class ModalContentComponent implements OnInit {
 
     this.rootService.getIngredientsList().subscribe(res => {
       this.ingredients = res['result'];
+
+      this.selectedItems = [];
+      this.dropdownSettings = {
+        singleSelection: false,
+        idField: 'id',
+        textField: 'name',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 2,
+        allowSearchFilter: true
+      };
+
+
     });
+
+
+
     this.formCreatingPizza = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(15)]],
       category: ['', [Validators.required]],
@@ -59,8 +81,6 @@ export class ModalContentComponent implements OnInit {
       }),
     });
   }
-
-
 
 
 

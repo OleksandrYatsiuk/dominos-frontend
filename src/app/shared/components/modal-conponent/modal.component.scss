@@ -8,6 +8,14 @@
     }
   }
 }
+ng-multiselect-dropdown {
+  padding: 2px;
+  height: 34px;
+  margin: 5px;
+  width: 60%;
+  font-size: 13px;
+}
+
 button {
   color: snow;
 }
@@ -31,12 +39,12 @@ button {
   color: snow;
 }
 select {
-  width: 50%;
-  padding: 2px;
+  width: 40%;
+  padding-left: 2px;
   border: 1px solid gray;
-  border-radius: 25px;
+  border-radius: 4px;
   height: 34px;
-  margin: 5px;
+  margin: 4px;
   outline: none;
 
   &.ng-pristine.ng-invalid.ng-touched {
@@ -75,9 +83,4 @@ input {
 .weight input {
   margin: 10px 2px;
   width: calc(95% / 3);
-}
-.dropdown {
-  background: #f8f8f8;
-  cursor: pointer;
-  overflow-y: scroll;
 }
