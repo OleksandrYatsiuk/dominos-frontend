@@ -2,67 +2,51 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../root.service';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
-
+import { Ingredients } from '../../models/pizza.interface';
 
 @Component({
   selector: 'app-create-pizza-content',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
-
 })
 
 export class ModalContentComponent implements OnInit {
-  @Input() name;
-  optionsSelect: Array<any>;
 
-  dropdownList = [];
-  selectedItems = [];
-  dropdownSettings: IDropdownSettings = {};
+  @Input() name;
+
+  ingredients: Ingredients[];
+
+
+  selectConfig = {
+    search: true,
+    placeholder: 'Select category',
+    displayKey: "name"
+  }
+
+  config = {
+    search: true,
+    placeholder: 'Select ingredients',
+    limitTo: 5,
+    moreText: "інших",
+    displayKey: "name"
+  }
+
+  categories = ["Краща ціна", "Класичні", "Фірмові"]
 
   formCreatingPizza: FormGroup;
-  public imagePath;
-  public ingredients: Array<any>
-  url: any;
-  onSelectFile(event) { // called each time file input changes
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      this.imagePath = event.target.files;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
-        console.log(event.target);
-        this.url = reader.result;
-        this.formCreatingPizza.controls['photo'].setValue(reader.result);
-      };
-    }
-  }
 
   constructor(
     private rootService: RootService,
     public modalService: NgbModal,
     private formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal) { }
+    public activeModal: NgbActiveModal
+  ) { }
 
   ngOnInit() {
 
     this.rootService.getIngredientsList().subscribe(res => {
       this.ingredients = res['result'];
-
-      this.selectedItems = [];
-      this.dropdownSettings = {
-        singleSelection: false,
-        idField: 'id',
-        textField: 'name',
-        selectAllText: 'Select All',
-        unSelectAllText: 'UnSelect All',
-        itemsShowLimit: 2,
-        allowSearchFilter: true
-      };
-
-
     });
-
-
 
     this.formCreatingPizza = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(15)]],
@@ -82,8 +66,6 @@ export class ModalContentComponent implements OnInit {
     });
   }
 
-
-
   validateAllFormFields(formDelivery: FormGroup) {
     Object.keys(formDelivery.controls).forEach(field => {
       const control = formDelivery.get(field);
@@ -97,22 +79,18 @@ export class ModalContentComponent implements OnInit {
 
 
   onSubmit() {
-    console.log(this.formCreatingPizza.value);
+    return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(response => {
+      if (response.code === 201) {
+        console.log("Pizza was created succesfully!");
+        this.activeModal.close('Close click');
+      } else {
+        console.log("You get error!");
+      }
+    });
   }
 
   close() {
     this.activeModal.close('Close click');
     this.rootService.updatePizzaList.next('created');
   }
-
-  create() {
-    return this.rootService.createPizza(
-      this.formCreatingPizza.value).subscribe(res => {
-        console.log(res);
-        this.activeModal.close('Close click');
-      });
-
-  }
-
-
 }

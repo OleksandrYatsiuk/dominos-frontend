@@ -2,7 +2,7 @@ export interface Pizza {
   id: String,
   name: String,
   category: String,
-  ingredients: [String],
+  ingredients: [Object],
   weight: {
     small: Number,
     middle: Number,
@@ -21,3 +21,7 @@ export interface PizzaList {
   result: Pizza[]
 }
 
+export interface Ingredients {
+  id: string,
+  name: string
+}

@@ -1,4 +1,4 @@
-<form [formGroup]="formCreatingPizza" (ngSubmit)="create()">
+<form [formGroup]="formCreatingPizza" (ngSubmit)="onSubmit()">
   <div class="modal-header">
     <h4 class="modal-title">Створення піци</h4>
     <button
@@ -15,44 +15,45 @@
       <input type="text" formControlName="name" placeholder="name" />
     </div>
     <div class="row-form">
-      <select formControlName="category">
-        <option value="" selected disabled hidden>Вибір категорії</option>
-        <option value="Краща Ціна"> Краща Ціна </option>
-        <option value="Класичні">Класичні </option>
-        <option value="Фірмові">Фірмові </option>
-      </select>
-      <ng-multiselect-dropdown
+      <ngx-select-dropdown
+        formControlName="category"
+        [multiple]="false"
+        [config]="selectConfig"
+        [options]="categories"
+      ></ngx-select-dropdown>
+
+      <ngx-select-dropdown
         formControlName="ingredients"
-        [placeholder]="'select'"
-        [data]="ingredients"
-        [settings]="dropdownSettings"
-        (onSelect)="onItemSelect($event)"
-        (onSelectAll)="onSelectAll($event)"
+        [multiple]="true"
+        [config]="config"
+        [options]="ingredients"
       >
-      </ng-multiselect-dropdown>
+      </ngx-select-dropdown>
     </div>
+
     <div formGroupName="weight">
       <div class="row-form">
-        <div class="weight">
-          <h4>Pizza weight:</h4>
-          <input type="text" formControlName="small" placeholder="small" />
-          <input type="text" formControlName="middle" placeholder="middle" />
-          <input type="text" formControlName="big" placeholder="big" />
-        </div>
+        <h5>Pizza weight:</h5>
+      </div>
+      <div class="row-form">
+        <input type="text" formControlName="small" placeholder="small" />
+        <input type="text" formControlName="middle" placeholder="middle" />
+        <input type="text" formControlName="big" placeholder="big" />
       </div>
     </div>
+
     <div formGroupName="price">
       <div class="row-form">
-        <div class="weight">
-          <h4>Pizza price:</h4>
-          <input type="text" formControlName="low" placeholder="low" />
-          <input type="text" formControlName="medium" placeholder="medium" />
-          <input type="text" formControlName="high" placeholder="high" />
-        </div>
+        <h5>Pizza price:</h5>
+      </div>
+      <div class="row-form">
+        <input type="text" formControlName="low" placeholder="low" />
+        <input type="text" formControlName="medium" placeholder="medium" />
+        <input type="text" formControlName="high" placeholder="high" />
       </div>
     </div>
     <div class="row-form">
-      <img [src]="url" height="200" *ngIf="url" /> <br /><br />
+      <img [src]="url" height="200px" *ngIf="url" /> <br /><br />
       <h5>Upload photo:</h5>
       <input
         type="file"

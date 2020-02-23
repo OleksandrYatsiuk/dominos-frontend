@@ -4,6 +4,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 
 @NgModule({
@@ -14,7 +17,10 @@ import { RouterModule } from '@angular/router';
     AppRoutingModule,
     RouterModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    BsDropdownModule.forRoot(),
+    BrowserAnimationsModule,
+    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

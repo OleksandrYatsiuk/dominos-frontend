@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { BasketCardItemComponent } from './components/basket-card-item/basket-ca
     HttpClientModule,
     NgbModule,
     RouterModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    SelectDropDownModule
   ],
   exports: [
     NgbModule,
