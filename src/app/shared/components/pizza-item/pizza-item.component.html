@@ -5,7 +5,13 @@
         <div class="product_image">
           <div class="photo">
             <img
-              src="../../assets/data/pizzas/{{ item.photo || 1 }}.jpg"
+              src="http://localhost:1337/{{ item.pizzaImage }}"
+              *ngIf="item.pizzaImage"
+              alt="Замовити піцу"
+            />
+            <img
+              src="../../assets/data/pizzas/1.jpg"
+              *ngIf="!item.pizzaImage"
               alt="Замовити піцу"
             />
           </div>
