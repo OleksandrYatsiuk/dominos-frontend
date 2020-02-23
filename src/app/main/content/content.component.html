@@ -1,9 +1,10 @@
 <div class="filter">
-  <select (change)="sortBy($event)">
-    <option value="" selected disabled hidden>Сортування</option>
-    <option value="asc">Ціна: Нижча-Вища </option>
-    <option value="desc">Ціна: Вища-Нижча </option>
-  </select>
+  <ngx-select-dropdown
+    (change)="sortBy($event)"
+    [config]="config"
+    [options]="sortCurrent"
+  >
+  </ngx-select-dropdown>
 </div>
 <div class="pizza-list">
   <div class="product-block" *ngIf="sortedList; else sortCategories">

@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
     SharedModule,
     BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
-    SelectDropDownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

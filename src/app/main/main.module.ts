@@ -4,6 +4,8 @@ import { ContentComponent } from './content/content.component';
 import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+
 
 
 @NgModule({
@@ -15,8 +17,9 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     SharedModule,
     RouterModule.forChild([
-      {path: '', pathMatch: 'full', component: MainComponent}
-    ])
+      { path: '', pathMatch: 'full', component: MainComponent }
+    ]),
+    SelectDropDownModule
   ]
 })
 export class MainModule { }

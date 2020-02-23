@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RootService } from 'src/app/shared/root.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-content',
@@ -19,12 +18,24 @@ export class ContentComponent implements OnInit {
   ref: any;
 
 
-  constructor(private rootService: RootService,
-    private modalService: NgbModal) { }
+  config = {
+    search: false,
+    placeholder: 'Сортування',
+    displayKey: "value",
+  }
+
+  sortCurrent = [{
+    current: "asc", value: "Ціна: Нижча-Вища",
+  }, {
+    current: "desc", value: "Ціна: Вища-Нижча"
+  }];
+
+  constructor(private rootService: RootService) { }
 
   ngOnInit() {
     this.getPizzaList();
   }
+
   getPizzaList() {
     this.rootService.fetchItems().subscribe(res => {
       const response = res['result'];
@@ -46,15 +57,21 @@ export class ContentComponent implements OnInit {
     });
   }
 
-  sortBy(order) {
-    this.sortedList = order.target.value;
-    this.all.sort((a, b) => {
-      return a.price.low - b.price.low;
-    })
-    if (this.sortedList === "asc") {
-      this.all = this.all;
+  sortBy(event) {
+    if (!event.value) {
+      this.getPizzaList();
+      this.sortedList = null;
+
     } else {
-      this.all = this.all.reverse();
+      this.sortedList = event.value.current;
+      this.all.sort((a, b) => {
+        return a.price.low - b.price.low;
+      })
+      if (this.sortedList === "asc") {
+        this.all = this.all;
+      } else {
+        this.all = this.all.reverse();
+      }
     }
   }
 }

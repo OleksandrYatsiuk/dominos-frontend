@@ -9,16 +9,16 @@ export class RootService {
   constructor(private http: HttpClient) {
   }
   fetchItems(): Observable<PizzaList[]> {
-    return this.http.get<PizzaList[]>('http://localhost:1337/pizza');
+    return this.http.get<PizzaList[]>('https://my-dominos.herokuapp.com/pizza');
   }
 
   removeItem(id: number) {
-    return this.http.delete(`http://localhost:1337/pizza/${id}`);
+    return this.http.delete(`https://my-dominos.herokuapp.com/pizza/${id}`);
   }
   createPizza(data: Pizza[]) {
-    return this.http.post<any>('http://localhost:1337/pizza', data);
+    return this.http.post<any>('https://my-dominos.herokuapp.com/pizza', data);
   }
   getIngredientsList() {
-    return this.http.get<any[]>('http://localhost:1337/ingredients');
+    return this.http.get<any[]>('https://my-dominos.herokuapp.com/ingredients');
   }
 }
