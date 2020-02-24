@@ -15,9 +15,8 @@
       <input type="text" formControlName="name" placeholder="name" />
     </div>
     <div class="row-form">
-      
       <ngx-select-dropdown
-       class="dropdown"
+        class="dropdown"
         formControlName="category"
         [multiple]="false"
         [config]="selectConfig"
@@ -56,14 +55,8 @@
       </div>
     </div>
     <div class="row-form">
-      <img [src]="url" height="200px" *ngIf="url" /> <br /><br />
       <h5>Upload photo:</h5>
-      <input
-        type="file"
-        formControlName="photo"
-        placeholder="photo"
-        (change)="onSelectFile($event)"
-      />
+      <input type="file" formControlName="photo" placeholder="photo" />
     </div>
   </div>
   <div class="modal-footer">

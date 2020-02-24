@@ -31,4 +31,8 @@ export class CarryoutComponent implements OnInit {
     })
   }
 
+
+  onSubmit() {
+    console.log('submit');
+  }
 }
