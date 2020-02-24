@@ -15,7 +15,9 @@
       <input type="text" formControlName="name" placeholder="name" />
     </div>
     <div class="row-form">
+      
       <ngx-select-dropdown
+       class="dropdown"
         formControlName="category"
         [multiple]="false"
         [config]="selectConfig"
@@ -23,6 +25,7 @@
       ></ngx-select-dropdown>
 
       <ngx-select-dropdown
+        class="dropdown"
         formControlName="ingredients"
         [multiple]="true"
         [config]="config"
