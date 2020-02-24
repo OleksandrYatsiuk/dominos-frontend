@@ -11,6 +11,17 @@ body {
   padding: 0;
   background-color: rgb(240, 232, 232);
 }
-.ngx-dropdown-list-container {
-  background-color: black;
+.ngx-dropdown-button {
+  border: 1px solid grey !important;
+  border-radius: 10px !important;
+  outline: none !important;
 }
+
+ul.selected-items li{
+  background-color: rgb(106, 131, 90)!important;
+}
+
+
+
+
+
