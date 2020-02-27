@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+// import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
@@ -17,7 +17,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RouterModule,
     CommonModule,
     SharedModule,
-    BsDropdownModule.forRoot(),
+    // BsDropdownModule.forRoot(),
     BrowserAnimationsModule,
   ],
   providers: [],
