@@ -5,13 +5,13 @@
         <div class="product_image">
           <div class="photo">
             <img
-              src="http://localhost:1337/{{ item.pizzaImage }}"
-              *ngIf="item.pizzaImage"
+              src="https://my-dominos.herokuapp.com/{{ item.image }}"
+              *ngIf="item.image"
               alt="Замовити піцу"
             />
             <img
-              src="../../assets/data/pizzas/1.jpg"
-              *ngIf="!item.pizzaImage"
+              src="../../assets/data/pizzas/default.jpg"
+              *ngIf="!item.image"
               alt="Замовити піцу"
             />
           </div>
@@ -32,12 +32,9 @@
         <a href="/" class="product_name">Піца {{ item.name }}</a>
       </div>
       <div class="product-row">
-        <div
-          class="product_ingredients"
-          *ngFor="let ingredient of item.ingredients"
-        >
-          <span>
-            {{ ingredient.name || ingredient }}
+        <div class="product_ingredients">
+          <span *ngFor="let ingredient of item.ingredients">
+            {{ ingredient.name }}
           </span>
         </div>
       </div>

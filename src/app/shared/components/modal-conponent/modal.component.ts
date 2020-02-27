@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../root.service';
 import { Ingredients } from '../../models/pizza.interface';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ModalContentComponent implements OnInit {
   @Input() name;
 
   ingredients: Ingredients[];
-
+  selectedFile: File = null;
 
   selectConfig = {
     search: true,
@@ -32,7 +33,7 @@ export class ModalContentComponent implements OnInit {
     displayKey: "name"
   }
 
-  categories = ["Краща ціна", "Класичні", "Фірмові"]
+  categories = ["Краща Ціна", "Класичні", "Фірмові"]
 
   formCreatingPizza: FormGroup;
 
@@ -40,7 +41,7 @@ export class ModalContentComponent implements OnInit {
     private rootService: RootService,
     public modalService: NgbModal,
     private formBuilder: FormBuilder,
-    public activeModal: NgbActiveModal
+    public activeModal: NgbActiveModal,
   ) { }
 
   ngOnInit() {
@@ -53,7 +54,7 @@ export class ModalContentComponent implements OnInit {
       name: ['', [Validators.required, Validators.maxLength(15)]],
       category: ['', [Validators.required]],
       ingredients: [[], [Validators.required]],
-      photo: ['', []],
+      image: [''],
       weight: this.formBuilder.group({
         small: ['', [Validators.required]],
         middle: ['', [Validators.required]],
@@ -78,14 +79,19 @@ export class ModalContentComponent implements OnInit {
     });
   }
 
+  onFileSelected(event) {
+    this.selectedFile = <File>event.target.files[0];
+  }
 
   onSubmit() {
     return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(response => {
       if (response.code === 201) {
-        console.log("Pizza was created succesfully!");
+        if (this.selectedFile !== null) {
+          const uploadData = new FormData();
+          uploadData.append('image', this.selectedFile, this.selectedFile.name);
+          this.rootService.updatePhoto(uploadData, response.result.id).subscribe(result => console.log(result))
+        }
         this.activeModal.close('Close click');
-      } else {
-        console.log("You get error!");
       }
     });
   }

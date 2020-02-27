@@ -3,7 +3,9 @@
   <div class="product_description">
     <div class="product_title">Піца {{ item.name }}</div>
     <p>
-      <span> {{ item.ingredients }} </span>
+      <span *ngFor="let ingredient of item.ingredients">
+        {{ ingredient.name }}
+      </span>
     </p>
     <div class="product_size">{{ item.size }}</div>
     <div class="product_footer">

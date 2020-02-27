@@ -56,7 +56,12 @@
     </div>
     <div class="row-form">
       <h5>Upload photo:</h5>
-      <input type="file" formControlName="photo" placeholder="photo" />
+      <input
+        formGroupName="image"
+        type="file"
+        placeholder="image"
+        (change)="onFileSelected($event)"
+      />
     </div>
   </div>
   <div class="modal-footer">
