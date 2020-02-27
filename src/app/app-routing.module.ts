@@ -3,11 +3,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { DeliveryModule } from './delivery/delivery.module';
+import { DeliveryGuard } from './core/guards/delivery.guard';
 
 // Lazy loading for modules
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
-  { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
+  { path: 'delivery', canActivate: [DeliveryGuard], loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
   { path: '', redirectTo: '/', pathMatch: 'full' }
 
 ];
@@ -17,6 +18,8 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [DeliveryGuard],
+
 })
 export class AppRoutingModule { }

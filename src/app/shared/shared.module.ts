@@ -9,7 +9,7 @@ import { ModalContentComponent } from './components/modal-conponent/modal.compon
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
-
+import { SelectDropDownModule } from 'ngx-select-dropdown'
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { BasketCardItemComponent } from './components/basket-card-item/basket-ca
     HttpClientModule,
     NgbModule,
     RouterModule,
+    SelectDropDownModule
   ],
   exports: [
     NgbModule,
