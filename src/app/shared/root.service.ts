@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { PizzaList, Pizza } from './models/pizza.interface';
+import { environment } from 'src/environments/environment';
 
-const url = 'https://my-dominos.herokuapp.com';
 
 @Injectable({ providedIn: 'root' })
 export class RootService {
@@ -11,19 +11,19 @@ export class RootService {
   constructor(private http: HttpClient) {
   }
   fetchItems(): Observable<PizzaList[]> {
-    return this.http.get<PizzaList[]>(`${url}/pizza`);
+    return this.http.get<PizzaList[]>(`${environment.serverURL}/pizza`);
   }
 
   removeItem(id: string) {
-    return this.http.delete(`${url}/pizza/${id}`);
+    return this.http.delete(`${environment.serverURL}/pizza/${id}`);
   }
   createPizza(data: Pizza[]) {
-    return this.http.post<any>(`${url}/pizza`, data);
+    return this.http.post<any>(`${environment.serverURL}/pizza`, data);
   }
   updatePhoto(file: FormData, id: string) {
-    return this.http.post<any>(`${url}/pizza/${id}`, file);
+    return this.http.post<any>(`${environment.serverURL}/pizza/${id}`, file);
   }
   getIngredientsList() {
-    return this.http.get<any[]>(`${url}/ingredients`);
+    return this.http.get<any[]>(`${environment.serverURL}/ingredients`);
   }
 }
