@@ -7,10 +7,7 @@ export class ParamInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (req.url.includes('https://my-dominos.herokuapp.com/pizza')) {
-      const paramReq = req.clone({
-        params: req.params.set('userId', '7')
-      });
-      return next.handle(paramReq);
+      return next.handle(req);
     } else {
       return next.handle(req);
     }

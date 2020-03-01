@@ -42,8 +42,6 @@ export class PizzaItemComponent implements OnInit {
         }
       }
     }
-
-
   };
 
   pizzaForm: FormGroup;

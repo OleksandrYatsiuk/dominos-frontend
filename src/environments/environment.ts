@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverURL: 'https://my-dominos.herokuapp.com'
+  serverURL: 'https://my-dominos-backend.herokuapp.com'
 };
 
 /*

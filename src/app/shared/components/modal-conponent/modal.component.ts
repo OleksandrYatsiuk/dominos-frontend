@@ -3,7 +3,6 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../root.service';
 import { Ingredients } from '../../models/pizza.interface';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -15,7 +14,6 @@ import { HttpClient } from '@angular/common/http';
 export class ModalContentComponent implements OnInit {
 
   @Input() name;
-
   ingredients: Ingredients[];
   selectedFile: File = null;
 
@@ -80,16 +78,16 @@ export class ModalContentComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    this.selectedFile = <File>event.target.files[0];
+    this.selectedFile = event.target.files[0];
   }
 
   onSubmit() {
     return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(response => {
       if (response.code === 201) {
         if (this.selectedFile !== null) {
-          const uploadData = new FormData();
-          uploadData.append('image', this.selectedFile, this.selectedFile.name);
-          this.rootService.updatePhoto(uploadData, response.result.id).subscribe(result => console.log(result))
+          let fd = new FormData();
+          fd.append('file', this.selectedFile, this.selectedFile.name);
+          this.rootService.updatePhoto(fd, response.result.id).subscribe(result => console.log(result))
         }
         this.activeModal.close('Close click');
       }
