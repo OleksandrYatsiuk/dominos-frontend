@@ -1,0 +1,57 @@
+<form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+  <div class="modal-header">
+    <h4 class="modal-title">Авторизація</h4>
+  </div>
+  <div class="modal-body">
+    <div class="row-form">
+      <label>
+        Enter Username
+        <input type="text" formControlName="username" placeholder="username" />
+        <div
+          class="error"
+          *ngIf="
+            authForm.controls.username.invalid &&
+            authForm.controls.username.dirty &&
+            !authForm.controls.password.untouched
+          "
+        >
+          Username is required
+        </div>
+      </label>
+    </div>
+    <div class="row-form">
+      <label>
+        Enter Password
+        <input
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+          placeholder="password"
+        />
+        <div
+          class="error"
+          *ngIf="
+            authForm.controls.password.invalid &&
+            authForm.controls.password.dirty &&
+            !authForm.controls.password.untouched
+          "
+        >
+          Password is required
+        </div>
+      </label>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-grey" (click)="close()">
+      Cancel
+    </button>
+    <button type="submit" class="btn btn-outline-confirm">
+      Log In
+    </button>
+  </div>
+</form>
+<p>
+  Have not account yet? Please,
+  <a routerLink="/auth/registration" (click)="close()">register</a>
+  your`s profile
+</p>

@@ -31,9 +31,14 @@ export class RootService {
   }
 
   login(user) {
-    return this.http.post<any[]>(`http://localhost:1337/user/login`, {
+    return this.http.post<any[]>(`${this.serverUrl}/user/login`, {
       email: user.username,
       password: user.password
     });
+  }
+
+
+  logout() {
+    return this.http.post(`${this.serverUrl}/user/logout`, null)
   }
 }

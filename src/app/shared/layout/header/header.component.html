@@ -6,8 +6,8 @@
     <a *ngIf="!token">
       <button (click)="openAuthModal()">Авторизація</button>
     </a>
-    <a *ngIf="token" class="disabled">
-      <button>[Username]</button>
+    <a *ngIf="token">
+      <button (click)="logout()">[Log Out]</button>
     </a>
   </div>
   <div class="main-header">

@@ -10,6 +10,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
+import { AuthComponent } from '../auth/auth.component';
+import { LoginComponent } from '../auth/login/login.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     HttpClientModule,
     NgbModule,
     RouterModule,
-    SelectDropDownModule
+    SelectDropDownModule,
   ],
   exports: [
     NgbModule,
@@ -41,7 +43,7 @@ import { SelectDropDownModule } from 'ngx-select-dropdown'
     RouterModule,
   ],
   providers: [],
-  entryComponents: [ModalContentComponent]
+  entryComponents: [ModalContentComponent, LoginComponent]
 
 })
 export class SharedModule { }
