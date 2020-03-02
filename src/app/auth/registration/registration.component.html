@@ -1,0 +1,102 @@
+<form [formGroup]="registerForm" (ngSubmit)="register()">
+  <div class="row-form">
+    <label>
+      Enter Full Name
+      <input type="text" formControlName="fullName" placeholder="fullName" />
+      <div
+        class="error"
+        *ngIf="
+          registerForm.controls.fullName.invalid &&
+          registerForm.controls.fullName.dirty &&
+          !registerForm.controls.fullName.untouched
+        "
+      >
+        Full Name is required
+      </div>
+    </label>
+  </div>
+
+  <div class="row-form">
+    <label>
+      Enter Username
+      <input type="text" formControlName="username" placeholder="username" />
+      <div
+        class="error"
+        *ngIf="
+          registerForm.controls.username.invalid &&
+          registerForm.controls.username.dirty &&
+          !registerForm.controls.username.untouched
+        "
+      >
+        Username is required
+      </div>
+    </label>
+  </div>
+
+  <div class="row-form">
+    <label>
+      Enter Email
+      <input type="text" formControlName="email" placeholder="email" />
+      <div
+        class="error"
+        *ngIf="
+          registerForm.controls.email.invalid &&
+          registerForm.controls.email.dirty &&
+          !registerForm.controls.email.untouched
+        "
+      >
+        Email is required
+      </div>
+    </label>
+  </div>
+
+  <div class="row-form">
+    <label>
+      Enter Password
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="password"
+      />
+      <div
+        class="error"
+        *ngIf="
+          registerForm.controls.password.invalid &&
+          registerForm.controls.password.dirty &&
+          !registerForm.controls.password.untouched
+        "
+      >
+        Password is required
+      </div>
+    </label>
+  </div>
+
+  <div class="row-form">
+    <label>
+      Confirm Password
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        placeholder="confirmPassword"
+      />
+      <div
+        class="error"
+        *ngIf="
+          registerForm.controls.confirmPassword.invalid &&
+          registerForm.controls.confirmPassword.dirty &&
+          !registerForm.controls.confirmPassword.untouched
+        "
+      >
+        Confirm Password is required
+      </div>
+    </label>
+  </div>
+  <div class="row-form">
+    <label>
+      <button type="submit">
+        Register
+      </button>
+    </label>
+  </div>
+</form>
+<p>Have account? Click <a routerLink="/">Login</a></p>
