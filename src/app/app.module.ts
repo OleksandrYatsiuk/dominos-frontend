@@ -9,6 +9,7 @@ import { RootService } from './shared/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './core/token.interceptor';
 import { ErrorInterseptor } from './core/error.interceptor';
+import { AuthComponent } from './auth/auth.component';
 
 
 
@@ -16,6 +17,7 @@ import { ErrorInterseptor } from './core/error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
+    AuthComponent,
   ],
   imports: [
     AppRoutingModule,

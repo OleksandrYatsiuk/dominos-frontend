@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from '../../components/modal-conponent/modal.component';
 import { BasketService } from '../basket.service';
+import { AuthComponent } from 'src/app/auth/auth.component';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ export class HeaderComponent implements OnInit {
 
   public count: number;
   public amount: number;
+  public token = undefined;
 
   constructor(private modalService: NgbModal, private basket: BasketService) {
   }
@@ -23,9 +25,14 @@ export class HeaderComponent implements OnInit {
 
     this.basket.updateBasketAmount.subscribe(cnt => this.amount = cnt);
     this.basket.updateBasketCount.subscribe(cnt => this.count = cnt);
+
+    this.token = localStorage.getItem('auth');
   }
 
-  open() {
+  openAuthModal() {
+    this.modalService.open(AuthComponent);
+  }
+  createPizza() {
     this.modalService.open(ModalContentComponent);
   }
 }

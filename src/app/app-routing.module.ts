@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { DeliveryModule } from './delivery/delivery.module';
 import { DeliveryGuard } from './core/guards/delivery.guard';
+import { AuthComponent } from './auth/auth.component';
 
 // Lazy loading for modules
 const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
-  { path: 'delivery', canActivate: [DeliveryGuard], loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
-  { path: '', redirectTo: '/', pathMatch: 'full' }
+  { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
+  { path: 'auth', component: AuthComponent },
+  { path: '**', redirectTo: '/', pathMatch: 'full' }
 
 ];
 
