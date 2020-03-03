@@ -17,28 +17,27 @@ export class RootService {
     return this.http.get<PizzaList[]>(`${this.serverUrl}/pizza`);
   }
 
-  removeItem(id: string) {
+  removeItem(id: string): Observable<any> {
     return this.http.delete(`${this.serverUrl}/pizza/${id}`);
   }
-  createPizza(data: Pizza[]) {
+  createPizza(data: Pizza[]): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/pizza`, data);
   }
-  updatePhoto(file: FormData, id: string) {
+  updatePhoto(file: FormData, id: string): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/pizza/${id}`, file);
   }
-  getIngredientsList() {
+  getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
 
-  login(user) {
+  login(user): Observable<any> {
     return this.http.post<any[]>(`${this.serverUrl}/user/login`, {
       email: user.username,
       password: user.password
     });
   }
 
-
-  logout() {
+  logout(): Observable<any> {
     return this.http.post(`${this.serverUrl}/user/logout`, null)
   }
 }

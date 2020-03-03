@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   public count: number;
   public amount: number;
-  public token = undefined;
+  public token = localStorage.getItem('auth');
 
   constructor(private modalService: NgbModal, private basket: BasketService, private rootService: RootService) {
   }
@@ -26,8 +26,6 @@ export class HeaderComponent implements OnInit {
 
     this.basket.updateBasketAmount.subscribe(cnt => this.amount = cnt);
     this.basket.updateBasketCount.subscribe(cnt => this.count = cnt);
-
-    this.token = localStorage.getItem('auth');
   }
 
   openAuthModal() {
@@ -37,11 +35,11 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(ModalContentComponent);
   }
   logout() {
-    this.rootService.logout().subscribe(res => {
-      console.log(res['message'])
-      if (res['code'] === 204) {
-        this.token = localStorage.removeItem('auth');
-      }
+    this.rootService.logout().subscribe(req => {
+      if (!req) {
+        localStorage.removeItem('auth');
+        document.location.reload(true);
+      };
     });
   }
 }
