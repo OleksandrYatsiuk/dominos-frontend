@@ -1,28 +1,7 @@
-.row-form {
-  display: flex;
+.form {
   width: 100%;
-  flex: wrap;
-  label {
-    display: block;
+  max-width: 450px;
+  .field {
+    width: 100%;
   }
-}
-
-input {
-  width: 100%;
-  height: 34px;
-  outline: none;
-  margin-bottom: 2px;
-  border-radius: 8px;
-  padding-left: 5px;
-  border: 1px solid grey;
-
-  &.ng-pristine.ng-invalid.ng-touched {
-    border: 1px solid #aa4436;
-  }
-  &.ng-touched.ng-dirty.ng-invalid {
-    border: 1px solid #aa4436;
-  }
-}
-.error {
-  color: #aa4436;
 }

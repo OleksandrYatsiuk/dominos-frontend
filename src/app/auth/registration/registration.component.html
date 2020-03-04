@@ -1,10 +1,10 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-  <mat-form-field appearance="outline">
+<div class="form">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+
+  <mat-form-field appearance="outline" class="field">
     <mat-label>Enter Full Name</mat-label>
     <input matInput formControlName="fullName" />
-    <mat-hint>Hint</mat-hint>
   </mat-form-field>
-  -->
 
   <!-- <div class="row-form">
     <label>
@@ -89,4 +89,6 @@
     </label>
   </div>
 </form>
+</div>
+
 <p>Have account? Click <a routerLink="/">Login</a></p>
