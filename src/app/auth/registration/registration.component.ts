@@ -32,7 +32,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    console.log(this.registerForm.value);
+    console.log(this.registerForm);
   }
 
 
