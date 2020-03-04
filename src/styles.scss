@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
   font-family: Roboto Condensed, sans-serif;
@@ -10,4 +11,13 @@ body {
   margin: 0;
   padding: 0;
   background-color: rgb(240, 232, 232);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

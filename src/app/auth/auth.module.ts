@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const authRoutes: Routes = [
   {
@@ -27,8 +27,10 @@ const authRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(authRoutes)
+    RouterModule.forChild(authRoutes),
+    MatFormFieldModule,
   ],
+  providers: [],
   entryComponents: []
 
 })
