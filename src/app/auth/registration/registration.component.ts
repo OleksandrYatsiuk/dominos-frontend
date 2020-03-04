@@ -26,6 +26,11 @@ export class RegistrationComponent implements OnInit {
 
     });
   }
+
+  hasError(control: string, error: string): boolean {
+    return this.registerForm.controls[control].hasError(error);
+  }
+
   register() {
     console.log(this.registerForm.value);
   }
