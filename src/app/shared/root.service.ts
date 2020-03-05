@@ -37,6 +37,16 @@ export class RootService {
     });
   }
 
+  register(user): Observable<any> {
+    return this.http.post<any[]>(`${this.serverUrl}/user/registration`, {
+      fullName: user.fullName,
+      username: user.username,
+      email: user.email,
+      password: user.password,
+      confirmPassword: user.confirmPassword
+    });
+  }
+
   logout(): Observable<any> {
     return this.http.post(`${this.serverUrl}/user/logout`, null)
   }
