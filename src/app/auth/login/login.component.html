@@ -2,16 +2,14 @@
   <div class="modal-header">
     <h4 class="modal-title">Авторизація</h4>
   </div>
-  <div class="modal-body">
-
-    <mat-form-field appearance="outline" class="field">
+  <div class="modal-content">
+    <mat-form-field appearance="outline" class="field" ngbAutofocus>
       <mat-label>Enter Username</mat-label>
       <input matInput formControlName="username" />
       <mat-error *ngIf="hasError('username', 'required')">
         Username cannot be blank.
       </mat-error>
     </mat-form-field>
-
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Password</mat-label>
@@ -20,19 +18,17 @@
         Password cannot be blank.
       </mat-error>
     </mat-form-field>
-
   </div>
 
-  <div class="footer">
-
+  <div class="modal-footer">
     <div class="example-button-row">
       <button mat-raised-button (click)="close()">Cancel</button>
-      <button type="submit" mat-raised-button color="primary">Log In</button>
+      <button mat-raised-button color="primary">Log In</button>
     </div>
+    <p>
+      Have not account yet? Please,
+      <a routerLink="/auth/registration" (click)="close()">register</a>
+      your`s profile
+    </p>
   </div>
 </form>
-<p>
-  Have not account yet? Please,
-  <a routerLink="/auth/registration" (click)="close()">register</a>
-  your`s profile
-</p>

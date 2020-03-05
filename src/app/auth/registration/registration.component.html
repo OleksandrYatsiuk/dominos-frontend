@@ -1,6 +1,11 @@
 <div class="form">
   <form [formGroup]="registerForm" (ngSubmit)="register()">
-    <mat-form-field appearance="outline" class="field">
+    <mat-form-field
+      appearance="outline"
+      class="field"
+      ngbAutofocus
+      mat-form-field-should-float="false"
+    >
       <mat-label>Enter Full Name</mat-label>
       <input matInput formControlName="fullName" />
       <mat-error *ngIf="hasError('fullName', 'required')">
