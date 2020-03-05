@@ -3,10 +3,9 @@
     <a>
       <button (click)="createPizza()">Додати піцу</button>
     </a>
-
-    <a *ngIf="!token">
-      <button (click)="openAuthModal()">Авторизація</button>
-    </a>
+    <button mat-button *ngIf="!token" (click)="openAuthModal()">
+      Авторизація
+    </button>
 
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="token">
       Username
@@ -16,7 +15,7 @@
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item disabled>Change password</button>
-      <button mat-menu-item>Settings</button>
+      <button mat-menu-item routerLink="/user-settings">Settings</button>
       <button mat-menu-item (click)="logout()">Log Out</button>
     </mat-menu>
   </div>

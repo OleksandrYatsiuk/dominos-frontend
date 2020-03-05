@@ -9,9 +9,10 @@ import { RootService } from './shared/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './core/token.interceptor';
 import { ErrorInterseptor } from './core/error.interceptor';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UserSettingsComponent],
   imports: [
     AppRoutingModule,
     RouterModule,

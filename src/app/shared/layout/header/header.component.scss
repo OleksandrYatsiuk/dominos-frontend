@@ -148,6 +148,10 @@ a {
   mat-icon {
     color: black;
     margin-left: 5px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
   }
+}
+
+button:not(:disabled) {
+  color: black;
 }
