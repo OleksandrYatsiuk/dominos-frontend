@@ -3,7 +3,7 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
-  font-family: Roboto Condensed, sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   font-size: 15px;
   min-height: 800px;
   height: 100%;
@@ -12,15 +12,6 @@ body {
   padding: 0;
   background-color: rgb(240, 232, 232);
 }
-
-html,
-body {
-  height: 100%;
+.mat-form-field-flex{
+  height: 50px;
 }
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

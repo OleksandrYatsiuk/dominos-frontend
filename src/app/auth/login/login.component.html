@@ -3,51 +3,32 @@
     <h4 class="modal-title">Авторизація</h4>
   </div>
   <div class="modal-body">
-    <div class="row-form">
-      <label>
-        Enter Username
-        <input type="text" formControlName="username" placeholder="username" />
-        <div
-          class="error"
-          *ngIf="
-            authForm.controls.username.invalid &&
-            authForm.controls.username.dirty &&
-            !authForm.controls.password.untouched
-          "
-        >
-          Username is required
-        </div>
-      </label>
-    </div>
-    <div class="row-form">
-      <label>
-        Enter Password
-        <input
-          type="password"
-          formControlName="password"
-          autocomplete="current-password"
-          placeholder="password"
-        />
-        <div
-          class="error"
-          *ngIf="
-            authForm.controls.password.invalid &&
-            authForm.controls.password.dirty &&
-            !authForm.controls.password.untouched
-          "
-        >
-          Password is required
-        </div>
-      </label>
-    </div>
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Enter Username</mat-label>
+      <input matInput formControlName="username" />
+      <mat-error *ngIf="hasError('username', 'required')">
+        Username cannot be blank.
+      </mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Enter Password</mat-label>
+      <input matInput formControlName="password" />
+      <mat-error *ngIf="hasError('password', 'required')">
+        Password cannot be blank.
+      </mat-error>
+    </mat-form-field>
+
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-grey" (click)="close()">
-      Cancel
-    </button>
-    <button type="submit" class="btn btn-outline-confirm">
-      Log In
-    </button>
+
+  <div class="footer">
+
+    <div class="example-button-row">
+      <button mat-raised-button (click)="close()">Cancel</button>
+      <button type="submit" mat-raised-button color="primary">Log In</button>
+    </div>
   </div>
 </form>
 <p>

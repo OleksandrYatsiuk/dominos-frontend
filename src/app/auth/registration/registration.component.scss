@@ -1,7 +1,19 @@
 .form {
+  margin: auto;
   width: 100%;
   max-width: 450px;
   .field {
     width: 100%;
   }
+}
+.example-button-row {
+  text-align: center;
+  button {
+    min-width: 40%;
+  }
+}
+
+p{
+  text-align: center;
+  margin-top: 10px;
 }

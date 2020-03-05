@@ -43,5 +43,8 @@ export class LoginComponent implements OnInit {
       })
     }
   }
+  hasError(control: string, error: string): boolean {
+    return this.authForm.controls[control].hasError(error);
+  }
 
 }

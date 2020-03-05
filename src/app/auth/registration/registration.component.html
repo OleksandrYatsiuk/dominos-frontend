@@ -4,39 +4,50 @@
       <mat-label>Enter Full Name</mat-label>
       <input matInput formControlName="fullName" />
       <mat-error *ngIf="hasError('fullName', 'required')">
-        The field is required
+        Full Name cannot be blank.
       </mat-error>
       <mat-error *ngIf="hasError('fullName', 'maxlength')">
-        The fied should contain maximum 15 symbols
+        Full Name should contain at most 15 character(s)
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Username</mat-label>
       <input matInput formControlName="username" />
+      <mat-error *ngIf="hasError('username', 'required')">
+        Username cannot be blank.
+      </mat-error>
+      <mat-error *ngIf="hasError('username', 'maxlength')">
+        Full Name should contain at most 10 character(s)
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Email</mat-label>
       <input matInput formControlName="email" />
+      <mat-error *ngIf="hasError('email', 'required')">
+        Email cannot be blank.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Password</mat-label>
       <input matInput formControlName="password" />
+      <mat-error *ngIf="hasError('password', 'required')">
+        Password cannot be blank.
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Confirm Password</mat-label>
       <input matInput formControlName="confirmPassword" />
+      <mat-error *ngIf="hasError('confirmPassword', 'required')">
+        Confirm Password cannot be blank.
+      </mat-error>
     </mat-form-field>
 
-    <div class="row-form">
-      <label>
-        <button type="submit">
-          Register
-        </button>
-      </label>
+    <div class="example-button-row">
+      <button mat-raised-button color="primary">Register</button>
     </div>
   </form>
 </div>

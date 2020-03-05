@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { LoginComponent } from '../auth/login/login.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoginComponent } from '../auth/login/login.component';
     BasketCardItemComponent,
   ],
   imports: [
+
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -29,7 +31,7 @@ import { LoginComponent } from '../auth/login/login.component';
     NgbModule,
     RouterModule,
     SelectDropDownModule,
-
+    MatButtonModule
   ],
   exports: [
     NgbModule,
@@ -41,6 +43,7 @@ import { LoginComponent } from '../auth/login/login.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
+    MatButtonModule
   ],
   providers: [],
   entryComponents: [ModalContentComponent, LoginComponent]
