@@ -32,13 +32,13 @@ export class RootService {
 
   login(user): Observable<any> {
     return this.http.post<any[]>(`${this.serverUrl}/user/login`, {
-      email: user.username,
+      username: user.username,
       password: user.password
     });
   }
 
   register(user): Observable<any> {
-    return this.http.post<any[]>(`${this.serverUrl}/user/registration`, {
+    return this.http.post<any[]>(`${this.serverUrl}/user/register`, {
       fullName: user.fullName,
       username: user.username,
       email: user.email,
