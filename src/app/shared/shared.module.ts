@@ -12,6 +12,8 @@ import { BasketCardItemComponent } from './components/basket-card-item/basket-ca
 import { SelectDropDownModule } from 'ngx-select-dropdown'
 import { LoginComponent } from '../auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,6 @@ import { MatButtonModule } from '@angular/material/button';
     BasketCardItemComponent,
   ],
   imports: [
-
     FormsModule,
     CommonModule,
     ReactiveFormsModule,
@@ -31,7 +32,9 @@ import { MatButtonModule } from '@angular/material/button';
     NgbModule,
     RouterModule,
     SelectDropDownModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
   ],
   exports: [
     NgbModule,
@@ -43,7 +46,9 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   entryComponents: [ModalContentComponent, LoginComponent]

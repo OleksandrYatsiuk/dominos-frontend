@@ -3,12 +3,22 @@
     <a>
       <button (click)="createPizza()">Додати піцу</button>
     </a>
+
     <a *ngIf="!token">
       <button (click)="openAuthModal()">Авторизація</button>
     </a>
-    <a *ngIf="token">
-      <button (click)="logout()">[Log Out]</button>
-    </a>
+
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="token">
+      Username
+      <mat-icon aria-hidden="false" aria-label="Example home icon"
+        >face</mat-icon
+      >
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>Change password</button>
+      <button mat-menu-item>Settings</button>
+      <button mat-menu-item (click)="logout()">Log Out</button>
+    </mat-menu>
   </div>
   <div class="main-header">
     <a class="logo" routerLink="/"> Domino's Pizza </a>
