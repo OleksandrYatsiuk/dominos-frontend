@@ -37,7 +37,7 @@
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Password</mat-label>
-      <input matInput formControlName="password" />
+      <input matInput formControlName="password" type="password" />
       <mat-error *ngIf="hasError('password', 'required')">
         Password cannot be blank.
       </mat-error>
@@ -45,7 +45,11 @@
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Confirm Password</mat-label>
-      <input matInput formControlName="confirmPassword" />
+      <input
+        matInput
+        formControlName="confirmPassword"
+        type="confirm-password"
+      />
       <mat-error *ngIf="hasError('confirmPassword', 'required')">
         Confirm Password cannot be blank.
       </mat-error>
