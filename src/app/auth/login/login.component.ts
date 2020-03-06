@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../shared/root.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
     public modalService: NgbModal,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -30,7 +32,6 @@ export class LoginComponent implements OnInit {
 
   close() {
     this.activeModal.close('Close click');
-    this.rootService.updatePizzaList.next('created');
   }
   onSubmit() {
     if (this.authForm.valid) {
@@ -38,7 +39,10 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('auth', response['token'])
         if (localStorage.getItem('auth')) {
           this.activeModal.close('Close click');
-          document.location.reload(true);
+          this.router.navigate(['/']);
+          setTimeout(() => {
+            document.location.reload(true);            
+          }, 100);
         }
       })
     }

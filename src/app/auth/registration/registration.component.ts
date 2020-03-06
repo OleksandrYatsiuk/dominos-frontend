@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RootService } from 'src/app/shared/root.service';
+import { LoginComponent } from '../login/login.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-registration',
@@ -12,7 +14,8 @@ export class RegistrationComponent implements OnInit {
   registerForm: FormGroup;
   constructor(
     private rootService: RootService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit() {
@@ -35,7 +38,7 @@ export class RegistrationComponent implements OnInit {
       console.log(response);
     })
   }
-
-
-
+  openAuthModal() {
+    this.modalService.open(LoginComponent);
+  }
 }
