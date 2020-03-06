@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: '', loadChildren: () => import('./main/main.module').then(mod => mod.MainModule) },
   { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
-  { path: 'user-settings', component: UserSettingsComponent },
-  { path: 'change-password', component: ChangePasswordComponent },
+  // { path: 'user-settings', component: UserSettingsComponent },
+  // { path: 'change-password', component: ChangePasswordComponent },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 
 ];

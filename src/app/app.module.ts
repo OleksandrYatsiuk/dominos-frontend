@@ -9,17 +9,20 @@ import { RootService } from './shared/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './core/token.interceptor';
 import { ErrorInterseptor } from './core/error.interceptor';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
-import { ChangePasswordComponent } from './change-password/change-password.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [AppComponent, UserSettingsComponent, ChangePasswordComponent],
+  declarations: [AppComponent, ],
   imports: [
     AppRoutingModule,
     RouterModule,
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
+    MatButtonModule
+  ],
+  exports:[
+    SharedModule
   ],
   providers: [
     RootService, {
