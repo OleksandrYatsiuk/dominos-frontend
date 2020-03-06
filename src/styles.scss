@@ -15,3 +15,17 @@ body {
 .mat-form-field-flex {
   height: 50px;
 }
+.mat-menu-panel {
+  background-color: gray;
+  border-radius: 4px;
+  margin-top: 4px;
+  min-width: 150px !important;
+}
+
+button.mat-menu-item {
+  outline: none;
+  &:hover {
+    color: white!important;
+    font-weight: bold;
+  }
+}
