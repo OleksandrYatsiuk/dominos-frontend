@@ -36,12 +36,12 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     if (this.authForm.valid) {
       this.rootService.login(this.authForm.value).subscribe(response => {
-        localStorage.setItem('auth', response['token'])
+        localStorage.setItem('auth', response['result']['token'])
         if (localStorage.getItem('auth')) {
           this.activeModal.close('Close click');
           this.router.navigate(['/']);
           setTimeout(() => {
-            document.location.reload(true);            
+            document.location.reload(true);
           }, 100);
         }
       })

@@ -5,9 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material';
-import { ChangePasswordComponent } from '../change-password/change-password.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
 
 const authRoutes: Routes = [
@@ -16,7 +15,6 @@ const authRoutes: Routes = [
     component: AuthComponent,
     children: [
       { path: 'registration', component: RegistrationComponent },
-      { path: 'change-password', component: ChangePasswordComponent },
       { path: 'user-settings', component: UserSettingsComponent },
     ]
   }
@@ -28,8 +26,7 @@ const authRoutes: Routes = [
     AuthComponent,
     LoginComponent,
     RegistrationComponent,
-    UserSettingsComponent,
-    ChangePasswordComponent
+    UserSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +34,7 @@ const authRoutes: Routes = [
     RouterModule.forChild(authRoutes),
     MatFormFieldModule,
     MatInputModule,
- 
+
   ],
   providers: [],
   entryComponents: []
