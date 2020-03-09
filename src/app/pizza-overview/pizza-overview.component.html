@@ -1,0 +1,45 @@
+<p>{{ pizza | json }}</p>
+<form [formGroup]="pizzaForm" (ngSubmit)="onSubmit($event)">
+  <div class="board">
+    <div class="header">
+      <h3>Піца {{ pizza.name }}</h3>
+      <img src="{{ pizza.image }}" alt="{{ pizza.name }}" />
+    </div>
+    <div class="settings">
+      <mat-form-field appearance="outline" class="field">
+        <mat-label>Enter Category</mat-label>
+        <input matInput formControlName="category" />
+        <!-- <mat-error *ngIf="hasError('username', 'required')"> -->
+        <!-- Username cannot be blank. -->
+        <!-- </mat-error> -->
+      </mat-form-field>
+
+      <p>Ingredients:{{ pizza.ingredients }}</p>
+      <p>Price:{{ pizza.price.low }}</p>
+      <p>Weight:{{ pizza.weight.small }}</p>
+
+      <mat-form-field>
+        <mat-label>Toppings</mat-label>
+        <mat-select formControlName="ingredients" multiple>
+          <mat-select-trigger>
+            {{ pizza.ingredients.value ? pizza.ingredients.value[0] : "" }}
+            <span
+              *ngIf="pizzaForm.controls.ingredients.value?.length > 1"
+              class="example-additional-selection"
+              >{{ pizzaForm.controls.ingredients.value[0].name }} +
+              {{ pizzaForm.controls.ingredients.value.length }}
+              other(s)
+            </span>
+          </mat-select-trigger>
+          <mat-option
+            *ngFor="let ingredient of pizza.ingredients"
+            [value]="ingredient"
+          >
+            {{ ingredient.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button type="submit">Submit</button>
+    </div>
+  </div>
+</form>

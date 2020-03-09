@@ -50,4 +50,8 @@ export class RootService {
   logout(): Observable<any> {
     return this.http.post(`${this.serverUrl}/user/logout`, null)
   }
+
+  get(path): Observable<any> {
+    return this.http.get<any>(`${this.serverUrl}${path}`);
+  }
 }

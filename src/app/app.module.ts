@@ -12,7 +12,7 @@ import { ErrorInterseptor } from './core/error.interceptor';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent],
   imports: [
     AppRoutingModule,
     RouterModule,
@@ -21,7 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule,
     MatButtonModule
   ],
-  exports:[
+  exports: [
     SharedModule
   ],
   providers: [
