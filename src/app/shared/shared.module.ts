@@ -5,7 +5,6 @@ import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { PizzaItemComponent } from './components/pizza-item/pizza-item.component';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule } from '@angular/common/http';
-import { ModalContentComponent } from './components/modal-conponent/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
@@ -14,6 +13,9 @@ import { LoginComponent } from '../auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,6 @@ import { MatIconModule } from '@angular/material/icon';
     HeaderComponent,
     FooterComponent,
     PizzaFilterPipe,
-    ModalContentComponent,
     BasketCardItemComponent,
   ],
   imports: [
@@ -34,11 +35,13 @@ import { MatIconModule } from '@angular/material/icon';
     SelectDropDownModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
   ],
   exports: [
     NgbModule,
-    ModalContentComponent,
     PizzaItemComponent,
     BasketCardItemComponent,
     HeaderComponent,
@@ -51,7 +54,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatIconModule
   ],
   providers: [],
-  entryComponents: [ModalContentComponent, LoginComponent]
+  entryComponents: [LoginComponent]
 
 })
 export class SharedModule { }

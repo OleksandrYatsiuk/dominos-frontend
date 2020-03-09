@@ -23,8 +23,8 @@ export class RootService {
   createPizza(data: Pizza[]): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/pizza`, data);
   }
-  updatePhoto(file: FormData, id: string): Observable<any> {
-    return this.http.post<any>(`${this.serverUrl}/pizza/${id}`, file);
+  uploadPhoto(file: FormData): Observable<any> {
+    return this.http.post<any>(`${this.serverUrl}/upload`, file);
   }
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);

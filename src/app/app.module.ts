@@ -10,19 +10,29 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './core/token.interceptor';
 import { ErrorInterseptor } from './core/error.interceptor';
 import { MatButtonModule } from '@angular/material/button';
+import { PizzaComponent } from './pizza/pizza.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent, PizzaComponent,],
   imports: [
     AppRoutingModule,
     RouterModule,
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
+
   ],
-  exports:[
-    SharedModule
+  exports: [
+    SharedModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [
     RootService, {

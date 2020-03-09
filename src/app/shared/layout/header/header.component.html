@@ -1,12 +1,12 @@
 <div class="dp-header-desktop">
   <div class="fake-header">
-    <a>
-      <button (click)="createPizza()">Додати піцу</button>
+    <a [routerLink]="['/pizza']">
+      <button mat-button>Створити піцу</button>
     </a>
+
     <button mat-button *ngIf="!token" (click)="openAuthModal()">
       Авторизація
     </button>
-
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="token">
       Username
       <mat-icon aria-hidden="false" aria-label="Example home icon"
