@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalContentComponent } from '../../components/modal-conponent/modal.component';
 import { BasketService } from '../basket.service';
 import { LoginComponent } from 'src/app/auth/login/login.component';
 import { RootService } from '../../root.service';
@@ -30,9 +29,6 @@ export class HeaderComponent implements OnInit {
 
   openAuthModal() {
     this.modalService.open(LoginComponent);
-  }
-  createPizza() {
-    this.modalService.open(ModalContentComponent);
   }
   logout() {
     this.rootService.logout().subscribe(req => {

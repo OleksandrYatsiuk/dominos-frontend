@@ -29,7 +29,9 @@
         </div>
       </div>
       <div class="product-row">
-        <a href="/" class="product_name">Піца {{ item.name }}</a>
+        <a [routerLink]="['/products/pizza/', item.id]" class="product_name"
+          >Піца {{ item.name }}</a
+        >
       </div>
       <div class="product-row">
         <div class="product_ingredients">

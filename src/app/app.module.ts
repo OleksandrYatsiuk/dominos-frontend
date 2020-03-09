@@ -10,6 +10,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './core/token.interceptor';
 import { ErrorInterseptor } from './core/error.interceptor';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,10 +22,15 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule
   ],
   exports: [
-    SharedModule
+    SharedModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [
     RootService, {

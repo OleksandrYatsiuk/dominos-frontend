@@ -1,4 +1,4 @@
-import { RootService } from '../shared/root.service';
+import { RootService } from '../../../shared/root.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
