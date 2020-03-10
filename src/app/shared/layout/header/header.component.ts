@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BasketService } from '../basket.service';
 import { LoginComponent } from 'src/app/auth/login/login.component';
-import { RootService } from '../../root.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   public amount: number;
   public token = localStorage.getItem('auth');
 
-  constructor(private modalService: NgbModal, private basket: BasketService, private rootService: RootService) {
+  constructor(private modalService: NgbModal, private basket: BasketService, private http: AuthService) {
   }
 
   ngOnInit() {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
     this.modalService.open(LoginComponent);
   }
   logout() {
-    this.rootService.logout().subscribe(req => {
+    this.http.logout().subscribe(req => {
       if (!req) {
         localStorage.removeItem('auth');
         document.location.reload(true);

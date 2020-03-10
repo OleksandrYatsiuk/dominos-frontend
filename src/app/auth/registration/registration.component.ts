@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { RootService } from 'src/app/shared/root.service';
 import { LoginComponent } from '../login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +14,7 @@ export class RegistrationComponent implements OnInit {
 
   registerForm: FormGroup;
   constructor(
-    private rootService: RootService,
+    private http: AuthService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
   ) { }
@@ -34,7 +35,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
-    this.rootService.register(this.registerForm.value).subscribe(response => {
+    this.http.register(this.registerForm.value).subscribe(response => {
       console.log(response);
     })
   }

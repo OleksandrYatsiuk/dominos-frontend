@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { RootService } from '../../shared/root.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
   authForm: FormGroup;
 
   constructor(
-    private rootService: RootService,
+    private http: AuthService,
     public modalService: NgbModal,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
@@ -35,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
   onSubmit() {
     if (this.authForm.valid) {
-      this.rootService.login(this.authForm.value).subscribe(response => {
+      this.http.login(this.authForm.value).subscribe(response => {
         localStorage.setItem('auth', response['result']['token'])
         if (localStorage.getItem('auth')) {
           this.activeModal.close('Close click');

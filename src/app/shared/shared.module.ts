@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { PizzaItemComponent } from './components/pizza-item/pizza-item.component';
 import { HeaderComponent, FooterComponent } from './layout';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
+import { DeliveryGuard } from '../core/guards/delivery.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    
   ],
   exports: [
     NgbModule,
@@ -53,7 +55,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatMenuModule,
     MatIconModule
   ],
-  providers: [],
+  providers: [DeliveryGuard],
   entryComponents: [LoginComponent]
 
 })

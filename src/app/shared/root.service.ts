@@ -5,7 +5,7 @@ import { PizzaList, Pizza } from './models/pizza.interface';
 import { environment } from 'src/environments/environment';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 
 export class RootService {
   updatePizzaList = new BehaviorSubject(null);
@@ -30,28 +30,13 @@ export class RootService {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
 
-  login(user): Observable<any> {
-    return this.http.post<any[]>(`${this.serverUrl}/user/login`, {
-      username: user.username,
-      password: user.password
-    });
-  }
-
-  register(user): Observable<any> {
-    return this.http.post<any[]>(`${this.serverUrl}/user/register`, {
-      fullName: user.fullName,
-      username: user.username,
-      email: user.email,
-      password: user.password,
-      confirmPassword: user.confirmPassword
-    });
-  }
-
-  logout(): Observable<any> {
-    return this.http.post(`${this.serverUrl}/user/logout`, null)
+  
+  post(path, body): Observable<any> {
+    return this.http.post(`${this.serverUrl}${path}`, body);
   }
 
   get(path): Observable<any> {
     return this.http.get<any>(`${this.serverUrl}${path}`);
   }
+
 }

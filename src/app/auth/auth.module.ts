@@ -8,17 +8,7 @@ import { AuthComponent } from './auth.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { UserSettingsComponent } from '../user-settings/user-settings.component';
-
-const authRoutes: Routes = [
-  {
-    path: '',
-    component: AuthComponent,
-    children: [
-      { path: 'registration', component: RegistrationComponent },
-      { path: 'user-settings', component: UserSettingsComponent },
-    ]
-  }
-];
+import { AuthRoutingModule } from './auth-routing.module';
 
 @NgModule({
 
@@ -26,18 +16,17 @@ const authRoutes: Routes = [
     AuthComponent,
     LoginComponent,
     RegistrationComponent,
-    UserSettingsComponent
+    UserSettingsComponent,
   ],
   imports: [
     CommonModule,
+    AuthRoutingModule,
     SharedModule,
-    RouterModule.forChild(authRoutes),
     MatFormFieldModule,
     MatInputModule,
-
   ],
   providers: [],
+  exports: [],
   entryComponents: []
-
 })
 export class AuthModule { }

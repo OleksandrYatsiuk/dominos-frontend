@@ -16,7 +16,6 @@ import { PizzaOverviewResolver } from './pizza/pizza-overview/pizza-overview.res
     PizzaComponent,
     PizzaCreateComponent,
     PizzaOverviewComponent,
-
   ],
   imports: [
     CommonModule,
