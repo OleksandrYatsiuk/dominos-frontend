@@ -14,7 +14,7 @@
   </div>
 </div>
 <div class="product_profile">
-  <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit($event)">
     <div class="product_name">
       <mat-form-field appearance="outline" class="field">
         <mat-label>Enter Pizza Name</mat-label>

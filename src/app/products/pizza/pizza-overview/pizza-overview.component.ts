@@ -17,6 +17,8 @@ export class PizzaOverviewComponent implements OnInit {
   categories = [{ value: "Краща Ціна" }, { value: "Класичні" }, { value: "Фірмові" }]
   ingredients;
   url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
+  selectedFile: any;
+  imagePath: any;
 
   constructor(private route: ActivatedRoute,
     private rootService: RootService,
@@ -54,11 +56,25 @@ export class PizzaOverviewComponent implements OnInit {
     });
   }
 
-
+  onFileSelected(event): void {
+    this.selectedFile = event.target.files[0];
+    if (event.target.files && event.target.files[0]) {
+      const reader = new FileReader();
+      this.imagePath = event.target.files;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = () => {
+        this.url = reader.result;
+      };
+    }
+  }
 
   onSubmit(event) {
     console.log(event);
     console.log(this.pizzaForm);
+  }
+
+  upload(){
+    console.log(this.url);
   }
 }
 
