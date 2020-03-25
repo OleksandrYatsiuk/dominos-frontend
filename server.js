@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/dist/dominos-app'));
 
 // Send all requests to index.html
 app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
+    res.sendFile(path.join(__dirname + '/dist/dominos-app/index.html'));
 });
 console.log(path.join(__dirname))
 
