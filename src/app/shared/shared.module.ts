@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
-import { PizzaItemComponent } from './components/pizza-item/pizza-item.component';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -20,7 +19,6 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
 
 @NgModule({
   declarations: [
-    PizzaItemComponent,
     HeaderComponent,
     FooterComponent,
     PizzaFilterPipe,
@@ -44,7 +42,6 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
   ],
   exports: [
     NgbModule,
-    PizzaItemComponent,
     BasketCardItemComponent,
     HeaderComponent,
     FooterComponent,
@@ -53,7 +50,7 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
     RouterModule,
     MatButtonModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
   ],
   providers: [DeliveryGuard],
   entryComponents: [LoginComponent]

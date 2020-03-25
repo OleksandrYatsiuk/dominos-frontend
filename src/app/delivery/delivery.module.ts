@@ -8,15 +8,15 @@ import { CarryoutComponent } from './carryout/carryout.component';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    DeliveryRoutingModule
-  ],
   declarations: [
     DeliveryComponent,
     ShippingFormComponent,
     CarryoutComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedModule,
+    DeliveryRoutingModule
   ]
 })
 export class DeliveryModule { }

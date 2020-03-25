@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RootService } from '../shared/root.service';
+import { RootService } from '../core/services/root.service';
 import { Router } from '@angular/router';
-import { BasketService } from '../shared/layout/basket.service';
+import { BasketService } from '../core/services/basket.service';
 
 @Component({
   selector: 'app-delivery',

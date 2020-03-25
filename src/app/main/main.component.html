@@ -1,4 +1,4 @@
-<!-- <div class="slider">
+<div class="slider">
   <ngb-carousel
     #carousel
     interval="5000"
@@ -16,5 +16,11 @@
       </div>
     </ng-template>
   </ngb-carousel>
-</div> -->
-<app-content></app-content>
+</div>
+<div class="pizza-list">
+  <div class="product-block">
+    <div *ngFor="let pizza of all" class="child">
+      <app-pizza-item [item]="pizza"></app-pizza-item>
+    </div>
+  </div>
+</div>

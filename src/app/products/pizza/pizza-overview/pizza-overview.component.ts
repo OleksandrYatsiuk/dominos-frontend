@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { RootService } from '../../../shared/root.service';
+import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { BasketService } from '../basket.service';
+import { BasketService } from '../../../core/services/basket.service';
 import { LoginComponent } from 'src/app/auth/login/login.component';
 import { AuthService } from 'src/app/auth/auth.service';
 

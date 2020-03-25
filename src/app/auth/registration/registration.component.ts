@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { RootService } from 'src/app/shared/root.service';
+import { RootService } from 'src/app/core/services/root.service';
 import { LoginComponent } from '../login/login.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth.service';

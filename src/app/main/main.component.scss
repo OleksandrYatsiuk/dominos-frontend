@@ -24,3 +24,25 @@
     font-weight: 700;
   }
 }
+.pizza-list {
+  margin-top: 20px;
+}
+.title {
+  width: 100%;
+  text-align: center;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 700;
+  }
+}
+
+.product-block {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+}
+
+.child {
+  flex: inherit;
+} 

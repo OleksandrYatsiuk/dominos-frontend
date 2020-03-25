@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { BasketService } from '../../layout/basket.service';
+import { BasketService } from '../../../core/services/basket.service';
 
 @Component({
   selector: 'app-basket-card-item',

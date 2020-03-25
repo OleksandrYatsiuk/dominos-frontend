@@ -5,14 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RootService } from './shared/root.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ParamInterceptor } from './core/token.interceptor';
-import { ErrorInterseptor } from './core/error.interceptor';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material';
+import { CoreModule } from './core/core.module';
+import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,28 +18,19 @@ import { MatInputModule } from '@angular/material';
     AppRoutingModule,
     RouterModule,
     CommonModule,
+    MainModule,
     SharedModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    CoreModule
   ],
   exports: [
     SharedModule,
     MatFormFieldModule,
     MatSelectModule,
-  ],
-  providers: [
-    RootService, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ParamInterceptor,
-      multi: true
-    }, {
-      provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterseptor,
-      multi: true
-    }
   ],
   bootstrap: [AppComponent],
 })

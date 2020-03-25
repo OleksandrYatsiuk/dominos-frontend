@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { PizzaList, Pizza } from './models/pizza.interface';
+import { PizzaList, Pizza } from '../models/pizza.interface';
 import { environment } from 'src/environments/environment';
 
 

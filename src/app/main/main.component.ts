@@ -4,6 +4,7 @@ import {
   NgbSlideEventSource,
   NgbSlideEvent
 } from '@ng-bootstrap/ng-bootstrap';
+import { RootService } from '../core/services/root.service';
 
 @Component({
   selector: 'app-main',
@@ -38,7 +39,11 @@ export class MainComponent implements OnInit {
   pauseOnHover = true;
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
+  all: any;
+  categories: { category: string; items: any; }[];
 
+
+  
   togglePaused() {
     if (this.paused) {
       this.carousel.cycle();
@@ -65,9 +70,30 @@ export class MainComponent implements OnInit {
       this.togglePaused();
     }
   }
-  constructor() { }
+  constructor(private rootService:RootService) { }
 
   ngOnInit() {
+    this.getPizzaList();
   }
-
+  getPizzaList() {
+    this.rootService.fetchItems().subscribe(res => {
+      const response = res['result'];
+      this.categories = [
+        {
+          category: "Краща Ціна",
+          items: response.filter(el => el.category === "Краща Ціна")
+        },
+        {
+          category: "Класичні",
+          items: response.filter(el => el.category === "Класичні")
+        },
+        {
+          category: "Фірмові",
+          items: response.filter(el => el.category === "Фірмові")
+        },
+      ];
+      this.all = response;
+      console.log(this.all);
+    });
+  }
 }

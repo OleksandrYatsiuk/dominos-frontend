@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RootService } from '../../../shared/root.service';
+import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Ingredients } from '../../../shared/models/pizza.interface';
+import { Ingredients } from '../../../core/models/pizza.interface';
 
 @Component({
   selector: 'app-pizza-create',
