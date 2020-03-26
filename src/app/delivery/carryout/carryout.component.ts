@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material';
+import { MapComponent } from 'src/app/shared/components/map/map.component';
+
 
 @Component({
   selector: 'app-carryout',
@@ -8,7 +11,7 @@ import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 })
 export class CarryoutComponent implements OnInit {
   carryOut: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.carryOut = this.formBuilder.group({
@@ -31,8 +34,11 @@ export class CarryoutComponent implements OnInit {
     })
   }
 
+  openMap() {
+    this.dialog.open(MapComponent);
+  }
 
   onSubmit() {
     console.log('submit');
-  }
+  } 
 }

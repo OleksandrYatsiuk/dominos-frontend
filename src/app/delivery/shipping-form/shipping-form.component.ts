@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
@@ -42,23 +42,12 @@ export class ShippingFormComponent {
 
   }
 
-  validateAllFormFields(formDelivery: FormGroup) {
-    Object.keys(formDelivery.controls).forEach(field => {
-      const control = formDelivery.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
-      }
-    });
-  }
 
   onSubmit() {
     if (this.formDelivery.valid) {
       console.log('form submitted');
-    } else {
-      this.validateAllFormFields(this.formDelivery);
     }
   }
 
+ 
 }

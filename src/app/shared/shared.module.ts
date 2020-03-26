@@ -16,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { DeliveryGuard } from '../core/guards/delivery.guard';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
     FooterComponent,
     PizzaFilterPipe,
     BasketCardItemComponent,
+    MapComponent,
   ],
   imports: [
     FormsModule,
@@ -38,7 +40,7 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    
+
   ],
   exports: [
     NgbModule,
@@ -51,6 +53,7 @@ import { DeliveryGuard } from '../core/guards/delivery.guard';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MapComponent
   ],
   providers: [DeliveryGuard],
   entryComponents: [LoginComponent]
