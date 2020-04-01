@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { pluck } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class PizzaOverviewComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private rootService: RootService,
     private formBuilder: FormBuilder,
+    private title: Title
   ) {
 
     this.pizza = this.route.snapshot.data.pizza;
@@ -31,7 +33,7 @@ export class PizzaOverviewComponent implements OnInit {
 
 
   ngOnInit() {
-
+    this.title.setTitle(`Піца - ${this.pizza.name}`)
 
     this.pizzaForm = this.formBuilder.group({
       name: [this.pizza.name, [Validators.required, Validators.maxLength(15)]],
@@ -73,7 +75,7 @@ export class PizzaOverviewComponent implements OnInit {
     console.log(this.pizzaForm);
   }
 
-  upload(){
+  upload() {
     console.log(this.url);
   }
 }

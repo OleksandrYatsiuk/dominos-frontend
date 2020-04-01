@@ -5,6 +5,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './interceptors/token.interceptor';
 import { ErrorInterseptor } from './interceptors/error.interceptor';
 import { BasketService } from './services/basket.service';
+import { UserService } from './services/user.service';
+import { GeolocationService } from './services/geolocation.service';
 
 
 
@@ -13,7 +15,9 @@ import { BasketService } from './services/basket.service';
   imports: [CommonModule],
   providers: [
     BasketService,
+    UserService,
     RootService,
+    GeolocationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,
