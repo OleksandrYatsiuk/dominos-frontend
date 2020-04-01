@@ -1,1 +1,56 @@
-<p>map works!</p>
+<h1>Choose any Domino`s shop</h1>
+<div class="directions">
+    <div class="travelMode">
+        <label>
+            <input type="radio" class="active" (click)="setDrive()" name="travelMode" checked [disabled]="!data">
+            <div>DRIVING</div>
+        </label>
+        <label>
+            <input type="radio" (click)="setWalking()" name="travelMode" [disabled]="!data">
+            <div>WALKING</div>
+        </label>
+
+    </div>
+    <div class="directions_options">
+        <mat-form-field appearance="outline">
+            <mat-label>From</mat-label>
+            <input matInput [value]="currentAddress" />
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>To</mat-label>
+            <input matInput value="{{data?.address}}" />
+        </mat-form-field>
+    </div>
+    <div class="directions_info">
+        <h3 *ngIf="distance">Distance: {{(distance/1000).toFixed(1)}} km</h3>
+        <h3 *ngIf="duration">Time: {{(duration/60).toFixed(1)}} min</h3>
+    </div>
+</div>
+
+
+
+<agm-map [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [zoom]="13" [disableDefaultUI]="false"
+    [zoomControl]="false" (mapReady)="mapReady($event)">
+
+    <agm-marker-cluster
+        imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+        <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
+            [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable"
+            [iconUrl]="{ url: defaultImage, scaledSize: { width: 30, height: 30, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
+            [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: marker.label}">
+        </agm-marker>
+    </agm-marker-cluster>
+
+    <agm-direction [origin]="origin" [destination]="destination" *ngIf="destination" [travelMode]="travelMode"
+        [markerOptions]="markerOptions" [renderOptions]="renderOptions" (originDrag)="change($event)">
+    </agm-direction>
+
+    <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label]="'You'"
+        [markerDraggable]="true" (dragEnd)="dragEnd($event)" [iconUrl]="{ url: 'http://maps.google.com/mapfiles/kml/shapes/man.png', 
+        scaledSize: { width: 50, height: 50, anchor : {x:19, y:19} }, labelOrigin:{x:25,y:60}}">
+    </agm-marker>
+</agm-map>
+
+<input matInput>
+<button mat-button (click)="onNoClick()">Close</button>
+<button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>

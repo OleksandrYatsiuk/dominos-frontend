@@ -19,4 +19,12 @@ export class AuthService {
   public logout(): Observable<null> {
     return this.http.post(`/user/logout`, null)
   }
+
+  public current(): Observable<null> {
+    return this.http.get(`/user/current`)
+  }
+
+  public updateLocation(location: object): Observable<null> {
+    return this.http.post(`/user/location`, location)
+  }
 }
