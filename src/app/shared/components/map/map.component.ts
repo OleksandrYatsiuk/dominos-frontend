@@ -130,6 +130,7 @@ export class MapComponent implements OnInit {
 
   public clickedMarker(marker: marker): void {
     this.createDirection({ lat: marker.lat, lng: marker.lng });
+    document.querySelectorAll('input[type="radio"]')[0]['checked'] = true;
     this.calculateDistance(marker)
     this.data = marker
   }

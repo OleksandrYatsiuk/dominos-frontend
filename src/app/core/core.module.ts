@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RootService } from './services/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor } from './interceptors/token.interceptor';
-import { ErrorInterseptor } from './interceptors/error.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { BasketService } from './services/basket.service';
 import { UserService } from './services/user.service';
 import { GeolocationService } from './services/geolocation.service';
+import { ErrorHeadlerService } from './services/errorHeadler.service';
 
 
 
@@ -18,13 +19,14 @@ import { GeolocationService } from './services/geolocation.service';
     UserService,
     RootService,
     GeolocationService,
+    ErrorHeadlerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,
       multi: true
     }, {
       provide: HTTP_INTERCEPTORS,
-      useClass: ErrorInterseptor,
+      useClass: ErrorInterceptor,
       multi: true
     }
   ],

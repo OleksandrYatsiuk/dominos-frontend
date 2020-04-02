@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { RootService } from '../core/services/root.service';
+import { ErrorHeadlerService } from '../core/services/errorHeadler.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -10,7 +12,9 @@ import { Title } from '@angular/platform-browser';
 export class UserSettingsComponent implements OnInit {
 
   constructor(
-    private title:Title,
+    private http: RootService,
+    private headler: ErrorHeadlerService,
+    private title: Title,
     private formBuilder: FormBuilder) { }
   updateProfileForm: FormGroup;
   changePasswordForm: FormGroup;
@@ -37,10 +41,23 @@ export class UserSettingsComponent implements OnInit {
   }
 
   changePassword() {
-    console.log(this.changePasswordForm.value);
+    if (this.changePasswordForm.valid) {
+      console.log(this.changePasswordForm.controls);
+
+      this.http.changePassword(this.changePasswordForm.value).subscribe(({ code }) => {
+        if (code === 200) {
+          console.log("Password change success!")
+        }
+
+        console.log(this.changePasswordForm.controls);
+
+      }, (err) => {
+        this.headler.errorMessage
+        this.changePasswordForm.controls['currentPassword'].setErrors({ serverError: 'message' });
+      })
+    }
 
   }
-
   hasError(control: string, error: string): boolean {
     return this.updateProfileForm.controls[control].hasError(error);
   }
