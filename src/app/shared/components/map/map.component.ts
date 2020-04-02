@@ -34,7 +34,7 @@ export class MapComponent implements OnInit {
     origin: {
       draggable: true,
       opacity: 0,
-      scaledSize: { width: 10, height: 10}
+      scaledSize: { width: 10, height: 10 }
     },
     destination: {
       label: 'marker label',
@@ -73,6 +73,10 @@ export class MapComponent implements OnInit {
     this.getAddress(event.coords)
     this.origin = event.coords;
     this.currentPosition = event.coords;
+    this.travelMode = google.maps.TravelMode.DRIVING;
+    document.querySelectorAll('input[type="radio"]')[0]['checked'] = true;
+    console.log(this.travelMode);
+    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING)
   }
 
   private getAddress(coords) {
