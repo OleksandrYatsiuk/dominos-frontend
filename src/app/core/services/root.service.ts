@@ -26,6 +26,10 @@ export class RootService {
   uploadPhoto(file: FormData): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/upload`, file);
   }
+
+  changePassword(data): Observable<any> {
+    return this.http.post<any>(`${this.serverUrl}/user/change-password`, data);
+  }
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
