@@ -4,14 +4,13 @@
       <button mat-button>Створити піцу</button>
     </a>
 
-    <button mat-button *ngIf="!token" (click)="openAuthModal()">
+    <button mat-button (click)="openAuthModal()" *ngIf="!currentUser">
       Авторизація
     </button>
-    <button mat-button [matMenuTriggerFor]="menu" *ngIf="token">
-      Username
-      <mat-icon aria-hidden="false" aria-label="Example home icon"
-        >face</mat-icon
-      >
+    <button mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser">
+      <span>{{ currentUser?.username }}</span>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">
+        face</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="auth/user-settings">

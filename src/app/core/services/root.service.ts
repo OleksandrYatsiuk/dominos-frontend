@@ -29,6 +29,9 @@ export class RootService {
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
+  getShops(): Observable<any> {
+    return this.http.get<any[]>(`${this.serverUrl}/shops`);
+  }
 
   
   post(path, body): Observable<any> {
@@ -38,5 +41,6 @@ export class RootService {
   get(path): Observable<any> {
     return this.http.get<any>(`${this.serverUrl}${path}`);
   }
+  
 
 }

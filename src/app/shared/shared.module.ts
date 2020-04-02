@@ -17,6 +17,11 @@ import { MatInputModule } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { DeliveryGuard } from '../core/guards/delivery.guard';
 import { MapComponent } from './components/map/map.component';
+import { AgmCoreModule } from '@agm/core';
+import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
+import { MaterialModule } from './material.module';
+import { AgmDirectionModule } from 'agm-direction';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,14 @@ import { MapComponent } from './components/map/map.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    AgmJsMarkerClustererModule,
+    MaterialModule,
+    AgmDirectionModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleApiKey,
+      libraries: ['geometry', 'places'],
+      language: 'uk'
+    })
 
   ],
   exports: [
@@ -53,10 +66,12 @@ import { MapComponent } from './components/map/map.component';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MapComponent
+    MapComponent,
+    AgmCoreModule
   ],
   providers: [DeliveryGuard],
   entryComponents: [LoginComponent]
+
 
 })
 export class SharedModule { }

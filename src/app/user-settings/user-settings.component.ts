@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-user-settings',
@@ -8,12 +9,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UserSettingsComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private title:Title,
+    private formBuilder: FormBuilder) { }
   updateProfileForm: FormGroup;
   changePasswordForm: FormGroup;
 
 
   ngOnInit() {
+    this.title.setTitle('User Settings')
     this.updateProfileForm = this.formBuilder.group({
       fullName: ['', [Validators.required]],
       username: ['', [Validators.required, Validators.maxLength(15)]],

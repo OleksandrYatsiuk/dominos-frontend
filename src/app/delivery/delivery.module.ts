@@ -7,6 +7,7 @@ import { DeliveryRoutingModule } from './delivery-routing.module';
 import { CarryoutComponent } from './carryout/carryout.component';
 import { MaterialModule } from '../shared/material.module';
 import { MapComponent } from '../shared/components/map/map.component';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 
 @NgModule({
@@ -20,9 +21,12 @@ import { MapComponent } from '../shared/components/map/map.component';
     SharedModule,
     DeliveryRoutingModule,
     MaterialModule
-  ],
+    ],
   entryComponents: [
     MapComponent
+  ],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
   ]
 })
 export class DeliveryModule { }
