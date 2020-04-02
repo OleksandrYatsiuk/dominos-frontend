@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { RootService } from '../core/services/root.service';
 
 @Component({
   selector: 'app-user-settings',
@@ -10,7 +11,8 @@ import { Title } from '@angular/platform-browser';
 export class UserSettingsComponent implements OnInit {
 
   constructor(
-    private title:Title,
+    private http: RootService,
+    private title: Title,
     private formBuilder: FormBuilder) { }
   updateProfileForm: FormGroup;
   changePasswordForm: FormGroup;
@@ -37,7 +39,11 @@ export class UserSettingsComponent implements OnInit {
   }
 
   changePassword() {
-    console.log(this.changePasswordForm.value);
+    if (this.changePasswordForm.valid) {
+      this.http.changePassword(this.changePasswordForm.value).subscribe(({ code }) => {
+        code === 200 ? console.log("Password change success!") : console.warn("Pasword was now changed!");
+      })
+    }
 
   }
 
