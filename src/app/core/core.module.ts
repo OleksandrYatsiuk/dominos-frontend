@@ -19,7 +19,7 @@ import { ErrorHeadlerService } from './services/errorHeadler.service';
     UserService,
     RootService,
     GeolocationService,
-    ErrorHeadlerService,
+    // ErrorHeadlerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,

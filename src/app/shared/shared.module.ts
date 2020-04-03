@@ -22,6 +22,7 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { MaterialModule } from './material.module';
 import { AgmDirectionModule } from 'agm-direction';
 import { environment } from 'src/environments/environment';
+import { AppErrorComponent } from './components/app-error/app-error.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { environment } from 'src/environments/environment';
     PizzaFilterPipe,
     BasketCardItemComponent,
     MapComponent,
+    AppErrorComponent
   ],
   imports: [
     FormsModule,
@@ -67,7 +69,8 @@ import { environment } from 'src/environments/environment';
     MatMenuModule,
     MatIconModule,
     MapComponent,
-    AgmCoreModule
+    AgmCoreModule,
+    AppErrorComponent
   ],
   providers: [DeliveryGuard],
   entryComponents: [LoginComponent]

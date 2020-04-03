@@ -8,7 +8,7 @@
           <mat-label>Enter Current Password</mat-label>
           <input matInput formControlName="currentPassword" type="password" />
           <mat-error *ngIf="changePasswordForm.get('currentPassword').errors?.serverError">
-            Current Password cannot be blank.
+            {{changePasswordForm.get('currentPassword').errors?.serverError}}
           </mat-error>
         </mat-form-field>
 

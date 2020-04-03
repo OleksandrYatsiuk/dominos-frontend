@@ -48,12 +48,10 @@ export class UserSettingsComponent implements OnInit {
         if (code === 200) {
           console.log("Password change success!")
         }
-
-        console.log(this.changePasswordForm.controls);
-
-      }, (err) => {
-        this.headler.errorMessage
-        this.changePasswordForm.controls['currentPassword'].setErrors({ serverError: 'message' });
+      }, ({code, result}) => {
+        this.headler.errorMessage.subscribe(data => {
+        this.changePasswordForm.controls['currentPassword'].setErrors({ serverError: data[0].message });
+        })
       })
     }
 
