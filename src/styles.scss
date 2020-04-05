@@ -6,6 +6,7 @@ html,
 body {
   height: 100%;
 }
+
 app-root {
   display: flex;
   flex-direction: column;
@@ -27,7 +28,21 @@ body {
     width: 100%;
   }
 }
-
+.mat-button-wrapper {
+  .mat-spinner {
+    margin: auto;
+    text-align: center;
+    height: 100% !important;
+    position: fixed;
+    svg {
+      height: 100% !important;
+    }
+  }
+}
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: white;
+}
 .mat-menu-panel {
   background-color: gray;
   border-radius: 4px;
@@ -41,4 +56,23 @@ button.mat-menu-item {
     color: white !important;
     font-weight: bold;
   }
+}
+
+mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin-bottom: 1em;
+}
+.mat-raised-button.mat-primary {
+  outline: none;
+}
+snack-bar-container.mat-snack-bar-container {
+  min-width: 500px;
+  background-color: snow;
+  &:hover {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  }
+}
+
+app-notification {
+  display: flex;
+  margin: 10px;
 }

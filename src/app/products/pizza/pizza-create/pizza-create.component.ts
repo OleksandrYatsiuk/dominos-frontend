@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Ingredients } from '../../../core/models/pizza.interface';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-pizza-create',
@@ -15,11 +16,14 @@ export class PizzaCreateComponent implements OnInit {
   imagePath: File = null;
   url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
 
+  public spinCreatePizza = false;
+  public spinUpload = false;
   categories = [{ value: "Краща Ціна" }, { value: "Класичні" }, { value: "Фірмові" }]
   formCreatingPizza: FormGroup;
   constructor(
     private rootService: RootService,
     private formBuilder: FormBuilder,
+    private notification: NotificationService
   ) { }
 
   ngOnInit() {
@@ -63,8 +67,11 @@ export class PizzaCreateComponent implements OnInit {
     if (this.selectedFile !== null) {
       let fd = new FormData();
       fd.append('file', this.selectedFile, this.selectedFile.name);
+      this.spinUpload = !this.spinUpload;
       this.rootService.uploadPhoto(fd).subscribe(result => {
         this.formCreatingPizza.controls.image.setValue(result.fileLink);
+        this.spinUpload = !this.spinUpload;
+        this.notification.open({ data: "Image has been successfully uploaded!" })
       }
       )
     }
@@ -72,10 +79,17 @@ export class PizzaCreateComponent implements OnInit {
 
   onSubmit() {
     if (this.formCreatingPizza.valid) {
-      return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(response => {
-        console.log(response);
-      });
+      this.spinCreatePizza = !this.spinCreatePizza;
+      return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(({ code, result }) => {
+        if (code === 201) {
+          this.spinCreatePizza = !this.spinCreatePizza;
+          this.notification.open({ data: `Pizza "${result.name}" has been successfully created!` })
+        }
+      },
+        (error) => {
+          console.log(error);
+          this.spinCreatePizza = !this.spinCreatePizza;
+        });
     }
   }
-
 }

@@ -8,38 +8,40 @@
     >
       <mat-label>Enter Full Name</mat-label>
       <input matInput formControlName="fullName" />
-      <mat-error *ngIf="hasError('fullName', 'required')">
-        Full Name cannot be blank.
-      </mat-error>
-      <mat-error *ngIf="hasError('fullName', 'maxlength')">
-        Full Name should contain at most 15 character(s)
+      <mat-error *ngFor="let validation of validations?.fullName">
+        <mat-error *ngIf="fullName.hasError(validation.type) && fullName.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Username</mat-label>
       <input matInput formControlName="username" />
-      <mat-error *ngIf="hasError('username', 'required')">
-        Username cannot be blank.
-      </mat-error>
-      <mat-error *ngIf="hasError('username', 'maxlength')">
-        Full Name should contain at most 10 character(s)
+      <mat-error *ngFor="let validation of validations?.username">
+        <mat-error *ngIf="username.hasError(validation.type) && username.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Email</mat-label>
       <input matInput formControlName="email" />
-      <mat-error *ngIf="hasError('email', 'required')">
-        Email cannot be blank.
+      <mat-error *ngFor="let validation of validations?.email">
+        <mat-error *ngIf="email.hasError(validation.type) && email.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Password</mat-label>
       <input matInput formControlName="password" type="password" />
-      <mat-error *ngIf="hasError('password', 'required')">
-        Password cannot be blank.
+      <mat-error *ngFor="let validation of validations?.password">
+        <mat-error *ngIf="password.hasError(validation.type) && password.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
@@ -50,14 +52,14 @@
         formControlName="confirmPassword"
         type="confirm-password"
       />
-      <mat-error *ngIf="hasError('confirmPassword', 'required')">
-        Confirm Password cannot be blank.
+      <mat-error *ngFor="let validation of validations?.confirmPassword">
+        <mat-error *ngIf="confirmPassword.hasError(validation.type) && confirmPassword.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
-    <div class="example-button-row">
-      <button mat-raised-button color="primary">Register</button>
-    </div>
+    <app-spin-button [loading]="spinRegister" name="Register"></app-spin-button>
   </form>
 </div>
 

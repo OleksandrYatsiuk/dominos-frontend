@@ -3,6 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { RootService } from '../core/services/root.service';
 import { ErrorHeadlerService } from '../core/services/errorHeadler.service';
+import { confirmPasswordValidator } from '../core/validators/confirm-password-validator';
+import { passwordValidator } from '../core/validators/password-validator';
+import { Router } from '@angular/router';
+import { NotificationService } from '../core/services/notification.service';
+import { ValidationMessages } from '../core/models/error-list';
 
 @Component({
   selector: 'app-user-settings',
@@ -15,50 +20,77 @@ export class UserSettingsComponent implements OnInit {
     private http: RootService,
     private headler: ErrorHeadlerService,
     private title: Title,
-    private formBuilder: FormBuilder) { }
-  updateProfileForm: FormGroup;
-  changePasswordForm: FormGroup;
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private notification: NotificationService) { }
 
+  public validations = ValidationMessages;
+  public updateProfileForm: FormGroup;
+  public changePasswordForm: FormGroup;
+  public loading = false;
+  public spinEditProfile = false;
+  public spinChangePassword = false;
+
+  get currentPassword() { return this.changePasswordForm.get('currentPassword') }
+  get newPassword() { return this.changePasswordForm.get('newPassword') }
+  get confirmPassword() { return this.changePasswordForm.get('confirmPassword') }
+
+  get fullName() { return this.updateProfileForm.get('fullName') }
+  get username() { return this.updateProfileForm.get('username') }
+  get birthdaty() { return this.updateProfileForm.get('birthdaty') }
+  get phone() { return this.updateProfileForm.get('phone') }
 
   ngOnInit() {
-    this.title.setTitle('User Settings')
+    this.title.setTitle('User Settings');
+    this.initForm();
+    this.headler.errorMessage.subscribe(result => {
+      if (result) {
+        const { field, message } = result[0];
+        this.validations[field].push({ type: 'apiValidation', message: message });
+      }
+    })
+  }
+
+
+
+  onSubmit() {
+    console.log(this.updateProfileForm);
+  }
+
+  initForm() {
+    this.changePasswordForm = this.formBuilder.group({
+      currentPassword: ['', [Validators.required]],
+      newPassword: ['', [passwordValidator(), Validators.maxLength(20)]],
+      confirmPassword: ['', [Validators.required,]],
+    })
+    this.changePasswordForm.controls.confirmPassword.setValidators([
+      Validators.required,
+      confirmPasswordValidator(this.changePasswordForm.controls.newPassword),
+    ]);
+
     this.updateProfileForm = this.formBuilder.group({
       fullName: ['', [Validators.required]],
       username: ['', [Validators.required, Validators.maxLength(15)]],
       birthdaty: ['', []],
       phone: ['', []],
     })
-
-    this.changePasswordForm = this.formBuilder.group({
-      currentPassword: ['', [Validators.required, Validators.maxLength(15)]],
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]],
-    })
-  }
-
-  onSubmit() {
-    console.log(this.updateProfileForm.value);
   }
 
   changePassword() {
     if (this.changePasswordForm.valid) {
-      console.log(this.changePasswordForm.controls);
-
+      this.spinChangePassword = true;
       this.http.changePassword(this.changePasswordForm.value).subscribe(({ code }) => {
         if (code === 200) {
-          console.log("Password change success!")
+          this.spinChangePassword = false;
+          this.notification.open(
+            { data: 'Password has been successfully changed!' })
+          this.router.navigate(['/']);
         }
-      }, ({code, result}) => {
-        this.headler.errorMessage.subscribe(data => {
-        this.changePasswordForm.controls['currentPassword'].setErrors({ serverError: data[0].message });
-        })
+      }, (error) => {
+        this.spinChangePassword = false;
+        this.headler.validation(error, this.changePasswordForm);
       })
     }
 
   }
-  hasError(control: string, error: string): boolean {
-    return this.updateProfileForm.controls[control].hasError(error);
-  }
-
-
 }

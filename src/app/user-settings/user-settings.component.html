@@ -7,50 +7,60 @@
         <mat-form-field appearance="outline" class="field">
           <mat-label>Enter Current Password</mat-label>
           <input matInput formControlName="currentPassword" type="password" />
-          <mat-error *ngIf="changePasswordForm.get('currentPassword').errors?.serverError">
-            {{changePasswordForm.get('currentPassword').errors?.serverError}}
+          <mat-error *ngFor="let validation of validations?.currentPassword">
+            <mat-error *ngIf="currentPassword.hasError(validation.type) && currentPassword.invalid">
+              {{validation.message}}
+            </mat-error>
           </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline" class="field">
           <mat-label>Enter New Password</mat-label>
           <input matInput formControlName="newPassword" />
-          <!-- <mat-error *ngIf="hasError1('newPassword', 'required')">
-            New Password cannot be blank.
-          </mat-error> -->
+          <mat-error *ngFor="let validation of validations?.newPassword">
+            <mat-error *ngIf="newPassword.hasError(validation.type) && newPassword.invalid">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
         </mat-form-field>
         <mat-form-field appearance="outline" class="field">
           <mat-label>Enter Confirm Password</mat-label>
           <input matInput formControlName="confirmPassword" />
-          <!-- <mat-error *ngIf="hasError1('confirmPassword', 'required')">
-            Confirm Password cannot be blank.
-          </mat-error> -->
+          <mat-error *ngFor="let validation of validations?.confirmPassword">
+            <mat-error *ngIf="confirmPassword.hasError(validation.type) && confirmPassword.invalid">
+              {{validation.message}}
+            </mat-error>
+          </mat-error>
         </mat-form-field>
 
-        <div class="modal-footer">
-          <div class="example-button-row">
-            <button mat-raised-button color="primary">Confirm</button>
-          </div>
+        <div class="ant-btn">
+          <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
         </div>
       </div>
     </form>
   </div>
+
 
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
       <mat-form-field appearance="outline" class="field">
         <mat-label>Change Full Name</mat-label>
         <input matInput formControlName="fullName" type="text" />
-        <mat-error *ngIf="hasError('fullName', 'required')">
-          Full Name cannot be blank.
+        <mat-error *ngFor="let validation of validations?.fullName">
+          <mat-error *ngIf="fullName.hasError(validation.type) && fullName.invalid">
+            {{validation.message}}
+          </mat-error>
         </mat-error>
+
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="field">
         <mat-label>Enter Username</mat-label>
         <input matInput formControlName="username" />
-        <mat-error *ngIf="hasError('username', 'required')">
-          Username cannot be blank.
+        <mat-error *ngFor="let validation of validations?.username">
+          <mat-error *ngIf="username.hasError(validation.type) && username.invalid">
+            {{validation.message}}
+          </mat-error>
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" class="field">
@@ -62,9 +72,8 @@
         <mat-label>Enter Your`s Phone Number</mat-label>
         <input matInput formControlName="phone" type="number" />
       </mat-form-field>
-
-      <div class="example-button-row">
-        <button mat-raised-button color="primary">Save</button>
+      <div class="ant-btn">
+        <app-spin-button name="Save" [loading]="loading"></app-spin-button>
       </div>
     </div>
   </form>

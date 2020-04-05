@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { UserService } from 'src/app/core/services/user.service';
+import { ValidationMessages } from '../../core/models/error-list';
+import { ErrorHeadlerService } from 'src/app/core/services/errorHeadler.service';
 
 @Component({
   selector: 'app-login',
@@ -11,44 +14,49 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-
-
   authForm: FormGroup;
+  public spinLogIn = false;
+  public validations = ValidationMessages;
+
+  get username() { return this.authForm.get('username') };
+  get password() { return this.authForm.get('password') };
 
   constructor(
     private http: AuthService,
-    public modalService: NgbModal,
     private formBuilder: FormBuilder,
     public activeModal: NgbActiveModal,
     private router: Router,
+    private user: UserService,
+    private headler: ErrorHeadlerService
   ) { }
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.maxLength(15)]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     })
   }
 
   close() {
-    this.activeModal.close('Close click');
+    this.activeModal.close();
   }
   onSubmit() {
     if (this.authForm.valid) {
-      this.http.login(this.authForm.value).subscribe(response => {
-        localStorage.setItem('auth', response['result']['token'])
-        if (localStorage.getItem('auth')) {
-          this.activeModal.close('Close click');
-          this.router.navigate(['/']);
-          setTimeout(() => {
-            document.location.reload(true);
-          }, 100);
-        }
-      })
+      this.spinLogIn = !this.spinLogIn;
+      this.http.login(this.authForm.value)
+        .subscribe(({ code, result }) => {
+          localStorage.setItem('auth', result.token)
+          this.spinLogIn = !this.spinLogIn;
+          if (this.user.isAuthorized()) {
+            this.activeModal.close();
+            this.router.navigate(['/']);
+            setTimeout(() => {
+              location.reload();
+            }, 100);
+          }
+        }, (error) => {
+          this.headler.validation(error, this.authForm);
+        })
     }
   }
-  hasError(control: string, error: string): boolean {
-    return this.authForm.controls[control].hasError(error);
-  }
-
 }

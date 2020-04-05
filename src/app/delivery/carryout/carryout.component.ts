@@ -11,12 +11,9 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class CarryoutComponent implements OnInit {
   carryOut: FormGroup;
-  public username: any;
   constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private user: UserService) { }
 
   ngOnInit() {
-    this.user.currentUser.subscribe(user => this.username = user);
-
     this.carryOut = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.maxLength(15)]],
       phone: ["", [Validators.required, Validators.pattern("[0-9]{10}")]],

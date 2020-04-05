@@ -6,25 +6,27 @@
     <mat-form-field appearance="outline" class="field" ngbAutofocus>
       <mat-label>Enter Username</mat-label>
       <input matInput formControlName="username" />
-      <mat-error *ngIf="hasError('username', 'required')">
-        Username cannot be blank.
+      <mat-error *ngFor="let validation of validations?.username">
+        <mat-error *ngIf="username.hasError(validation.type) && username.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="field">
       <mat-label>Enter Password</mat-label>
       <input matInput formControlName="password" type="password" />
-      <mat-error *ngIf="hasError('password', 'required')">
-        Password cannot be blank.
+      <mat-error *ngFor="let validation of validations?.password">
+        <mat-error *ngIf="password.hasError(validation.type) && password.invalid">
+          {{validation.message}}
+        </mat-error>
       </mat-error>
     </mat-form-field>
   </div>
 
   <div class="modal-footer">
-    <div class="example-button-row">
-      <button mat-raised-button (click)="close()">Cancel</button>
-      <button mat-raised-button color="primary">Log In</button>
-    </div>
+    <app-spin-button name="Cancel" (click)="close()" color="basic"></app-spin-button>
+    <app-spin-button name="Log In" [loading]="spinLogIn"> </app-spin-button>
     <p>
       Have not account yet? Please,
       <a routerLink="/auth/registration" (click)="close()">register</a>
