@@ -7,7 +7,7 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { BasketService } from './services/basket.service';
 import { UserService } from './services/user.service';
 import { GeolocationService } from './services/geolocation.service';
-import { ErrorHeadlerService } from './services/errorHeadler.service';
+import { NotificationService } from './services/notification.service';
 
 
 
@@ -18,6 +18,7 @@ import { ErrorHeadlerService } from './services/errorHeadler.service';
     BasketService,
     UserService,
     RootService,
+    NotificationService,
     GeolocationService,
     // ErrorHeadlerService,
     {

@@ -16,6 +16,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (error.code === 422) {
             this.handle.hasError(error.result)
           }
+          if (error.code === 401) {
+            localStorage.removeItem('auth');
+            location.reload();
+          };
           return throwError(error);
         })
       )
