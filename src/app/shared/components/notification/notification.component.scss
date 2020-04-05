@@ -1,0 +1,20 @@
+.material-icons {
+    color: #348a5f;
+    margin-right: 10px;
+    font-size: 35px;
+}
+.message {
+    color: black;
+    font-size: 20px;
+    font-weight: bolder;
+    letter-spacing: normal;
+    width: 100%;
+}
+.exit {
+    color: gray;
+    margin: -24px;
+    cursor: pointer;
+    &:hover {
+        color: black;
+    }
+}

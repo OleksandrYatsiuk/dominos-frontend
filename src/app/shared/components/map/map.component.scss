@@ -55,3 +55,12 @@ a {
     cursor: not-allowed;
   }
 }
+.footer{
+  display: flex;
+  justify-content: space-around;
+}
+
+app-spin-button{
+  width: 40%;
+  margin: 20px 10px 0;
+}

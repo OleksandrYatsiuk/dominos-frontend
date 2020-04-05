@@ -36,7 +36,7 @@
         imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
         <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
             [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable"
-            [iconUrl]="{ url: defaultImage, scaledSize: { width: 30, height: 30, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
+            [iconUrl]="{ url: defaultImage, scaledSize: { width: 40, height: 40, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
             [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: marker.label}">
         </agm-marker>
     </agm-marker-cluster>
@@ -51,6 +51,7 @@
     </agm-marker>
 </agm-map>
 
-<input matInput>
-<button mat-button (click)="onNoClick()">Close</button>
-<button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+<div class="footer">
+    <app-spin-button name="Close" (click)="onNoClick()" color="Basic"></app-spin-button>
+    <app-spin-button [mat-dialog-close]="data" name="Add" cdkFocusInitial></app-spin-button>
+</div>

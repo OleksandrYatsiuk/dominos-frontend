@@ -7,6 +7,7 @@ import { pluck } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 
+
 export interface location {
   lat: number,
   lng: number
@@ -27,14 +28,14 @@ export class MapComponent implements OnInit {
   origin: location;
   destination: location;
 
-  defaultImage = '../../../favicon.ico';
+  defaultImage = '../../../../assets/data/pizzas/map_marker.png';
   public currentPosition: location;
 
   public markerOptions = {
     origin: {
       draggable: true,
       opacity: 0,
-      scaledSize: { width: 10, height: 10 }
+      scaledSize: { width: 20, height: 20 }
     },
     destination: {
       label: 'marker label',

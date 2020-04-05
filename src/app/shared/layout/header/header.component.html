@@ -9,8 +9,6 @@
     </button>
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser">
       <span>{{ currentUser?.username }}</span>
-      <mat-icon aria-hidden="false" aria-label="Example home icon">
-        face</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item routerLink="auth/user-settings">

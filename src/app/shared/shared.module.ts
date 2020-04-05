@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { DeliveryGuard } from '../core/guards/delivery.guard';
 import { MapComponent } from './components/map/map.component';
@@ -22,7 +22,8 @@ import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
 import { MaterialModule } from './material.module';
 import { AgmDirectionModule } from 'agm-direction';
 import { environment } from 'src/environments/environment';
-import { AppErrorComponent } from './components/app-error/app-error.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AppErrorComponent } from './components/app-error/app-error.component';
     PizzaFilterPipe,
     BasketCardItemComponent,
     MapComponent,
-    AppErrorComponent
+    NotificationComponent,
+    SpinButtonComponent
   ],
   imports: [
     FormsModule,
@@ -70,11 +72,10 @@ import { AppErrorComponent } from './components/app-error/app-error.component';
     MatIconModule,
     MapComponent,
     AgmCoreModule,
-    AppErrorComponent
+    SpinButtonComponent
   ],
-  providers: [DeliveryGuard],
-  entryComponents: [LoginComponent]
-
-
+  providers: [DeliveryGuard,
+    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
+  entryComponents: [LoginComponent, NotificationComponent]
 })
 export class SharedModule { }
