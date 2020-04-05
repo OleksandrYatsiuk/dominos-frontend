@@ -1,0 +1,6 @@
+<div class="input-form" [formGroup]="form">
+    <label for="input" [ngClass]="hasError">{{label}}</label>
+    <input id="input" [type]="type" [ngClass]="hasError" [placeholder]="placeholder"
+        [formControlName]="formControlName">
+    <span class="error" *ngIf="isPresent">{{error}}</span>
+</div>
