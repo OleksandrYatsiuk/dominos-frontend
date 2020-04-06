@@ -4,6 +4,7 @@ import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { pluck } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 
 @Component({
@@ -20,11 +21,14 @@ export class PizzaOverviewComponent implements OnInit {
   url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
   selectedFile: any;
   imagePath: any;
+  spinUpload = false;
+  spinUpddate = false;
 
   constructor(private route: ActivatedRoute,
     private rootService: RootService,
     private formBuilder: FormBuilder,
-    private title: Title
+    private title: Title,
+    private notification: NotificationService
   ) {
 
     this.pizza = this.route.snapshot.data.pizza;
@@ -53,9 +57,9 @@ export class PizzaOverviewComponent implements OnInit {
 
     });
 
-    this.rootService.getIngredientsList().subscribe(res => {
-      this.ingredients = res.result;
-    });
+    // this.rootService.getIngredientsList().subscribe(res => {
+    //   this.ingredients = res.result;
+    // });
   }
 
   onFileSelected(event): void {
@@ -70,13 +74,22 @@ export class PizzaOverviewComponent implements OnInit {
     }
   }
 
-  onSubmit(event) {
-    console.log(event);
+  onSubmit() {
     console.log(this.pizzaForm);
   }
 
   upload() {
-    console.log(this.url);
+    if (this.selectedFile !== null) {
+      this.spinUpload = !this.spinUpload;
+      let fd = new FormData();
+      fd.append('file', this.selectedFile, this.selectedFile.name);
+      this.rootService.uploadPhoto(fd).subscribe(result => {
+        console.log(result);
+        this.pizzaForm.controls.image.setValue(result.fileLink);
+        this.spinUpload = !this.spinUpload;
+        this.notification.open({ data: "Image has been successfully uploaded!" })
+      }
+      )
+    }
   }
 }
-
