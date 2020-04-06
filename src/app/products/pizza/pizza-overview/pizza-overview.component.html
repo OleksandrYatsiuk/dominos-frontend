@@ -1,22 +1,15 @@
 <h4>Edit Pizza</h4>
 <div class="product_photo">
   <div class="example-button-row">
-    <input
-      type="file"
-      style="display:none"
-      (change)="onFileSelected($event)"
-      #fileInput
-    />
+    <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
     <img [src]="url" height="200" (click)="fileInput.click()" />
-    <button mat-raised-button color="primary" (click)="upload()">
-      Upload
-    </button>
+    <app-spin-button name="Upload" [loading]="spinUpload" (click)="upload()"></app-spin-button>
   </div>
 </div>
 <div class="product_profile">
-  <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit($event)">
+  <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
     <div class="product_name">
-      <mat-form-field appearance="outline" class="field">
+      <mat-form-field appearance="outline">
         <mat-label>Enter Pizza Name</mat-label>
         <input matInput formControlName="name" />
       </mat-form-field>
@@ -36,16 +29,12 @@
         <mat-label>Ingredients</mat-label>
         <mat-select formControlName="ingredients" multiple>
           <mat-select-trigger>
-            <span class="example-additional-selection"
-              >{{ pizzaForm.controls.ingredients.value[0]?.name }} +
+            <!-- <span class="example-additional-selection">{{ pizzaForm.controls.ingredients.value[0]?.name }} +
               {{ pizzaForm.controls.ingredients.value.length }}
               other(s)
-            </span>
+            </span> -->
           </mat-select-trigger>
-          <mat-option
-            *ngFor="let ingredient of ingredients"
-            [value]="ingredient"
-          >
+          <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
             {{ ingredient.name }}
           </mat-option>
         </mat-select>
@@ -83,8 +72,6 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="example-button-row">
-      <button mat-raised-button color="primary">Confirm</button>
-    </div>
+    <app-spin-button name="Confirm" [loading]="spinUpddate"></app-spin-button>
   </form>
 </div>

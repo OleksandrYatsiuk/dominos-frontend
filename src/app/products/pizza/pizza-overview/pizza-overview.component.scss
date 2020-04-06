@@ -21,9 +21,6 @@
   display: inline-block;
   width: 60%;
   text-align: center;
-  .field {
-    width: 100%;
-  }
   button {
     width: 50%;
   }
@@ -44,4 +41,8 @@
     width: 40%;
     margin: 0px 5px;
   }
+}
+
+mat-form-field {
+  width: 100%;
 }
