@@ -1,33 +1,37 @@
 <div class="dp-header-desktop">
   <div class="fake-header">
-    <a routerLink="/products/pizza/create">
-      <button mat-button>Створити піцу</button>
-    </a>
-
+    <button mat-button routerLink="/pizza/create">Створити піцу</button>
     <button mat-button (click)="openAuthModal()" *ngIf="!currentUser">
       Авторизація
     </button>
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser">
       <span>{{ currentUser?.username }}</span>
     </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="auth/user-settings">
-        User Settings
-      </button>
-      <button mat-menu-item (click)="logout()">Log Out</button>
-    </mat-menu>
   </div>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item routerLink="auth/user-settings">
+      User Settings
+    </button>
+    <button mat-menu-item (click)="logout()">Log Out</button>
+  </mat-menu>
   <div class="main-header">
-    <a class="logo" routerLink="/"> Domino's Pizza </a>
-    <nav class="navigation"></nav>
-    <div class="market" [ngClass]="{ disabled: count === 0 }">
-      <div class="count">{{ count }}</div>
-      <div class="total-price" *ngIf="amount > 0">
-        <span>{{ amount }} грн </span>
+    <div class="navigation">
+      <h2 routerLink="/"> Domino's Pizza </h2>
+      <nav>
+        <span routerLink="/pizza" routerLinkActive="active">Піца</span>
+        <span routerLink="">Напої</span>
+        <span routerLink="">Сайди</span>
+        <span routerLink="">Десерти</span>
+      </nav>
+      <div class="market" [ngClass]="{ disabled: count === 0 }">
+        <div class="count">{{ count }}</div>
+        <div class="total-price" *ngIf="amount > 0">
+          <span>{{ amount }} грн </span>
+        </div>
+        <a routerLink="/delivery/shipping">
+          <button>Замовити</button>
+        </a>
       </div>
-      <a routerLink="/delivery/shipping">
-        <button>Замовити</button>
-      </a>
     </div>
   </div>
 </div>

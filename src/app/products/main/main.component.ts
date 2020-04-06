@@ -4,7 +4,7 @@ import {
   NgbSlideEventSource,
   NgbSlideEvent
 } from '@ng-bootstrap/ng-bootstrap';
-import { RootService } from '../core/services/root.service';
+import { RootService } from '../../core/services/root.service';
 
 @Component({
   selector: 'app-main',
@@ -12,7 +12,10 @@ import { RootService } from '../core/services/root.service';
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
-  images = [
+
+  constructor(private rootService: RootService) { }
+
+  public images = [
     {
       title: 'Domino`s Club',
       subTitle: 'Програма підвищення задоволення',
@@ -42,14 +45,8 @@ export class MainComponent implements OnInit {
   all: any;
   categories: { category: string; items: any; }[];
 
-
-  
   togglePaused() {
-    if (this.paused) {
-      this.carousel.cycle();
-    } else {
-      this.carousel.pause();
-    }
+    this.paused ? this.carousel.cycle() : this.carousel.pause();
     this.paused = !this.paused;
   }
 
@@ -70,7 +67,7 @@ export class MainComponent implements OnInit {
       this.togglePaused();
     }
   }
-  constructor(private rootService:RootService) { }
+
 
   ngOnInit() {
     this.getPizzaList();
@@ -93,7 +90,6 @@ export class MainComponent implements OnInit {
         },
       ];
       this.all = response;
-      console.log(this.all);
     });
   }
 }

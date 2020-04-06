@@ -15,6 +15,7 @@ import { ValidationMessages } from '../core/models/error-list';
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
+  message: { type: string; message: string; };
 
   constructor(
     private http: RootService,

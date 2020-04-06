@@ -10,7 +10,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material';
 import { CoreModule } from './core/core.module';
-import { MainModule } from './main/main.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +17,6 @@ import { MainModule } from './main/main.module';
     AppRoutingModule,
     RouterModule,
     CommonModule,
-    MainModule,
     SharedModule,
     BrowserAnimationsModule,
     MatButtonModule,

@@ -4,7 +4,7 @@
     <p>Change avatar</p>
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
-        <mat-form-field appearance="outline" class="field">
+        <mat-form-field appearance="outline">
           <mat-label>Enter Current Password</mat-label>
           <input matInput formControlName="currentPassword" type="password" />
           <mat-error *ngFor="let validation of validations?.currentPassword">
@@ -14,7 +14,7 @@
           </mat-error>
         </mat-form-field>
 
-        <mat-form-field appearance="outline" class="field">
+        <mat-form-field appearance="outline">
           <mat-label>Enter New Password</mat-label>
           <input matInput formControlName="newPassword" />
           <mat-error *ngFor="let validation of validations?.newPassword">
@@ -23,7 +23,7 @@
             </mat-error>
           </mat-error>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="field">
+        <mat-form-field appearance="outline">
           <mat-label>Enter Confirm Password</mat-label>
           <input matInput formControlName="confirmPassword" />
           <mat-error *ngFor="let validation of validations?.confirmPassword">
@@ -43,7 +43,7 @@
 
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
-      <mat-form-field appearance="outline" class="field">
+      <mat-form-field appearance="outline">
         <mat-label>Change Full Name</mat-label>
         <input matInput formControlName="fullName" type="text" />
         <mat-error *ngFor="let validation of validations?.fullName">
@@ -54,7 +54,7 @@
 
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="field">
+      <mat-form-field appearance="outline">
         <mat-label>Enter Username</mat-label>
         <input matInput formControlName="username" />
         <mat-error *ngFor="let validation of validations?.username">
@@ -63,12 +63,12 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="field">
+      <mat-form-field appearance="outline">
         <mat-label>Enter Your`s Birthday</mat-label>
         <input matInput formControlName="birthdaty" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="field">
+      <mat-form-field appearance="outline">
         <mat-label>Enter Your`s Phone Number</mat-label>
         <input matInput formControlName="phone" type="number" />
       </mat-form-field>
