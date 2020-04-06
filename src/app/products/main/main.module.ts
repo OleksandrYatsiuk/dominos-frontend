@@ -3,8 +3,8 @@ import { MainComponent } from './main.component';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { ProductsListModule } from '../products/products-list.module';
-import { SharedModule } from '../shared';
+import { ProductsListModule } from '../products-list.module';
+import { SharedModule } from '../../shared';
 
 @NgModule({
   declarations: [

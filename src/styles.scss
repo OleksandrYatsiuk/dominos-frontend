@@ -4,7 +4,11 @@
 
 html,
 body {
+  margin: 0px;
   height: 100%;
+}
+h2, span, button, input {
+  outline: none;
 }
 
 app-root {
@@ -16,7 +20,7 @@ app-main {
   display: block;
 }
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, Helvetica Neue, sans-serif;
   font-size: 15px;
   width: 100%;
   margin: 0;

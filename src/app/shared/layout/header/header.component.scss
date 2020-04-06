@@ -1,97 +1,36 @@
 .dp-header-desktop {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   color: rgb(151, 151, 142);
-  font-weight: bold;
-  font-size: large;
   z-index: 20;
+}
 
-  .fake-header {
-    height: 50px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background: #4f4f4f;
-    justify-content: flex-end;
+.fake-header {
+  min-height: 50px;
+  background: #4f4f4f;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
 
-    button {
-      background-color: gray;
-      height: 34px;
-      border: 0px;
-      margin: 0px 10px;
-
-      &:hover {
-        background-color: snow;
-        color: black;
-      }
-    }
-  }
-
-  .main-header {
-    height: 70px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #222;
-
-    button {
-      width: 145px;
-      height: 46px;
-      border-radius: 23px;
-      border: 1px solid snow;
-      background: #e31837;
-      color: white;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      outline: none;
-
-      &:hover {
-        font-weight: bolder;
-        background: red;
-      }
+  button {
+    margin: 0 10px;
+    color: white;
+    border-radius: 0px;
+    &:hover {
+      background-color: white;
+      color: black;
     }
   }
 }
+
 .fixed_header {
   display: block;
   width: 100%;
   height: 120px;
   margin: 0 0 20px;
   z-index: 10;
-}
-
-.logo {
-  display: flex;
-  color: white;
-  font-size: 25px;
-  width: 20%;
-}
-
-.navigation {
-  color: white;
-  width: 55%;
-  display: flex;
-
-  .nav-link {
-    justify-content: center;
-    text-align: center;
-    width: 25%;
-    font-weight: normal;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    padding: 0 3%;
-  }
-
-  a {
-    color: lavender;
-
-    &:hover {
-      text-decoration: none;
-      font-weight: bolder;
-      color: lavender;
-    }
-  }
 }
 
 .market {
@@ -102,6 +41,10 @@
   max-width: 320px;
   height: 50px;
   border-radius: 25px;
+  span {
+    color: black;
+    font-weight: 20px;
+  }
 
   .count {
     width: 45px;
@@ -121,6 +64,7 @@
 
     span {
       font-size: 14px;
+      font-weight: bold;
     }
     &:hover {
       color: black;
@@ -128,30 +72,69 @@
   }
 }
 
-a {
+h2 {
+  outline: none;
   cursor: pointer;
-  text-decoration: none;
-  color: snow;
 }
+
 .disabled {
   opacity: 0.7;
   cursor: not-allowed;
   pointer-events: none;
 }
 
-
 .mat-menu-trigger {
   min-width: 150px;
   border-radius: 5px;
   outline: none;
+}
 
-  mat-icon {
-    color: black;
-    margin-left: 5px;
-    margin-bottom: 5px;
+.main-header {
+  min-height: 70px;
+  width: 100%;
+  display: flex;
+  background: #222;
+  justify-content: center;
+
+  button {
+    width: 145px;
+    height: 46px;
+    border-radius: 23px;
+    border: 1px solid snow;
+    background: #e31837;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+
+    &:hover {
+      font-weight: bolder;
+      background: red;
+    }
   }
 }
 
-button:not(:disabled) {
-  color: black;
+.navigation {
+  width: 90%;
+  max-width: 1280px;
+  color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+nav span {
+  margin: 0 20px;
+  font-size: 20px;
+  &:hover {
+    font-weight: bolder;
+    cursor: pointer;
+    letter-spacing: 2px;
+  }
+}
+.active{
+  font-weight: bolder;
+  cursor: pointer;
+  letter-spacing: 2px;
 }

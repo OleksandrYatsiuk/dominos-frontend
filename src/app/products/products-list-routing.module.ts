@@ -6,22 +6,21 @@ import { PizzaComponent } from './pizza/pizza.component';
 import { PizzaOverviewComponent } from './pizza/pizza-overview/pizza-overview.component';
 import { PizzaOverviewResolver } from './pizza/pizza-overview/pizza-overview.resolver';
 import { DeliveryGuard } from '../core/guards/delivery.guard';
+import { MainComponent } from './main/main.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ProductsListComponent,
+    component: MainComponent,
+  },
+  {
+    path: 'pizza', component: PizzaComponent,
     children: [
+      { path: 'create', component: PizzaCreateComponent, canActivate: [DeliveryGuard] },
       {
-        path: 'pizza', component: PizzaComponent,
-        children: [
-          { path: 'create', component: PizzaCreateComponent, canActivate: [DeliveryGuard] },
-          {
-            path: ':id', component: PizzaOverviewComponent,
-            resolve: { pizza: PizzaOverviewResolver }
-          }
-        ]
-      },
+        path: ':id', component: PizzaOverviewComponent,
+        resolve: { pizza: PizzaOverviewResolver }
+      }
     ]
   }
 ];
@@ -29,7 +28,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [RouterModule.forChild(routes)],
-  providers:[DeliveryGuard],
+  providers: [DeliveryGuard],
   exports: [RouterModule]
 
 })

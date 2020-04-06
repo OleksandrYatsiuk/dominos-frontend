@@ -10,6 +10,7 @@ import { PizzaOverviewDataService } from './pizza/pizza-overview/pizza-overview-
 import { PizzaOverviewResolver } from './pizza/pizza-overview/pizza-overview.resolver';
 import { MaterialModule } from '../shared/material.module';
 import { PizzaItemComponent } from './pizza/pizza-item/pizza-item.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PizzaItemComponent } from './pizza/pizza-item/pizza-item.component';
     PizzaComponent,
     PizzaCreateComponent,
     PizzaOverviewComponent,
-    PizzaItemComponent
+    PizzaItemComponent,
+    MainComponent
   ],
   imports: [
     CommonModule,

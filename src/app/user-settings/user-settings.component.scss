@@ -31,11 +31,12 @@
   margin: auto;
   width: 100%;
   max-width: 450px;
-  .field {
-    width: 100%;
-  }
+ 
 }
 .ant-btn {
   width: 50%;
   margin: auto;
+}
+mat-form-field {
+  width: 100%;
 }
