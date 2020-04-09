@@ -23,6 +23,7 @@ export class ErrorHeadlerService {
         if (control) {
           control.setErrors({ apiValidation: message });
           control.markAsDirty();
+          this.validations[field] = [];
           this.validations[field].push({ type: 'apiValidation', message: message });
         }
       });
