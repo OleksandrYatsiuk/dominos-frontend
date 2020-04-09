@@ -36,11 +36,11 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(20)]],
-      username: ['', [Validators.required, Validators.maxLength(10)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+      fullName: ['s', [Validators.required, Validators.maxLength(20)]],
+      username: ['s', [Validators.required, Validators.maxLength(10)]],
+      email: ['a@ga.c', [Validators.required, Validators.email]],
+      password: ['Test123!', [Validators.required]],
+      confirmPassword: ['Test123!', [Validators.required]]
     });
     this.registerForm.controls.confirmPassword.setValidators([
       Validators.required,
@@ -55,14 +55,13 @@ export class RegistrationComponent implements OnInit {
         if (code === 201) {
           this.notification.open({
             data: "We have sent a confirmation email to your email address. Please follow instructions in the email to continue.",
-            duration:null
+            duration: null
           })
         }
         this.spinRegister = !this.spinRegister;
       }, (error) => {
         this.headler.validation(error, this.registerForm);
-      this.spinRegister = !this.spinRegister;
-
+        this.spinRegister = !this.spinRegister;
       })
     }
 

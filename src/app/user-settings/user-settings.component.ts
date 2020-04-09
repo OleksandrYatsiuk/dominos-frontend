@@ -44,12 +44,6 @@ export class UserSettingsComponent implements OnInit {
   ngOnInit() {
     this.title.setTitle('User Settings');
     this.initForm();
-    this.headler.errorMessage.subscribe(result => {
-      if (result) {
-        const { field, message } = result[0];
-        this.validations[field].push({ type: 'apiValidation', message: message });
-      }
-    })
   }
 
 
