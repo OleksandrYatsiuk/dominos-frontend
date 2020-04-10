@@ -30,6 +30,9 @@ export class RootService {
   changePassword(data): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/user/change-password`, data);
   }
+  updateProfile(id: number, data: any): Observable<any> {
+    return this.http.patch<any>(`${this.serverUrl}/user/update/${id}`, data);
+  }
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
@@ -37,7 +40,7 @@ export class RootService {
     return this.http.get<any[]>(`${this.serverUrl}/shops`);
   }
 
-  
+
   post(path, body): Observable<any> {
     return this.http.post(`${this.serverUrl}${path}`, body);
   }
@@ -45,6 +48,6 @@ export class RootService {
   get(path): Observable<any> {
     return this.http.get<any>(`${this.serverUrl}${path}`);
   }
-  
+
 
 }

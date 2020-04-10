@@ -24,7 +24,7 @@ export class AuthService {
     return this.http.get(`/user/current`)
   }
 
-  public updateLocation(location: object): Observable<null> {
+  public updateLocation(location: object): Observable<any> {
     return this.http.post(`/user/location`, location)
   }
 }

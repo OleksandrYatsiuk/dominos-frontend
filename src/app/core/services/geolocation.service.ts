@@ -11,7 +11,7 @@ export class GeolocationService {
 
 
   public updateUserLocation(coords) {
-    this.authService.updateLocation({ lat: coords.latitude, lng: coords.longitude }).subscribe(res => this.userService.serCurrentUser());
+    this.authService.updateLocation({ lat: coords.latitude, lng: coords.longitude }).subscribe(res => this.userService.setCurrentUser());
   }
 
   public askGeoLocation() {

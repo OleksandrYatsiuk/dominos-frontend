@@ -6,6 +6,8 @@ import { RootService } from 'src/app/core/services/root.service';
 import { pluck } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 
 export interface location {
@@ -22,8 +24,8 @@ export interface location {
 export class MapComponent implements OnInit {
 
   public KYIV_COORDS: location = {
-    lat: 50.450340,
-    lng: 30.523435
+    lat: 50.44966120868815,
+    lng: 30.52501781267547
   }
   origin: location;
   destination: location;
@@ -56,7 +58,10 @@ export class MapComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     private http: RootService,
     private userService: UserService,
-    private geolocation: GeolocationService) { }
+    private authService: AuthService,
+    private geolocation: GeolocationService,
+    private notification: NotificationService
+  ) { }
 
   ngOnInit(): void {
     if (!this.currentPosition) {
@@ -89,6 +94,13 @@ export class MapComponent implements OnInit {
         this.currentAddress = address[0].formatted_address;
       }
     })
+  }
+  public saveLocation() {
+    if (this.userService.isAuthorized()) {
+      this.authService.updateLocation(this.currentPosition).subscribe(result => {
+        this.notification.open({ data: result.result })
+      })
+    }
   }
 
   private setMarkers() {
@@ -157,8 +169,10 @@ export class MapComponent implements OnInit {
         travelMode: travelMode
       },
       ({ routes }) => {
-        this.distance = routes[0].legs[0].distance.value;
-        this.duration = routes[0].legs[0].duration.value;
+        if (routes[0]) {
+          this.distance = routes[0].legs[0].distance.value;
+          this.duration = routes[0].legs[0].duration.value;
+        }
       })
   }
 

@@ -50,17 +50,27 @@ a {
   input:checked + div {
     background-color: #6bfb20;
   }
-  input:disabled + div{
+  input:disabled + div {
     opacity: 0.3;
     cursor: not-allowed;
   }
 }
-.footer{
+.footer {
   display: flex;
   justify-content: space-around;
 }
 
-app-spin-button{
+app-spin-button {
   width: 40%;
   margin: 20px 10px 0;
+}
+.title {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 2px;
+  app-spin-button {
+    margin-bottom: 8px;
+  }
 }

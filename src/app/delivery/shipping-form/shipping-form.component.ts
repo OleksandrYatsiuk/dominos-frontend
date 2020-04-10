@@ -1,5 +1,6 @@
 import { Component, Output } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'shipping-form',
@@ -11,8 +12,9 @@ export class ShippingFormComponent {
 
   @Output() displayError: boolean;
   formDelivery: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) { }
+  public spinShipping = false;
+  constructor(private formBuilder: FormBuilder,
+    private notification: NotificationService) { }
 
   ngOnInit() {
 
@@ -44,10 +46,14 @@ export class ShippingFormComponent {
 
 
   onSubmit() {
+      this.notification.open({
+        data: "Form not working yet!"
+      })
     if (this.formDelivery.valid) {
+
       console.log('form submitted');
     }
   }
 
- 
+
 }

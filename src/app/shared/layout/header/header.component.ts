@@ -5,6 +5,7 @@ import { LoginComponent } from 'src/app/auth/login/login.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,9 @@ export class HeaderComponent implements OnInit {
     private basket: BasketService,
     private http: AuthService,
     private geolocation: GeolocationService,
-    private user: UserService) { }
+    private user: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.setCurrentUser();
@@ -32,11 +35,11 @@ export class HeaderComponent implements OnInit {
     this.basket.updateBasketAmount.subscribe(cnt => this.amount = cnt);
     this.basket.updateBasketCount.subscribe(cnt => this.count = cnt);
     this.geolocation.askGeoLocation()
-    
+
   }
 
   setCurrentUser() {
-    this.user.serCurrentUser();
+    this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
       this.currentUser = user;
     })
@@ -49,7 +52,10 @@ export class HeaderComponent implements OnInit {
     this.http.logout().subscribe(req => {
       if (!req) {
         localStorage.removeItem('auth');
-        document.location.reload(true);
+        this.router.navigate(["/"])
+        setTimeout(() => {
+          location.reload();
+        }, 20)
       };
     });
   }

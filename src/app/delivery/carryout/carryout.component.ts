@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MapComponent } from 'src/app/shared/components/map/map.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/core/services/user.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-carryout',
@@ -11,7 +12,11 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class CarryoutComponent implements OnInit {
   carryOut: FormGroup;
-  constructor(private formBuilder: FormBuilder, public dialog: MatDialog, private user: UserService) { }
+  public loading = false;
+  constructor(private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private user: UserService,
+    private notification: NotificationService) { }
 
   ngOnInit() {
     this.carryOut = this.formBuilder.group({
@@ -50,6 +55,12 @@ export class CarryoutComponent implements OnInit {
 
 
   onSubmit() {
-    console.log('submit');
+    this.notification.open({
+      data: "Form not working yet!"
+    })
+    if (this.carryOut.valid) {
+
+      console.log('form submitted');
+    }
   }
 }

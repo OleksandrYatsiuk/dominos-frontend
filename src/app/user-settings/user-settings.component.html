@@ -40,7 +40,6 @@
     </form>
   </div>
 
-
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
       <mat-form-field appearance="outline">
@@ -63,6 +62,16 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngFor="let validation of validations?.email">
+          <mat-error *ngIf="email.hasError(validation.type) && email.invalid">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Enter Your`s Birthday</mat-label>
         <input matInput formControlName="birthdaty" />
@@ -73,7 +82,7 @@
         <input matInput formControlName="phone" type="number" />
       </mat-form-field>
       <div class="ant-btn">
-        <app-spin-button name="Save" [loading]="loading"></app-spin-button>
+        <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
       </div>
     </div>
   </form>

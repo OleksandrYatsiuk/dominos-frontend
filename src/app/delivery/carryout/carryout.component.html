@@ -1,72 +1,84 @@
 <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
   <h3>Контакти</h3>
+  <div class="row">
 
+    <mat-form-field appearance="outline">
+      <mat-label>Enter First Name</mat-label>
+      <input matInput formControlName="firstName" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Enter First Name</mat-label>
-    <input matInput formControlName="firstName" />
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter Phone</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Enter Phone</mat-label>
-    <input matInput formControlName="phone" />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Enter Email</mat-label>
-    <input matInput formControlName="email" />
-  </mat-form-field>
-
+    <mat-form-field appearance="outline">
+      <mat-label>Enter Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+  </div>
   <h3>Ресторан</h3>
   <div formGroupName="restaurant">
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Restaurant</mat-label>
+        <input matInput formControlName="restaurant" />
+      </mat-form-field>
+      <span>or</span>
+      <h4 (click)="openMap()">Choose on map</h4>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Restaurant</mat-label>
-      <input matInput formControlName="restaurant" />
-    </mat-form-field>
-    <button (click)="openMap()">Choose on map</button>
+    </div>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Comment</mat-label>
-      <textarea matInput formControlName="comment"></textarea>
-    </mat-form-field>
+    <div class="row">
 
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Comment</mat-label>
+        <textarea matInput formControlName="comment"></textarea>
+      </mat-form-field>
+
+    </div>
   </div>
   <h3>Date</h3>
   <div formGroupName="date">
+    <div class="row">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Date</mat-label>
-      <input matInput formControlName="date" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Date</mat-label>
+        <input matInput formControlName="date" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Time</mat-label>
-      <input matInput formControlName="time" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Time</mat-label>
+        <input matInput formControlName="time" />
+      </mat-form-field>
+    </div>
   </div>
   <h3>Payment</h3>
   <div formGroupName="payment">
+    <div class="row">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Coupon</mat-label>
-      <input matInput formControlName="coupon" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Coupon</mat-label>
+        <input matInput formControlName="coupon" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Remainder</mat-label>
-      <input matInput formControlName="remainder" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Remainder</mat-label>
+        <input matInput formControlName="remainder" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Тype</mat-label>
-      <input matInput formControlName="type" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Тype</mat-label>
+        <input matInput formControlName="type" />
+      </mat-form-field>
 
+    </div>
   </div>
   <div class="payment-result">
-    <span>Total</span>
-    <span>88.99 грн</span>
-    <button type="submit">Order</button>
+    <h2>Total</h2>
+    <h2>88.99 грн</h2>
+    <div class="row">
+      <app-spin-button type="submit" [loading]="loading" name="Order"></app-spin-button>
+    </div>
   </div>
 </form>

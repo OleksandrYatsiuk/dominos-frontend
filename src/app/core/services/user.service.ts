@@ -16,7 +16,7 @@ export class UserService {
   location = this.userLocation.asObservable();
   constructor(private http: AuthService) { }
 
-  public serCurrentUser() {
+  public setCurrentUser() {
     if (this.isAuthorized()) {
       this.http.current().pipe(pluck('result')).subscribe(user => {
         this.currentUserSubject.next(user);
