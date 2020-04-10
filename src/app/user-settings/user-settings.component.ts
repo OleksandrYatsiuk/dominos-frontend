@@ -99,7 +99,7 @@ export class UserSettingsComponent implements OnInit {
       fullName: ["", [Validators.required]],
       username: ["", [Validators.required, Validators.maxLength(15)]],
       email: ["", [Validators.required]],
-      birthdaty: ["", []],
+      birthday: ["", []],
       phone: ["", []],
     })
   }
