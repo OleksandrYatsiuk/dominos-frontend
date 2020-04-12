@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { CAN_MANAGE_PIZZA } from './headder-permissions';
 
 @Component({
   selector: 'app-header',
@@ -18,6 +20,7 @@ export class HeaderComponent implements OnInit {
   public amount: number;
   public token = localStorage.getItem('auth');
   public currentUser = null;
+  public canManagePizza = CAN_MANAGE_PIZZA
   constructor(
     private modalService: NgbModal,
     private basket: BasketService,
@@ -25,6 +28,7 @@ export class HeaderComponent implements OnInit {
     private geolocation: GeolocationService,
     private user: UserService,
     private router: Router,
+    private permissionsService: NgxPermissionsService
   ) { }
 
   ngOnInit() {

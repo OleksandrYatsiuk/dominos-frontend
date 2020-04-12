@@ -12,16 +12,19 @@ export const ValidationMessages = {
     ],
     fullName: [
         { type: 'required', message: 'Full Name is required.' },
-        { type: 'maxlength', message: 'Username should contain at most 20 character(s).' },
+        { type: 'maxlength', message: 'Full Name should contain at most 20 character(s).' },
+        { type: 'minlength', message: 'Full Name should contain at least 4 character(s).' },
     ],
     username: [
         { type: 'required', message: 'Username is required.' },
-        { type: 'maxlength', message: 'Username should contain at most 10 character(s).' },
+        { type: 'maxlength', message: 'Username should contain at most 15 character(s).' },
+        { type: 'minlength', message: 'Username should contain at least 3 character(s).' },
     ],
     password: [
         { type: 'required', message: 'Password is required.' },
     ],
     email: [
         { type: 'required', message: 'Email is required.' },
+        { type: 'email', message: 'Email is invalid.' },
     ]
 }

@@ -36,8 +36,8 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {
 
     this.registerForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.maxLength(20)]],
-      username: ['', [Validators.required, Validators.maxLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
+      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
@@ -49,6 +49,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   register() {
+    console.log(this.registerForm)
     if (this.registerForm.valid) {
       this.spinRegister = !this.spinRegister;
       this.http.register(this.registerForm.value).subscribe(({ code, result }) => {

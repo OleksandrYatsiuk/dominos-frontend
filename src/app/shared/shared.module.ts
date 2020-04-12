@@ -24,6 +24,8 @@ import { AgmDirectionModule } from 'agm-direction';
 import { environment } from 'src/environments/environment';
 import { NotificationComponent } from './components/notification/notification.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
+import { NgxPermissionsModule } from 'ngx-permissions';
+
 
 @NgModule({
   declarations: [
@@ -52,6 +54,7 @@ import { SpinButtonComponent } from './components/spin-button/spin-button.compon
     AgmJsMarkerClustererModule,
     MaterialModule,
     AgmDirectionModule,
+    NgxPermissionsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
       libraries: ['geometry', 'places'],
@@ -72,7 +75,9 @@ import { SpinButtonComponent } from './components/spin-button/spin-button.compon
     MatIconModule,
     MapComponent,
     AgmCoreModule,
-    SpinButtonComponent
+    SpinButtonComponent,
+    NgxPermissionsModule
+
   ],
   providers: [CreatePizzaGuard,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
