@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PizzaCreateComponent } from './pizza-create/pizza-create.component';
-import { PizzaOverviewComponent } from './pizza-overview/pizza-overview.component';
 import { PizzaOverviewResolver } from './pizza-overview/pizza-overview.resolver';
 import { PizzaItemComponent } from './pizza-item/pizza-item.component';
 import { MaterialModule } from 'src/app/shared/material.module';
@@ -15,9 +14,8 @@ import { PizzaComponent } from './pizza.component';
 @NgModule({
   declarations: [
     PizzaCreateComponent,
-    PizzaOverviewComponent,
     PizzaItemComponent,
-    PizzaComponent
+    PizzaComponent,
   ],
   imports: [
     CommonModule,

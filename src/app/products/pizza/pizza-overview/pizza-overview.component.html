@@ -1,77 +1,27 @@
-<h4>Edit Pizza</h4>
-<div class="product_photo">
-  <div class="example-button-row">
-    <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
-    <img [src]="url" height="200" (click)="fileInput.click()" />
-    <app-spin-button name="Upload" [loading]="spinUpload" (click)="upload()"></app-spin-button>
-  </div>
+<h2>Pizza: {{pizza.name}}</h2>
+<div class="action" *ngxPermissionsOnly="canEditPizza">
+  <mat-icon routerLink="edit" aria-hidden="false">edit</mat-icon>
 </div>
-<div class="product_profile">
-  <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
-    <div class="product_name">
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Pizza Name</mat-label>
-        <input matInput formControlName="name" />
-      </mat-form-field>
+<div class="product">
+  <div class="options">
+    <img [src]="url" height="300" />
+    <div class="params">
+      <h3>Category:</h3>
+      {{pizza.category}}
     </div>
-
-    <div class="product_elements">
-      <mat-form-field>
-        <mat-label>Pizza Caregory</mat-label>
-        <mat-select formControlName="category">
-          <mat-option *ngFor="let item of categories" [value]="item.value">
-            {{ item.value }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Ingredients</mat-label>
-        <mat-select formControlName="ingredients" multiple>
-          <mat-select-trigger>
-            <!-- <span class="example-additional-selection">{{ pizzaForm.controls.ingredients.value[0]?.name }} +
-              {{ pizzaForm.controls.ingredients.value.length }}
-              other(s)
-            </span> -->
-          </mat-select-trigger>
-          <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
-            {{ ingredient.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="params">
+      <h3>Price - Weight</h3>
+      <p>{{pizza.price.low |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.small}} g</p>
+      <p>{{pizza.price.medium |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.middle}} g</p>
+      <p>{{pizza.price.high |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.big}} g</p>
     </div>
-    <div formGroupName="weight">
-      <div class="product_weigth">
-        <mat-form-field appearance="outline">
-          <mat-label>Lowest Weight</mat-label>
-          <input matInput formControlName="small" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Middle Weight</mat-label>
-          <input matInput formControlName="middle" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Highest Weight</mat-label>
-          <input matInput formControlName="big" />
-        </mat-form-field>
+    <div class="params">
+      <h3>Ingredients:</h3>
+      <div *ngFor="let ingredient of pizza.ingredients">
+        <li>{{ingredient.name}}</li>
       </div>
     </div>
-    <div formGroupName="price">
-      <div class="product_price">
-        <mat-form-field appearance="outline">
-          <mat-label>Lowest Price</mat-label>
-          <input matInput formControlName="low" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Middle Price</mat-label>
-          <input matInput formControlName="medium" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Highest Price</mat-label>
-          <input matInput formControlName="high" />
-        </mat-form-field>
-      </div>
-    </div>
-    <app-spin-button name="Confirm" [loading]="spinUpddate"></app-spin-button>
-  </form>
+
+  </div>
+
 </div>

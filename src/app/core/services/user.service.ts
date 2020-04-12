@@ -13,10 +13,9 @@ export class UserService {
 
   private currentUserSubject = new BehaviorSubject<any>(null);
   private userLocation = new BehaviorSubject<any>(null);
-  private userRole = new BehaviorSubject<any>("public");
   currentUser = this.currentUserSubject.asObservable();
   location = this.userLocation.asObservable();
-  role = this.userRole.asObservable();
+
   constructor(private http: AuthService,
     private permissionsService: NgxPermissionsService) { }
 
@@ -24,7 +23,7 @@ export class UserService {
     if (this.isAuthorized()) {
       this.http.current().pipe(pluck('result')).subscribe(user => {
         this.currentUserSubject.next(user);
-        this.permissionsService.loadPermissions([user['role']])
+        user ? this.permissionsService.loadPermissions([user['role']]) : false;
       })
     }
   }

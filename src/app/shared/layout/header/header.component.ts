@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
-import { NgxPermissionsService } from 'ngx-permissions';
 import { CAN_MANAGE_PIZZA } from './headder-permissions';
 
 @Component({
@@ -27,8 +26,7 @@ export class HeaderComponent implements OnInit {
     private http: AuthService,
     private geolocation: GeolocationService,
     private user: UserService,
-    private router: Router,
-    private permissionsService: NgxPermissionsService
+    private router: Router
   ) { }
 
   ngOnInit() {
