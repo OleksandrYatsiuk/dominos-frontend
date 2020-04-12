@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
     private http: AuthService,
     private geolocation: GeolocationService,
     private user: UserService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit() {

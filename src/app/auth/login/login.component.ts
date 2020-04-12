@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
             }, 100);
           }
         }, (error) => {
+          this.spinLogIn = false;
           this.headler.validation(error, this.authForm);
         })
     }

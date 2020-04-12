@@ -1,12 +1,14 @@
 .profile_settings {
   display: flex;
-  padding: 10px;
+  flex-wrap: wrap;
+  padding: 5px;
+  width: 100%;
 }
 
 .portfolio {
-  width: 50%;
   height: 100%;
-  padding: 15px;
+  padding: 5px;
+  padding-bottom: 10px;
   border-radius: 5px;
   text-align: center;
 
@@ -31,7 +33,6 @@
   margin: auto;
   width: 100%;
   max-width: 450px;
- 
 }
 .ant-btn {
   width: 50%;
@@ -39,4 +40,15 @@
 }
 mat-form-field {
   width: 100%;
+}
+
+.optional-info {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  mat-form-field {
+    width: 50%;
+    padding: 5px;
+  }
 }

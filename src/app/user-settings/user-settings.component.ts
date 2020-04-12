@@ -17,6 +17,9 @@ import { UserService } from '../core/services/user.service';
 })
 export class UserSettingsComponent implements OnInit {
   message: { type: string; message: string; };
+  minDate: Date;
+  maxDate: Date;
+
   private currentUser: any;
   constructor(
     private http: RootService,
@@ -46,6 +49,9 @@ export class UserSettingsComponent implements OnInit {
 
 
   ngOnInit() {
+    const currentYear = new Date().getFullYear();
+    this.minDate = new Date(currentYear - 50, 0, 1);
+    this.maxDate = new Date(currentYear + 0, 0, 31);
     this.initForm()
     this.initUpdateProfile()
     this.title.setTitle('User Settings');
@@ -63,16 +69,18 @@ export class UserSettingsComponent implements OnInit {
     })
   }
 
-
+  dateInput($event) {
+    console.log($event.target._value)
+  }
   onSubmit() {
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = true;
       this.http.updateProfile(this.currentUser['id'], this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
           this.spinEditProfile = false;
+          this.user.setCurrentUser();
           this.notification.open(
             { data: 'Profile has been successfully updated!' })
-          this.router.navigate(['/']);
         }
       }, (error) => {
         this.spinEditProfile = false;

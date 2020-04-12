@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { DeliveryGuard } from '../core/guards/delivery.guard';
+import { CreatePizzaGuard } from '../core/guards/createPizza.guard';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
@@ -74,7 +74,7 @@ import { SpinButtonComponent } from './components/spin-button/spin-button.compon
     AgmCoreModule,
     SpinButtonComponent
   ],
-  providers: [DeliveryGuard,
+  providers: [CreatePizzaGuard,
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
   entryComponents: [LoginComponent, NotificationComponent]
 })

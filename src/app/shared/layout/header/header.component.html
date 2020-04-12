@@ -17,12 +17,12 @@
   <div class="main-header">
     <div class="navigation">
       <h2 routerLink="/"> Domino's Pizza </h2>
-      <nav>
+      <div class="nav">
         <span routerLink="/pizza" routerLinkActive="active">Піца</span>
         <span routerLink="">Напої</span>
         <span routerLink="">Сайди</span>
         <span routerLink="">Десерти</span>
-      </nav>
+      </div>
       <div class="market" [ngClass]="{ disabled: count === 0 }">
         <div class="count">{{ count }}</div>
         <div class="total-price" *ngIf="amount > 0">

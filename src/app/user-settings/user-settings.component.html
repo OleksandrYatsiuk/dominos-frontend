@@ -72,15 +72,23 @@
           </mat-error>
         </mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Your`s Birthday</mat-label>
-        <input matInput formControlName="birthday" />
-      </mat-form-field>
+      <div class="optional-info">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose you birthday date</mat-label>
+          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate"  formControlName="birthday" (dateInput)="dateInput($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Your`s Phone Number</mat-label>
-        <input matInput formControlName="phone" type="number" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Phone Number</mat-label>
+          <input matInput formControlName="phone" type="number" class="example-right-align" />
+          <span matPrefix>+380&#160;</span>
+
+        </mat-form-field>
+      </div>
+
+
       <div class="ant-btn">
         <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
       </div>

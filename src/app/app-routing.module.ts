@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
-import { DeliveryGuard } from './core/guards/delivery.guard';
 
 // Lazy loading for modules
 const routes: Routes = [
@@ -21,7 +20,7 @@ const routes: Routes = [
     }),
   ],
   exports: [RouterModule],
-  providers: [DeliveryGuard],
+  providers: [],
 
 })
 export class AppRoutingModule { }

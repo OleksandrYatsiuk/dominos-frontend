@@ -7,7 +7,10 @@ body {
   margin: 0px;
   height: 100%;
 }
-h2, span, button, input {
+h2,
+span,
+button,
+input {
   outline: none;
 }
 
@@ -76,10 +79,15 @@ snack-bar-container.mat-snack-bar-container {
   }
 }
 mat-dialog-container.mat-dialog-container {
-  height: 600px ;
+  height: 600px;
 }
 
 app-notification {
   display: flex;
   margin: 10px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

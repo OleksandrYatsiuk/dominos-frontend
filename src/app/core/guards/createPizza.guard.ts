@@ -1,14 +1,18 @@
 import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
+import { NotificationService } from '../services/notification.service';
 
-export class DeliveryGuard implements CanActivate {
-
+export class CreatePizzaGuard implements CanActivate {
+  constructor(
+    private notification: NotificationService
+  ) {
+  }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     if (localStorage.getItem('auth')) {
       return true;
     } else {
-      alert('You not registered user!');
+      this.notification.open({ data: "You are have not have permissions!" })
       return false;
     }
   }

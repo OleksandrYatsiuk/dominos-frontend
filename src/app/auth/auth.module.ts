@@ -24,6 +24,5 @@ import { MaterialModule } from '../shared/material.module';
   ],
   providers: [],
   exports: [],
-  entryComponents: []
 })
 export class AuthModule { }
