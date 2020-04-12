@@ -98,7 +98,7 @@ export class MapComponent implements OnInit {
   public saveLocation() {
     if (this.userService.isAuthorized()) {
       this.authService.updateLocation(this.currentPosition).subscribe(result => {
-        this.notification.open({ data: result.result })
+        this.notification.open({ data: "Position was updated succesfully!" })
       })
     }
   }

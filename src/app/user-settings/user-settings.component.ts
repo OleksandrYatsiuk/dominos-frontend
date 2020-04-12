@@ -56,7 +56,7 @@ export class UserSettingsComponent implements OnInit {
           fullName: user.fullName,
           username: user.username,
           email: user.email,
-          birthdaty: user.birthdaty,
+          birthday: user.birthday,
           phone: user.phone,
         })
       }
@@ -107,13 +107,11 @@ export class UserSettingsComponent implements OnInit {
   changePassword() {
     if (this.changePasswordForm.valid) {
       this.spinChangePassword = true;
-      this.http.changePassword(this.changePasswordForm.value).subscribe(({ code }) => {
-        if (code === 200) {
-          this.spinChangePassword = false;
-          this.notification.open(
-            { data: 'Password has been successfully changed!' })
-          this.router.navigate(['/']);
-        }
+      this.http.changePassword(this.changePasswordForm.value).subscribe(() => {
+        this.spinChangePassword = false;
+        this.notification.open(
+          { data: 'Password has been successfully changed!' })
+        this.router.navigate(['/']);
       }, (error) => {
         this.spinChangePassword = false;
         this.headler.validation(error, this.changePasswordForm);
