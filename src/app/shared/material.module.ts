@@ -6,6 +6,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 @NgModule({
   declarations: [],
   imports: [
@@ -19,7 +20,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatGridListModule
+    MatGridListModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatFormFieldModule,
@@ -31,7 +33,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSnackBarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatGridListModule
+    MatGridListModule,
+    MatAutocompleteModule
   ],
   providers: [MatDatepickerModule,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

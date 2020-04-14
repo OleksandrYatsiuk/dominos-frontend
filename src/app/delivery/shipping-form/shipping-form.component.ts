@@ -8,16 +8,19 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   styleUrls: ['./shipping-form.component.scss']
 })
 export class ShippingFormComponent {
-
-
   @Output() displayError: boolean;
+
+
   formDelivery: FormGroup;
   public spinShipping = false;
+  minDate: Date;
+  maxDate: Date;
   constructor(private formBuilder: FormBuilder,
     private notification: NotificationService) { }
 
   ngOnInit() {
-
+    this.minDate = new Date();
+    this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
     this.formDelivery = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.maxLength(15)]],
       phone: ["", [Validators.required, Validators.pattern("[0-9]{10}")]],
@@ -46,9 +49,9 @@ export class ShippingFormComponent {
 
 
   onSubmit() {
-      this.notification.open({
-        data: "Form not working yet!"
-      })
+    this.notification.open({
+      data: "Form not working yet!"
+    })
     if (this.formDelivery.valid) {
 
       console.log('form submitted');

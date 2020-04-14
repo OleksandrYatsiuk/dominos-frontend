@@ -1,112 +1,113 @@
-<form [formGroup]="formDelivery" (ngSubmit)="onSubmit()">
-  <h3>Contacts</h3>
-  <div class="row">
-    <mat-form-field appearance="outline">
-      <mat-label>Enter First Name</mat-label>
-      <input matInput formControlName="firstName" />
-    </mat-form-field>
+<div class="content">
 
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Phone</mat-label>
-      <input matInput formControlName="phone" />
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Enter Email</mat-label>
-      <input matInput formControlName="email" />
-    </mat-form-field>
-  </div>
-
-  <h3>Aдреса</h3>
-
-  <div formGroupName="address">
-    <div class="row">
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Street</mat-label>
-        <input matInput formControlName="street" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter House</mat-label>
-        <input matInput formControlName="house" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Flat</mat-label>
-        <input matInput formControlName="flat" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Entrance</mat-label>
-        <input matInput formControlName="entrance" />
-      </mat-form-field>
-
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Code</mat-label>
-        <input matInput formControlName="code" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Floor</mat-label>
-        <input matInput formControlName="floor" />
-      </mat-form-field>
-    </div>
-
+  <form [formGroup]="formDelivery" (ngSubmit)="onSubmit()">
+    <h3>Contacts</h3>
     <div class="row">
       <mat-form-field appearance="outline">
-        <mat-label>Your Comment</mat-label>
-        <textarea matInput formControlName="comment"></textarea>
+        <mat-label>Enter First Name</mat-label>
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Phone</mat-label>
+        <input matInput formControlName="phone" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Enter Email</mat-label>
+        <input matInput formControlName="email" />
       </mat-form-field>
     </div>
-  </div>
+    <h3>Aдреса</h3>
+    <div formGroupName="address">
+      <div class="row">
 
-  <h3>Date and Time</h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Street</mat-label>
+          <input matInput formControlName="street" />
+        </mat-form-field>
 
-  <div formGroupName="date">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter House</mat-label>
+          <input matInput formControlName="house" />
+        </mat-form-field>
 
-    <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Date</mat-label>
-        <input matInput formControlName="date" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Flat</mat-label>
+          <input matInput formControlName="flat" />
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Time</mat-label>
-        <input matInput formControlName="time" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Entrance</mat-label>
+          <input matInput formControlName="entrance" />
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Code</mat-label>
+          <input matInput formControlName="code" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Floor</mat-label>
+          <input matInput formControlName="floor" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Your Comment</mat-label>
+          <textarea matInput formControlName="comment"></textarea>
+        </mat-form-field>
+      </div>
     </div>
-  </div>
+
+    <h3>Date and Time</h3>
+
+    <div formGroupName="date">
+      <div class="row">
 
 
-  <h3>Payment</h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Date</mat-label>
+          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
 
-  <div formGroupName="payment">
-    <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Coupon</mat-label>
-        <input matInput formControlName="coupon" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Remainder</mat-label>
-        <input matInput formControlName="remainder" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Choose Type</mat-label>
-        <input matInput formControlName="type" />
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Time</mat-label>
+          <input matInput formControlName="time" type="time" />
+        </mat-form-field>
+      </div>
     </div>
-  </div>
 
-  <div class="payment-result">
-    <h2>Total</h2>
-    <h2>88.99 грн</h2>
-  </div>
-  <div class="row">
-    <app-spin-button type="submit" [loading]="spinShipping" name="Order"></app-spin-button>
-  </div>
 
-</form>
+    <h3>Payment</h3>
+
+    <div formGroupName="payment">
+      <div class="row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Coupon</mat-label>
+          <input matInput formControlName="coupon" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Enter Remainder</mat-label>
+          <input matInput formControlName="remainder" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Choose Type</mat-label>
+          <input matInput formControlName="type" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="result">
+      <h2>Total</h2>
+      <h2>88.99 грн</h2>
+      <app-spin-button type="submit" [loading]="spinShipping" name="Order"></app-spin-button>
+    </div>
+
+  </form>
+</div>

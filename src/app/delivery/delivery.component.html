@@ -1,26 +1,25 @@
-<div class="delivery">
-  <div class="delivery_order">
-    <h1>Оформлення замовлення</h1>
-    <div class="shipping">
-      <div class="shipping-bar">
-        <a routerLink="shipping" routerLinkActive="active">Доставка</a>
-        <a routerLink="carryout" routerLinkActive="active">Самовивіз</a>
+<div class="delivery_page">
+  <div class="order">
+    <h3>Оформлення замовлення</h3>
+    <div class="navigator">
+      <div class="navigator-bar" routerLink="shipping" routerLinkActive="active">
+        Доставка
       </div>
-      <div class="shipping-form">
-        <div class="form-contacts">
-          <router-outlet></router-outlet>
-        </div>
+      <div class="navigator-bar" routerLink="carryout" routerLinkActive="active">
+        Самовивіз
       </div>
+    </div>
+    <div class="form">
+      <router-outlet></router-outlet>
     </div>
   </div>
-  <div class="order-list">
-    <h1>Ваше замовлення</h1>
-    <div class="board">
-      <div class="list" *ngFor="let item of list">
-        <app-basket-card-item [item]="item"></app-basket-card-item>
-      </div>
-      <div class="result" *ngIf="totalAmount >= 1">{{ totalAmount }} грн</div>
-      <div class="result" *ngIf="totalAmount < 1">Basket is empty!</div>
+
+  <div class="order">
+    <h3>Ваше замовлення</h3>
+    <div *ngFor="let item of list">
+      <app-basket-card-item [item]="item"></app-basket-card-item>
     </div>
+    <div class="amount" *ngIf="totalAmount >= 1">{{ totalAmount }} грн</div>
+    <div class="amount" *ngIf="totalAmount < 1">Basket is empty!</div>
   </div>
 </div>

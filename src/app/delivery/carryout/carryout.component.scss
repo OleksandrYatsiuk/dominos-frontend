@@ -1,25 +1,38 @@
-.row {
+.content {
+    background-color: snow;
     width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
 
-    app-spin-button {
-        margin-top: 10px;
-        width: 80%;
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0px;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        mat-form-field {
+            margin: 0 5px;
+        }
+        &.item {
+            padding: 5px;
+            mat-form-field {
+                width: 100%;
+            }
+        }
     }
 }
 
-.payment-result {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    h2 {
-        margin: 0 5px;
-    }
-}
-
-h4{
-    color:blue;
+mat-icon {
+    font-size: 24px;
     cursor: pointer;
+}
+
+h3 {
+    margin: 10px 20px;
+}
+.result {
+    text-align: center;
+}
+
+app-spin-button {
+    width: 50%;
+    margin: 20px;
 }
