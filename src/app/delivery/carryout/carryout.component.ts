@@ -48,8 +48,20 @@ export class CarryoutComponent implements OnInit {
     this.minDate = new Date();
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
+    this.initForm()
 
+    this.user.currentUser.subscribe(user => {
+      if (user) {
+        this.carryOut.patchValue({
+          firstName: user.fullName,
+          email: user.email,
+          phone: user.phone,
+        })
+      }
+    });
+  }
 
+  initForm(): void {
     this.carryOut = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.maxLength(15)]],
       phone: ["", [Validators.required]],
@@ -72,16 +84,6 @@ export class CarryoutComponent implements OnInit {
       }),
       amount: [this.totalAmount, [Validators.required]],
     })
-
-    this.user.currentUser.subscribe(user => {
-      if (user) {
-        this.carryOut.patchValue({
-          firstName: user.fullName,
-          email: user.email,
-          phone: user.phone,
-        })
-      }
-    });
   }
 
   openMap(): void {
