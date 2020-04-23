@@ -25,9 +25,7 @@ const deliveryRoutes: Routes = [
   imports: [
     RouterModule.forChild(deliveryRoutes)
   ],
-  exports: [
-    RouterModule
-  ]
+  exports: [RouterModule]
 })
 export class DeliveryRoutingModule { }
 

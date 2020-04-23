@@ -1,6 +1,6 @@
 <div class="content">
 
-  <form [formGroup]="formDelivery" (ngSubmit)="onSubmit()">
+  <form [formGroup]="formDelivery" (ngSubmit)="createDelivery()">
     <h3>Contacts</h3>
     <div class="row">
       <mat-form-field appearance="outline">
@@ -99,9 +99,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Enter Тype</mat-label>
           <mat-select formControlName="type">
-            <mat-option *ngFor="let type of paymentTypes" [value]=type.name>
-              {{type.name}}
-            </mat-option>
+            <mat-option [value]=paymentTypes.Cash> {{paymentTypes.Cash}}</mat-option>
+            <mat-option [value]=paymentTypes.Card> {{paymentTypes.Card}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HeaderComponent, FooterComponent } from './layout';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
@@ -12,7 +12,7 @@ import { LoginComponent } from '../auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
 import { CreatePizzaGuard } from '../core/guards/createPizza.guard';
@@ -77,10 +77,11 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     AgmCoreModule,
     SpinButtonComponent,
     NgxPermissionsModule
-
   ],
   providers: [CreatePizzaGuard,
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
   entryComponents: [LoginComponent, NotificationComponent]
+
 })
 export class SharedModule { }

@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RootService } from '../core/services/root.service';
-import { Router } from '@angular/router';
 import { BasketService } from '../core/services/basket.service';
 import { Title } from '@angular/platform-browser';
 
@@ -24,16 +22,14 @@ export class DeliveryComponent implements OnInit {
     return index;
   }
 
-
   constructor(
-    private title:Title,
-    private basketService: BasketService,
-    private rootService: RootService) {
-     
-      this.basketService.updateBasketAmount.subscribe(cnt => this.totalAmount = cnt);
+    private title: Title,
+    private basketService: BasketService
+  ) {
+    this.basketService.updateBasketAmount.subscribe(cnt => this.totalAmount = cnt);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.title.setTitle("Доставка")
     this.totalAmount = (this.basketService.actualBasket()).amount;
 

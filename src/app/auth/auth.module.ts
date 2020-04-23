@@ -3,18 +3,16 @@ import { SharedModule } from '../shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { AuthComponent } from './auth.component';
-import { UserSettingsComponent } from '../user-settings/user-settings.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MaterialModule } from '../shared/material.module';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 
 @NgModule({
-
   declarations: [
-    AuthComponent,
     LoginComponent,
     RegistrationComponent,
-    UserSettingsComponent,
+    UserSettingsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +20,8 @@ import { MaterialModule } from '../shared/material.module';
     MaterialModule,
     SharedModule
   ],
-  providers: [],
-  exports: [],
+  entryComponents: [LoginComponent],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { hasBackdrop: false, appearance: 'fill' } }],
 })
 export class AuthModule { }

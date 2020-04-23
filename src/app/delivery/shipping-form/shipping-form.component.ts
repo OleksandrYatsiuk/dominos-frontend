@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { DeliveryDataService } from '../delivery-data.service';
 import { Router } from '@angular/router';
+import { PaymentTypes } from './payments.model';
 
 @Component({
   selector: 'shipping-form',
@@ -12,10 +13,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./shipping-form.component.scss']
 })
 export class ShippingFormComponent {
-  paymentTypes = [
-    { name: "cash" }, { name: "card" }
-  ]
-  loading = false;
+  constructor(private formBuilder: FormBuilder,
+    private notification: NotificationService,
+    private user: UserService,
+    private http: DeliveryDataService,
+    private router: Router,
+    private basket: BasketService) { }
+
+  public paymentTypes = PaymentTypes;
+  public formDelivery: FormGroup;
+  public spinShipping = false;
+  public minDate: Date = new Date()
+  public maxDate: Date = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
+  public totalAmount: number;
+  public pizzasIds = [];
 
   public get list() {
     let index = [];
@@ -27,26 +38,15 @@ export class ShippingFormComponent {
     }
     return index;
   }
-  formDelivery: FormGroup;
-  public spinShipping = false;
-  minDate: Date;
-  maxDate: Date;
-  totalAmount: number;
-  pizzasIds = [];
-  constructor(private formBuilder: FormBuilder,
-    private notification: NotificationService,
-    private user: UserService,
-    private rest: DeliveryDataService,
-    private router: Router,
-    private basket: BasketService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.totalAmount = this.basket.actualBasket().amount;
     this.list.forEach(el => { this.pizzasIds.push(el.id); })
-    this.minDate = new Date();
-    this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
     this.initform();
+    this.updateForm();
+  }
 
+  private updateForm() {
     this.user.currentUser.subscribe(user => {
       if (user) {
         this.formDelivery.patchValue({
@@ -58,9 +58,7 @@ export class ShippingFormComponent {
     });
   }
 
-
-
-  initform() {
+  private initform(): void {
     this.formDelivery = this.formBuilder.group({
       firstName: ["", [Validators.required, Validators.maxLength(15)]],
       phone: ["", [Validators.required]],
@@ -81,7 +79,7 @@ export class ShippingFormComponent {
       payment: this.formBuilder.group({
         coupon: ["", []],
         remainder: ["", []],
-        type: [this.paymentTypes[0].name, [Validators.required]],
+        type: [this.paymentTypes.Cash, [Validators.required]],
       }),
       pizzaIds: this.formBuilder.group({
         pizzaIds: [this.pizzasIds, [Validators.required]],
@@ -90,11 +88,11 @@ export class ShippingFormComponent {
     })
   }
 
-  onSubmit() {
+  public createDelivery(): void {
     if (this.formDelivery.valid) {
-      this.loading = true;
-      this.rest.create(this.formDelivery.value).subscribe(res => {
-        this.loading = false;
+      this.spinShipping = true;
+      this.http.create(this.formDelivery.value).subscribe(res => {
+        this.spinShipping = false;
         this.router.navigate(['/']);
         localStorage.removeItem('basket');
         this.notification.open({ data: "Your order has been accepted!" })

@@ -1,14 +1,14 @@
 import { Component, OnInit, ErrorHandler, AfterContentInit, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { RootService } from '../core/services/root.service';
-import { ErrorHeadlerService } from '../core/services/errorHeadler.service';
-import { confirmPasswordValidator } from '../core/validators/confirm-password-validator';
-import { passwordValidator } from '../core/validators/password-validator';
+import { RootService } from '../../core/services/root.service';
+import { ErrorHeadlerService } from '../../core/services/errorHeadler.service';
+import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
+import { passwordValidator } from '../../core/validators/password-validator';
 import { Router } from '@angular/router';
-import { NotificationService } from '../core/services/notification.service';
-import { ValidationMessages } from '../core/models/error-list';
-import { UserService } from '../core/services/user.service';
+import { NotificationService } from '../../core/services/notification.service';
+import { ValidationMessages } from '../../core/models/error-list';
+import { UserService } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-user-settings',

@@ -1,7 +1,7 @@
 <div class="dp-header-desktop">
   <div class="fake-header">
     <button mat-button *ngxPermissionsOnly="canManagePizza" routerLink="/pizza/create">Створити піцу</button>
-    <button mat-button (click)="openAuthModal()" *ngIf="!currentUser">
+    <button mat-button (click)="openModal()" *ngIf="!currentUser">
       Авторизація
     </button>
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser">

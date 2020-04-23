@@ -73,13 +73,14 @@ mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper {
 }
 snack-bar-container.mat-snack-bar-container {
   min-width: 500px;
+  padding: 0px;
   background-color: snow;
   &:hover {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   }
 }
-mat-dialog-container.mat-dialog-container {
-  height: 600px;
+div .mat-dialog-container {
+  padding: 0px;
 }
 
 app-notification {

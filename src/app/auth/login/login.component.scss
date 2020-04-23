@@ -1,6 +1,9 @@
 .modal-header {
   background-color: black;
   color: snow;
+  span {
+    cursor: pointer;
+  }
 }
 
 .modal-body {
@@ -23,6 +26,7 @@ p {
 }
 .modal-content {
   padding: 20px 30px 30px 20px;
+  border: 0px;
 }
 .modal-footer {
   padding-top: 10px 0 0 0;
@@ -30,7 +34,6 @@ p {
   justify-content: center;
 
   app-spin-button {
-    margin: 0px 10px;
-    width: 40%;
+    width: 70%;
   }
 }

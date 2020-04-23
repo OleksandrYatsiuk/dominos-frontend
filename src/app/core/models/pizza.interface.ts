@@ -2,7 +2,7 @@ export interface Pizza {
   id: String,
   name: String,
   category: String,
-  ingredients: [Object],
+  ingredients: [Ingredients],
   weight: {
     small: Number,
     middle: Number,
