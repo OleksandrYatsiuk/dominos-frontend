@@ -3,55 +3,20 @@
   <form [formGroup]="formDelivery" (ngSubmit)="createDelivery()">
     <h3>Contacts</h3>
     <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Enter First Name</mat-label>
-        <input matInput formControlName="firstName" />
-      </mat-form-field>
+      <app-input type="text" formControlName="firstName" placeholder="Enter First Name"></app-input>
+      <app-input mobile-phone type="text" formControlName="phone" placeholder="Enter Phone"></app-input>
+      <app-input type="text" formControlName="email" placeholder="Enter Email"></app-input>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Phone</mat-label>
-        <input matInput formControlName="phone" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Email</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
     </div>
     <h3>Aдреса</h3>
     <div formGroupName="address">
       <div class="row">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Street</mat-label>
-          <input matInput formControlName="street" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter House</mat-label>
-          <input matInput formControlName="house" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Flat</mat-label>
-          <input matInput formControlName="flat" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Entrance</mat-label>
-          <input matInput formControlName="entrance" />
-        </mat-form-field>
-
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Code</mat-label>
-          <input matInput formControlName="code" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Floor</mat-label>
-          <input matInput formControlName="floor" />
-        </mat-form-field>
+        <app-input type="text" formControlName="street" placeholder="Enter Street"></app-input>
+        <app-input type="text" formControlName="house" placeholder="Enter House"></app-input>
+        <app-input type="text" formControlName="flat" placeholder="Enter Flat"></app-input>
+        <app-input type="text" formControlName="entrance" placeholder="Enter Entrance"></app-input>
+        <app-input type="number" formControlName="code" placeholder="Enter Code"></app-input>
+        <app-input type="text" formControlName="floor" placeholder="Enter Floor"></app-input>
 
         <mat-form-field appearance="outline">
           <mat-label>Your Comment</mat-label>
@@ -64,19 +29,13 @@
 
     <div formGroupName="date">
       <div class="row">
-
-
         <mat-form-field appearance="outline">
           <mat-label>Enter Date</mat-label>
           <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Time</mat-label>
-          <input matInput formControlName="time" type="time" />
-        </mat-form-field>
+        <app-input type="time" formControlName="time" placeholder="Enter Time" name="appt-time" step="600"></app-input>
       </div>
     </div>
 
@@ -85,17 +44,8 @@
 
     <div formGroupName="payment">
       <div class="row">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Coupon</mat-label>
-          <input matInput formControlName="coupon" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Remainder</mat-label>
-          <input matInput formControlName="remainder" />
-        </mat-form-field>
-
+        <app-input type="text" formControlName="coupon" placeholder="Enter Coupon"></app-input>
+        <app-input type="text" formControlName="remainder" placeholder="Enter Remainder"></app-input>
         <mat-form-field appearance="outline">
           <mat-label>Enter Тype</mat-label>
           <mat-select formControlName="type">

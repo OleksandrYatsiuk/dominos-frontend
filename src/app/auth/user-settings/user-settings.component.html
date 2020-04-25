@@ -4,34 +4,12 @@
     <p>Change avatar</p>
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Current Password</mat-label>
-          <input matInput formControlName="currentPassword" type="password" />
-          <mat-error *ngFor="let validation of validations?.currentPassword">
-            <mat-error *ngIf="currentPassword.hasError(validation.type) && currentPassword.invalid">
-              {{validation.message}}
-            </mat-error>
-          </mat-error>
-        </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Enter New Password</mat-label>
-          <input matInput formControlName="newPassword" />
-          <mat-error *ngFor="let validation of validations?.newPassword">
-            <mat-error *ngIf="newPassword.hasError(validation.type) && newPassword.invalid">
-              {{validation.message}}
-            </mat-error>
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Confirm Password</mat-label>
-          <input matInput formControlName="confirmPassword" />
-          <mat-error *ngFor="let validation of validations?.confirmPassword">
-            <mat-error *ngIf="confirmPassword.hasError(validation.type) && confirmPassword.invalid">
-              {{validation.message}}
-            </mat-error>
-          </mat-error>
-        </mat-form-field>
+        <app-input type="password" formControlName="currentPassword" placeholder="Enter Current Password">
+        </app-input>
+
+        <app-input type="password" formControlName="newPassword" placeholder="Enter New Password"></app-input>
+        <app-input type="password" formControlName="confirmPassword" placeholder="Enter Confirm Password"></app-input>
 
         <div class="ant-btn">
           <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
@@ -42,40 +20,16 @@
 
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
-      <mat-form-field appearance="outline">
-        <mat-label>Change Full Name</mat-label>
-        <input matInput formControlName="fullName" type="text" />
-        <mat-error *ngFor="let validation of validations?.fullName">
-          <mat-error *ngIf="fullName.hasError(validation.type) && fullName.invalid">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
+      <app-input type="text" formControlName="fullName" placeholder="Change Full Name"></app-input>
+      <app-input type="text" formControlName="username" placeholder="Enter Username"></app-input>
+      <app-input type="text" formControlName="email" placeholder="Change Email"></app-input>
 
-      </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Username</mat-label>
-        <input matInput formControlName="username" />
-        <mat-error *ngFor="let validation of validations?.username">
-          <mat-error *ngIf="username.hasError(validation.type) && username.invalid">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Email</mat-label>
-        <input matInput formControlName="email" />
-        <mat-error *ngFor="let validation of validations?.email">
-          <mat-error *ngIf="email.hasError(validation.type) && email.invalid">
-            {{validation.message}}
-          </mat-error>
-        </mat-error>
-      </mat-form-field>
       <div class="optional-info">
         <mat-form-field appearance="outline">
           <mat-label>Choose you birthday date</mat-label>
-          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate"  formControlName="birthday" (dateInput)="dateInput($event)">
+          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="birthday"
+            (dateInput)="dateInput($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>

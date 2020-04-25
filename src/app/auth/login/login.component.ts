@@ -1,4 +1,4 @@
-import { Component, OnInit, ErrorHandler, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.authForm = this.formBuilder.group({
-      username: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.maxLength(10)]],
       password: ['', [Validators.required]],
     })
   }
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(): void {
+    this.authForm.markAllAsTouched();
     if (this.authForm.valid) {
       this.spinLogIn = !this.spinLogIn;
       this.http.login(this.authForm.value)

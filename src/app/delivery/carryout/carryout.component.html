@@ -2,20 +2,9 @@
   <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
     <h3>Контакти</h3>
     <div class="row">
-      <mat-form-field appearance="outline">
-        <mat-label>Enter First Name</mat-label>
-        <input matInput formControlName="firstName" />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Phone</mat-label>
-        <input matInput formControlName="phone" mobile-phone/>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Enter Email</mat-label>
-        <input matInput formControlName="email" />
-      </mat-form-field>
+      <app-input type="text" formControlName="firstName" placeholder="Enter First Name"></app-input>
+      <app-input mobile-phone type="text" formControlName="phone" placeholder="Enter Phone"></app-input>
+      <app-input type="text" formControlName="email" placeholder="Enter Email"></app-input>
     </div>
 
 
@@ -23,17 +12,13 @@
     <div formGroupName="restaurant">
 
       <div class="row item">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Address of click by marker</mat-label>
-          <input matInput formControlName="restaurant" />
-          <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
-        </mat-form-field>
-
+        <app-input type="text" formControlName="restaurant" placeholder="Enter Address of click by marker">
+        </app-input>
+        <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
 
       </div>
       <div class="row item">
-        <mat-form-field appearance="outline">
+                <mat-form-field appearance="outline">
           <mat-label>Enter Comment</mat-label>
           <textarea matInput formControlName="comment"></textarea>
         </mat-form-field>
@@ -51,11 +36,8 @@
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Time</mat-label>
-          <input matInput formControlName="time" type="time" name="appt-time" step="600" />
-        </mat-form-field>
-
+        <app-input type="time" formControlName="time" placeholder="Enter Time" name="appt-time" step="600"></app-input>
+   
       </div>
     </div>
 
@@ -63,16 +45,9 @@
     <div formGroupName="payment">
       <div class="row">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Coupon</mat-label>
-          <input matInput formControlName="coupon" />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Remainder</mat-label>
-          <input matInput formControlName="remainder" />
-        </mat-form-field>
-
+        <app-input type="text" formControlName="coupon" placeholder="Enter Coupon"></app-input>
+        <app-input type="text" formControlName="remainder" placeholder="Enter Remainder"></app-input>
+        
         <mat-form-field appearance="outline">
           <mat-label>Enter Тype</mat-label>
           <mat-select formControlName="type">

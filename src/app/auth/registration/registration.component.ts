@@ -37,6 +37,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   public register(): void {
+    this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
       this.spinRegister = !this.spinRegister;
       this.http.register(this.registerForm.value).subscribe(() => {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule, NG_VALIDATORS } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule, } from '@angular/common/http';
@@ -25,6 +25,8 @@ import { environment } from 'src/environments/environment';
 import { NotificationComponent } from './components/notification/notification.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { InputComponent } from './components/input/input.component';
+import { CustomLabelPipe } from './pipe/custom-label.pipe';
 
 
 @NgModule({
@@ -32,10 +34,12 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     HeaderComponent,
     FooterComponent,
     PizzaFilterPipe,
+    CustomLabelPipe,
     BasketCardItemComponent,
     MapComponent,
     NotificationComponent,
-    SpinButtonComponent
+    SpinButtonComponent,
+    InputComponent,
   ],
   imports: [
     FormsModule,
@@ -76,7 +80,9 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     MapComponent,
     AgmCoreModule,
     SpinButtonComponent,
-    NgxPermissionsModule
+    NgxPermissionsModule,
+    InputComponent,
+    PizzaFilterPipe,
   ],
   providers: [CreatePizzaGuard,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

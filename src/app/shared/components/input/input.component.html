@@ -1,6 +1,13 @@
-<div class="input-form" [formGroup]="form">
-    <label for="input" [ngClass]="hasError">{{label}}</label>
-    <input id="input" [type]="type" [ngClass]="hasError" [placeholder]="placeholder"
-        [formControlName]="formControlName">
-    <span class="error" *ngIf="isPresent">{{error}}</span>
+<div class="input-form">
+    <label [for]="formControlName"> {{formControlName|customLabel}}</label>
+    <input [id]="formControlName" [type]="type" (input)="onModelChange($event.target.value)" (focus)="onFocus($event)"
+        [class.error]="control?.invalid && (control.dirty || control.touched)" [class.focused]="focus"
+        (blur)="onBlur($event)" [placeholder]="placeholder" [value]="value">
+    <div *ngFor="let validation of errorArray">
+        <div class="error"
+            *ngIf="control?.hasError(validation.type) && control.invalid && (control.dirty || control.touched)">
+            {{validation.message}}
+        </div>
+    </div>
+
 </div>

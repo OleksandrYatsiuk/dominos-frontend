@@ -4,25 +4,9 @@
 </div>
 <form [formGroup]="authForm" (ngSubmit)="login()">
   <div class="modal-content">
-    <mat-form-field appearance="outline" class="field">
-      <mat-label>Enter Username</mat-label>
-      <input matInput formControlName="username" cdkFocusInitial />
-      <mat-error *ngFor="let validation of validations?.username">
-        <mat-error *ngIf="username.hasError(validation.type) && username.invalid">
-          {{validation.message}}
-        </mat-error>
-      </mat-error>
-    </mat-form-field>
+    <app-input type="text" formControlName="username" placeholder="Enter Username"></app-input>
 
-    <mat-form-field appearance="outline" class="field">
-      <mat-label>Enter Password</mat-label>
-      <input matInput formControlName="password" type="password" />
-      <mat-error *ngFor="let validation of validations?.password">
-        <mat-error *ngIf="password.hasError(validation.type) && password.invalid">
-          {{validation.message}}
-        </mat-error>
-      </mat-error>
-    </mat-form-field>
+    <app-input type="password" formControlName="password" placeholder="Enter Password"></app-input>
   </div>
   <div class="modal-footer">
     <app-spin-button type="submit" name="Log In" [loading]="spinLogIn"> </app-spin-button>
