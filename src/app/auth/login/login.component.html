@@ -4,9 +4,14 @@
 </div>
 <form [formGroup]="authForm" (ngSubmit)="login()">
   <div class="modal-content">
-    <app-input type="text" formControlName="username" placeholder="Enter Username"></app-input>
+    <app-form-item [control]="authForm.controls.username" name="username">
+      <input placeholder="Enter Username" formControlName="username">
+    </app-form-item>
 
-    <app-input type="password" formControlName="password" placeholder="Enter Password"></app-input>
+    <app-form-item [control]="authForm.controls.password" name="password">
+      <input placeholder="Enter Password" formControlName="password" type="password"> 
+    </app-form-item>
+
   </div>
   <div class="modal-footer">
     <app-spin-button type="submit" name="Log In" [loading]="spinLogIn"> </app-spin-button>

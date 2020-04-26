@@ -20,7 +20,9 @@ export class ShippingFormComponent {
     private router: Router,
     private basket: BasketService) { }
 
-  public paymentTypes = PaymentTypes;
+    paymentTypes = [
+      { name: "cash" }, { name: "card" }
+    ]
   public formDelivery: FormGroup;
   public spinShipping = false;
   public minDate: Date = new Date()
@@ -47,6 +49,7 @@ export class ShippingFormComponent {
   }
 
   private updateForm() {
+    this.user.setCurrentUser()
     this.user.currentUser.subscribe(user => {
       if (user) {
         this.formDelivery.patchValue({
@@ -79,7 +82,7 @@ export class ShippingFormComponent {
       payment: this.formBuilder.group({
         coupon: ["", []],
         remainder: ["", []],
-        type: [this.paymentTypes.Cash, [Validators.required]],
+        type: [this.paymentTypes[0].name, [Validators.required]],
       }),
       pizzaIds: this.formBuilder.group({
         pizzaIds: [this.pizzasIds, [Validators.required]],

@@ -8,11 +8,12 @@ import { BasketService } from './services/basket.service';
 import { UserService } from './services/user.service';
 import { GeolocationService } from './services/geolocation.service';
 import { NotificationService } from './services/notification.service';
+import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [MobilePhoneDirective],
   imports: [CommonModule],
   providers: [
     BasketService,
@@ -31,5 +32,6 @@ import { NotificationService } from './services/notification.service';
       multi: true
     }
   ],
+  exports: [MobilePhoneDirective]
 })
 export class CoreModule { }

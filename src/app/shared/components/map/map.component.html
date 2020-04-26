@@ -15,14 +15,10 @@
         </label>
     </div>
     <div class="directions_options">
-        <mat-form-field appearance="outline">
-            <mat-label>From</mat-label>
-            <input matInput [value]="currentAddress" />
-        </mat-form-field>
-        <mat-form-field appearance="outline">
-            <mat-label>To</mat-label>
-            <input matInput value="{{data?.address}}" />
-        </mat-form-field>
+        <label>From</label>
+        <input [value]="currentAddress" />
+        <label>To</label>
+        <input value="{{data?.address}}" />
     </div>
     <div class="directions_info">
         <h3 *ngIf="distance">Distance: {{(distance/1000).toFixed(1)}} km</h3>

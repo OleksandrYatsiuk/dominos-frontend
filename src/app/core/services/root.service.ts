@@ -21,7 +21,7 @@ export class RootService {
     return this.http.delete(`${this.serverUrl}/pizza/${id}`);
   }
   createPizza(data: Pizza[]): Observable<any> {
-    return this.http.post<any>(`${this.serverUrl}/pizza`, data);
+    return this.http.post<any>(`${this.serverUrl}/pizza/create`, data);
   }
   uploadPhoto(file: FormData): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/upload`, file);

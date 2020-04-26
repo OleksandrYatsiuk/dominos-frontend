@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from '../../../core/services/root.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Ingredients } from '../../../core/models/pizza.interface';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
@@ -78,6 +78,7 @@ export class PizzaCreateComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.formCreatingPizza.controls)
     if (this.formCreatingPizza.valid) {
       this.spinCreatePizza = !this.spinCreatePizza;
       return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(({ code, result }) => {

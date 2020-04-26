@@ -55,6 +55,7 @@ export class UserSettingsComponent implements OnInit {
     this.initForm()
     this.initUpdateProfile()
     this.title.setTitle('User Settings');
+    this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
       this.currentUser = user;
       if (user) {
@@ -73,7 +74,9 @@ export class UserSettingsComponent implements OnInit {
     console.log($event.target._value)
   }
   onSubmit() {
+    this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
+      this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''))
       this.spinEditProfile = true;
       this.http.updateProfile(this.currentUser['id'], this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
@@ -113,6 +116,7 @@ export class UserSettingsComponent implements OnInit {
   }
 
   changePassword() {
+    this.changePasswordForm.markAllAsTouched();
     if (this.changePasswordForm.valid) {
       this.spinChangePassword = true;
       this.http.changePassword(this.changePasswordForm.value).subscribe(() => {

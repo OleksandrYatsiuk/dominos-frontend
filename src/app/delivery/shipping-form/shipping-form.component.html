@@ -2,40 +2,69 @@
 
   <form [formGroup]="formDelivery" (ngSubmit)="createDelivery()">
     <h3>Contacts</h3>
-    <div class="row">
-      <app-input type="text" formControlName="firstName" placeholder="Enter First Name"></app-input>
-      <app-input mobile-phone type="text" formControlName="phone" placeholder="Enter Phone"></app-input>
-      <app-input type="text" formControlName="email" placeholder="Enter Email"></app-input>
+    <div class="row-item">
+
+      <app-form-item [control]="formDelivery.controls.firstName" name="firstName">
+        <input placeholder="Enter First Name" formControlName="firstName">
+      </app-form-item>
+      <app-form-item [control]="formDelivery.controls.phone" name="phone">
+        <input mobile-phone placeholder="Enter Phone" formControlName="phone">
+      </app-form-item>
+
+      <app-form-item [control]="formDelivery.controls.email" name="email">
+        <input placeholder="Enter Email" formControlName="email">
+      </app-form-item>
 
     </div>
     <h3>Aдреса</h3>
     <div formGroupName="address">
-      <div class="row">
-        <app-input type="text" formControlName="street" placeholder="Enter Street"></app-input>
-        <app-input type="text" formControlName="house" placeholder="Enter House"></app-input>
-        <app-input type="text" formControlName="flat" placeholder="Enter Flat"></app-input>
-        <app-input type="text" formControlName="entrance" placeholder="Enter Entrance"></app-input>
-        <app-input type="number" formControlName="code" placeholder="Enter Code"></app-input>
-        <app-input type="text" formControlName="floor" placeholder="Enter Floor"></app-input>
+      <div class="row-item">
 
-        <mat-form-field appearance="outline">
-          <mat-label>Your Comment</mat-label>
-          <textarea matInput formControlName="comment"></textarea>
-        </mat-form-field>
+        <app-form-item [control]="formDelivery.get('address')['controls'].street" name="street">
+          <input placeholder="Enter Street" formControlName="street">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].house" name="house">
+          <input placeholder="Enter House" formControlName="house">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].flat" name="flat">
+          <input placeholder="Enter Flat" formControlName="flat">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].entrance" name="entrance">
+          <input placeholder="Enter Entrance" formControlName="entrance">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].code" name="code">
+          <input placeholder="Enter Code" type="number" formControlName="code">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].floor" name="floor">
+          <input placeholder="Enter Floor" type="number" formControlName="floor">
+        </app-form-item>
       </div>
+      <div class="row-item">
+        <app-form-item [control]="formDelivery.get('address')['controls'].comment" name="comment" class="field">
+          <textarea placeholder="Enter Comment" formControlName="comment"></textarea>
+        </app-form-item>
+      </div>
+
     </div>
 
     <h3>Date and Time</h3>
 
     <div formGroupName="date">
-      <div class="row">
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Date</mat-label>
-          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
+      <div class="row-item">
+        <app-form-item [control]="formDelivery.get('date')['controls'].date" name="date" class="date">
+          <input [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-        <app-input type="time" formControlName="time" placeholder="Enter Time" name="appt-time" step="600"></app-input>
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('date')['controls'].time" name="time" class="date">
+          <input type="time" placeholder="Enter Time" formControlName="time" step="600">
+        </app-form-item>
       </div>
     </div>
 
@@ -43,16 +72,24 @@
     <h3>Payment</h3>
 
     <div formGroupName="payment">
-      <div class="row">
-        <app-input type="text" formControlName="coupon" placeholder="Enter Coupon"></app-input>
-        <app-input type="text" formControlName="remainder" placeholder="Enter Remainder"></app-input>
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Тype</mat-label>
+      <div class="row-item">
+        <app-form-item [control]="formDelivery.get('payment')['controls'].coupon" name="coupon" class="payment">
+          <input placeholder="Enter Coupon" formControlName="coupon">
+        </app-form-item>
+
+        <app-form-item [control]="formDelivery.get('payment')['controls'].remainder" name="remainder" class="payment">
+          <input placeholder="Enter Remainder" formControlName="remainder">
+        </app-form-item>
+      </div>
+
+      <div class="row-item">
+        <app-form-item [control]="formDelivery.get('payment')['controls'].type" name="type" class="field">
           <mat-select formControlName="type">
-            <mat-option [value]=paymentTypes.Cash> {{paymentTypes.Cash}}</mat-option>
-            <mat-option [value]=paymentTypes.Card> {{paymentTypes.Card}}</mat-option>
+            <mat-option *ngFor="let type of paymentTypes" [value]=type.name>
+              {{type.name}}
+            </mat-option>
           </mat-select>
-        </mat-form-field>
+        </app-form-item>
       </div>
     </div>
 

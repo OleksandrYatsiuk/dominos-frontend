@@ -7,6 +7,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { MaterialModule } from '../shared/material.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
     CommonModule,
     AuthRoutingModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
+    CoreModule
   ],
   entryComponents: [LoginComponent],
   providers: [

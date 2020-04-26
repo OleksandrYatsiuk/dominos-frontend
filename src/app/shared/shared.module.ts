@@ -27,6 +27,8 @@ import { SpinButtonComponent } from './components/spin-button/spin-button.compon
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { InputComponent } from './components/input/input.component';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
+import { FormItemComponent } from './components/form-item/form-item.component';
+
 
 
 @NgModule({
@@ -40,6 +42,7 @@ import { CustomLabelPipe } from './pipe/custom-label.pipe';
     NotificationComponent,
     SpinButtonComponent,
     InputComponent,
+    FormItemComponent
   ],
   imports: [
     FormsModule,
@@ -83,6 +86,7 @@ import { CustomLabelPipe } from './pipe/custom-label.pipe';
     NgxPermissionsModule,
     InputComponent,
     PizzaFilterPipe,
+    FormItemComponent
   ],
   providers: [CreatePizzaGuard,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

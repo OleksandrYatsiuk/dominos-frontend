@@ -1,0 +1,30 @@
+.custom_row {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    &:hover {
+        border: 2px solid black;
+    }
+    &.error {
+        color: #f44336;
+        border: 2px solid #f44336;
+    }
+}
+
+.error {
+    width: 100%;
+    color: #f44336;
+    font-size: 12px;
+}
+label {
+    margin: 0px;
+    margin-top: 5px;
+}
+

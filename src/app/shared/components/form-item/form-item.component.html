@@ -1,0 +1,12 @@
+<div class="custom_row">
+    <label>{{name|customLabel}}</label>
+    <div class="input" [class.error]="control.invalid && (control.dirty || control.touched)">
+        <ng-content></ng-content>
+    </div>
+    <div *ngFor="let validation of errorArray">
+        <div class="error"
+            *ngIf="control.hasError(validation.type) && control.invalid && (control.dirty || control.touched)">
+            {{validation.message}}
+        </div>
+    </div>
+</div>

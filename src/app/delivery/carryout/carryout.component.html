@@ -1,63 +1,76 @@
 <div class="content">
   <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
     <h3>Контакти</h3>
-    <div class="row">
-      <app-input type="text" formControlName="firstName" placeholder="Enter First Name"></app-input>
-      <app-input mobile-phone type="text" formControlName="phone" placeholder="Enter Phone"></app-input>
-      <app-input type="text" formControlName="email" placeholder="Enter Email"></app-input>
+    <div class="row-item">
+      <app-form-item [control]="carryOut.controls.firstName" name="firstName">
+        <input placeholder="Enter First Name" formControlName="firstName">
+      </app-form-item>
+      <app-form-item [control]="carryOut.controls.phone" name="phone">
+        <input mobile-phone placeholder="Enter Phone" formControlName="phone">
+      </app-form-item>
+
+      <app-form-item [control]="carryOut.controls.email" name="email">
+        <input placeholder="Enter Email" formControlName="email">
+      </app-form-item>
     </div>
 
 
     <h3>Ресторан </h3>
     <div formGroupName="restaurant">
 
-      <div class="row item">
-        <app-input type="text" formControlName="restaurant" placeholder="Enter Address of click by marker">
-        </app-input>
-        <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
-
+      <div class="row-item">
+        <app-form-item [control]="carryOut.get('restaurant')['controls'].restaurant" name="restaurant" class="field">
+          <input mobile-phone placeholder="Enter Restaurant" formControlName="restaurant">
+          <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
+        </app-form-item>
       </div>
-      <div class="row item">
-                <mat-form-field appearance="outline">
-          <mat-label>Enter Comment</mat-label>
-          <textarea matInput formControlName="comment"></textarea>
-        </mat-form-field>
+
+      <div class="row-item">
+        <app-form-item [control]="carryOut.get('restaurant')['controls'].comment" name="comment" class="field">
+          <textarea formControlName="comment"></textarea>
+        </app-form-item>
       </div>
 
     </div>
     <h3>Date</h3>
-    <div class="row">
-      <div formGroupName="date">
-
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Date</mat-label>
-          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
+    <div formGroupName="date">
+      <div class="row-item">
+        <app-form-item [control]="carryOut.get('date')['controls'].date" name="date" class="date">
+          <input [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        </app-form-item>
 
-        <app-input type="time" formControlName="time" placeholder="Enter Time" name="appt-time" step="600"></app-input>
-   
+        <app-form-item [control]="carryOut.get('date')['controls'].time" name="time" class="date">
+          <input type="time" placeholder="Enter Time" formControlName="time" step="600">
+        </app-form-item>
+
+
       </div>
     </div>
 
     <h3>Payment</h3>
     <div formGroupName="payment">
-      <div class="row">
+      <div class="row-item">
+        <app-form-item [control]="carryOut.get('payment')['controls'].coupon" name="coupon" class="payment">
+          <input placeholder="Enter Coupon" formControlName="coupon">
+        </app-form-item>
 
-        <app-input type="text" formControlName="coupon" placeholder="Enter Coupon"></app-input>
-        <app-input type="text" formControlName="remainder" placeholder="Enter Remainder"></app-input>
-        
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Тype</mat-label>
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let type of paymentTypes" [value]=type.name>
-              {{type.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-
+        <app-form-item [control]="carryOut.get('payment')['controls'].remainder" name="remainder" class="payment">
+          <input placeholder="Enter Remainder" formControlName="remainder">
+        </app-form-item>
       </div>
+
+      <div class="row-item">
+          <app-form-item [control]="carryOut.get('payment')['controls'].type" name="type" class="field">
+            <mat-select formControlName="type">
+              <mat-option *ngFor="let type of paymentTypes" [value]=type.name>
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </app-form-item>
+      </div>
+
     </div>
     <div class="result">
       <h2>Total</h2>

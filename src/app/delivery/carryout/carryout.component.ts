@@ -21,7 +21,7 @@ export class CarryoutComponent implements OnInit {
   pizzasIds = [];
   paymentTypes = [
     { name: "cash" }, { name: "card" }
-  ]
+  ];
 
   public get list() {
     let index = [];
@@ -49,7 +49,7 @@ export class CarryoutComponent implements OnInit {
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
     this.initForm()
-
+    this.user.setCurrentUser()
     this.user.currentUser.subscribe(user => {
       if (user) {
         this.carryOut.patchValue({

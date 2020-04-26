@@ -5,11 +5,17 @@
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
 
-        <app-input type="password" formControlName="currentPassword" placeholder="Enter Current Password">
-        </app-input>
+        <app-form-item [control]="changePasswordForm.controls.currentPassword" name="currentPassword">
+          <input placeholder="Enter Current Password" formControlName="currentPassword" type="password">
+        </app-form-item>
 
-        <app-input type="password" formControlName="newPassword" placeholder="Enter New Password"></app-input>
-        <app-input type="password" formControlName="confirmPassword" placeholder="Enter Confirm Password"></app-input>
+        <app-form-item [control]="changePasswordForm.controls.newPassword" name="newPassword">
+          <input placeholder="Enter New Password" formControlName="newPassword" type="new-password">
+        </app-form-item>
+
+        <app-form-item [control]="changePasswordForm.controls.confirmPassword" name="confirmPassword">
+          <input placeholder="Enter confirmPassword" formControlName="confirmPassword" type="new-password">
+        </app-form-item>
 
         <div class="ant-btn">
           <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
@@ -20,26 +26,33 @@
 
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
-      <app-input type="text" formControlName="fullName" placeholder="Change Full Name"></app-input>
-      <app-input type="text" formControlName="username" placeholder="Enter Username"></app-input>
-      <app-input type="text" formControlName="email" placeholder="Change Email"></app-input>
 
+      <app-form-item [control]="updateProfileForm.controls.fullName" name="fullName" class="field">
+        <input placeholder="Enter FullName" formControlName="fullName">
+      </app-form-item>
+
+      <app-form-item [control]="updateProfileForm.controls.username" name="username" class="field">
+        <input placeholder="Enter Username" formControlName="username">
+      </app-form-item>
+
+      <app-form-item [control]="updateProfileForm.controls.email" name="email" class="field">
+        <input placeholder="Enter Email" formControlName="email">
+      </app-form-item>
 
       <div class="optional-info">
-        <mat-form-field appearance="outline">
-          <mat-label>Choose you birthday date</mat-label>
-          <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="birthday"
-            (dateInput)="dateInput($event)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+        <mat-form-field class="custom" appearance="outline">
+          <app-form-item [control]="updateProfileForm.controls.birthday" name="birthday" class="field">
+            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="birthday"
+              (dateInput)="dateInput($event)">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </app-form-item>
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Enter Phone Number</mat-label>
-          <input matInput formControlName="phone" type="number" class="example-right-align" />
-          <span matPrefix>+380&#160;</span>
+        <app-form-item [control]="updateProfileForm.controls.phone" name="phone" class="field">
+          <input formControlName="phone" type="text" mobile-phone />
+        </app-form-item>
 
-        </mat-form-field>
       </div>
 
 

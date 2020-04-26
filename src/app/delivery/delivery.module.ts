@@ -8,21 +8,20 @@ import { CarryoutComponent } from './carryout/carryout.component';
 import { MaterialModule } from '../shared/material.module';
 import { MapComponent } from '../shared/components/map/map.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
-import { MobilePhoneDirective } from './mobile-phone.directive';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
   declarations: [
     DeliveryComponent,
     ShippingFormComponent,
-    CarryoutComponent,
-    MobilePhoneDirective,
-  ],
+    CarryoutComponent  ],
   imports: [
     CommonModule,
     SharedModule,
     DeliveryRoutingModule,
-    MaterialModule
+    MaterialModule, 
+    CoreModule
   ],
   entryComponents: [MapComponent],
   providers: [
