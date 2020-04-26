@@ -76,7 +76,9 @@ export class UserSettingsComponent implements OnInit {
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
-      this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''))
+      if (this.updateProfileForm.controls.phone.value) {
+        this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''))
+      }
       this.spinEditProfile = true;
       this.http.updateProfile(this.currentUser['id'], this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
