@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ErrorHandler } from '@angular/core';
 import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Ingredients } from '../../../core/models/pizza.interface';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { ErrorHeadlerService } from 'src/app/core/services/errorHeadler.service';
 
 @Component({
   selector: 'app-pizza-create',
@@ -23,7 +24,8 @@ export class PizzaCreateComponent implements OnInit {
   constructor(
     private rootService: RootService,
     private formBuilder: FormBuilder,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private headler: ErrorHeadlerService
   ) { }
 
   ngOnInit() {
@@ -78,7 +80,7 @@ export class PizzaCreateComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.formCreatingPizza.controls)
+    this.formCreatingPizza.markAllAsTouched()
     if (this.formCreatingPizza.valid) {
       this.spinCreatePizza = !this.spinCreatePizza;
       return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(({ code, result }) => {
@@ -88,8 +90,8 @@ export class PizzaCreateComponent implements OnInit {
         }
       },
         (error) => {
-          console.log(error);
           this.spinCreatePizza = !this.spinCreatePizza;
+          this.headler.validation(error, this.formCreatingPizza);
         });
     }
   }
