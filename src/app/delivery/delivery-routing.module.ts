@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { DeliveryComponent } from './delivery.component';
 import { CarryoutComponent } from './carryout/carryout.component';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 
 
 const deliveryRoutes: Routes = [
@@ -16,8 +17,12 @@ const deliveryRoutes: Routes = [
           { path: 'shipping', component: ShippingFormComponent },
           { path: 'carryout', component: CarryoutComponent },
         ]
-      }
+      },
     ]
+  },
+  {
+    path: "deliveries",
+    component: DeliveryListComponent
   }
 ];
 

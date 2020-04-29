@@ -9,13 +9,15 @@ import { MaterialModule } from '../shared/material.module';
 import { MapComponent } from '../shared/components/map/map.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 import { CoreModule } from '../core/core.module';
+import { DeliveryListComponent } from './delivery-list/delivery-list.component';
 
 
 @NgModule({
   declarations: [
     DeliveryComponent,
     ShippingFormComponent,
-    CarryoutComponent  ],
+    CarryoutComponent,
+    DeliveryListComponent  ],
   imports: [
     CommonModule,
     SharedModule,

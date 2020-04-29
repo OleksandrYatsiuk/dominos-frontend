@@ -14,4 +14,7 @@ export class DeliveryDataService {
   public create(delivery: Delivery): Observable<Delivery> {
     return this.http.post('/delivery/create', delivery);
   }
+  public deliveryList(): Observable<Delivery[]> {
+    return this.http.get('/delivery')
+  }
 }

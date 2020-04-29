@@ -1,4 +1,5 @@
 export interface Delivery {
+    id: String,
     firstName: String,
     phone: Number,
     email: String,
