@@ -44,8 +44,12 @@ export class DeliveryListComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
       height: '300px',
-      data: { name: "Ви дійсно хочете видалити замовлення", delivery: item }
+      data: { name: "Ви дійсно хочете видалити замовлення", delivery: item, status: "" }
     });
-    dialogRef.afterClosed().subscribe();
+    dialogRef.afterClosed().subscribe(result => {
+      if (result !== undefined) {
+        this.getList(1, this.pageSize)
+      }
+    });
   }
 }

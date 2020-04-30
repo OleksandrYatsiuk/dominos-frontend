@@ -4,5 +4,6 @@
 <p>Email: {{data.delivery.email}}</p>
 <div class="modal-actions">
     <app-spin-button name="Close" (click)="onNoClick()" color="Basic"></app-spin-button>
-    <app-spin-button name="Delete" [loading]="loading" (click)="delete()"></app-spin-button>
+    <app-spin-button [mat-dialog-close]="data" name="Delete" [loading]="loading" (click)="delete()">
+    </app-spin-button>
 </div>
