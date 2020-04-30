@@ -13,8 +13,8 @@ export class DeliveryListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date'];
   dataSource;
   length = 100;
-  pageSize = 10;
-  pageSizeOptions: number[] = [10, 20];
+  pageSize = 20;
+  pageSizeOptions: number[] = [5, 10, 20];
   pageEvent: PageEvent;
 
   constructor(
@@ -22,14 +22,18 @@ export class DeliveryListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.http.deliveryList()
-      .pipe(pluck('result'))
-      .subscribe(list => {
-        this.dataSource = list;
-        this.length = list['length'];
-      })
+    this.getList(1, this.pageSize)
+
   }
   showChanges(event: PageEvent) {
-    console.log(event);
+    this.getList(++event.pageIndex, event.pageSize)
+  }
+  getList(page, perPage) {
+    this.http.deliveryList(page, perPage)
+      .subscribe(response => {
+        let { totalCount } = response['_meta'].pagination;
+        this.length = totalCount;
+        this.dataSource = response['result'];
+      })
   }
 }

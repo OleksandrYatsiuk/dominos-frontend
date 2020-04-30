@@ -45,8 +45,8 @@ export class RootService {
     return this.http.post(`${this.serverUrl}${path}`, body);
   }
 
-  get(path): Observable<any> {
-    return this.http.get<any>(`${this.serverUrl}${path}`);
+  get(path:string, options?): Observable<any> {
+    return this.http.get<any>(`${this.serverUrl}${path}`, options);
   }
 
 

@@ -1,4 +1,6 @@
 <h1>List of Deliveries</h1>
+
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order.
@@ -45,10 +47,3 @@
 </table>
 <mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="showChanges($event)">
 </mat-paginator>
-
-<div *ngIf="pageEvent">
-  <h5>Page Change Event Properties</h5>
-  <div>List length: {{pageEvent.length}}</div>
-  <div>Page size: {{pageEvent.pageSize}}</div>
-  <div>Page index: {{pageEvent.pageIndex}}</div>
-</div>
