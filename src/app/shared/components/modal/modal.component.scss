@@ -1,0 +1,17 @@
+h3 {
+    margin: 10px;
+    text-align: center;
+}
+.modal-actions {
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    margin: 10px 5px;
+    justify-content: space-around;
+    app-spin-button {
+        width: 45%;
+    }
+}
+p {
+    margin: 0 10px;
+}

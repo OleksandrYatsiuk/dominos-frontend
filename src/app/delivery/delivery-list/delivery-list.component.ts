@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DeliveryDataService } from '../delivery-data.service';
-import { pluck } from 'rxjs/operators';
-import { PageEvent, MatPaginator, MatTableDataSource } from '@angular/material';
+import { PageEvent, MatDialog } from '@angular/material';
+import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-delivery-list',
@@ -10,7 +11,7 @@ import { PageEvent, MatPaginator, MatTableDataSource } from '@angular/material';
 })
 export class DeliveryListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date'];
+  displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date', 'delete'];
   dataSource;
   length = 100;
   pageSize = 20;
@@ -18,7 +19,9 @@ export class DeliveryListComponent implements OnInit {
   pageEvent: PageEvent;
 
   constructor(
-    private http: DeliveryDataService
+    private http: DeliveryDataService,
+    public dialog: MatDialog,
+    public notification: NotificationService
   ) { }
 
   ngOnInit() {
@@ -35,5 +38,14 @@ export class DeliveryListComponent implements OnInit {
         this.length = totalCount;
         this.dataSource = response['result'];
       })
+  }
+
+  delete(item): void {
+    const dialogRef = this.dialog.open(ModalComponent, {
+      width: '500px',
+      height: '300px',
+      data: { name: "Ви дійсно хочете видалити замовлення", delivery: item }
+    });
+    dialogRef.afterClosed().subscribe();
   }
 }

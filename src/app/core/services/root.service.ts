@@ -41,12 +41,15 @@ export class RootService {
   }
 
 
-  post(path, body): Observable<any> {
+  public post(path, body): Observable<any> {
     return this.http.post(`${this.serverUrl}${path}`, body);
   }
 
-  get(path:string, options?): Observable<any> {
+  public get(path: string, options?): Observable<any> {
     return this.http.get<any>(`${this.serverUrl}${path}`, options);
+  }
+  public delete(path: string): Observable<any> {
+    return this.http.delete<any>(`${this.serverUrl}${path}`);
   }
 
 

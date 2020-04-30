@@ -28,6 +28,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { InputComponent } from './components/input/input.component';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
+import { MenuDirective } from './components/menu.directive';
+import { ModalComponent } from './components/modal/modal.component';
 
 
 
@@ -39,10 +41,12 @@ import { FormItemComponent } from './components/form-item/form-item.component';
     CustomLabelPipe,
     BasketCardItemComponent,
     MapComponent,
+    ModalComponent,
     NotificationComponent,
     SpinButtonComponent,
     InputComponent,
-    FormItemComponent
+    FormItemComponent,
+    MenuDirective,
   ],
   imports: [
     FormsModule,
@@ -86,12 +90,13 @@ import { FormItemComponent } from './components/form-item/form-item.component';
     NgxPermissionsModule,
     InputComponent,
     PizzaFilterPipe,
-    FormItemComponent
+    FormItemComponent,
+    MenuDirective,
   ],
   providers: [CreatePizzaGuard,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
-  entryComponents: [LoginComponent, NotificationComponent]
+  entryComponents: [LoginComponent, NotificationComponent, ModalComponent]
 
 })
 export class SharedModule { }

@@ -84,7 +84,6 @@ h2 {
 }
 
 .mat-menu-trigger {
-  min-width: 150px;
   border-radius: 5px;
   outline: none;
 }
@@ -133,8 +132,17 @@ h2 {
     letter-spacing: 2px;
   }
 }
-.active{
+.active {
   font-weight: bolder;
   cursor: pointer;
   letter-spacing: 2px;
+}
+.mini-menu {
+  cursor: pointer;
+}
+ul > .mat-icon {
+  font-size: 50px;
+  .mini-menu.mat-menu-trigger{
+    min-width: 10px;
+  }
 }

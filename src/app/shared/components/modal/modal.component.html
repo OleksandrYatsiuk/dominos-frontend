@@ -1,0 +1,8 @@
+<h3>{{data.name}} за {{data.delivery.date.date|date}}?</h3>
+<p>ID:{{data.delivery.id}}</p>
+<p>First Name: {{data.delivery.firstName}}</p>
+<p>Email: {{data.delivery.email}}</p>
+<div class="modal-actions">
+    <app-spin-button name="Close" (click)="onNoClick()" color="Basic"></app-spin-button>
+    <app-spin-button name="Delete" [loading]="loading" (click)="delete()"></app-spin-button>
+</div>

@@ -18,7 +18,7 @@
   <div class="main-header">
     <div class="navigation">
       <h2 routerLink="/"> Domino's Pizza </h2>
-      <div class="nav">
+      <div class="nav" appMenu>
         <span routerLink="/pizza" routerLinkActive="active">Піца</span>
         <span routerLink="">Напої</span>
         <span routerLink="">Сайди</span>
@@ -33,7 +33,32 @@
           <button>Замовити</button>
         </a>
       </div>
+      <ul mat-icon-button [matMenuTriggerFor]="beforeMenu" aria-label="Example icon-button with a menu" class="mini-menu">
+        <mat-icon>list</mat-icon>
+      </ul>
+      <mat-menu #beforeMenu="matMenu">
+        <span mat-menu-item routerLink="/pizza" routerLinkActive="active">
+          <mat-icon>local_pizza</mat-icon>
+          <span>Піца</span>
+        </span>
+
+        <span mat-menu-item routerLink="">
+          <mat-icon>local_drink</mat-icon>
+          <span>Напої</span>
+        </span>
+
+        <span mat-menu-item routerLink="">
+          <mat-icon>fastfood</mat-icon>
+          <span>Cайди</span>
+        </span>
+        <span mat-menu-item routerLink="">
+          <mat-icon>cake</mat-icon>
+          <span>Десерти</span>
+        </span>
+      </mat-menu>
     </div>
   </div>
+
+
 </div>
 <div class="fixed_header"></div>
