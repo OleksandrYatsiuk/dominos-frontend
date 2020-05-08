@@ -9,11 +9,11 @@ export class AuthService {
   constructor(private http: RootService) { }
 
   public login(userLogin: UserLogin): Observable<any> {
-    return this.http.post(`/user/login`, userLogin);
+    return this.http.post(`/auth/login`, userLogin);
   }
 
   public register(user: User): Observable<any> {
-    return this.http.post(`/user/register`, user)
+    return this.http.post(`/auth/register`, user)
   }
 
   public logout(): Observable<null> {
@@ -25,6 +25,6 @@ export class AuthService {
   }
 
   public updateLocation(location: object): Observable<any> {
-    return this.http.post(`/user/location`, location)
+    return this.http.put(`/user/location`, location)
   }
 }

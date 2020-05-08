@@ -27,6 +27,7 @@ export class CarryoutComponent implements OnInit {
     let index = [];
     let storage = JSON.parse(localStorage.getItem('basket'))
     for (let idx in storage) {
+      this.pizzasIds.push(idx);
       for (let item in storage[idx]) {
         index.push(storage[idx][item]);
       }
@@ -66,10 +67,8 @@ export class CarryoutComponent implements OnInit {
       firstName: ["", [Validators.required, Validators.maxLength(15)]],
       phone: ["", [Validators.required]],
       email: ["", [Validators.required, Validators.email]],
-      restaurant: this.formBuilder.group({
-        restaurant: ["", [Validators.required]],
-        comment: ["", []],
-      }),
+      shop: ["", [Validators.required]],
+      comment: ["", []],
       date: this.formBuilder.group({
         date: [new Date(), [Validators.required]],
         time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]],
@@ -79,9 +78,7 @@ export class CarryoutComponent implements OnInit {
         remainder: ["", []],
         type: [this.paymentTypes[0].name, [Validators.required]],
       }),
-      pizzaIds: this.formBuilder.group({
-        pizzaIds: [this.pizzasIds, [Validators.required]],
-      }),
+      pizzasIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],
     })
   }
@@ -90,7 +87,7 @@ export class CarryoutComponent implements OnInit {
     const dialogRef = this.dialog.open(MapComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.carryOut.controls.restaurant['controls'].restaurant.setValue(result.address);
+        this.carryOut.controls.shop.setValue(result.address);
       }
     });
   }

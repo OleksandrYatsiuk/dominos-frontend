@@ -106,7 +106,9 @@ export class MapComponent implements OnInit {
   private setMarkers() {
     this.http.getShops()
       .pipe(pluck('result'))
-      .subscribe(result => this.markers = result)
+      .subscribe(result => {
+        this.markers = result
+      })
   }
 
   trackingPosition(): void {

@@ -21,7 +21,7 @@ export class RootService {
     return this.http.delete(`${this.serverUrl}/pizza/${id}`);
   }
   createPizza(data: Pizza[]): Observable<any> {
-    return this.http.post<any>(`${this.serverUrl}/pizza/create`, data);
+    return this.http.post<any>(`${this.serverUrl}/pizza`, data);
   }
   uploadPhoto(file: FormData): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/upload`, file);
@@ -30,8 +30,8 @@ export class RootService {
   changePassword(data): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/user/change-password`, data);
   }
-  updateProfile(id: number, data: any): Observable<any> {
-    return this.http.patch<any>(`${this.serverUrl}/user/update/${id}`, data);
+  updateProfile(data: any): Observable<any> {
+    return this.http.patch<any>(`${this.serverUrl}/user/profile`, data);
   }
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
@@ -47,6 +47,9 @@ export class RootService {
 
   public get(path: string, options?): Observable<any> {
     return this.http.get<any>(`${this.serverUrl}${path}`, options);
+  }
+  public put(path: string, options?): Observable<any> {
+    return this.http.put<any>(`${this.serverUrl}${path}`, options);
   }
   public delete(path: string): Observable<any> {
     return this.http.delete<any>(`${this.serverUrl}${path}`);

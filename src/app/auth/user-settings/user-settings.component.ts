@@ -80,7 +80,7 @@ export class UserSettingsComponent implements OnInit {
         this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''))
       }
       this.spinEditProfile = true;
-      this.http.updateProfile(this.currentUser['id'], this.updateProfileForm.value).subscribe(({ code }) => {
+      this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
           this.spinEditProfile = false;
           this.user.setCurrentUser();

@@ -15,23 +15,21 @@
     </div>
 
 
-    <h3>Ресторан </h3>
-    <div formGroupName="restaurant">
+    <h3>Точка самовивозу</h3>
 
       <div class="row-item">
-        <app-form-item [control]="carryOut.get('restaurant')['controls'].restaurant" name="restaurant" class="field">
-          <input mobile-phone placeholder="Enter Restaurant" formControlName="restaurant">
+        <app-form-item [control]="carryOut.controls.shop" name="shop" class="field">
+          <input mobile-phone placeholder="Enter Restaurant" formControlName="shop">
           <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
         </app-form-item>
       </div>
 
       <div class="row-item">
-        <app-form-item [control]="carryOut.get('restaurant')['controls'].comment" name="comment" class="field">
+        <app-form-item [control]="carryOut.controls.comment" name="comment" class="field">
           <textarea formControlName="comment"></textarea>
         </app-form-item>
       </div>
 
-    </div>
     <h3>Date</h3>
     <div formGroupName="date">
       <div class="row-item">

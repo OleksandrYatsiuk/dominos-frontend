@@ -11,10 +11,10 @@ export class DeliveryDataService {
   constructor(private http: RootService) { }
 
   public create(delivery: Delivery): Observable<Delivery> {
-    return this.http.post('/delivery/create', delivery);
+    return this.http.post('/delivery', delivery);
   }
   public deliveryList(page, perPage): Observable<Delivery[]> {
-    return this.http.get(`/delivery?page=${page}&perPage=${perPage}`)
+    return this.http.get(`/delivery?page=${page}&limit=${perPage}`)
   }
   public delete(id: string): Observable<Delivery[]> {
     return this.http.delete(`/delivery/${id}`)

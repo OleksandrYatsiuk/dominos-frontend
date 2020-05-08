@@ -5,7 +5,6 @@ import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { DeliveryDataService } from '../delivery-data.service';
 import { Router } from '@angular/router';
-import { PaymentTypes } from './payments.model';
 
 @Component({
   selector: 'shipping-form',
@@ -20,9 +19,9 @@ export class ShippingFormComponent {
     private router: Router,
     private basket: BasketService) { }
 
-    paymentTypes = [
-      { name: "cash" }, { name: "card" }
-    ]
+  paymentTypes = [
+    { name: "cash" }, { name: "card" }
+  ]
   public formDelivery: FormGroup;
   public spinShipping = false;
   public minDate: Date = new Date()
@@ -34,6 +33,7 @@ export class ShippingFormComponent {
     let index = [];
     let storage = JSON.parse(localStorage.getItem('basket'))
     for (let idx in storage) {
+      this.pizzasIds.push(idx);
       for (let item in storage[idx]) {
         index.push(storage[idx][item]);
       }

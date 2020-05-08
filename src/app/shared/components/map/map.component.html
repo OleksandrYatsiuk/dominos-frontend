@@ -34,7 +34,7 @@
     <agm-marker-cluster
         imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
         <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
-            [longitude]="m.lng" [label]="m.label" [markerDraggable]="m.draggable"
+            [longitude]="m.lng" [label]="m.label"
             [iconUrl]="{ url: defaultImage, scaledSize: { width: 40, height: 40, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
             [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: marker.label}">
         </agm-marker>
