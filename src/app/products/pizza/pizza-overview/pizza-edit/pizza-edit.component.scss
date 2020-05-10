@@ -1,0 +1,15 @@
+.ant-col {
+    min-width: 300px;
+    width: 30%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  form {
+    display: flex;
+    flex-wrap: wrap;
+  
+    app-spin-button {
+      width: 70%;
+    }
+  }
+  

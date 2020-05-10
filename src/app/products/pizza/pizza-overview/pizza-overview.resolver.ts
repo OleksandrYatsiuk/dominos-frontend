@@ -8,6 +8,6 @@ export class PizzaOverviewResolver implements Resolve<any> {
   constructor(private pizzaData: PizzaOverviewDataService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.pizzaData.get(route.params.id);
+    return this.pizzaData.getItem(route.params.id);
   }
 }

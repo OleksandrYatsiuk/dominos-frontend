@@ -23,8 +23,8 @@ export class RootService {
   createPizza(data: Pizza[]): Observable<any> {
     return this.http.post<any>(`${this.serverUrl}/pizza`, data);
   }
-  uploadPhoto(file: FormData): Observable<any> {
-    return this.http.post<any>(`${this.serverUrl}/upload`, file);
+  uploadPhoto(id: string, file: FormData): Observable<any> {
+    return this.http.post<any>(`${this.serverUrl}/pizza/${id}/upload`, file);
   }
 
   changePassword(data): Observable<any> {
