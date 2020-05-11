@@ -29,7 +29,7 @@ export class PizzaItemComponent implements OnInit {
     this.pizzaForm = this.fb.group({
       size: ['Маленька', []],
       form: ['Стандарт', []],
-      weigth: [this.price = this.item.price.low, []]
+      weigth: [this.price = this.item.price.small, []]
     });
     this.onChanges();
 
@@ -48,9 +48,9 @@ export class PizzaItemComponent implements OnInit {
 
   onChanges() {
     this.pizzaForm.valueChanges.subscribe(val => {
-      val.size === "Маленька" ? this.price = this.item.price.low : false;
-      val.size === "Середня" ? this.price = this.item.price.medium : false;
-      val.size === "Велика" ? this.price = this.item.price.high : false;
+      val.size === "Маленька" ? this.price = this.item.price.small : false;
+      val.size === "Середня" ? this.price = this.item.price.middle : false;
+      val.size === "Велика" ? this.price = this.item.price.big : false;
       if (this.storage !== null) {
         if (this.storage[this.item.id] !== undefined) {
           if (this.storage[this.item.id][val.size] !== undefined) {
