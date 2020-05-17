@@ -66,7 +66,7 @@
       </div>
       <div class="ant-col">
 
-        <app-spin-button name="Confirm" [loading]="loading">        </app-spin-button>
+        <app-spin-button name="Confirm" [loading]="loading"> </app-spin-button>
       </div>
     </form>
 
@@ -75,13 +75,11 @@
   <mat-step>
     <ng-template matStepLabel>Upload image</ng-template>
     <div class="ant-col">
-    <!-- <div class="example-button-row"> -->
-      <form [formGroup]="uploadImage" (ngSubmit)="onSubmit()">
+      <form [formGroup]="uploadImage">
         <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
         <img [src]="url" height="200" (click)="fileInput.click()" />
         <app-spin-button name="Upload" [loading]="loading" (click)="upload()"></app-spin-button>
       </form>
-    <!-- </div> -->
   </div>
   </mat-step>
   <mat-step>

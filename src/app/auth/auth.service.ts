@@ -13,18 +13,18 @@ export class AuthService {
   }
 
   public register(user: User): Observable<any> {
-    return this.http.post(`/auth/register`, user)
+    return this.http.post(`/auth/register`, user);
   }
 
   public logout(): Observable<null> {
-    return this.http.post(`/user/logout`, null)
+    return this.http.post(`/user/logout`, null);
   }
 
   public current(): Observable<null> {
-    return this.http.get(`/user/current`)
+    return this.http.get(`/user/current`);
   }
 
   public updateLocation(location: object): Observable<any> {
-    return this.http.put(`/user/location`, location)
+    return this.http.put(`/user/location`, location);
   }
 }

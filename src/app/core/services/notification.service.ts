@@ -11,10 +11,10 @@ export class NotificationService {
   constructor(private snackBar: MatSnackBar) {
   }
   open<T>(config?: MatSnackBarConfig): void {
-    this.snackBar.openFromComponent(NotificationComponent, config)
+    this.snackBar.openFromComponent(NotificationComponent, config);
   }
   close() {
-    this.snackBar.dismiss()
+    this.snackBar.dismiss();
   }
 
 }

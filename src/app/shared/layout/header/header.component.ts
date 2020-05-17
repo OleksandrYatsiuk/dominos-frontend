@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     this.amount = basket.amount;
     this.basket.updateBasketAmount.subscribe(cnt => this.amount = cnt);
     this.basket.updateBasketCount.subscribe(cnt => this.count = cnt);
-    this.geolocation.askGeoLocation()
+    this.geolocation.askGeoLocation();
   }
 
 
@@ -45,7 +45,7 @@ export class HeaderComponent implements OnInit {
     this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
       this.currentUser = user;
-    })
+    });
   }
 
   openModal() {
@@ -56,11 +56,11 @@ export class HeaderComponent implements OnInit {
     this.http.logout().subscribe(req => {
       if (!req) {
         localStorage.removeItem('auth');
-        this.router.navigate(["/"])
+        this.router.navigate(['/']);
         setTimeout(() => {
           location.reload();
-        }, 20)
-      };
+        }, 20);
+      }
     });
   }
 

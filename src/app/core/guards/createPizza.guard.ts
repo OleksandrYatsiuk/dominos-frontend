@@ -12,7 +12,7 @@ export class CreatePizzaGuard implements CanActivate {
     if (localStorage.getItem('auth')) {
       return true;
     } else {
-      this.notification.open({ data: "You are have not have permissions!" })
+      this.notification.open({ data: 'You are have not have permissions!' });
       return false;
     }
   }

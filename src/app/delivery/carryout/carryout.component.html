@@ -6,7 +6,7 @@
         <input placeholder="Enter First Name" formControlName="firstName">
       </app-form-item>
       <app-form-item [control]="carryOut.controls.phone" name="phone">
-        <input mobile-phone placeholder="Enter Phone" formControlName="phone">
+        <input mobilePhone placeholder="Enter Phone" formControlName="phone">
       </app-form-item>
 
       <app-form-item [control]="carryOut.controls.email" name="email">
@@ -19,7 +19,7 @@
 
       <div class="row-item">
         <app-form-item [control]="carryOut.controls.shop" name="shop" class="field">
-          <input mobile-phone placeholder="Enter Restaurant" formControlName="shop">
+          <input mobilePhone placeholder="Enter Restaurant" formControlName="shop">
           <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
         </app-form-item>
       </div>

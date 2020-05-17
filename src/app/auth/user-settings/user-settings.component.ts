@@ -2,7 +2,7 @@ import { Component, OnInit, ErrorHandler, AfterContentInit, OnChanges } from '@a
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { RootService } from '../../core/services/root.service';
-import { ErrorHeadlerService } from '../../core/services/errorHeadler.service';
+import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { passwordValidator } from '../../core/validators/password-validator';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class UserSettingsComponent implements OnInit {
   private currentUser: any;
   constructor(
     private http: RootService,
-    private headler: ErrorHeadlerService,
+    private handler: ErrorHandlerService,
     private title: Title,
     private router: Router,
     private formBuilder: FormBuilder,
@@ -36,15 +36,15 @@ export class UserSettingsComponent implements OnInit {
   public spinEditProfile = false;
   public spinChangePassword = false;
 
-  get currentPassword() { return this.changePasswordForm.get('currentPassword') }
-  get newPassword() { return this.changePasswordForm.get('newPassword') }
-  get confirmPassword() { return this.changePasswordForm.get('confirmPassword') }
+  get currentPassword() { return this.changePasswordForm.get('currentPassword'); }
+  get newPassword() { return this.changePasswordForm.get('newPassword'); }
+  get confirmPassword() { return this.changePasswordForm.get('confirmPassword'); }
 
-  get fullName() { return this.updateProfileForm.get('fullName') }
-  get username() { return this.updateProfileForm.get('username') }
-  get email() { return this.updateProfileForm.get('email') }
-  get birthdaty() { return this.updateProfileForm.get('birthdaty') }
-  get phone() { return this.updateProfileForm.get('phone') }
+  get fullName() { return this.updateProfileForm.get('fullName'); }
+  get username() { return this.updateProfileForm.get('username'); }
+  get email() { return this.updateProfileForm.get('email'); }
+  get birthdaty() { return this.updateProfileForm.get('birthdaty'); }
+  get phone() { return this.updateProfileForm.get('phone'); }
 
 
 
@@ -52,8 +52,8 @@ export class UserSettingsComponent implements OnInit {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
     this.maxDate = new Date(currentYear + 0, 0, 31);
-    this.initForm()
-    this.initUpdateProfile()
+    this.initForm();
+    this.initUpdateProfile();
     this.title.setTitle('User Settings');
     this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
@@ -65,19 +65,19 @@ export class UserSettingsComponent implements OnInit {
           email: user.email,
           birthday: user.birthday,
           phone: user.phone,
-        })
+        });
       }
-    })
+    });
   }
 
   dateInput($event) {
-    console.log($event.target._value)
+    console.log($event.target._value);
   }
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       if (this.updateProfileForm.controls.phone.value) {
-        this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''))
+        this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''));
       }
       this.spinEditProfile = true;
       this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code }) => {
@@ -85,12 +85,12 @@ export class UserSettingsComponent implements OnInit {
           this.spinEditProfile = false;
           this.user.setCurrentUser();
           this.notification.open(
-            { data: 'Profile has been successfully updated!' })
+            { data: 'Profile has been successfully updated!' });
         }
       }, (error) => {
         this.spinEditProfile = false;
-        this.headler.validation(error, this.updateProfileForm);
-      })
+        this.handler.validation(error, this.updateProfileForm);
+      });
     }
   }
 
@@ -98,8 +98,8 @@ export class UserSettingsComponent implements OnInit {
     this.changePasswordForm = this.formBuilder.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [passwordValidator(), Validators.maxLength(20)]],
-      confirmPassword: ['', [Validators.required,]],
-    })
+      confirmPassword: ['', [Validators.required]],
+    });
     this.changePasswordForm.controls.confirmPassword.setValidators([
       Validators.required,
       confirmPasswordValidator(this.changePasswordForm.controls.newPassword),
@@ -109,12 +109,12 @@ export class UserSettingsComponent implements OnInit {
   }
   initUpdateProfile() {
     this.updateProfileForm = this.formBuilder.group({
-      fullName: ["", [Validators.required]],
-      username: ["", [Validators.required, Validators.maxLength(15)]],
-      email: ["", [Validators.required]],
-      birthday: ["", []],
-      phone: ["", []],
-    })
+      fullName: ['', [Validators.required]],
+      username: ['', [Validators.required, Validators.maxLength(15)]],
+      email: ['', [Validators.required]],
+      birthday: ['', []],
+      phone: ['', []],
+    });
   }
 
   changePassword() {
@@ -124,12 +124,12 @@ export class UserSettingsComponent implements OnInit {
       this.http.changePassword(this.changePasswordForm.value).subscribe(() => {
         this.spinChangePassword = false;
         this.notification.open(
-          { data: 'Password has been successfully changed!' })
+          { data: 'Password has been successfully changed!' });
         this.router.navigate(['/']);
       }, (error) => {
         this.spinChangePassword = false;
-        this.headler.validation(error, this.changePasswordForm);
-      })
+        this.handler.validation(error, this.changePasswordForm);
+      });
     }
 
   }

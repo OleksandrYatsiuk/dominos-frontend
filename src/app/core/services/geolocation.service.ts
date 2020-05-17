@@ -23,12 +23,12 @@ export class GeolocationService {
               this.updateUserLocation(coords);
             }
           } else {
-            this.userService.saveGeoPosition(coords)
+            this.userService.saveGeoPosition(coords);
           }
-        })
+        });
       } else {
-        this.userService.saveGeoPosition(coords)
+        this.userService.saveGeoPosition(coords);
       }
-    })
+    });
   }
 }

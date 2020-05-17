@@ -1,27 +1,21 @@
 export interface Pizza {
-  id: String,
-  name: String,
-  category: String,
-  ingredients: [Ingredients],
+  id?: string;
+  name: string;
+  category: string;
+  ingredients: [Ingredients];
   weight: {
-    small: Number,
-    middle: Number,
-    big: Number,
-  },
+    small: number;
+    middle: number;
+    big: number;
+  };
   price: {
-    low: Number,
-    medium: Number,
-    high: Number,
-  }
-}
-export interface PizzaList {
-  code: number,
-  status: string,
-  message: string
-  result: Pizza[]
+    small: number;
+    middle: number;
+    big: number;
+  };
 }
 
 export interface Ingredients {
-  id: string,
-  name: string
+  id: string;
+  name: string;
 }

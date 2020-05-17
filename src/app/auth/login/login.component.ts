@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ValidationMessages } from '../../core/models/error-list';
-import { ErrorHeadlerService } from 'src/app/core/services/errorHeadler.service';
+import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
@@ -21,20 +21,20 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private user: UserService,
-    private headler: ErrorHeadlerService,
+    private handler: ErrorHandlerService,
   ) { }
 
   public authForm: FormGroup;
   public spinLogIn = false;
   public validations = ValidationMessages;
-  get username() { return this.authForm.get('username') };
-  get password() { return this.authForm.get('password') };
+  get username() { return this.authForm.get('username'); }
+  get password() { return this.authForm.get('password'); }
 
   ngOnInit(): void {
     this.authForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.maxLength(10)]],
       password: ['', [Validators.required]],
-    })
+    });
   }
 
   public close(): void {
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       this.spinLogIn = !this.spinLogIn;
       this.http.login(this.authForm.value)
         .subscribe(({ code, result }) => {
-          localStorage.setItem('auth', result.token)
+          localStorage.setItem('auth', result.token);
           this.spinLogIn = !this.spinLogIn;
           if (this.user.isAuthorized()) {
             this.router.navigate(['/']);
@@ -57,8 +57,8 @@ export class LoginComponent implements OnInit {
           }
         }, (error) => {
           this.spinLogIn = false;
-          this.headler.validation(error, this.authForm);
-        })
+          this.handler.validation(error, this.authForm);
+        });
     }
   }
 }

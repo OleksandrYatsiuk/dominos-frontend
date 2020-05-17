@@ -10,11 +10,10 @@ export class MenuDirective implements AfterViewInit {
   ngAfterViewInit() {
     if (window.innerWidth < 840 || !window.navigator.userAgent.includes('Chrome')) {
       this.element.nativeElement.style.display = 'none';
-      document.querySelector('.mini-menu')['style'].display="block"
-
+      document.querySelector('.mini-menu')['style'].display = 'block';
     } else {
       this.element.nativeElement.style.display = 'block';
-      document.querySelector('.mini-menu')['style'].display="none"
-    };
+      document.querySelector('.mini-menu')['style'].display = 'none';
+    }
   }
 }

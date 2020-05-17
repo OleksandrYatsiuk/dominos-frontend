@@ -27,19 +27,19 @@ export class InputComponent implements ControlValueAccessor {
   @Input() formControlName: string;
   @Input() placeholder: string;
   @Input() type = 'text';
-  @Input() value = "";
+  @Input() value = '';
 
 
   get control(): AbstractControl {
     return this.container.control.get(this.formControlName);
   }
   get errorArray() {
-    return this.validations[`${this.formControlName}`]
+    return this.validations[`${this.formControlName}`];
   }
 
 
   public writeValue(value: any): void {
-    this.value = value
+    this.value = value;
   }
   public registerOnChange(fn: Function): void {
     this.onModelChange = fn;
@@ -50,13 +50,13 @@ export class InputComponent implements ControlValueAccessor {
 
   public onBlur(event: FocusEvent) {
     this.focus = false;
-    event.preventDefault()
+    event.preventDefault();
     event.stopPropagation();
     this.control.markAsUntouched();
   }
   public onFocus(event: FocusEvent) {
     this.focus = true;
-    event.preventDefault()
+    event.preventDefault();
     event.stopPropagation();
   }
 

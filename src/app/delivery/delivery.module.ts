@@ -18,12 +18,13 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
     DeliveryComponent,
     ShippingFormComponent,
     CarryoutComponent,
-    DeliveryListComponent  ],
+    DeliveryListComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
     DeliveryRoutingModule,
-    MaterialModule, 
+    MaterialModule,
     CoreModule
   ],
   entryComponents: [MapComponent, ModalComponent],

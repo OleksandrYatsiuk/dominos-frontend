@@ -10,9 +10,9 @@ import { AuthService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
 
-export interface location {
-  lat: number,
-  lng: number
+export interface Location {
+  lat: number;
+  lng: number;
 }
 
 @Component({
@@ -23,15 +23,15 @@ export interface location {
 
 export class MapComponent implements OnInit {
 
-  public KYIV_COORDS: location = {
+  public KYIV_COORDS: Location = {
     lat: 50.44966120868815,
     lng: 30.52501781267547
-  }
-  origin: location;
-  destination: location;
+  };
+  origin: Location;
+  destination: Location;
 
   defaultImage = '../../../../assets/data/pizzas/map_marker.png';
-  public currentPosition: location;
+  public currentPosition: Location;
 
   public markerOptions = {
     origin: {
@@ -43,15 +43,15 @@ export class MapComponent implements OnInit {
       label: 'marker label',
       opacity: 0,
     },
-  }
+  };
   public renderOptions = {
     suppressMarkers: true,
-  }
+  };
   distance: number;
   duration: number;
-  markers: marker[];
-  travelMode = "DRIVING"
-  currentAddress = "Choose start position";
+  markers: Marker[];
+  travelMode = 'DRIVING';
+  currentAddress = 'Choose start position';
 
   constructor(
     public dialogRef: MatDialogRef<MapComponent>,
@@ -65,7 +65,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.currentPosition) {
-      this.currentPosition = this.KYIV_COORDS
+      this.currentPosition = this.KYIV_COORDS;
     }
     this.trackingPosition();
     this.setMarkers();
@@ -76,30 +76,30 @@ export class MapComponent implements OnInit {
   }
 
   public dragEnd(event) {
-    this.getAddress(event.coords)
+    this.getAddress(event.coords);
     this.origin = event.coords;
     this.currentPosition = event.coords;
     this.travelMode = google.maps.TravelMode.DRIVING;
-    document.querySelectorAll('input[type="radio"]')[0]['checked'] = true;
+    document.querySelectorAll(`input[type='radio']`)[0]['checked'] = true;
     console.log(this.travelMode);
-    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING)
+    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING);
   }
 
   private getAddress(coords) {
-    let geocoder = new google.maps.Geocoder()
-    var latlng = new google.maps.LatLng(coords.lat, coords.lng);
+    const geocoder = new google.maps.Geocoder();
+    const latlng = new google.maps.LatLng(coords.lat, coords.lng);
     geocoder.geocode({ location: latlng }, (result) => {
-      const address = result.filter(el => el.types[0] === 'street_address')
+      const address = result.filter(el => el.types[0] === 'street_address');
       if (address[0]) {
         this.currentAddress = address[0].formatted_address;
       }
-    })
+    });
   }
   public saveLocation() {
     if (this.userService.isAuthorized()) {
       this.authService.updateLocation(this.currentPosition).subscribe(result => {
-        this.notification.open({ data: "Position was updated succesfully!" })
-      })
+        this.notification.open({ data: 'Position was updated succesfully!' });
+      });
     }
   }
 
@@ -107,8 +107,8 @@ export class MapComponent implements OnInit {
     this.http.getShops()
       .pipe(pluck('result'))
       .subscribe(result => {
-        this.markers = result
-      })
+        this.markers = result;
+      });
   }
 
   trackingPosition(): void {
@@ -119,18 +119,18 @@ export class MapComponent implements OnInit {
         } else {
           navigator.geolocation.watchPosition(({ coords }) => {
             const { latitude, longitude } = coords;
-            this.userService.saveGeoPosition(coords)
-            this.currentPosition = { lat: latitude, lng: longitude }
+            this.userService.saveGeoPosition(coords);
+            this.currentPosition = { lat: latitude, lng: longitude };
           });
         }
-      })
+      });
     } else {
       this.userService.location.subscribe(location => {
         if (location) {
           const { lat, lng } = location.position;
-          this.currentPosition = { lat, lng }
+          this.currentPosition = { lat, lng };
         } else {
-          this.geolocation.askGeoLocation()
+          this.geolocation.askGeoLocation();
           this.userService.location.subscribe();
         }
       });
@@ -143,20 +143,20 @@ export class MapComponent implements OnInit {
     }
   }
 
-  public clickedMarker(marker: marker): void {
+  public clickedMarker(marker: Marker): void {
     this.createDirection({ lat: marker.lat, lng: marker.lng });
-    document.querySelectorAll('input[type="radio"]')[0]['checked'] = true;
-    this.calculateDistance(marker)
-    this.data = marker
+    document.querySelectorAll(`input[type='radio']`)[0]['checked'] = true;
+    this.calculateDistance(marker);
+    this.data = marker;
   }
 
-  private createDirection(location: location): void {
+  private createDirection(location: Location): void {
     this.origin = { lat: this.currentPosition.lat, lng: this.currentPosition.lng };
     this.destination = location;
-    this.calculateTravelTime(location)
+    this.calculateTravelTime(location);
   }
 
-  private calculateDistance(marker: marker): void {
+  private calculateDistance(marker: Marker): void {
     this.distance = google.maps.geometry.spherical.computeDistanceBetween(
       new google.maps.LatLng(+this.currentPosition.lat, +this.currentPosition.lng),
       new google.maps.LatLng(marker.lat, marker.lng));
@@ -168,31 +168,31 @@ export class MapComponent implements OnInit {
       {
         origin: new google.maps.LatLng(this.currentPosition.lat, this.currentPosition.lng),
         destination: new google.maps.LatLng(newPoint),
-        travelMode: travelMode
+        travelMode
       },
       ({ routes }) => {
         if (routes[0]) {
           this.distance = routes[0].legs[0].distance.value;
           this.duration = routes[0].legs[0].duration.value;
         }
-      })
+      });
   }
 
   public change(event: any): void {
-    this.currentPosition = { lat: event.lat(), lng: event.lng() }
+    this.currentPosition = { lat: event.lat(), lng: event.lng() };
   }
   public setDrive() {
-    this.travelMode = google.maps.TravelMode.DRIVING
-    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING)
+    this.travelMode = google.maps.TravelMode.DRIVING;
+    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING);
   }
   public setWalking() {
-    this.travelMode = google.maps.TravelMode.WALKING
-    this.calculateTravelTime(this.destination, google.maps.TravelMode.WALKING)
+    this.travelMode = google.maps.TravelMode.WALKING;
+    this.calculateTravelTime(this.destination, google.maps.TravelMode.WALKING);
   }
 }
 
 // just an interface for type safety.
-interface marker {
+interface Marker {
   lat: number;
   lng: number;
   label?: string;

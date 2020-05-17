@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[mobile-phone]'
+  selector: '[mobilePhone]'
 })
 export class MobilePhoneDirective {
 
@@ -14,9 +14,9 @@ export class MobilePhoneDirective {
     const input = event.target as HTMLInputElement;
     let trimmed = input.value.replace(/\s+/g, '');
     if (trimmed.length > 13) {
-      trimmed = trimmed.substring(0, 13)
+      trimmed = trimmed.substring(0, 13);
     }
-    let numbers = [];
+    const numbers = [];
     for (let i = 0; i < trimmed.length; i += 3) {
       numbers.push(trimmed.substring(i, i + 3));
     }

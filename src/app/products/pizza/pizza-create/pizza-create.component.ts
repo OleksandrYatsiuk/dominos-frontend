@@ -3,8 +3,9 @@ import { RootService } from '../../../core/services/root.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Ingredients } from '../../../core/models/pizza.interface';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ErrorHeadlerService } from 'src/app/core/services/errorHeadler.service';
 import { MatStepper } from '@angular/material';
+import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
+import { PizzaDataService } from '../pizza-data.service';
 
 @Component({
   selector: 'app-pizza-create',
@@ -23,20 +24,21 @@ export class PizzaCreateComponent implements OnInit {
 
   public spinCreatePizza = false;
   public spinUpload = false;
-  categories = [{ value: "Краща Ціна" }, { value: "Класичні" }, { value: "Фірмові" }]
+  categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
   formCreatingPizza: FormGroup;
   uploadImage: FormGroup;
   pizzaId: string;
   constructor(
-    private rootService: RootService,
+    private http: PizzaDataService,
+    private root: RootService,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
-    private headler: ErrorHeadlerService
+    private handler: ErrorHandlerService,
   ) { }
 
   ngOnInit() {
 
-    this.rootService.getIngredientsList().subscribe(res => {
+    this.root.getIngredientsList().subscribe(res => {
       this.ingredients = res['result'];
     });
 
@@ -57,7 +59,7 @@ export class PizzaCreateComponent implements OnInit {
     });
 
     this.uploadImage = this.formBuilder.group({
-      image: ["", [Validators.required]],
+      image: ['', [Validators.required]],
     });
   }
 
@@ -65,43 +67,42 @@ export class PizzaCreateComponent implements OnInit {
   onFileSelected(event) {
     this.selectedFile = event.target.files[0];
     if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
+      const reader = new FileReader();
       this.imagePath = event.target.files;
       reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event) => {
+      reader.onload = () => {
         this.url = reader.result;
       };
     }
   }
   upload() {
     if (this.selectedFile !== null) {
-      let fd = new FormData();
+      const fd = new FormData();
       fd.append('file', this.selectedFile, this.selectedFile.name);
       this.spinUpload = !this.spinUpload;
 
-      this.rootService.uploadPhoto(this.pizzaId, fd).subscribe(result => {
+      this.http.upload(this.pizzaId, fd).subscribe(result => {
         this.spinUpload = !this.spinUpload;
-        this.myStepper.next()
-        this.notification.open({ data: "Image has been successfully uploaded!" })
-      }
-      )
+        this.myStepper.next();
+        this.notification.open({ data: 'Image has been successfully uploaded!' });
+      });
     }
   }
   onSubmit() {
-    this.formCreatingPizza.markAllAsTouched()
+    this.formCreatingPizza.markAllAsTouched();
     if (this.formCreatingPizza.valid) {
       this.spinCreatePizza = !this.spinCreatePizza;
-      return this.rootService.createPizza(this.formCreatingPizza.value).subscribe(({ code, result }) => {
+      return this.http.create(this.formCreatingPizza.value).subscribe(({ code, result }) => {
         if (code === 201) {
-          this.pizzaId = result.id || result._id;
+          this.pizzaId = result.id || result['_id'];
           this.spinCreatePizza = !this.spinCreatePizza;
-          this.notification.open({ data: `Pizza "${result.name}" has been successfully created!` })
-          this.myStepper.next()
+          this.notification.open({ data: `Pizza '${result.name}' has been successfully created!` });
+          this.myStepper.next();
         }
       },
         (error) => {
           this.spinCreatePizza = !this.spinCreatePizza;
-          this.headler.validation(error, this.formCreatingPizza);
+          this.handler.validation(error, this.formCreatingPizza);
         });
     }
   }

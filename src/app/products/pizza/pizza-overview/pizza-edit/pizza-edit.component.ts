@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RootService } from 'src/app/core/services/root.service';
 import { MatStepper } from '@angular/material';
-import { PizzaOverviewDataService } from '../pizza-overview-data.service';
-import { ErrorHeadlerService } from 'src/app/core/services/errorHeadler.service';
+import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
+import { PizzaDataService } from '../../pizza-data.service';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pizza-edit',
@@ -23,22 +24,22 @@ export class PizzaEditComponent implements OnInit {
   imagePath: any;
   ingredients;
   loading = false;
-  categories = [{ value: "Краща Ціна" }, { value: "Класичні" }, { value: "Фірмові" }]
-  constructor(private route: ActivatedRoute,
+  categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
+  constructor(
+    private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private title: Title,
     private notification: NotificationService,
-    private http: PizzaOverviewDataService,
+    private http: PizzaDataService,
     private rest: RootService,
-    private headler: ErrorHeadlerService,
+    private handler: ErrorHandlerService
   ) {
     this.pizza = this.route.snapshot.data.pizza;
     this.url = this.pizza.image;
   }
 
-  ngOnInit() {
-    this.title.setTitle(`Edit - ${this.pizza.name}`)
-
+  ngOnInit(): void {
+    this.title.setTitle(`Edit - ${this.pizza.name}`);
     this.rest.getIngredientsList().subscribe(res => {
       this.ingredients = res['result'];
     });
@@ -68,33 +69,35 @@ export class PizzaEditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.pizzaForm.markAllAsTouched()
+    this.pizzaForm.markAllAsTouched();
     if (this.pizzaForm.valid) {
       this.loading = !this.loading;
-      return this.http.editItem(this.pizza.id, this.pizzaForm.value).subscribe(result => {
-        this.loading = !this.loading;
-        this.notification.open({ data: `Pizza "${result.name}" has been successfully updated!` })
-        this.myStepper.next()
-      },
-        (error) => {
+      return this.http.edit(this.pizza.id, this.pizzaForm.value).
+        pipe(pluck('result'))
+        .subscribe(pizza => {
           this.loading = !this.loading;
-          this.headler.validation(error, this.pizzaForm);
-        });
+          this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+          this.myStepper.next();
+        },
+          (error) => {
+            this.loading = !this.loading;
+            this.handler.validation(error, this.pizzaForm);
+          });
     }
   }
 
   upload() {
-    if (this.selectedFile !== null) {
-      let fd = new FormData();
+    if (this.selectedFile !== null && this.selectedFile !== undefined) {
+      const fd = new FormData();
       fd.append('file', this.selectedFile, this.selectedFile.name);
       this.loading = !this.loading;
-
-      this.rest.uploadPhoto(this.pizza.id, fd).subscribe(result => {
+      this.http.upload(this.pizza.id, fd).subscribe(result => {
         this.loading = !this.loading;
-        this.myStepper.next()
-        this.notification.open({ data: "Image has been successfully uploaded!" })
-      }
-      )
+        this.myStepper.next();
+        this.notification.open({ data: 'Image has been successfully uploaded!' });
+      });
+    } else {
+      this.myStepper.next();
     }
   }
 

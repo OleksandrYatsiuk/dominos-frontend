@@ -21,7 +21,7 @@ const deliveryRoutes: Routes = [
     ]
   },
   {
-    path: "deliveries",
+    path: 'deliveries',
     component: DeliveryListComponent
   }
 ];

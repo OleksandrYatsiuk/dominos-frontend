@@ -10,20 +10,24 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 })
 export class ModalComponent {
   public loading: boolean;
-  constructor(public dialogRef: MatDialogRef<ModalComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<ModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
     private http: DeliveryDataService,
-    private notification: NotificationService) { }
+    private notification: NotificationService
+  ) { }
+
   public onNoClick(): void {
     this.dialogRef.close();
   }
+
   public delete() {
     this.http.delete(this.data.delivery.id).subscribe(response => {
-      this.notification.open({ data: "Замовленя видалено успішно!" })
+      this.notification.open({ data: 'Замовленя видалено успішно!' });
       this.dialogRef.close();
     }, (err) => {
-      this.notification.open({ data: err.message })
-    })
+      this.notification.open({ data: err.message });
+    });
   }
 }
 

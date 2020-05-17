@@ -10,5 +10,5 @@ export class SpinButtonComponent {
   constructor() { }
   @Input() name: string;
   @Input() loading: boolean;
-  @Input() color = "primary";
+  @Input() color = 'primary';
 }

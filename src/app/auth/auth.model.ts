@@ -1,10 +1,10 @@
 export interface UserLogin {
-  username: String,
-  password: String
+  username: string;
+  password: string;
 }
 
 export interface User extends UserLogin {
-  fullName: String,
-  email: String,
-  confirmPassword: String
+  fullName: string;
+  email: string;
+  confirmPassword: string;
 }

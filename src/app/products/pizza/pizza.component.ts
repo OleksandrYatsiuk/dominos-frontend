@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RootService } from 'src/app/core/services/root.service';
+import { PizzaDataService } from './pizza-data.service';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pizza',
@@ -9,15 +10,13 @@ import { RootService } from 'src/app/core/services/root.service';
 export class PizzaComponent implements OnInit {
   all: any;
 
-  constructor(private rootService: RootService) { }
+  constructor(private http: PizzaDataService) { }
 
   ngOnInit() {
     this.getPizzaList();
   }
   getPizzaList() {
-    this.rootService.fetchItems().subscribe(res => {
-      const response = res['result'];
-      this.all = response;
-    });
+    this.http.getPizzas().pipe(pluck('result'))
+      .subscribe(pizzas => this.all = pizzas);
   }
 }

@@ -9,13 +9,13 @@ import { Title } from '@angular/platform-browser';
 })
 export class DeliveryComponent implements OnInit {
 
-  public totalAmount: number = 0;
+  public totalAmount = 0;
 
   public get list() {
-    let index = [];
-    let storage = JSON.parse(localStorage.getItem('basket'))
-    for (let idx in storage) {
-      for (let item in storage[idx]) {
+    const index = [];
+    const storage = JSON.parse(localStorage.getItem('basket'));
+    for (const idx in storage) {
+      for (const item in storage[idx]) {
         index.push(storage[idx][item]);
       }
     }
@@ -30,7 +30,7 @@ export class DeliveryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.title.setTitle("Доставка")
+    this.title.setTitle('Доставка');
     this.totalAmount = (this.basketService.actualBasket()).amount;
 
   }

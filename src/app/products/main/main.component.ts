@@ -4,7 +4,8 @@ import {
   NgbSlideEventSource,
   NgbSlideEvent
 } from '@ng-bootstrap/ng-bootstrap';
-import { RootService } from '../../core/services/root.service';
+import { PizzaDataService } from '../pizza/pizza-data.service';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ import { RootService } from '../../core/services/root.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private rootService: RootService) { }
+  constructor(private http: PizzaDataService) { }
 
   public images = [
     {
@@ -73,23 +74,24 @@ export class MainComponent implements OnInit {
     this.getPizzaList();
   }
   getPizzaList() {
-    this.rootService.fetchItems().subscribe(res => {
-      const response = res['result'];
-      this.categories = [
-        {
-          category: "Краща Ціна",
-          items: response.filter(el => el.category === "Краща Ціна")
-        },
-        {
-          category: "Класичні",
-          items: response.filter(el => el.category === "Класичні")
-        },
-        {
-          category: "Фірмові",
-          items: response.filter(el => el.category === "Фірмові")
-        },
-      ];
-      this.all = response;
-    });
+    this.http.getPizzas()
+      .pipe(pluck('result'))
+      .subscribe(pizzas => {
+        this.categories = [
+          {
+            category: 'Краща Ціна',
+            items: pizzas.filter(el => el.category === 'Краща Ціна')
+          },
+          {
+            category: 'Класичні',
+            items: pizzas.filter(el => el.category === 'Класичні')
+          },
+          {
+            category: 'Фірмові',
+            items: pizzas.filter(el => el.category === 'Фірмові')
+          },
+        ];
+        this.all = pizzas;
+      });
   }
 }

@@ -18,7 +18,7 @@ import { UserService } from 'src/app/core/services/user.service';
 export class PizzaOverviewComponent implements OnInit {
   pizza: any;
   pizzaForm: FormGroup;
-  categories = [{ value: "Краща Ціна" }, { value: "Класичні" }, { value: "Фірмові" }]
+  categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
   ingredients;
   url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
   selectedFile: any;
@@ -26,7 +26,8 @@ export class PizzaOverviewComponent implements OnInit {
   spinUpload = false;
   spinUpddate = false;
   canEditPizza = CAN_EDIT_PIZZA;
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private route: ActivatedRoute,
     private title: Title,
     private permissionsService: NgxPermissionsService,
     private user: UserService
@@ -39,6 +40,6 @@ export class PizzaOverviewComponent implements OnInit {
 
   ngOnInit() {
     this.user.currentUser.subscribe(user => user ? this.permissionsService.loadPermissions([user['role']]) : false);
-    this.title.setTitle(`Піца - ${this.pizza.name}`)
+    this.title.setTitle(`Піца - ${this.pizza.name}`);
   }
 }

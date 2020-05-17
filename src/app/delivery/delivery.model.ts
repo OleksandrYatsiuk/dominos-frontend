@@ -1,24 +1,24 @@
 export interface Delivery {
-    id: String,
-    firstName: String,
-    phone: Number,
-    email: String,
-    userId?: String,
-    shop?: String,
-    pizzaIds: String[],
-    payment: String,
-    amount: Number,
+    id: string;
+    firstName: string;
+    phone: number;
+    email: string;
+    userId?: string;
+    shop?: string;
+    pizzaIds: string[];
+    payment: string;
+    amount: number;
     date: {
-        date: String,
-        time: String
-    },
+        date: string;
+        time: string;
+    };
     address?: {
-        street: String,
-        house: Number,
-        flat?: Number,
-        entrance?: String,
-        code?: Number,
-        floor?: Number
-    },
-    comment?: String
+        street: string;
+        house: number;
+        flat?: number;
+        entrance?: string;
+        code?: number;
+        floor?: number;
+    };
+    comment?: string;
 }

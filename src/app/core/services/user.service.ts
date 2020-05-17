@@ -16,15 +16,17 @@ export class UserService {
   currentUser = this.currentUserSubject.asObservable();
   location = this.userLocation.asObservable();
 
-  constructor(private http: AuthService,
-    private permissionsService: NgxPermissionsService) { }
+  constructor(
+    private http: AuthService,
+    private permissionsService: NgxPermissionsService
+  ) { }
 
   public setCurrentUser() {
     if (this.isAuthorized()) {
       this.http.current().pipe(pluck('result')).subscribe(user => {
         this.currentUserSubject.next(user);
         user ? this.permissionsService.loadPermissions([user['role']]) : false;
-      })
+      });
     }
   }
   public saveGeoPosition(coords) {
@@ -33,7 +35,7 @@ export class UserService {
         lat: coords.latitude,
         lng: coords.longitude
       }
-    })
+    });
   }
 
   public isAuthorized() {

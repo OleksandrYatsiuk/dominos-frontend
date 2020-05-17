@@ -13,8 +13,9 @@ export class PizzaItemComponent implements OnInit {
 
   @Input() item;
 
-  public count: number = 0;
+  public count = 0;
   public price: number;
+  public pizzaForm: FormGroup;
   public get storage() {
     return JSON.parse(localStorage.getItem('basket'));
   }
@@ -33,7 +34,7 @@ export class PizzaItemComponent implements OnInit {
     });
     this.onChanges();
 
-    let size = this.pizzaForm.controls.size.value;
+    const size = this.pizzaForm.controls.size.value;
     this.basketService.actualBasket();
     if (this.storage !== null) {
       if (this.storage[this.item.id] !== undefined) {
@@ -42,15 +43,13 @@ export class PizzaItemComponent implements OnInit {
         }
       }
     }
-  };
-
-  pizzaForm: FormGroup;
+  }
 
   onChanges() {
     this.pizzaForm.valueChanges.subscribe(val => {
-      val.size === "Маленька" ? this.price = this.item.price.small : false;
-      val.size === "Середня" ? this.price = this.item.price.middle : false;
-      val.size === "Велика" ? this.price = this.item.price.big : false;
+      val.size === 'Маленька' ? this.price = this.item.price.small : false;
+      val.size === 'Середня' ? this.price = this.item.price.middle : false;
+      val.size === 'Велика' ? this.price = this.item.price.big : false;
       if (this.storage !== null) {
         if (this.storage[this.item.id] !== undefined) {
           if (this.storage[this.item.id][val.size] !== undefined) {
@@ -61,7 +60,7 @@ export class PizzaItemComponent implements OnInit {
         }
       }
     });
-  };
+  }
 
   addToCard(item) {
     this.count = this.basketService.addToLocalStorage(item, this.pizzaForm.controls.size.value, this.price);

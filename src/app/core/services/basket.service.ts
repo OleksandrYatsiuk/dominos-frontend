@@ -17,24 +17,25 @@ export class BasketService {
   public count: number;
 
   public actualBasket() {
-    let total = 0, count = 0;
-    for (let key in this.storage) {
-      let item = this.storage[key];
-      for (let size in item) {
+    let total = 0;
+    let count = 0;
+    for (const key in this.storage) {
+      const item = this.storage[key];
+      for (const size in item) {
         count += item[size].count;
         total += item[size].price * item[size].count;
       }
     }
-    let basket = {
+    const basket = {
       amount: +total.toFixed(2),
-      count: count,
-    }
+      count,
+    };
     this.amount = basket.amount;
     this.count = basket.count;
     this.updateBasketAmount.emit(this.amount);
     this.updateBasketCount.emit(this.count);
     return basket;
-  };
+  }
 
 
   addToLocalStorage(item: object, size: string, price: number) {
@@ -45,15 +46,15 @@ export class BasketService {
     if (storage[ID] === undefined) {
       storage[ID] = {};
       storage[ID][size] = {
-        price: price, count: count = 0, name: item['name'],
-        size: size, ingredients: item['ingredients'], id: item['id']
+        price, count: count = 0, name: item['name'],
+        size, ingredients: item['ingredients'], id: item['id']
       };
     }
     if (storage[ID][size] === undefined) {
       storage[ID][size] = {
-        price: price, count: count = 1, name: item['name'],
-        size: size, ingredients: item['ingredients'], id: item['id']
-      }
+        price, count: count = 1, name: item['name'],
+        size, ingredients: item['ingredients'], id: item['id']
+      };
     } else {
       storage[ID][size].count++;
       count = storage[ID][size].count;
@@ -66,14 +67,14 @@ export class BasketService {
 
   deleteItemLocalStorage(item: object, size: number) {
     let count;
-    let storage = this.storage;
+    const storage = this.storage;
     const ID = item['id'];
     if (storage !== null && storage[ID] !== undefined) {
       storage[ID][size].count--;
       count = storage[ID][size].count;
       if (storage[ID][size].count <= 0) {
         delete storage[ID][size];
-      };
+      }
       if (Object.keys(storage[ID]).length === 0) {
         delete storage[ID];
       }

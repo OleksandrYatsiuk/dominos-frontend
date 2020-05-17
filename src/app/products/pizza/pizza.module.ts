@@ -6,8 +6,8 @@ import { PizzaItemComponent } from './pizza-item/pizza-item.component';
 import { MaterialModule } from 'src/app/shared/material.module';
 import { SharedModule } from 'src/app/shared';
 import { PizzaRoutingModule } from './pizza-routing.module';
-import { PizzaOverviewDataService } from './pizza-overview/pizza-overview-data.service';
 import { PizzaComponent } from './pizza.component';
+import { PizzaDataService } from './pizza-data.service';
 
 
 
@@ -26,6 +26,6 @@ import { PizzaComponent } from './pizza.component';
   exports: [
     PizzaItemComponent
   ],
-  providers: [PizzaOverviewDataService, PizzaOverviewResolver]
+  providers: [PizzaDataService, PizzaOverviewResolver]
 })
 export class PizzaModule { }

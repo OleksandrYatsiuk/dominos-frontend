@@ -20,21 +20,22 @@ export class CarryoutComponent implements OnInit {
   totalAmount: any;
   pizzasIds = [];
   paymentTypes = [
-    { name: "cash" }, { name: "card" }
+    { name: 'cash' }, { name: 'card' }
   ];
 
   public get list() {
-    let index = [];
-    let storage = JSON.parse(localStorage.getItem('basket'))
-    for (let idx in storage) {
+    const index = [];
+    const storage = JSON.parse(localStorage.getItem('basket'));
+    for (const idx in storage) {
       this.pizzasIds.push(idx);
-      for (let item in storage[idx]) {
+      for (const item in storage[idx]) {
         index.push(storage[idx][item]);
       }
     }
     return index;
   }
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private user: UserService,
     private notification: NotificationService,
@@ -44,43 +45,43 @@ export class CarryoutComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.totalAmount = this.basket.actualBasket().amount;
-    this.list.forEach(el => { this.pizzasIds.push(el.id); })
+    this.list.forEach(el => { this.pizzasIds.push(el.id); });
 
     this.minDate = new Date();
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
-    this.initForm()
-    this.user.setCurrentUser()
+    this.initForm();
+    this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
       if (user) {
         this.carryOut.patchValue({
           firstName: user.fullName,
           email: user.email,
           phone: user.phone,
-        })
+        });
       }
     });
   }
 
   initForm(): void {
     this.carryOut = this.formBuilder.group({
-      firstName: ["", [Validators.required, Validators.maxLength(15)]],
-      phone: ["", [Validators.required]],
-      email: ["", [Validators.required, Validators.email]],
-      shop: ["", [Validators.required]],
-      comment: ["", []],
+      firstName: ['', [Validators.required, Validators.maxLength(15)]],
+      phone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      shop: ['', [Validators.required]],
+      comment: ['', []],
       date: this.formBuilder.group({
         date: [new Date(), [Validators.required]],
         time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]],
       }),
       payment: this.formBuilder.group({
-        coupon: ["", []],
-        remainder: ["", []],
+        coupon: ['', []],
+        remainder: ['', []],
         type: [this.paymentTypes[0].name, [Validators.required]],
       }),
       pizzasIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],
-    })
+    });
   }
 
   openMap(): void {
@@ -100,7 +101,7 @@ export class CarryoutComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/']);
         localStorage.removeItem('basket');
-        this.notification.open({ data: "Your order has been accepted!" })
+        this.notification.open({ data: 'Your order has been accepted!' });
       });
     }
   }

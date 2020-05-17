@@ -27,4 +27,4 @@ export const ValidationMessages = {
         { type: 'required', message: 'Email is required.' },
         { type: 'email', message: 'Email is invalid.' },
     ]
-}
+};

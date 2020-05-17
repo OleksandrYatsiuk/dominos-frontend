@@ -8,10 +8,12 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   styleUrls: ['./notification.component.scss']
 })
 export class NotificationComponent {
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any, 
-  private notification: NotificationService) { }
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) public data: any,
+    private notification: NotificationService
+  ) { }
 
   close() {
-    this.notification.close()
+    this.notification.close();
   }
 }
