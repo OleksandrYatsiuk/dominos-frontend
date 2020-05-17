@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginComponent } from '../login/login.component';
-import { AuthService } from '../auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ValidationMessages } from '../../core/models/error-list';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { MatDialog } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
+import { UserDataService } from '../user-data.service';
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +15,7 @@ import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service'
 })
 export class RegistrationComponent implements OnInit {
   constructor(
-    private http: AuthService,
+    private http: UserDataService,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private handler: ErrorHandlerService,

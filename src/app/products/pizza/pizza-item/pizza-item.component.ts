@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BasketService } from '../../../core/services/basket.service';
+import { RootService } from 'src/app/core/services/root.service';
+import { pluck } from 'rxjs/operators';
 
 
 @Component({
@@ -14,6 +16,7 @@ export class PizzaItemComponent implements OnInit {
   @Input() item;
 
   public count = 0;
+  public ingredientsList = [];
   public price: number;
   public pizzaForm: FormGroup;
   public get storage() {
@@ -23,10 +26,26 @@ export class PizzaItemComponent implements OnInit {
     localStorage.setItem('basket', JSON.stringify(value));
   }
 
-  constructor(private fb: FormBuilder, private basketService: BasketService) {
+  constructor(
+    private fb: FormBuilder,
+    private basketService: BasketService,
+    private http: RootService
+  ) {
   }
 
   ngOnInit() {
+    this.http.getIngredientsList()
+      .pipe(pluck('result'))
+      .subscribe(ingredients => {
+        ingredients.map(element => {
+          this.item.ingredients.forEach(ingredient => {
+            if (element.id == ingredient) {
+              this.ingredientsList.push(element);
+            }
+          });
+        });
+      })
+
     this.pizzaForm = this.fb.group({
       size: ['Маленька', []],
       form: ['Стандарт', []],

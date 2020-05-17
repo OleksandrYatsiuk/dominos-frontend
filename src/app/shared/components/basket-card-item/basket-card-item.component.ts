@@ -14,7 +14,7 @@ export class BasketCardItemComponent implements OnInit {
   constructor(private basketService: BasketService) { }
 
   ngOnInit() {
-    console.log(this.item);
+    // console.log(this.item);
   }
 
   addToCard(item) {

@@ -45,16 +45,10 @@ export class BasketService {
     const ID = item['id'];
     if (storage[ID] === undefined) {
       storage[ID] = {};
-      storage[ID][size] = {
-        price, count: count = 0, name: item['name'],
-        size, ingredients: item['ingredients'], id: item['id']
-      };
+      storage[ID][size] = { price, count: count = 0 };
     }
     if (storage[ID][size] === undefined) {
-      storage[ID][size] = {
-        price, count: count = 1, name: item['name'],
-        size, ingredients: item['ingredients'], id: item['id']
-      };
+      storage[ID][size] = { price, count: count = 1 };
     } else {
       storage[ID][size].count++;
       count = storage[ID][size].count;

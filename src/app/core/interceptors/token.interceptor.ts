@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
 export class ParamInterceptor implements HttpInterceptor {
 
   private bearerToken: string | null = localStorage.getItem('auth');
-  private setToken = (req) => req.clone({
+  private setToken = (req: HttpRequest<any>) => req.clone({
     headers: req.headers.set('Authorization', `Bearer ${this.bearerToken}`)
   })
 

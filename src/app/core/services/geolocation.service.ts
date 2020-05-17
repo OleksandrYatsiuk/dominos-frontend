@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { UserDataService } from 'src/app/auth/user-data.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
 
-  constructor(private userService: UserService, private authService: AuthService) { }
+  constructor(private userService: UserService, private authService: UserDataService) { }
 
 
   public updateUserLocation(coords) {

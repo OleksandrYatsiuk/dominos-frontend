@@ -1,7 +1,6 @@
-import { Component, OnInit, ErrorHandler, AfterContentInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { RootService } from '../../core/services/root.service';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { passwordValidator } from '../../core/validators/password-validator';
@@ -9,7 +8,8 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { ValidationMessages } from '../../core/models/error-list';
 import { UserService } from '../../core/services/user.service';
-
+import { UserDataService } from '../user-data.service';
+// require('../../../assets/data/pizzas/man_2-512.png');
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
@@ -22,14 +22,14 @@ export class UserSettingsComponent implements OnInit {
 
   private currentUser: any;
   constructor(
-    private http: RootService,
+    private http: UserDataService,
     private handler: ErrorHandlerService,
     private title: Title,
     private router: Router,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private user: UserService) { }
-
+  public image = "../../../assets/data/pizzas/man_2-512.png";
   public validations = ValidationMessages;
   public updateProfileForm: FormGroup;
   public changePasswordForm: FormGroup;
@@ -43,12 +43,10 @@ export class UserSettingsComponent implements OnInit {
   get fullName() { return this.updateProfileForm.get('fullName'); }
   get username() { return this.updateProfileForm.get('username'); }
   get email() { return this.updateProfileForm.get('email'); }
-  get birthdaty() { return this.updateProfileForm.get('birthdaty'); }
+  get birthday() { return this.updateProfileForm.get('birthday'); }
   get phone() { return this.updateProfileForm.get('phone'); }
 
-
-
-  ngOnInit() {
+  ngOnInit(): void {
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 50, 0, 1);
     this.maxDate = new Date(currentYear + 0, 0, 31);
@@ -66,6 +64,9 @@ export class UserSettingsComponent implements OnInit {
           birthday: user.birthday,
           phone: user.phone,
         });
+        if (user.image !== null) {
+          this.image = user.image;
+        }
       }
     });
   }

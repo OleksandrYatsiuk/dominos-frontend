@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { RootService } from './root.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { BehaviorSubject } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
+import { UserDataService } from 'src/app/auth/user-data.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,7 @@ export class UserService {
   location = this.userLocation.asObservable();
 
   constructor(
-    private http: AuthService,
+    private http: UserDataService,
     private permissionsService: NgxPermissionsService
   ) { }
 

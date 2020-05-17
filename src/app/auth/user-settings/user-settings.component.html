@@ -1,6 +1,6 @@
 <div class="profile_settings">
   <div class="portfolio">
-    <img src="../../assets/data/pizzas/man_2-512.png" alt="user icon" />
+    <img [src]="image" alt="user icon" />
     <p>Change avatar</p>
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">

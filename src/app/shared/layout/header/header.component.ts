@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../../../core/services/basket.service';
 import { LoginComponent } from 'src/app/auth/login/login.component';
-import { AuthService } from 'src/app/auth/auth.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
 import { CAN_MANAGE_PIZZA } from './headder-permissions';
 import { MatDialog } from '@angular/material';
+import { UserDataService } from 'src/app/auth/user-data.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private basket: BasketService,
-    private http: AuthService,
+    private http: UserDataService,
     private geolocation: GeolocationService,
     private user: UserService,
     private router: Router,

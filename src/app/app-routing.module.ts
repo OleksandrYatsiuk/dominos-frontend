@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
   { path: '', loadChildren: () => import('./products/products-list.module').then(mod => mod.ProductsListModule), data: { preload: true } },
-  // { path: '**', redirectTo: '/' }
+  { path: '**', redirectTo: '/' }
 
 ];
 

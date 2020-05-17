@@ -6,8 +6,8 @@ import { RootService } from 'src/app/core/services/root.service';
 import { pluck } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
-import { AuthService } from 'src/app/auth/auth.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { UserDataService } from 'src/app/auth/user-data.service';
 
 
 export interface Location {
@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data,
     private http: RootService,
     private userService: UserService,
-    private authService: AuthService,
+    private authService: UserDataService,
     private geolocation: GeolocationService,
     private notification: NotificationService
   ) { }

@@ -12,13 +12,6 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-
-  changePassword(data): Observable<any> {
-    return this.http.post<any>(`${this.serverUrl}/user/change-password`, data);
-  }
-  updateProfile(data: any): Observable<any> {
-    return this.http.put<any>(`${this.serverUrl}/user/profile`, data);
-  }
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }

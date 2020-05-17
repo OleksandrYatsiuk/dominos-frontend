@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ErrorHandlerService } from '../services/errorHandler.service';
+import { HttpStatusCode } from '../models/http-status-code';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -13,10 +14,10 @@ export class ErrorInterceptor implements HttpInterceptor {
       .pipe(
         retry(1),
         catchError(({ error }: HttpErrorResponse) => {
-          if (error.code === 422) {
+          if (error.code === HttpStatusCode.UnprocessableEntity) {
             this.handler.hasError(error.result);
           }
-          if (error.code === 401) {
+          if (error.code === HttpStatusCode.Unauthorized) {
             localStorage.removeItem('auth');
             location.reload();
           }

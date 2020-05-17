@@ -44,13 +44,14 @@ export class ShippingFormComponent implements OnInit {
   ngOnInit(): void {
     this.totalAmount = this.basket.actualBasket().amount;
     this.list.forEach(el => { this.pizzasIds.push(el.id); });
-    this.initform();
+    this.initForm();
     this.updateForm();
   }
 
-  private updateForm() {
+  private updateForm(): void {
     this.user.setCurrentUser();
     this.user.currentUser.subscribe(user => {
+      console.log(user);
       if (user) {
         this.formDelivery.patchValue({
           firstName: user.fullName,
@@ -61,7 +62,7 @@ export class ShippingFormComponent implements OnInit {
     });
   }
 
-  private initform(): void {
+  private initForm(): void {
     this.formDelivery = this.formBuilder.group({
       firstName: ['', [Validators.required, Validators.maxLength(15)]],
       phone: ['', [Validators.required]],
@@ -100,6 +101,8 @@ export class ShippingFormComponent implements OnInit {
         localStorage.removeItem('basket');
         this.notification.open({ data: 'Your order has been accepted!' });
       });
+    } else {
+      this.formDelivery.markAllAsTouched();
     }
   }
 
