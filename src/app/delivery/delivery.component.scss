@@ -6,6 +6,8 @@
 }
 .order {
   display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
   flex-wrap: wrap;
   max-width: 700px;
 }

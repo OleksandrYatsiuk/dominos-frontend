@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { BasketService } from '../core/services/basket.service';
 import { Title } from '@angular/platform-browser';
+import { PizzaDataService } from '../products/pizza/pizza-data.service';
 
 @Component({
   selector: 'app-delivery',
@@ -16,7 +17,7 @@ export class DeliveryComponent implements OnInit {
     const storage = JSON.parse(localStorage.getItem('basket'));
     for (const idx in storage) {
       for (const item in storage[idx]) {
-        index.push(storage[idx][item]);
+        index.push(Object.assign(storage[idx][item], { id: idx, size: Object.keys(storage[idx])[0] }));
       }
     }
     return index;
@@ -24,7 +25,8 @@ export class DeliveryComponent implements OnInit {
 
   constructor(
     private title: Title,
-    private basketService: BasketService
+    private basketService: BasketService,
+    private http: PizzaDataService
   ) {
     this.basketService.updateBasketAmount.subscribe(cnt => this.totalAmount = cnt);
   }
@@ -32,7 +34,6 @@ export class DeliveryComponent implements OnInit {
   ngOnInit(): void {
     this.title.setTitle('Доставка');
     this.totalAmount = (this.basketService.actualBasket()).amount;
-
   }
 
 

@@ -1,21 +1,19 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { BasketService } from '../../../core/services/basket.service';
+import { PizzaDataService } from 'src/app/products/pizza/pizza-data.service';
 
 @Component({
   selector: 'app-basket-card-item',
   templateUrl: './basket-card-item.component.html',
   styleUrls: ['./basket-card-item.component.scss']
 })
-export class BasketCardItemComponent implements OnInit {
+export class BasketCardItemComponent {
 
   @Input() item;
   @Output() count;
 
-  constructor(private basketService: BasketService) { }
+  constructor(private basketService: BasketService, private http: PizzaDataService) { }
 
-  ngOnInit() {
-    // console.log(this.item);
-  }
 
   addToCard(item) {
     item.count = this.basketService.addToLocalStorage(item, item.size, item.price);
