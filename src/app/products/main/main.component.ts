@@ -18,22 +18,36 @@ export class MainComponent implements OnInit {
 
   public images = [
     {
-      title: 'Domino`s Club',
-      subTitle: 'Програма підвищення задоволення',
       photo:
-        '../../assets/data/carusel/pl.jpg'
+        'https://media.dominos.ua/slider/slide_image/2020/03/23/address-delivery_slider-min.jpg'
     },
     {
-      title: 'Оновлена акція! -30% на кожну другу піцу',
-      subTitle: '',
       photo:
-        '../../assets/data/carusel/slider.jpg'
+        'https://media.dominos.ua/slider/slide_image/2020/03/16/dost_slider.jpg'
     },
     {
-      title: 'Разом дешевше',
-      subTitle: '3 середні піци та пляшку 1л Pepsi усього за 399.99 грн!',
       photo:
-        '../../assets/data/carusel/pepsi.jpg'
+        'https://media.dominos.ua/slider/slide_image/2020/03/31/curry_slider.jpg'
+    },
+    {
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2020/04/01/slider-min.jpg'
+    },
+    {
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2020/06/17/-50-wings_slider_rus.jpg'
+    },
+    {
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2020/04/02/woweekend_slider_rus.jpg'
+    },
+    {
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2020/06/18/combo_slider_ukr_rus.jpg'
+    },
+    {
+      photo:
+        'https://media.dominos.ua/slider/slide_image/2020/06/05/beer-fest_slider_rus.jpg  '
     }
   ];
 

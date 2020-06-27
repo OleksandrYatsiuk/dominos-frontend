@@ -1,11 +1,8 @@
 <ngb-carousel #carousel interval="5000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
   <ng-template ngbSlide *ngFor="let img of images; index as i">
     <div class="carousel-caption">
-      <h1>{{ img.title }}</h1>
-      <h3>{{ img.subTitle }}</h3>
       <button mat-button>Детальніше</button>
     </div>
-
     <div class="picsum-img-wrapper">
       <img [src]="img.photo" alt="My image {{ img.title }} description" />
     </div>
