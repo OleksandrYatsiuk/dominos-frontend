@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DeliveryDataService } from '../delivery-data.service';
+import { DeliveryDataService } from '../../delivery/delivery-data.service';
 import { PageEvent, MatDialog } from '@angular/material';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-delivery-list',
@@ -13,7 +12,9 @@ import { pluck } from 'rxjs/operators';
 export class DeliveryListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date', 'delete'];
-  dataSource;
+  deliveries;
+  page=1
+  pages=1
   length = 100;
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 20];
@@ -37,7 +38,9 @@ export class DeliveryListComponent implements OnInit {
       .subscribe(({ result, _meta }) => {
         const { total } = _meta.pagination;
         this.length = total;
-        this.dataSource = result;
+        this.deliveries = result;
+        this.page= _meta.pagination.page
+        this.pages= _meta.pagination.pages
       });
   }
 
@@ -45,12 +48,21 @@ export class DeliveryListComponent implements OnInit {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
       height: '300px',
-      data: { name: 'Ви дійсно хочете видалити замовлення', delivery: item, status: '' }
+      data: { name: 'Ви дійсно хочете видалити замовлення' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.getList(1, this.pageSize);
       }
+    });
+  }
+  public setPage(page: number) {
+    if (page < 1) { page = 1 }
+    this.http.deliveryList(page, 20, 'createdAt').subscribe(({
+      result, _meta }) => {
+      this.deliveries = result;
+      this.page = _meta.pagination.page;
+      this.pages = _meta.pagination.pages;
     });
   }
 }

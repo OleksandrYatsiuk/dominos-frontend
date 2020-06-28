@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   public authForm: FormGroup;
   public spinLogIn = false;
-  public validations = ValidationMessages;
+  // public validations = ValidationMessages;
   get username() { return this.authForm.get('username'); }
   get password() { return this.authForm.get('password'); }
 

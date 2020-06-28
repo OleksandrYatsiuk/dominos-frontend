@@ -1,0 +1,52 @@
+<table class="table table-hover table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Email</th>
+      <th scope="col">Date</th>
+      <th scope="col">Time</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let delivery of deliveries;index as i;">
+      <th scope="row">{{i+1}}</th>
+      <td>{{delivery.id}}</td>
+      <td>{{delivery.firstName}}</td>
+      <td>{{delivery.phone}}</td>
+      <td>{{delivery.email}}</td>
+      <td>{{delivery.date.date|date}}</td>
+      <td>{{delivery.date.time}}</td>
+
+      <td>
+        <div class="icon-action">
+          <mat-icon (click)="delete(delivery)" aria-hidden="false" aria-label="Example home icon">
+              delete_forever
+          </mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
+      </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item" [ngClass]="{disabled:page===1}">
+      <a class="page-link" (click)="setPage(1)" tabindex="-1">Previous</a>
+    </li>
+    <li class="page-item" [ngClass]="{disabled:page===1}">
+      <a *ngIf="page>1" class="page-link" (click)="setPage(page-1)">{{page-1}}</a></li>
+    <li class="page-item active">
+      <a class="page-link">{{page}}
+        <span class="sr-only">(current)</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" *ngIf="pages>page" (click)="setPage(page+1)">{{page+1}}</a></li>
+    <li class="page-item" [ngClass]="{disabled:page===pages}">
+      <a class="page-link" (click)="setPage(page+1)">Next</a>
+    </li>
+  </ul>
+</nav>

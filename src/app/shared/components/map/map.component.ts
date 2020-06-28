@@ -8,6 +8,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserDataService } from 'src/app/auth/user-data.service';
+import { ShopService } from 'src/app/core/services/shop.service';
 
 
 export interface Location {
@@ -56,7 +57,7 @@ export class MapComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<MapComponent>,
     @Inject(MAT_DIALOG_DATA) public data,
-    private http: RootService,
+    private http: ShopService,
     private userService: UserService,
     private authService: UserDataService,
     private geolocation: GeolocationService,
@@ -104,7 +105,7 @@ export class MapComponent implements OnInit {
   }
 
   private setMarkers() {
-    this.http.getShops()
+    this.http.getData()
       .pipe(pluck('result'))
       .subscribe(result => {
         this.markers = result;

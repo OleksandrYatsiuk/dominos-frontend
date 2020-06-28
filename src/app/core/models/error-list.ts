@@ -26,5 +26,14 @@ export const ValidationMessages = {
     email: [
         { type: 'required', message: 'Email is required.' },
         { type: 'email', message: 'Email is invalid.' },
+    ],
+    title: [
+        { type: 'required', message: 'Title is required.' },
+        { type: 'minlength', message: 'Title should contain at least 10 character(s).' },
+    ],
+    content: [
+        { type: 'required', message: 'Content is required.' },
+        { type: 'minlength', message: 'Content should contain at least 20 character(s).' },
+        { type: 'maxlength', message: 'Content should contain at most 1000 character(s).' },
     ]
 };

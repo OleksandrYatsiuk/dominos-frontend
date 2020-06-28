@@ -1,0 +1,17 @@
+.content {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.nav-panel {
+    display: flex;
+    flex-wrap: wrap;
+    app-spin-button {
+        min-width: 100px;
+    }
+}
+.nav-item {
+    margin: 10px;
+}
+.hide {
+    display: none;
+}

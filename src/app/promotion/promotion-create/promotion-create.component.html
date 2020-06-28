@@ -1,0 +1,18 @@
+<h4>Create Promotion</h4>
+
+<form [formGroup]="createPromotionForm" (ngSubmit)="create()">
+    <app-form-item [control]="createPromotionForm.controls.title" name="title">
+        <input placeholder="Enter Title" formControlName="title">
+    </app-form-item>
+
+    <app-form-item [control]="createPromotionForm.controls.content" name="content">
+        <textarea placeholder="Enter Description" formControlName="content"></textarea>
+    </app-form-item>
+
+    <app-form-item [control]="createPromotionForm.controls.image" name="image">
+        <input placeholder="Select Image" formControlName="image" type="file" (change)="onFileSelected($event)">
+    </app-form-item>
+
+    <app-spin-button type="submit" name="Create" [loading]="loading"></app-spin-button>
+
+</form>

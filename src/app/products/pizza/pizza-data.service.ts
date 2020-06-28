@@ -10,8 +10,8 @@ export class PizzaDataService {
 
   constructor(private http: RootService) { }
 
-  public getPizzas(): Observable<PaginationResponse<Pizza[]>> {
-    return this.http.get('/pizza');
+  public getPizzas(options?): Observable<PaginationResponse<Pizza[]>> {
+    return this.http.get('/pizza', options);
   }
 
   public getPizza(id: string): Observable<BaseResponse<Pizza>> {

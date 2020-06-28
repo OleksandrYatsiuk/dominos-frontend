@@ -18,16 +18,11 @@ export class ModalComponent {
   ) { }
 
   public onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   public delete() {
-    this.http.delete(this.data.delivery.id).subscribe(response => {
-      this.notification.open({ data: 'Замовленя видалено успішно!' });
-      this.dialogRef.close();
-    }, (err) => {
-      this.notification.open({ data: err.message });
-    });
+    this.dialogRef.close(true);
   }
 }
 

@@ -9,8 +9,8 @@ export class PromotionDataService {
   public path = '/promotion';
   constructor(private http: RootService) {
   }
-  public getData() {
-    return this.http.get(this.path);
+  public getData(options?: object) {
+    return this.http.get(this.path, options);
   }
 
   public getItem(id: string) {

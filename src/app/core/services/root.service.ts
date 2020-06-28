@@ -15,10 +15,6 @@ export class RootService {
   getIngredientsList(): Observable<any> {
     return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
   }
-  getShops(): Observable<any> {
-    return this.http.get<any[]>(`${this.serverUrl}/shops`);
-  }
-
 
   public post(path, body): Observable<any> {
     return this.http.post(`${this.serverUrl}${path}`, body);

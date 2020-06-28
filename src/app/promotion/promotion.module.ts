@@ -6,12 +6,14 @@ import { SharedModule } from '../shared';
 import { PromotionComponent } from './promotion.component';
 import { PromotionDataService } from './promotion-data.service';
 import { PromotionResolver } from './promotion.resolver';
+import { PromotionCreateComponent } from './promotion-create/promotion-create.component';
 
 
 
 @NgModule({
   declarations: [
-    PromotionComponent
+    PromotionComponent,
+    PromotionCreateComponent
   ],
   imports: [
     CommonModule,
