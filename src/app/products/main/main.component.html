@@ -1,10 +1,13 @@
 <ngb-carousel #carousel interval="5000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
-  <ng-template ngbSlide *ngFor="let img of images; index as i">
+  <ng-template ngbSlide *ngFor="let promo of promos; index as i">
     <div class="carousel-caption">
-      <button mat-button>Детальніше</button>
+      <a [routerLink]="['/promotion/', promo.id]" class="product_name">
+        <button mat-button>Детальніше </button>
+      </a>
+
     </div>
     <div class="picsum-img-wrapper">
-      <img [src]="img.photo" alt="My image {{ img.title }} description" />
+      <img [src]="promo.image" alt="My image promo.image description" />
     </div>
   </ng-template>
 </ngb-carousel>

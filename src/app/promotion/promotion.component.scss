@@ -1,0 +1,18 @@
+.image {
+    max-width: 90%;
+    height: 350px;
+    margin: 10px;
+    border-radius: 20px;
+}
+.title {
+    display: flex;
+    flex-wrap: wrap;
+}
+.details{
+    display: block;
+    margin: 10px;
+    width: 50%;
+    span{
+        font-size: 12px;
+    }
+}

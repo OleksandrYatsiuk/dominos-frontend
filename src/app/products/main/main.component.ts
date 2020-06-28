@@ -6,6 +6,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { PizzaDataService } from '../pizza/pizza-data.service';
 import { pluck } from 'rxjs/operators';
+import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
 
 @Component({
   selector: 'app-main',
@@ -14,42 +15,7 @@ import { pluck } from 'rxjs/operators';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private http: PizzaDataService) { }
-
-  public images = [
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/03/23/address-delivery_slider-min.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/03/16/dost_slider.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/03/31/curry_slider.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/04/01/slider-min.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/06/17/-50-wings_slider_rus.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/04/02/woweekend_slider_rus.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/06/18/combo_slider_ukr_rus.jpg'
-    },
-    {
-      photo:
-        'https://media.dominos.ua/slider/slide_image/2020/06/05/beer-fest_slider_rus.jpg  '
-    }
-  ];
+  constructor(private http: PizzaDataService, private promoService: PromotionDataService) { }
 
   paused = false;
   unpauseOnArrow = false;
@@ -57,6 +23,7 @@ export class MainComponent implements OnInit {
   pauseOnHover = true;
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
+  promos: [];
   all: any;
   categories: { category: string; items: any; }[];
 
@@ -86,7 +53,14 @@ export class MainComponent implements OnInit {
 
   ngOnInit() {
     this.getPizzaList();
+    this.getPromoList();
   }
+
+  getPromoList() {
+    this.promoService.getData().subscribe(promos => this.promos = promos.result);
+  }
+
+
   getPizzaList() {
     this.http.getPizzas()
       .pipe(pluck('result'))
