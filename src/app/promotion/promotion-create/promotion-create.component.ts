@@ -28,9 +28,9 @@ export class PromotionCreateComponent implements OnInit {
   }
   public initForms() {
     this.createPromotionForm = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.minLength(10)]],
-      content: [null, [Validators.required, Validators.minLength(20), Validators.maxLength(1000)]],
-      image: [null, [Validators.required]],
+      title: [null, [Validators.required]],
+      content: [null, [Validators.required, Validators.maxLength(2000)]],
+      image: ["", [Validators.required]],
     });
 
   }
@@ -38,18 +38,19 @@ export class PromotionCreateComponent implements OnInit {
     this.createPromotionForm.markAllAsTouched();
     if (this.createPromotionForm.valid) {
       this.loading = !this.loading;
-      const { title, content, image } = this.createPromotionForm.value
-      this.http.create({
-        title,
-        content,
-        image: 'https://media.dominos.ua/__sized__/promotions/promotions_image/2020/04/02/woweekend_news_ukr-crop-c0-5__0-5-2300x1352-70.jpg'
-      })
+      this.http.create(this.createPromotionForm.value)
         .pipe(pluck('result'))
         .subscribe(result => {
-          this.loading = !this.loading;
-          this.notification.open({
-            data: `Акція "${result.title}" успішно збережена!`
-          })
+          if (this.selectedFile !== null) {
+            const fd = new FormData();
+            fd.append('file', this.selectedFile, this.selectedFile.name);
+            this.http.upload(result.id, fd).subscribe(({ result }) => {
+              this.loading = !this.loading;
+              this.notification.open({
+                data: `Акція "${result.title}" успішно збережена!`
+              })
+            });
+          }
         }, (error) => {
           this.loading = false;
           this.handler.validation(error, this.createPromotionForm);

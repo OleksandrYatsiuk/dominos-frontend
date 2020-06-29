@@ -27,5 +27,8 @@ export class PromotionDataService {
   public update(id: string) {
     return this.http.put(`${this.path}/${id}`);
   }
+  public upload(id: string, file: FormData): Observable<any> {
+    return this.http.post(`${this.path}/${id}`, file);
+  }
 
 }
