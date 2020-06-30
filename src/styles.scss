@@ -1,6 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./styles/promotion.scss";
+@import "./styles/table.scss";
+@import "./styles/carusel.scss";
 
 html,
 body {
@@ -14,33 +17,12 @@ input {
   outline: none;
 }
 
-.table-dark th,
-.table-dark td,
-.table-dark thead th {
-  border-color: white;
-}
-.table-dark mat-icon,
-.page-item {
-  cursor: pointer;
-}
-.page-item.disabled {
-  cursor: default;
-}
-
-tbody .icon-action {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
 app-root {
   display: flex;
   flex-direction: column;
   min-height: 100%;
 }
-app-main {
-  display: block;
-}
+
 body {
   font-family: Roboto, Helvetica Neue, sans-serif;
   font-size: 15px;

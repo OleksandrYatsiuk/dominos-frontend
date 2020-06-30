@@ -18,10 +18,11 @@
     <div class="navigation">
       <h2 routerLink="/"> Domino's Pizza </h2>
       <div class="nav" appMenu>
+        <span routerLink="/promotion" routerLinkActive="active">Акції</span>
         <span routerLink="/pizza" routerLinkActive="active">Піца</span>
-        <span routerLink="">Напої</span>
-        <span routerLink="">Сайди</span>
-        <span routerLink="">Десерти</span>
+        <span routerLink="/" >Напої</span>
+        <span routerLink="/" >Сайди</span>
+        <span routerLink="/" >Десерти</span>
       </div>
       <div class="market" [ngClass]="{ disabled: count === 0 }">
         <div class="count">{{ count }}</div>

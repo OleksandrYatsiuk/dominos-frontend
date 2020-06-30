@@ -1,0 +1,19 @@
+.table-dark th,
+.table-dark td,
+.table-dark thead th {
+    border-color: white;
+}
+
+.table-dark mat-icon,
+.page-item {
+    cursor: pointer;
+}
+.page-item.disabled {
+    cursor: default;
+}
+
+tbody .icon-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}

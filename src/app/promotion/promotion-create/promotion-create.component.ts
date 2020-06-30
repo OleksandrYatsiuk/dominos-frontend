@@ -4,7 +4,7 @@ import { PromotionDataService } from '../promotion-data.service';
 import { pluck } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-
+import { PromotionStatuses } from './promotions.interface';
 @Component({
   selector: 'app-promotion-create',
   templateUrl: './promotion-create.component.html',
@@ -16,6 +16,7 @@ export class PromotionCreateComponent implements OnInit {
   selectedFile: any;
   imagePath: any;
   url: string | ArrayBuffer;
+
   constructor(
     private formBuilder: FormBuilder,
     private http: PromotionDataService,
@@ -26,11 +27,13 @@ export class PromotionCreateComponent implements OnInit {
   ngOnInit() {
     this.initForms();
   }
+
   public initForms() {
     this.createPromotionForm = this.formBuilder.group({
       title: [null, [Validators.required]],
       content: [null, [Validators.required, Validators.maxLength(2000)]],
       image: ["", [Validators.required]],
+      startedAt: ["", [Validators.required]],
     });
 
   }

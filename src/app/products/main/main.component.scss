@@ -1,40 +1,13 @@
-ngb-carousel {
-  outline: none;
+.main {
+  display: flex;
+  -webkit-box-align: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.picsum-img-wrapper > img {
-  width: 100%;
-  border-radius: 20px;
-}
-.carousel-caption {
-  display: block;
-  text-align: left;
-
-  h1 {
-    font-size: 70px;
-    font-weight: 700;
-    line-height: 120%;
-    padding-bottom: 40px;
-  }
-  h3 {
-    font-size: 42px;
-    font-weight: 700;
-  }
-  button {
-    outline: none;
-    background-color: white;
-    opacity: 0.5;
-    border-radius: 5px;
-    width: 30%;
-    color: black;
-    font-size: 20px;
-    &:hover {
-      opacity: 1;
-    }
-  }
-}
 .pizza-list {
   margin-top: 20px;
+  max-width: 1300px;
 }
 
 .product-block {

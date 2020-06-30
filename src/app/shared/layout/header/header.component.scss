@@ -1,5 +1,7 @@
+
 .dp-header-desktop {
   position: fixed;
+  top: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -23,14 +25,6 @@
       color: black;
     }
   }
-}
-
-.fixed_header {
-  display: block;
-  width: 100%;
-  height: 120px;
-  margin: 0 0 20px;
-  z-index: 10;
 }
 
 .market {
@@ -142,7 +136,7 @@ h2 {
 }
 ul > .mat-icon {
   font-size: 50px;
-  .mini-menu.mat-menu-trigger{
+  .mini-menu.mat-menu-trigger {
     min-width: 10px;
   }
 }

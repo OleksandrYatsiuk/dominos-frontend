@@ -8,11 +8,15 @@
     <app-form-item [control]="createPromotionForm.controls.content" name="content">
         <textarea placeholder="Enter Description" formControlName="content"></textarea>
     </app-form-item>
-    
+
     <app-form-item [control]="createPromotionForm.controls.image" name="image" (change)="onFileSelected($event)">
         <input placeholder="Select Image" formControlName="image" type="file">
     </app-form-item>
 
+    <app-form-item [control]="createPromotionForm.controls.startedAt" name="startedAt">
+        <input placeholder="Select Started Time" formControlName="startedAt" type="date">
+    </app-form-item>
+   
     <app-spin-button type="submit" name="Create" [loading]="loading"></app-spin-button>
 
 </form>

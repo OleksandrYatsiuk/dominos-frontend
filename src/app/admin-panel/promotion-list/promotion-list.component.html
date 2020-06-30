@@ -15,7 +15,7 @@
             <th scope="row">{{i+1}}</th>
             <td>{{promotion.id}}</td>
             <td>{{promotion.title}}</td>
-            <td>{{promotion.createdAt*1000|date}}</td>
+            <td>{{promotion.startedAt|date}}</td>
             <td>
                 <div class="icon-action">
                     <mat-icon (click)="delete(promotion)" aria-hidden="false" aria-label="Example home icon">

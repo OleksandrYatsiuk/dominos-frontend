@@ -1,0 +1,51 @@
+.image {
+    max-width: 600px;
+    height: 350px;
+    margin: 10px;
+    border-radius: 20px;
+}
+.title {
+    display: flex;
+    flex-wrap: wrap;
+}
+.details {
+    display: block;
+    margin: 10px;
+    width: 50%;
+    span {
+        font-size: 12px;
+    }
+}
+
+.promotion_item {
+    margin-top: 20px;
+    display: flex;
+
+    .details_item {
+        width: 40%;
+        min-width: 500px;
+        padding-left: 10px;
+    }
+
+    .image_item {
+        display: flex;
+        flex-direction: column;
+        width: 40%;
+        height: 350px;
+        margin: 10px;
+        border-radius: 20px;
+        min-width: 500px;
+    }
+    button {
+        outline: none;
+        background-color: white;
+        opacity: 0.5;
+        border-radius: 5px;
+        width: 30%;
+        color: black;
+        font-size: 20px;
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

@@ -1,0 +1,25 @@
+@import "./buttons.scss";
+
+.home-carousel {
+    max-width: 1300px;
+
+    img {
+        min-width: 90%;
+        border-radius: 20px;
+        height: 500px;
+        margin: 0 20px;
+    }
+    ngb-carousel {
+        outline: none;
+    }
+    .carousel-control-next {
+        right: 8%;
+    }
+    .carousel-caption {
+        display: flex;
+        float: left;
+    }
+    .carousel-control-prev {
+        left: 7%;
+    }
+}

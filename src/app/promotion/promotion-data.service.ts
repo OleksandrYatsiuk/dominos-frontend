@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RootService } from '../core/services/root.service';
 import { Observable } from 'rxjs';
+import { BaseResponse } from '../core/models/response.interface';
+import { Promotion } from './promotion-create/promotions.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +23,7 @@ export class PromotionDataService {
     return this.http.delete(`${this.path}/${id}`);
   }
 
-  public create(data: any) {
+  public create(data: any):Observable<BaseResponse<Promotion>> {
     return this.http.post(`${this.path}`, data);
   }
   public update(id: string) {

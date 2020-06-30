@@ -1,0 +1,14 @@
+<div *ngFor="let promotion of promotions" class="promotion_item">
+    <div class="title">
+        <img class="image_item" src="{{promotion.image}}" alt="noopener noreferrer">
+        <div class="details_item">
+            <h6>{{promotion.startedAt|date}}</h6>
+            <h4>{{promotion.title}}</h4>
+            <p>{{promotion.content}}</p>
+            <a [routerLink]="['/promotion/', promotion.id]" class="product_name">
+                <button mat-button>Детальніше </button>
+              </a>
+        </div>
+
+    </div>
+</div>

@@ -7,13 +7,15 @@ import { PromotionComponent } from './promotion.component';
 import { PromotionDataService } from './promotion-data.service';
 import { PromotionResolver } from './promotion.resolver';
 import { PromotionCreateComponent } from './promotion-create/promotion-create.component';
+import { PromotionsListComponent } from './promotions-list/promotions-list.component';
 
 
 
 @NgModule({
   declarations: [
     PromotionComponent,
-    PromotionCreateComponent
+    PromotionCreateComponent,
+    PromotionsListComponent
   ],
   imports: [
     CommonModule,
