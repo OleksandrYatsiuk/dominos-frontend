@@ -4,9 +4,10 @@
     max-width: 1300px;
 
     img {
-        min-width: 90%;
+        width: 90%;
         border-radius: 20px;
-        height: 500px;
+        max-height: 500px;
+        min-height: 200px;
         margin: 0 20px;
     }
     ngb-carousel {

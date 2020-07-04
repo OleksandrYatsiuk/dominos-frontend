@@ -9,3 +9,22 @@
         opacity: 1;
     }
 }
+.basket-button {
+    // width: 50%;
+    width: 145px;
+    height: 46px;
+    font-weight: bold;
+    font-size: 16px;
+    color: snow;
+    background-color: #e31837;
+    border: 0px;
+    border-radius: 23px;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+        background-color: rgb(148, 13, 13);
+    }
+    &:active {
+        background-color: black;
+    }
+}

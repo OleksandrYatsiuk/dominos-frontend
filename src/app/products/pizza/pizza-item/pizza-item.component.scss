@@ -74,24 +74,6 @@ input[type="radio"] {
   text-align: center;
   margin: auto;
 }
-button {
-  font-size: 20px;
-  font-weight: 600;
-  width: 50%;
-  height: 50px;
-  color: snow;
-  background-color: #e31837;
-  border: 0px;
-  border-radius: 15px;
-  outline: none;
-  cursor: pointer;
-  &:hover {
-    background-color: rgb(148, 13, 13);
-  }
-  &:active {
-    background-color: black;
-  }
-}
 
 .currency {
   margin-top: 10px;
@@ -158,7 +140,7 @@ button {
   width: 50%;
   justify-content: space-between;
   background-color: rgb(228, 228, 228);
-  border-radius: 15px;
+  border-radius: 23px;
 
   button {
     width: 30%;

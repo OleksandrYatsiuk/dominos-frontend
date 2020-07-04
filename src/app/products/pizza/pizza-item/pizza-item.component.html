@@ -101,11 +101,11 @@
           <span class="currency"> грн</span>
         </div>
         <div class="checked_product" *ngIf="count !== 0">
-          <button (click)="removeFromCard(item)">-</button>
+          <button class="basket-button" (click)="removeFromCard(item)">-</button>
           <p>{{ count }}</p>
-          <button (click)="addToCard(item)">+</button>
+          <button class="basket-button" (click)="addToCard(item)">+</button>
         </div>
-        <button *ngIf="count == 0" (click)="addToCard(item)">В кошик</button>
+        <button class="basket-button" *ngIf="count == 0" (click)="addToCard(item)">В кошик</button>
       </div>
     </form>
   </div>
