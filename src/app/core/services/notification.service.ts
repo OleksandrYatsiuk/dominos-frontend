@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 import { NotificationComponent } from 'src/app/shared/components/notification/notification.component';
-import { NgbCalendarIslamicUmalqura } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
