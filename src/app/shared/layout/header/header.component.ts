@@ -4,7 +4,7 @@ import { LoginComponent } from 'src/app/auth/login/login.component';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
-import { CAN_MANAGE_PIZZA } from './headder-permissions';
+import { CAN_MANAGE_PIZZA } from './header-permissions';
 import { MatDialog } from '@angular/material';
 import { UserDataService } from 'src/app/auth/user-data.service';
 

@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CAN_MANAGE_PIZZA } from '../header/headder-permissions';
-
+import { IS_MANAGEMENT } from '../header/header-permissions';
+import { environment } from '../../../../environments/environment';
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+	selector: 'app-footer',
+	templateUrl: './footer.component.html',
+	styleUrls: [ './footer.component.scss' ]
 })
-export class FooterComponent implements OnInit {
-
-  constructor() { }
-  public canManagePizza = CAN_MANAGE_PIZZA;
-  ngOnInit() {
-  }
-
+export class FooterComponent {
+	constructor() {}
+	public isManagement = IS_MANAGEMENT;
+	public swaggerUILink = environment.serverURL.split('/api/v1', 1);
 }

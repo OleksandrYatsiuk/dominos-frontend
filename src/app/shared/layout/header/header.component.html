@@ -1,11 +1,11 @@
 <div class="dp-header-desktop">
   <div class="fake-header">
-    <button mat-button *ngxPermissionsOnly="canManagePizza" routerLink="/admin/pizzas">Панель Адміністрування</button>
+    <button mat-button *ngxPermissionsOnly="canManagePizza" routerLink="/admin/pizzas">Admin Panel</button>
     <button mat-button (click)="openModal()" *ngIf="!currentUser">
-      Авторизація
+      Log In
     </button>
     <button mat-button [matMenuTriggerFor]="menu" *ngIf="currentUser">
-      <span>{{ currentUser?.username }}</span>
+      <span>{{ currentUser?.fullName }}</span>
     </button>
   </div>
   <mat-menu #menu="matMenu">
@@ -16,7 +16,7 @@
   </mat-menu>
   <div class="main-header">
     <div class="navigation">
-      <h2 routerLink="/"> Domino's Pizza </h2>
+      <h2 class="logo" routerLink="/"> Domino's Pizza </h2>
       <div class="nav" appMenu>
         <span routerLink="/promotion" routerLinkActive="active">Акції</span>
         <span routerLink="/pizza" routerLinkActive="active">Піца</span>

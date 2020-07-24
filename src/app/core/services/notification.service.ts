@@ -12,8 +12,8 @@ export class NotificationService {
   open<T>(config?: MatSnackBarConfig): void {
     this.snackBar.openFromComponent(NotificationComponent, config);
   }
-  close() {
-    this.snackBar.dismiss();
-  }
+  // close() {
+  //   this.snackBar.dismiss();
+  // }
 
 }
