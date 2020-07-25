@@ -5,6 +5,7 @@
 @import "./styles/table.scss";
 @import "./styles/carusel.scss";
 @import "./styles/logo.scss";
+@import "./styles/delivery.scss";
 
 html,
 body {
@@ -16,7 +17,9 @@ span,
 button,
 input {
   outline: none;
+ 
 }
+
 
 app-root {
   display: flex;
@@ -165,4 +168,13 @@ textarea {
 .payment {
   display: flex;
   width: 48%;
+}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
 }

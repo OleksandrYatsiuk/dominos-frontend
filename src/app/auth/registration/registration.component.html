@@ -19,8 +19,9 @@
     <app-form-item [control]="registerForm.controls.confirmPassword" name="confirmPassword">
       <input placeholder="Enter Confirm Password" formControlName="confirmPassword" type="password">
     </app-form-item>
-
-    <app-spin-button [loading]="spinRegister" name="Register"></app-spin-button>
+    <div class="confirm">
+     <app-spin-button [loading]="spinRegister" name="Register"></app-spin-button>
+    </div>
   </form>
 </div>
 
