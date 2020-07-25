@@ -159,6 +159,9 @@ textarea {
   background: transparent;
   outline: none;
   border: 0px;
+  resize: vertical; 
+  min-height: 50px;
+  max-height: 200px;
 }
 
 .field {

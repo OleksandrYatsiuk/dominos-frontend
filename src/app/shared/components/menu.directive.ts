@@ -8,7 +8,7 @@ export class MenuDirective implements AfterViewInit {
   constructor(private element: ElementRef) { }
   @HostListener('window:resize', [])
   ngAfterViewInit() {
-    if (window.innerWidth < 840 || !window.navigator.userAgent.includes('Chrome')) {
+    if (window.innerWidth < 840 || !window.navigator.userAgent.includes('Mozilla'||'Chrome')) {
       this.element.nativeElement.style.display = 'none';
       document.querySelector('.mini-menu')['style'].display = 'block';
     } else {

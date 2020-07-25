@@ -36,7 +36,7 @@
   border-radius: 25px;
   span {
     color: black;
-    font-weight: 20px;
+    font-weight: 20;
   }
 
   .count {
@@ -51,9 +51,9 @@
   }
 
   .total-price {
-    width: 120px;
+    max-width: 120px;
     text-align: center;
-    padding: 9px;
+    padding: 12px 5px;
 
     span {
       font-size: 14px;
@@ -115,6 +115,8 @@ h2 {
 }
 .mini-menu {
   cursor: pointer;
+  margin: 0px;
+  padding-right: 1%;
 }
 ul > .mat-icon {
   font-size: 50px;
