@@ -12,8 +12,14 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-  getIngredientsList(): Observable<any> {
-    return this.http.get<any[]>(`${this.serverUrl}/ingredients`);
+  getIngredientsList(page: any, limit: any, sort: string): Observable<any> {
+    return this.http.get(`${this.serverUrl}/ingredients`, {
+      params:
+        { page, limit, sort }
+    });
+  }
+  createIngredient(data: any): Observable<any> {
+    return this.http.post<any[]>(`${this.serverUrl}/ingredients`, data);
   }
 
   public post(path, body): Observable<any> {

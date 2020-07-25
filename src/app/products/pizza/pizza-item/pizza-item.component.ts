@@ -34,7 +34,7 @@ export class PizzaItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.getIngredientsList()
+    this.http.getIngredientsList('1', '20','name')
       .pipe(pluck('result'))
       .subscribe(ingredients => {
         ingredients.map(element => {

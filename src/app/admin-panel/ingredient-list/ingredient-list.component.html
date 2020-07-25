@@ -1,0 +1,45 @@
+<table class="table table-hover table-dark">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">
+            <app-spin-button name="Add New" class="nav-item" color="basic" routerLink="/ingredient/create"></app-spin-button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ingredient of ingredients;index as i;">
+        <th scope="row">{{i+1}}</th>
+        <td>{{ingredient.id}}</td>
+        <td>{{ingredient.name}}</td>
+        <td>
+          <div class="icon-action">
+            <mat-icon (click)="delete(ingredient)" aria-hidden="false" aria-label="Example home icon">
+                delete_forever
+            </mat-icon>
+            <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="...">
+    <ul class="pagination">
+      <li class="page-item" [ngClass]="{disabled:page===1}">
+        <a class="page-link" (click)="setPage(1)" tabindex="-1">Previous</a>
+      </li>
+      <li class="page-item" [ngClass]="{disabled:page===1}">
+        <a *ngIf="page>1" class="page-link" (click)="setPage(page-1)">{{page-1}}</a></li>
+      <li class="page-item active">
+        <a class="page-link">{{page}}
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" *ngIf="pages>page" (click)="setPage(page+1)">{{page+1}}</a></li>
+      <li class="page-item" [ngClass]="{disabled:page===pages}">
+        <a class="page-link" (click)="setPage(page+1)">Next</a>
+      </li>
+    </ul>
+  </nav>

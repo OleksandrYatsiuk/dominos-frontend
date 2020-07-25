@@ -6,6 +6,7 @@ import { UsersListComponent } from './users-list/users-list.component';
 import { PromotionListComponent } from './promotion-list/promotion-list.component';
 import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
+import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,10 @@ const routes: Routes = [
         path: 'shops',
         component: ShopListComponent
       },
+      {
+        path: 'ingredients',
+        component: IngredientListComponent
+      },
     ]
   },
   
@@ -46,7 +51,7 @@ const routes: Routes = [
   //         { path: 'shipping', component: ShippingFormComponent },
   //         { path: 'carryout', component: CarryoutComponent },
   //       ]
-  //     },
+  //   вопросы на собеседовании верстальщик  },
   //   ]
   // }
 ];

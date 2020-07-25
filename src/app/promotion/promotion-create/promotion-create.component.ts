@@ -49,6 +49,7 @@ export class PromotionCreateComponent implements OnInit {
             fd.append('file', this.selectedFile, this.selectedFile.name);
             this.http.upload(result.id, fd).subscribe(({ result }) => {
               this.loading = !this.loading;
+              this.createPromotionForm.reset();
               this.notification.open({
                 data: `Акція "${result.title}" успішно збережена!`
               })

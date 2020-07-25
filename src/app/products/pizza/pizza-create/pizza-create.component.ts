@@ -38,7 +38,7 @@ export class PizzaCreateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.root.getIngredientsList().subscribe(res => {
+    this.root.getIngredientsList('1','100', 'name').subscribe(res => {
       this.ingredients = res['result'];
     });
 

@@ -40,7 +40,7 @@ export class PizzaEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.title.setTitle(`Edit - ${this.pizza.name}`);
-    this.rest.getIngredientsList().subscribe(res => {
+    this.rest.getIngredientsList('1','100','name').subscribe(res => {
       this.ingredients = res['result'];
     });
     this.initForm();
