@@ -28,12 +28,14 @@ export class UserDataService {
   public logout(): Observable<null> {
     return this.http.post(`/user/logout`, null);
   }
-
   public current(): Observable<null> {
-    return this.http.get(`/user/current`);
+    return this.http.get(`/updateLocationuser/current`);
   }
 
   public updateLocation(location: object): Observable<any> {
     return this.http.put(`/user/location`, location);
+  }
+  public confirm(hash: string): Observable<any> {
+    return this.http.get(`/auth/confirm/${hash}`);
   }
 }
