@@ -2,7 +2,7 @@
   <form [formGroup]="registerForm" (ngSubmit)="register()">
 
     <app-form-item [control]="registerForm.controls.fullName" name="fullName">
-      <input placeholder="Enter Password" formControlName="fullName">
+      <input placeholder="Enter Full Name" formControlName="fullName">
     </app-form-item>
     <app-form-item [control]="registerForm.controls.username" name="username">
       <input placeholder="Enter Username" formControlName="username">
