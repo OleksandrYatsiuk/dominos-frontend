@@ -7,6 +7,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { DeliveryDataService } from '../delivery-data.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { Router } from '@angular/router';
+import { PaymentTypes } from '../shipping-form/payments.model';
 @Component({
   selector: 'app-carryout',
   templateUrl: './carryout.component.html',
@@ -15,13 +16,12 @@ import { Router } from '@angular/router';
 export class CarryoutComponent implements OnInit {
   carryOut: FormGroup;
   public loading = false;
+  public shopId = false;
   minDate: Date;
   maxDate: Date;
   totalAmount: any;
   pizzasIds = [];
-  paymentTypes = [
-    { name: 'cash' }, { name: 'card' }
-  ];
+  paymentTypes = [ { name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash } ];
 
   public get list() {
     const index = [];
@@ -45,7 +45,7 @@ export class CarryoutComponent implements OnInit {
   ) { }
   ngOnInit() {
     this.totalAmount = this.basket.actualBasket().amount;
-    this.list.forEach(el => { this.pizzasIds.push(el.id); });
+    this.list;
 
     this.minDate = new Date();
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
@@ -65,10 +65,10 @@ export class CarryoutComponent implements OnInit {
 
   initForm(): void {
     this.carryOut = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(15)]],
+      firstName: ['', [Validators.required]],
       phone: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      shop: ['', [Validators.required]],
+      shopId: ['', [Validators.required]],
       comment: ['', []],
       date: this.formBuilder.group({
         date: [new Date(), [Validators.required]],
@@ -77,9 +77,9 @@ export class CarryoutComponent implements OnInit {
       payment: this.formBuilder.group({
         coupon: ['', []],
         remainder: ['', []],
-        type: [this.paymentTypes[0].name, [Validators.required]],
+        type: [this.paymentTypes[0].value, [Validators.required]],
       }),
-      pizzasIds: [this.pizzasIds, [Validators.required]],
+      pizzaIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],
     });
   }
@@ -88,7 +88,8 @@ export class CarryoutComponent implements OnInit {
     const dialogRef = this.dialog.open(MapComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.carryOut.controls.shop.setValue(result.address);
+        this.carryOut.controls.shopId.setValue(result.address);
+        this.shopId = result.id;
       }
     });
   }
@@ -97,6 +98,7 @@ export class CarryoutComponent implements OnInit {
   onSubmit() {
     if (this.carryOut.valid) {
       this.loading = true;
+      this.carryOut.controls.shopId.setValue(this.shopId);
       this.rest.create(this.carryOut.value).subscribe(res => {
         this.loading = false;
         this.router.navigate(['/']);

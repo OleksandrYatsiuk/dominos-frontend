@@ -29,24 +29,11 @@ export class PizzaItemComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private basketService: BasketService,
-    private http: RootService
   ) {
   }
 
   ngOnInit() {
-    this.http.getIngredientsList('1', '20','name')
-      .pipe(pluck('result'))
-      .subscribe(ingredients => {
-        ingredients.map(element => {
-          this.item.ingredients.forEach(ingredient => {
-            if (element.id == ingredient) {
-              this.ingredientsList.push(element);
-            }
-          });
-        });
-      })
-
-    this.pizzaForm = this.fb.group({
+      this.pizzaForm = this.fb.group({
       size: ['Маленька', []],
       form: ['Стандарт', []],
       weigth: [this.price = this.item.price.small, []]

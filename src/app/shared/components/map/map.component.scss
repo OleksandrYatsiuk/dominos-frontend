@@ -11,17 +11,19 @@ a {
   color: darkblue;
 }
 .directions {
-  width: 100%;
-  display: block;
+  display: flex;
+  flex-direction: column;
 }
 
 .directions_options {
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  mat-form-field {
-    width: 50%;
-    margin: 0 5px;
+  padding: 10px;
+
+  input {
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 0 5px;
   }
 }
 .directions_info {
@@ -32,45 +34,36 @@ a {
     text-align: center;
   }
 }
-.travelMode {
+.road {
   display: flex;
   justify-content: space-around;
-  div {
-    width: 100%;
+  padding: 1px;
+
+  input:checked + h4 {
+    background-color: #6bfb20;
     cursor: pointer;
   }
-  label {
-    width: 50%;
-    text-align: center;
-  }
-
-  input[type="radio"] {
-    display: none;
-  }
-  input:checked + div {
-    background-color: #6bfb20;
-  }
-  input:disabled + div {
+  input:disabled + h4 {
     opacity: 0.3;
     cursor: not-allowed;
   }
 }
-.footer {
-  display: flex;
-  justify-content: space-around;
-}
 
-app-spin-button {
-  width: 40%;
-  margin: 20px 10px 0;
-}
+
 .title {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 2px;
-  app-spin-button {
-    margin-bottom: 8px;
+  justify-content: center;
+}
+input[type="radio"] {
+  display: none;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  app-spin-button{
+    width: 30%;
   }
 }

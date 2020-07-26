@@ -34,7 +34,7 @@ export class DeliveryListComponent implements OnInit {
     this.getList(++event.pageIndex, event.pageSize);
   }
   getList(page, perPage) {
-    this.http.deliveryList(page, perPage, 'createdAt')
+    this.http.deliveryList(page, perPage, '-createdAt')
       .subscribe(({ result, _meta }) => {
         const { total } = _meta.pagination;
         this.length = total;
@@ -47,8 +47,7 @@ export class DeliveryListComponent implements OnInit {
   delete(item): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
-      height: '300px',
-      data: { name: 'Ви дійсно хочете видалити замовлення' }
+      data: { name: 'Ви дійсно хочете видалити замовлення?' }
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
@@ -58,7 +57,7 @@ export class DeliveryListComponent implements OnInit {
   }
   public setPage(page: number) {
     if (page < 1) { page = 1 }
-    this.http.deliveryList(page, 20, 'createdAt').subscribe(({
+    this.http.deliveryList(page, 20, '-createdAt').subscribe(({
       result, _meta }) => {
       this.deliveries = result;
       this.page = _meta.pagination.page;

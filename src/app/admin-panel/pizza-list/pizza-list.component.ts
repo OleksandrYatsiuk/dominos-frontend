@@ -41,7 +41,6 @@ export class PizzaListComponent implements OnInit {
   public delete(item): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
-      height: '300px',
       data: { name: `Ви дійсно хочете видалити піцу "${item.name}" ?` }
     });
     dialogRef.afterClosed().subscribe(result => {

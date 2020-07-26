@@ -19,14 +19,15 @@
               </mat-option>
             </mat-select>
           </app-form-item>
-          <app-form-item [control]="formCreatingPizza.controls.category" name="ingredients">
+          <app-form-item [control]="formCreatingPizza.controls.ingredients" name="ingredients">
             <mat-select formControlName="ingredients" multiple>
-              <mat-select-trigger>
-                <span class="example-additional-selection">{{ formCreatingPizza.controls.ingredients.value[0]?.name }}
-                  +
-                  {{ formCreatingPizza.controls.ingredients.value.length }}
-                  other(s)
-                </span>
+                <mat-select-trigger>
+                  <span *ngIf="formCreatingPizza.controls.ingredients.value?.length > 1" class="example-additional-selection">  {{formCreatingPizza.controls.ingredients.value|extract:ingredients}} 
+                    (+{{formCreatingPizza.controls.ingredients.value.length - 1}} {{formCreatingPizza.controls.ingredients.value?.length === 2 ? 'other' : 'others'}})
+                  </span>
+                  <span *ngIf="formCreatingPizza.controls.ingredients.value?.length == 1" class="example-additional-selection">
+                    {{formCreatingPizza.controls.ingredients.value|extract:ingredients}} 
+                  </span>
               </mat-select-trigger>
               <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient.id">
                 {{ ingredient.name }}

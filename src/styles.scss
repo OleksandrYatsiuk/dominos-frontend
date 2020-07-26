@@ -17,9 +17,7 @@ span,
 button,
 input {
   outline: none;
- 
 }
-
 
 app-root {
   display: flex;
@@ -111,8 +109,7 @@ app-form-item {
     border-radius: 4px;
     background-color: transparent;
     border: 0px solid #d2cbcb;
-    padding: 4px 8px;
-    padding: 0 5px;
+    padding: 0 10px;
   }
 }
 .error {
@@ -159,7 +156,7 @@ textarea {
   background: transparent;
   outline: none;
   border: 0px;
-  resize: vertical; 
+  resize: vertical;
   min-height: 50px;
   max-height: 200px;
 }
@@ -172,12 +169,21 @@ textarea {
   display: flex;
   width: 48%;
 }
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-input[type=number] {
-    -moz-appearance:textfield;
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.example-additional-selection {
+  opacity: 0.75;
+  font-size: 16px;
+}
+  mat-select {
+    height: 44px;
+    padding: 10px 10px;
 }

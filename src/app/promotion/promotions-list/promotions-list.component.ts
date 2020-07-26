@@ -14,7 +14,6 @@ export class PromotionsListComponent implements OnInit {
   ngOnInit() {
     this.http.getData({ params: { status: [PromotionStatuses.Active, PromotionStatuses.New] } }).subscribe(res => {
       this.promotions = res.result;
-      console.log(res);
     })
   }
 

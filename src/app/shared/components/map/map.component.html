@@ -1,23 +1,24 @@
 <div class="title">
     <h1>Choose any Domino`s shop</h1>
-    <app-spin-button name="Save My Location" (click)="saveLocation()" color="Basic"></app-spin-button>
-
 </div>
 <div class="directions">
-    <div class="travelMode">
+    <div class="road">
         <label>
             <input type="radio" (click)="setDrive()" name="travelMode" checked [disabled]="!data">
-            <div>DRIVING</div>
-        </label>
-        <label>
+            <h4>Driving</h4>
+        </label>   
+        <label>   
             <input type="radio" (click)="setWalking()" name="travelMode" [disabled]="!data">
-            <div>WALKING</div>
-        </label>
+            <h4>Walking</h4>
+        </label>   
+
+    <app-spin-button name="Save My Location" (click)="saveLocation()" color="Basic"></app-spin-button>
+
     </div>
     <div class="directions_options">
-        <label>From</label>
+        <h4>From:</h4>
         <input [value]="currentAddress" />
-        <label>To</label>
+        <h4>To:</h4>
         <input value="{{data?.address}}" />
     </div>
     <div class="directions_info">

@@ -42,7 +42,6 @@ export class PromotionListComponent implements OnInit {
   public delete(item): void {
     const dialogRef = this.dialog.open(ModalComponent, {
       width: '500px',
-      height: '300px',
       data: { name: `Ви дійсно хочете видалити акцію "${item.title}" ?` }
     });
     dialogRef.afterClosed().subscribe(result => {

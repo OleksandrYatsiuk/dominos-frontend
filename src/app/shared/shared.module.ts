@@ -32,6 +32,7 @@ import { MenuDirective } from './components/menu.directive';
 import { ModalComponent } from './components/modal/modal.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatStepperModule} from '@angular/material/stepper';
+import { ExtractPipe } from './pipe/extract.pipe';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import {MatStepperModule} from '@angular/material/stepper';
     InputComponent,
     FormItemComponent,
     MenuDirective,
+    ExtractPipe
   ],
   imports: [
     FormsModule,
@@ -95,7 +97,8 @@ import {MatStepperModule} from '@angular/material/stepper';
     FormItemComponent,
     MenuDirective,
     MatTabsModule,
-    MatStepperModule
+    MatStepperModule,
+    ExtractPipe
   ],
   providers: [CreatePizzaGuard,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

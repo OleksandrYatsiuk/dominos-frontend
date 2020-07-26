@@ -3,6 +3,7 @@
   width: 30%;
   padding-left: 15px;
   padding-right: 15px;
+  margin-top: 10px;
 
   img {
     width: 300px;
@@ -16,5 +17,8 @@ form {
   app-spin-button {
     margin-top: 10px;
     width: 70%;
+  }
+  app-form-item{
+    margin:0px;
   }
 }

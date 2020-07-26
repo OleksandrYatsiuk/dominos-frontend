@@ -9,8 +9,6 @@ import { PizzaRoutingModule } from './pizza-routing.module';
 import { PizzaComponent } from './pizza.component';
 import { PizzaDataService } from './pizza-data.service';
 
-
-
 @NgModule({
   declarations: [
     PizzaCreateComponent,

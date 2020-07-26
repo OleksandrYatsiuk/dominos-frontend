@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 // @ts-ignore
 import { } from '@types/googlemaps';
-import { RootService } from 'src/app/core/services/root.service';
+
 import { pluck } from 'rxjs/operators';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
@@ -82,7 +82,6 @@ export class MapComponent implements OnInit {
     this.currentPosition = event.coords;
     this.travelMode = google.maps.TravelMode.DRIVING;
     document.querySelectorAll(`input[type='radio']`)[0]['checked'] = true;
-    console.log(this.travelMode);
     this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING);
   }
 
