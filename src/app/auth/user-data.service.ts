@@ -29,7 +29,7 @@ export class UserDataService {
     return this.http.post(`/user/logout`, null);
   }
   public current(): Observable<null> {
-    return this.http.get(`/updateLocationuser/current`);
+    return this.http.get(`/user/current`);
   }
 
   public updateLocation(location: object): Observable<any> {
