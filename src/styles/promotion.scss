@@ -5,6 +5,7 @@
     border-radius: 20px;
 }
 .title {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -17,35 +18,37 @@
     }
 }
 
-.promotion_item {
-    margin-top: 20px;
-    display: flex;
-
-    .details_item {
-        width: 40%;
-        min-width: 500px;
-        padding-left: 10px;
-    }
-
-    .image_item {
-        display: flex;
-        flex-direction: column;
-        width: 40%;
-        height: 350px;
+.promotion {
+    &-image {
+        width: 95%;
+        height: auto;
         margin: 10px;
         border-radius: 20px;
-        min-width: 500px;
+        max-width: 600px;
     }
+
+    &-description {
+        min-width: 320px;
+        max-width: 700px;
+
+        padding-left: 10px;
+    }
+    
     button {
         outline: none;
         background-color: white;
         opacity: 0.5;
         border-radius: 5px;
-        width: 30%;
+        max-width: 400px;
         color: black;
         font-size: 20px;
         &:hover {
             opacity: 1;
         }
     }
+}
+.list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15 px;
 }

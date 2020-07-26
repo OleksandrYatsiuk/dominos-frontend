@@ -1,20 +1,15 @@
 <div class="product">
-  <img src="../../../assets/data/basket/texas.jpg" alt="pizza" />
-  <div class="product_description">
-    <div class="product_title">Піца {{ item.name }}</div>
-    <p>
-      <span *ngFor="let ingredient of item.ingredients">
-        {{ ingredient.name }}
-      </span>
-    </p>
-    <div class="product_size">{{ item.size }}</div>
-    <div class="product_footer">
+  <img src={{item.image}} alt="pizza" />
+  <div class="product-description">
+    <h4>Піца {{ item.name }}</h4>
+    <h6>{{ item.size }}</h6>
+    <div class="product-options">
       <div class="product_price">{{ item.price }} грн</div>
       <div class="quantity_control">
         <button (click)="removeFromCard(item)">-</button>
         <p>{{ item.count }}</p>
         <button (click)="addToCard(item)">+</button>
-      </div>
     </div>
-  </div>
+    </div>
+      </div>
 </div>
