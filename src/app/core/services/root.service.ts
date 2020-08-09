@@ -1,42 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable()
 
 export class RootService {
   updatePizzaList = new BehaviorSubject(null);
-  private serverUrl = environment.serverURL;
 
   constructor(private http: HttpClient) {
   }
   getIngredientsList(page: any, limit: any, sort: string): Observable<any> {
-    return this.http.get(`${this.serverUrl}/ingredients`, {
+    return this.http.get(`ingredients`, {
       params:
         { page, limit, sort }
     });
   }
-  createIngredient(data: any): Observable<any> {
-    return this.http.post<any[]>(`${this.serverUrl}/ingredients`, data);
+  public createIngredient(data: any): Observable<any> {
+    return this.http.post<any[]>(`ingredients`, data);
   }
 
   public post(path, body?): Observable<any> {
-    return this.http.post(`${this.serverUrl}${path}`, body);
+    return this.http.post(`${path}`, body);
   }
 
   public get(path: string, options?): Observable<any> {
-    return this.http.get<any>(`${this.serverUrl}${path}`, options);
+    return this.http.get<any>(`${path}`, options);
   }
   public put(path: string, options?): Observable<any> {
-    return this.http.put<any>(`${this.serverUrl}${path}`, options);
+    return this.http.put<any>(`${path}`, options);
   }
   public patch(path: string, options?): Observable<any> {
-    return this.http.patch<any>(`${this.serverUrl}${path}`, options);
+    return this.http.patch<any>(`${path}`, options);
   }
   public delete(path: string): Observable<any> {
-    return this.http.delete<any>(`${this.serverUrl}${path}`);
+    return this.http.delete<any>(`${path}`);
   }
 
 

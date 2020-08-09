@@ -24,7 +24,7 @@
         <span routerLink="/" >Сайди</span>
         <span routerLink="/" >Десерти</span>
       </div>
-      <div class="market" [ngClass]="{ disabled: count === 0 }">
+      <div class="market" [ngClass]="{ disabled: basket.count === 0 }">
         <div class="count">{{ basket.count }}</div>
         <div class="total-price" *ngIf="basket.amount > 0">
           <span>{{ basket.amount }} грн </span>

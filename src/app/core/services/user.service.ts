@@ -49,7 +49,7 @@ export class UserService {
     return this.authData() ? true : false;
   }
 
-  private authData() {
+  public authData() {
     return localStorage.getItem(this.credentialsKey)
   }
 

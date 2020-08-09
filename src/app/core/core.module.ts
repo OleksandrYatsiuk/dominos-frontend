@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RootService } from './services/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ParamInterceptor } from './interceptors/token.interceptor';
-import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { GeolocationService } from './services/geolocation.service';
 import { NotificationService } from './services/notification.service';
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
+import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 
 
 

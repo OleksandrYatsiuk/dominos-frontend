@@ -20,7 +20,7 @@ export class PizzaCreateComponent implements OnInit {
   ingredients: Ingredients[];
   selectedFile: File = null;
   imagePath: File = null;
-  url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
+  url: string | ArrayBuffer = '../../assets/data/pizzas/default_image.jpg';
 
   public spinCreatePizza = false;
   public spinUpload = false;

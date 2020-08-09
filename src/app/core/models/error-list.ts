@@ -8,7 +8,7 @@ export const ValidationMessages = {
     ],
     confirmPassword: [
         { type: 'required', message: 'Confirm password is required.' },
-        { type: 'mismatchPassword', message: 'Confirm Password must be equal to "Password".' },
+        { type: 'confirmPasswordError', message: 'Confirm Password must be equal to "Password".' },
     ],
     fullName: [
         { type: 'required', message: 'Full Name is required.' },
@@ -22,6 +22,8 @@ export const ValidationMessages = {
     ],
     password: [
         { type: 'required', message: 'Password is required.' },
+        { type: 'password', message: 'Password must contain at least 8 symbols with numbers and letters!' },
+
     ],
     email: [
         { type: 'required', message: 'Email is required.' },

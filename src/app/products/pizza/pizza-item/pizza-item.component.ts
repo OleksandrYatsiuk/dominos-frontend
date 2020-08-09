@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BasketService, PizzaItem } from '../../../core/services/basket.service';
-import { RootService } from 'src/app/core/services/root.service';
-import { pluck } from 'rxjs/operators';
 
 
 @Component({

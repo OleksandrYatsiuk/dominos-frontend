@@ -1,16 +1,24 @@
-import { AbstractControl, FormControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
-/**
- * Validator function for validate confirm password
- * Function does not check required value
- */
-export function confirmPasswordValidator(compared: AbstractControl): ValidatorFn {
-  return (control: FormControl) => {
+export const confirmPasswordValidator = (targetControlName: string, compareControlName: string): ValidatorFn => {
+  return (formGroup: AbstractControl): ValidationErrors | null => {
+    const targetControl = formGroup.get(targetControlName);
+    const value = targetControl.value;
+    const compareControl = formGroup.get(compareControlName);
+    const confirmationValue = compareControl.value;
 
-    if (!control.value || !compared.value || compared.value === control.value) {
+    if (!targetControl || !value || !compareControl || !confirmationValue) {
       return null;
     }
 
-    return { mismatchPassword: true };
+    const isInvalid = value !== confirmationValue;
+
+    if (isInvalid) {
+      targetControl.setErrors({ ...targetControl.errors, confirmPasswordError: true });
+    } else {
+      targetControl.setErrors(null);
+    }
+
+    return null;
   };
-}
+};

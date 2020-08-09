@@ -20,7 +20,7 @@ export class PizzaOverviewComponent implements OnInit {
   pizzaForm: FormGroup;
   categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
   ingredients;
-  url: string | ArrayBuffer = '../../assets/data/pizzas/default.jpg';
+  url: string | ArrayBuffer = '../../assets/data/pizzas/default_image.jpg';
   selectedFile: any;
   imagePath: any;
   spinUpload = false;

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -9,6 +9,8 @@ import { CoreModule } from './core/core.module';
 import { BasketService } from './core/services/basket.service';
 import { UserService } from './core/services/user.service';
 import { GeolocationService } from './core/services/geolocation.service';
+import { ApiConfigService } from './core/services/api-config.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,12 +20,18 @@ import { GeolocationService } from './core/services/geolocation.service';
     CommonModule,
     SharedModule,
     BrowserAnimationsModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule
   ],
   exports: [
     SharedModule,
   ],
-  providers: [BasketService, UserService, GeolocationService],
+  providers: [BasketService, UserService, GeolocationService, ApiConfigService, {
+    provide: APP_INITIALIZER,
+    useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
+    deps: [ApiConfigService],
+    multi: true
+  }],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

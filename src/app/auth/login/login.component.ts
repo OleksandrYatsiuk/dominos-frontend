@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
-import { ValidationMessages } from '../../core/models/error-list';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { pluck } from 'rxjs/operators';
@@ -32,7 +31,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.authForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.maxLength(10)]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -51,7 +50,7 @@ export class LoginComponent implements OnInit {
           this.userService.setCredentials(token)
           this.router.navigate(['/'], { replaceUrl: true }).then(() => location.reload())
         }, (error) => {
-          this.spinLogIn = false;
+          this.spinLogIn = !this.spinLogIn;
           this.handler.validation(error, this.authForm);
         });
     }

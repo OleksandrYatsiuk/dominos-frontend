@@ -7,6 +7,7 @@ import { Router } from "@angular/router";
 import { CAN_MANAGE_PIZZA } from "./header-permissions";
 import { MatDialog } from "@angular/material";
 import { UserDataService } from "src/app/auth/user-data.service";
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
 
 @Component({
   selector: "app-header",
@@ -27,7 +28,8 @@ export class HeaderComponent implements OnInit {
     private geolocation: GeolocationService,
     private userService: UserService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private config: ApiConfigService
   ) { }
 
   ngOnInit() {

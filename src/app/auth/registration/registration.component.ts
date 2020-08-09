@@ -7,6 +7,8 @@ import { confirmPasswordValidator } from 'src/app/core/validators/confirm-passwo
 import { MatDialog } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { UserDataService } from '../user-data.service';
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { passwordValidator } from 'src/app/core/validators/password-validator';
 
 @Component({
   selector: 'app-registration',
@@ -20,6 +22,7 @@ export class RegistrationComponent implements OnInit {
     private notification: NotificationService,
     private handler: ErrorHandlerService,
     public dialog: MatDialog,
+    private configService: ApiConfigService
   ) { }
 
   public registerForm: FormGroup;
@@ -28,15 +31,17 @@ export class RegistrationComponent implements OnInit {
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
-
   public spinRegister = false;
   public validations = ValidationMessages;
 
   ngOnInit(): void {
     this.initForm();
+    console.log()
+
   }
 
   public register(): void {
+    console.log(this.registerForm)
     this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
       this.spinRegister = !this.spinRegister;
@@ -51,17 +56,24 @@ export class RegistrationComponent implements OnInit {
   }
 
   private initForm(): void {
+
     this.registerForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(20)]],
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
+      fullName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
+      )]],
+      username: ['', [Validators.required, Validators.minLength(this.configService.getParameter('usernameMinLength')),
+      Validators.maxLength(this.configService.getParameter('usernameMaxLength'))]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, passwordValidator()]],
       confirmPassword: ['', [Validators.required]]
-    });
-    this.registerForm.controls.confirmPassword.setValidators([
-      Validators.required,
-      confirmPasswordValidator(this.registerForm.controls.password),
-    ]);
+    },
+      {
+        validators: confirmPasswordValidator('confirmPassword', 'password'),
+      });
+    // this.registerForm.controls.confirmPassword.setValidators([
+    //   Validators.required,
+    //   confirmPasswordValidator(this.registerForm.controls.password),
+    // ]);
   }
 
   private showNotification(): void {

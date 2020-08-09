@@ -9,7 +9,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { ValidationMessages } from '../../core/models/error-list';
 import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
-import { startWith } from 'rxjs/operators';
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
 // require('../../../assets/data/pizzas/man_2-512.png');
 @Component({
   selector: 'app-user-settings',
@@ -20,8 +20,8 @@ export class UserSettingsComponent implements OnInit {
   message: { type: string; message: string; };
   minDate: Date;
   maxDate: Date;
+  currentUser: any;
 
-  private currentUser: any;
   constructor(
     private http: UserDataService,
     private handler: ErrorHandlerService,
@@ -29,8 +29,9 @@ export class UserSettingsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
+    private config: ApiConfigService,
     private userService: UserService) { }
-  public image = "../../../assets/data/pizzas/man_2-512.png";
+  public image = "../../../assets/data/pizzas/profile.png";
   public validations = ValidationMessages;
   public updateProfileForm: FormGroup;
   public changePasswordForm: FormGroup;
@@ -79,18 +80,15 @@ export class UserSettingsComponent implements OnInit {
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
-      if (this.updateProfileForm.controls.phone.value) {
-        this.updateProfileForm.controls.phone.patchValue(this.updateProfileForm.controls.phone.value.replace(/\s+/g, ''));
-      }
-      this.spinEditProfile = true;
+      this.spinEditProfile = !this.spinEditProfile;
       this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
-          this.spinEditProfile = false;
+          this.spinEditProfile = !this.spinEditProfile;
           this.notification.open(
             { data: 'Profile has been successfully updated!' });
         }
       }, (error) => {
-        this.spinEditProfile = false;
+        this.spinEditProfile = !this.spinEditProfile;
         this.handler.validation(error, this.updateProfileForm);
       });
     }
@@ -99,19 +97,23 @@ export class UserSettingsComponent implements OnInit {
   initForm() {
     this.changePasswordForm = this.formBuilder.group({
       currentPassword: ['', [Validators.required]],
-      newPassword: ['', [passwordValidator(), Validators.maxLength(20)]],
+      newPassword: ['', [Validators.required, passwordValidator()]],
       confirmPassword: ['', [Validators.required]],
+    }, {
+      validators: confirmPasswordValidator('confirmPassword', 'newPassword')
     });
-    this.changePasswordForm.controls.confirmPassword.setValidators([
-      Validators.required,
-      confirmPasswordValidator(this.changePasswordForm.controls.newPassword),
-    ]);
   }
 
   initUpdateProfile() {
     this.updateProfileForm = this.formBuilder.group({
-      fullName: ['', [Validators.required]],
-      username: ['', [Validators.required, Validators.maxLength(15)]],
+      fullName: ['', [Validators.required,
+      Validators.minLength(this.config.getParameter('fullNameMinLength')),
+      Validators.maxLength(this.config.getParameter('fullNameMaxLength'))
+      ]],
+      username: ['', [Validators.required,
+      Validators.minLength(this.config.getParameter('usernameMinLength')),
+      Validators.maxLength(this.config.getParameter('usernameMaxLength'))
+      ]],
       email: ['', [Validators.required]],
       birthday: ['', []],
       phone: ['', []],

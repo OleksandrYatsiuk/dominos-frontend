@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IS_MANAGEMENT } from '../header/header-permissions';
 import { environment } from '../../../../environments/environment';
 @Component({
@@ -9,5 +9,5 @@ import { environment } from '../../../../environments/environment';
 export class FooterComponent {
 	constructor() {}
 	public isManagement = IS_MANAGEMENT;
-	public swaggerUILink = environment.serverURL.split('/api/v1', 1);
+	public swaggerUILink = environment.serverUrl.split('/api/v1', 1);
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDataService } from '../user-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { Route } from '@angular/compiler/src/core';
 
 @Component({
 	selector: 'app-confirm',

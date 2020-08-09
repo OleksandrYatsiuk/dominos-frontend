@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
   origin: Location;
   destination: Location;
 
-  defaultImage = '../../../../assets/data/pizzas/map_marker.png';
+  defaultImage = '../../../../assets/data/pizzas/marker.png';
   public currentPosition: Location;
 
   public markerOptions = {

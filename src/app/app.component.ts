@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ApiConfigService } from './core/services/api-config.service';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +10,5 @@ import { Title } from '@angular/platform-browser';
 
 export class AppComponent {
   title = 'Dominos';
+  constructor() { }
 }

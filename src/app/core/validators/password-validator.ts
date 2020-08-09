@@ -1,14 +1,16 @@
 import { FormControl, ValidatorFn } from '@angular/forms';
 
-/**
- * Validator function for validate password
- * Function does not check required value
- */
 export function passwordValidator(): ValidatorFn {
-  const pattern = /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/;
+  const pattern = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+=_-~`'"*(){}[\]<>,.;:\\|?!])(?=\S+$).{8,}/;
 
   return (control: FormControl) => {
-    if (!pattern.test(control.value)) {
+    const value: string = control.value;
+    if (value == null || value === '') {
+      return null;
+    }
+
+    const isValid = pattern.test(value);
+    if (!isValid) {
       return { password: true };
     }
 
