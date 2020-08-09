@@ -22,7 +22,7 @@ export class RootService {
     return this.http.post<any[]>(`${this.serverUrl}/ingredients`, data);
   }
 
-  public post(path, body): Observable<any> {
+  public post(path, body?): Observable<any> {
     return this.http.post(`${this.serverUrl}${path}`, body);
   }
 

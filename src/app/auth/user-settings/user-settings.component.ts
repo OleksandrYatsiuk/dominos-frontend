@@ -9,6 +9,7 @@ import { NotificationService } from '../../core/services/notification.service';
 import { ValidationMessages } from '../../core/models/error-list';
 import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
+import { startWith } from 'rxjs/operators';
 // require('../../../assets/data/pizzas/man_2-512.png');
 @Component({
   selector: 'app-user-settings',
@@ -28,7 +29,7 @@ export class UserSettingsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
-    private user: UserService) { }
+    private userService: UserService) { }
   public image = "../../../assets/data/pizzas/man_2-512.png";
   public validations = ValidationMessages;
   public updateProfileForm: FormGroup;
@@ -53,10 +54,9 @@ export class UserSettingsComponent implements OnInit {
     this.initForm();
     this.initUpdateProfile();
     this.title.setTitle('User Settings');
-    this.user.setCurrentUser();
-    this.user.currentUser.subscribe(user => {
-      this.currentUser = user;
+    this.userService.currentUser.subscribe(user => {
       if (user) {
+        this.currentUser = user;
         this.updateProfileForm.patchValue({
           fullName: user.fullName,
           username: user.username,
@@ -69,6 +69,8 @@ export class UserSettingsComponent implements OnInit {
         }
       }
     });
+
+
   }
 
   dateInput($event) {
@@ -84,7 +86,6 @@ export class UserSettingsComponent implements OnInit {
       this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code }) => {
         if (code === 200) {
           this.spinEditProfile = false;
-          this.user.setCurrentUser();
           this.notification.open(
             { data: 'Profile has been successfully updated!' });
         }
@@ -105,9 +106,8 @@ export class UserSettingsComponent implements OnInit {
       Validators.required,
       confirmPasswordValidator(this.changePasswordForm.controls.newPassword),
     ]);
-
-
   }
+
   initUpdateProfile() {
     this.updateProfileForm = this.formBuilder.group({
       fullName: ['', [Validators.required]],

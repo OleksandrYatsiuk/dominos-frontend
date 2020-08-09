@@ -3,6 +3,7 @@ import { DeliveryDataService } from '../../delivery/delivery-data.service';
 import { PageEvent, MatDialog } from '@angular/material';
 import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-delivery-list',
@@ -13,8 +14,8 @@ export class DeliveryListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date', 'delete'];
   deliveries;
-  page=1
-  pages=1
+  page = 1
+  pages = 1
   length = 100;
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 20];
@@ -34,14 +35,14 @@ export class DeliveryListComponent implements OnInit {
     this.getList(++event.pageIndex, event.pageSize);
   }
   getList(page, perPage) {
-    this.http.deliveryList(page, perPage, '-createdAt')
-      .subscribe(({ result, _meta }) => {
-        const { total } = _meta.pagination;
-        this.length = total;
-        this.deliveries = result;
-        this.page= _meta.pagination.page
-        this.pages= _meta.pagination.pages
-      });
+    this.http.deliveryList(page, perPage, '-createdAt').pipe(
+    ).subscribe(({ result, _meta }) => {
+      const { total } = _meta.pagination;
+      this.length = total;
+      this.deliveries = result;
+      this.page = _meta.pagination.page
+      this.pages = _meta.pagination.pages
+    });
   }
 
   delete(item): void {

@@ -25,27 +25,16 @@ export class HeaderComponent implements OnInit {
     private basketService: BasketService,
     private http: UserDataService,
     private geolocation: GeolocationService,
-    private user: UserService,
+    private userService: UserService,
     private router: Router,
     public dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.setCurrentUser();
-    // const basket = this.basket.actualBasket();
-    // this.count = basket.count;
-    // this.amount = basket.amount;
-    // this.basket.updateBasketAmount.subscribe(cnt => (this.amount = cnt));
-    // this.basket.updateBasketCount.subscribe(cnt => (this.count = cnt));
+    this.userService.setCurrentUser();
+    this.userService.currentUser.subscribe(user => this.currentUser = user)
     this.basketService.basket.subscribe(options => this.basket = options);
     this.geolocation.askGeoLocation();
-  }
-
-  setCurrentUser() {
-    this.user.setCurrentUser();
-    this.user.currentUser.subscribe(user => {
-      this.currentUser = user;
-    });
   }
 
   openModal() {
@@ -55,11 +44,9 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.http.logout().subscribe(req => {
       if (!req) {
-        localStorage.removeItem("auth");
-        this.router.navigate(["/"]);
-        setTimeout(() => {
-          location.reload();
-        }, 20);
+        this.userService.removeCredentials()
+        this.userService.setCurrentUserData(null)
+        this.router.navigateByUrl('/').then(() => location.reload());
       }
     });
   }

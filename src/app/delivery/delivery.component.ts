@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../core/services/basket.service';
 import { Title } from '@angular/platform-browser';
 import { PizzaDataService } from '../products/pizza/pizza-data.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 
 @Component({
 	selector: 'app-delivery',
@@ -22,7 +22,11 @@ export class DeliveryComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.basketService.basket.subscribe(cnt => cnt.count > 0 ? this.totalAmount = cnt.amount : this.router.navigateByUrl('/'));
+		this.basketService.basket.subscribe(cnt => {
+			if (this.router.url.includes('delivery')) {
+				cnt.count > 0 ? this.totalAmount = cnt.amount : this.router.navigateByUrl('/')
+			}
+		});
 		this.title.setTitle('Доставка');
 		this.items;
 	}

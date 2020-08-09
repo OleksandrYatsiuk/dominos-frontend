@@ -21,13 +21,12 @@ export class LoginComponent implements OnInit {
     private http: UserDataService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private user: UserService,
+    private userService: UserService,
     private handler: ErrorHandlerService,
   ) { }
 
   public authForm: FormGroup;
   public spinLogIn = false;
-  // public validations = ValidationMessages;
   get username() { return this.authForm.get('username'); }
   get password() { return this.authForm.get('password'); }
 
@@ -49,14 +48,8 @@ export class LoginComponent implements OnInit {
       this.http.login(this.authForm.value)
         .pipe(pluck('result'))
         .subscribe(({ token }) => {
-          localStorage.setItem('auth', token);
-          this.spinLogIn = !this.spinLogIn;
-          if (this.user.isAuthorized()) {
-            this.router.navigate(['/']);
-            setTimeout(() => {
-              location.reload();
-            }, 100);
-          }
+          this.userService.setCredentials(token)
+          this.router.navigate(['/'], { replaceUrl: true }).then(() => location.reload())
         }, (error) => {
           this.spinLogIn = false;
           this.handler.validation(error, this.authForm);

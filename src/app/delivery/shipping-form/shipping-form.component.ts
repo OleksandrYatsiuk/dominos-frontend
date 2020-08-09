@@ -38,7 +38,6 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	private updateForm(): void {
-		this.user.setCurrentUser();
 		this.user.currentUser.subscribe((user) => {
 			if (user) {
 				this.formDelivery.patchValue({

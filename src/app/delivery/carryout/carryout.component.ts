@@ -26,7 +26,7 @@ export class CarryoutComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
-    private user: UserService,
+    private userService: UserService,
     private notification: NotificationService,
     private rest: DeliveryDataService,
     private basketService: BasketService,
@@ -39,8 +39,7 @@ export class CarryoutComponent implements OnInit {
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
     this.initForm();
-    this.user.setCurrentUser();
-    this.user.currentUser.subscribe(user => {
+    this.userService.currentUser.subscribe(user => {
       if (user) {
         this.carryOut.patchValue({
           firstName: user.fullName,

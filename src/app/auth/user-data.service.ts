@@ -26,7 +26,7 @@ export class UserDataService {
   }
 
   public logout(): Observable<null> {
-    return this.http.post(`/user/logout`, null);
+    return this.http.post(`/user/logout`);
   }
   public current(): Observable<null> {
     return this.http.get(`/user/current`);

@@ -1,8 +1,15 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { UserDataService } from 'src/app/auth/user-data.service';
+
+export interface Credentials {
+  // Customize received credentials here
+  token: string;
+  expiredAt: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,10 +17,11 @@ import { UserDataService } from 'src/app/auth/user-data.service';
 export class UserService {
 
 
-  private currentUserSubject = new BehaviorSubject<any>(null);
-  private userLocation = new BehaviorSubject<any>(null);
-  currentUser = this.currentUserSubject.asObservable();
-  location = this.userLocation.asObservable();
+  private credentialsKey = 'auth';
+
+
+  private currentUserSubject$ = new BehaviorSubject<any>(null);
+  public currentUser = this.currentUserSubject$.asObservable();
 
   constructor(
     private http: UserDataService,
@@ -22,23 +30,35 @@ export class UserService {
 
   public setCurrentUser() {
     if (this.isAuthorized()) {
-      this.http.current().pipe(pluck('result')).subscribe(user => {
-        this.currentUserSubject.next(user);
-        user ? this.permissionsService.loadPermissions([user['role']]) : false;
+      this.sendCurrentRequest().subscribe(user => {
+        this.setCurrentUserData(user);
+        this.permissionsService.loadPermissions([user['role']]);
       });
     }
   }
-  public saveGeoPosition(coords) {
-    this.userLocation.next({
-      position: {
-        lat: coords.latitude,
-        lng: coords.longitude
-      }
-    });
+
+  public sendCurrentRequest(): Observable<object> {
+    return this.http.current().pipe(pluck('result'));
+  }
+
+  public setCurrentUserData(user): void {
+    this.currentUserSubject$.next(user);
   }
 
   public isAuthorized() {
-    return localStorage.getItem('auth') ? true : false;
+    return this.authData() ? true : false;
+  }
+
+  private authData() {
+    return localStorage.getItem(this.credentialsKey)
+  }
+
+  public setCredentials(data): void {
+    localStorage.setItem(this.credentialsKey, data)
+  }
+
+  public removeCredentials(): void {
+    localStorage.removeItem(this.credentialsKey)
   }
 
 }

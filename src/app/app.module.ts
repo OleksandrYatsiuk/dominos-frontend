@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { BasketService } from './core/services/basket.service';
+import { UserService } from './core/services/user.service';
+import { GeolocationService } from './core/services/geolocation.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,7 +23,7 @@ import { BasketService } from './core/services/basket.service';
   exports: [
     SharedModule,
   ],
-  providers: [BasketService],
+  providers: [BasketService, UserService, GeolocationService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

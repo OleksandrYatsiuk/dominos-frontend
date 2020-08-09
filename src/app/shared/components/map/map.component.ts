@@ -119,19 +119,19 @@ export class MapComponent implements OnInit {
         } else {
           navigator.geolocation.watchPosition(({ coords }) => {
             const { latitude, longitude } = coords;
-            this.userService.saveGeoPosition(coords);
+            this.geolocation.saveGeoPosition(coords);
             this.currentPosition = { lat: latitude, lng: longitude };
           });
         }
       });
     } else {
-      this.userService.location.subscribe(location => {
+      this.geolocation.location.subscribe(location => {
         if (location) {
           const { lat, lng } = location.position;
           this.currentPosition = { lat, lng };
         } else {
           this.geolocation.askGeoLocation();
-          this.userService.location.subscribe();
+          this.geolocation.location.subscribe();
         }
       });
     }
