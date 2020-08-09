@@ -1,84 +1,91 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+export interface PizzaItem {
+  id: string;
+  size: string;
+  name: string;
+  price: number;
+  image: string;
+  count?: number;
+}
+
+export interface BasketOptions {
+  count: number;
+  amount: string;
+}
+
 @Injectable({ providedIn: 'root' })
 
 export class BasketService {
-  updateBasketAmount: EventEmitter<number> = new EventEmitter();
-  updateBasketCount: EventEmitter<number> = new EventEmitter();
-  getActualBasketAmount: EventEmitter<any> = new EventEmitter();
-
+  public key = 'basket';
+  public _storage: PizzaItem[];
   public get storage() {
-    return JSON.parse(localStorage.getItem('basket'));
+    return this.localStorage()
+      ? (this._storage = JSON.parse(localStorage.getItem(this.key)))
+      : (this._storage = []);
   }
 
-  public set setStorage(value) {
-    localStorage.setItem('basket', JSON.stringify(value));
-  }
-  public amount: number;
-  public count: number;
+  private count$ = new BehaviorSubject<BasketOptions>(this.checkBasket(this.storage));
+  basket = this.count$.asObservable();
 
-  public actualBasket() {
-    let total = 0;
-    let count = 0;
-    for (const key in this.storage) {
-      const item = this.storage[key];
-      for (const size in item) {
-        count += item[size].count;
-        total += item[size].price * item[size].count;
-      }
-    }
-    const basket = {
-      amount: +total.toFixed(2),
-      count,
-    };
-    this.amount = basket.amount;
-    this.count = basket.count;
-    this.updateBasketAmount.emit(this.amount);
-    this.updateBasketCount.emit(this.count);
-    return basket;
+  public updateCount(opt: BasketOptions): void {
+    this.count$.next(opt);
   }
 
+  private localStorage(): string {
+    return JSON.parse(localStorage.getItem(this.key));
+  }
 
-  addToLocalStorage(item: object, size: string, price: number) {
-    let count;
-    let storage = this.storage;
-    storage ? this.storage : storage = {};
-    const ID = item['id'];
-    if (storage[ID] === undefined) {
-      storage[ID] = {};
-      storage[ID][size] = { price, count: count = 0, name: item['name'], image:item['image'] };
-    }
-    if (storage[ID][size] === undefined) {
-      storage[ID][size] = { price, count: count = 1, name: item['name'], image:item['image']};
+  public add(item: PizzaItem) {
+    const index = this.storage.findIndex(pizza => item.id === pizza.id && item.size === pizza.size);
+    if (index === -1) {
+      this._storage.push(Object.assign(item, { count: 1 }));
     } else {
-      storage[ID][size].count++;
-      count = storage[ID][size].count;
+      ++this._storage[index].count
     }
-    this.setStorage = storage;
-    this.actualBasket();
-    return count;
+    this.updateCount(this.checkBasket(this._storage));
+    localStorage.setItem(this.key, JSON.stringify(this._storage));
+
   }
 
-
-  deleteItemLocalStorage(item: object, size: number) {
-    let count;
-    const storage = this.storage;
-    const ID = item['id'];
-    if (storage !== null && storage[ID] !== undefined) {
-      storage[ID][size].count--;
-      count = storage[ID][size].count;
-      if (storage[ID][size].count <= 0) {
-        delete storage[ID][size];
-      }
-      if (Object.keys(storage[ID]).length === 0) {
-        delete storage[ID];
-      }
-      if (Object.keys(storage).length === 0) {
-        localStorage.removeItem('basket');
+  public remove(item: PizzaItem, size?: string) {
+    const index = this.storage.findIndex(pizza => item.id === pizza.id && size || item.size === pizza.size);
+    if (index !== -1) {
+      if (this._storage[index].count > 1) {
+        --this._storage[index].count
       } else {
-        this.setStorage = storage;
+        if (size) {
+          this._storage = this._storage.filter(el => el.id !== item.id || (el.id === item.id && el.size !== size))
+        } else {
+          this._storage = this._storage.filter(el => el.id !== item.id || (el.id === item.id && el.size !== item.size))
+        }
       }
-      this.actualBasket();
-      return count;
     }
+    this.updateCount(this.checkBasket(this._storage));
+    localStorage.setItem(this.key, JSON.stringify(this._storage));
   }
+
+
+  public calculateCount(arr: PizzaItem[]): number {
+    let value = 0;
+    arr.forEach(el => value += +el.count);
+    return value;
+  }
+
+  private calculatePrice(arr: PizzaItem[]): string {
+    let value = 0;
+    arr.forEach(el => value += +el.price * el.count);
+    return Number.parseFloat(value.toString()).toFixed(2);
+  }
+
+  private checkBasket(storage) {
+    return { count: this.calculateCount(storage), amount: this.calculatePrice(storage) };
+  }
+
+  public getItem(id: string, size: string) {
+    return this.storage.find(el => el.id === id && el.size === size);
+  }
+
+
 }

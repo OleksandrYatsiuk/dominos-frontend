@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
+import { BasketService } from './core/services/basket.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,6 +21,7 @@ import { CoreModule } from './core/core.module';
   exports: [
     SharedModule,
   ],
+  providers: [BasketService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

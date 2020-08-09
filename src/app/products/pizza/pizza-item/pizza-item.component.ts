@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { BasketService } from '../../../core/services/basket.service';
+import { BasketService, PizzaItem } from '../../../core/services/basket.service';
 import { RootService } from 'src/app/core/services/root.service';
 import { pluck } from 'rxjs/operators';
 
@@ -19,12 +19,6 @@ export class PizzaItemComponent implements OnInit {
   public ingredientsList = [];
   public price: number;
   public pizzaForm: FormGroup;
-  public get storage() {
-    return JSON.parse(localStorage.getItem('basket'));
-  }
-  public set setStorage(value) {
-    localStorage.setItem('basket', JSON.stringify(value));
-  }
 
   constructor(
     private fb: FormBuilder,
@@ -33,22 +27,19 @@ export class PizzaItemComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.pizzaForm = this.fb.group({
+    this.pizzaForm = this.fb.group({
       size: ['Маленька', []],
       form: ['Стандарт', []],
       weigth: [this.price = this.item.price.small, []]
     });
     this.onChanges();
 
-    const size = this.pizzaForm.controls.size.value;
-    this.basketService.actualBasket();
-    if (this.storage !== null) {
-      if (this.storage[this.item.id] !== undefined) {
-        if (this.storage[this.item.id][size] !== undefined) {
-          this.count = this.storage[this.item.id][size].count;
-        }
-      }
-    }
+    this.updatePizzaSizeCount(this.pizzaForm.controls.size.value)
+  }
+
+  private updatePizzaSizeCount(size: string) {
+    const storagePizza = this.basketService.getItem(this.item.id, size);
+    storagePizza ? this.count = storagePizza.count : this.count = 0;
   }
 
   onChanges() {
@@ -56,24 +47,18 @@ export class PizzaItemComponent implements OnInit {
       val.size === 'Маленька' ? this.price = this.item.price.small : false;
       val.size === 'Середня' ? this.price = this.item.price.middle : false;
       val.size === 'Велика' ? this.price = this.item.price.big : false;
-      if (this.storage !== null) {
-        if (this.storage[this.item.id] !== undefined) {
-          if (this.storage[this.item.id][val.size] !== undefined) {
-            this.count = this.storage[this.item.id][val.size].count;
-          } else {
-            this.count = 0;
-          }
-        }
-      }
+      this.updatePizzaSizeCount(val.size)
     });
   }
 
-  addToCard(item) {
-    this.count = this.basketService.addToLocalStorage(item, this.pizzaForm.controls.size.value, this.price);
+  addToCard(item: PizzaItem) {
+    this.basketService.add({ id: item.id, name: item.name, size: this.pizzaForm.controls.size.value, price: this.price, image: item.image });
+    this.updatePizzaSizeCount(this.pizzaForm.controls.size.value)
   }
 
-  removeFromCard(item) {
-    this.count = this.basketService.deleteItemLocalStorage(item, this.pizzaForm.controls.size.value);
+  removeFromCard(item: PizzaItem) {
+    this.basketService.remove(item, this.pizzaForm.controls.size.value);
+    this.basketService.storage.length > 0 ? this.updatePizzaSizeCount(this.pizzaForm.controls.size.value) : this.count = 0
   }
 }
 

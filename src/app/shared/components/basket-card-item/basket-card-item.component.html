@@ -7,7 +7,7 @@
       <div class="product_price">{{ item.price }} грн</div>
       <div class="quantity_control">
         <button (click)="removeFromCard(item)">-</button>
-        <p>{{ item.count }}</p>
+        <p>{{ item?.count }}</p>
         <button (click)="addToCard(item)">+</button>
     </div>
     </div>

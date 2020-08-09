@@ -30,9 +30,10 @@ import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
 import { MenuDirective } from './components/menu.directive';
 import { ModalComponent } from './components/modal/modal.component';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatStepperModule } from '@angular/material/stepper';
 import { ExtractPipe } from './pipe/extract.pipe';
+import { BasketService } from '../core/services/basket.service';
 
 @NgModule({
   declarations: [

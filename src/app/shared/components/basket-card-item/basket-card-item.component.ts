@@ -1,27 +1,26 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { BasketService } from '../../../core/services/basket.service';
-import { PizzaDataService } from 'src/app/products/pizza/pizza-data.service';
+import { Component, OnInit, Input, Output } from "@angular/core";
+import { BasketService, PizzaItem } from "../../../core/services/basket.service";
+import { PizzaDataService } from "src/app/products/pizza/pizza-data.service";
 
 @Component({
-  selector: 'app-basket-card-item',
-  templateUrl: './basket-card-item.component.html',
-  styleUrls: ['./basket-card-item.component.scss']
+  selector: "app-basket-card-item",
+  templateUrl: "./basket-card-item.component.html",
+  styleUrls: ["./basket-card-item.component.scss"]
 })
 export class BasketCardItemComponent {
-
   @Input() item;
   @Output() count;
 
-  constructor(private basketService: BasketService, private http: PizzaDataService) { }
-
-
-  addToCard(item) {
-    item.count = this.basketService.addToLocalStorage(item, item.size, item.price);
-    this.count = item.count;
+  constructor(
+    private basketService: BasketService,
+  ) {
   }
 
-  removeFromCard(item) {
-    item.count = this.basketService.deleteItemLocalStorage(item, item.size);
-    this.count = item.count;
+  addToCard(item: PizzaItem) {
+    this.basketService.add({ id: item.id, name: item.name, size: item.size, price: item.price, image: item.image });
+  }
+
+  removeFromCard(item: PizzaItem) {
+    this.basketService.remove(item);
   }
 }

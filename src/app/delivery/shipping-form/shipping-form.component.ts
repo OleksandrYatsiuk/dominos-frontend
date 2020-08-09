@@ -10,7 +10,7 @@ import { PaymentTypes } from './payments.model';
 @Component({
 	selector: 'app-shipping-form',
 	templateUrl: './shipping-form.component.html',
-	styleUrls: [ './shipping-form.component.scss' ]
+	styleUrls: ['./shipping-form.component.scss']
 })
 export class ShippingFormComponent implements OnInit {
 	constructor(
@@ -19,32 +19,20 @@ export class ShippingFormComponent implements OnInit {
 		private user: UserService,
 		private http: DeliveryDataService,
 		private router: Router,
-		private basket: BasketService
-	) {}
+		private basketService: BasketService
+	) { }
 
-	paymentTypes = [ { name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash } ];
+	paymentTypes = [{ name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash }];
 	public formDelivery: FormGroup;
 	public spinShipping = false;
 	public minDate: Date = new Date();
 	public maxDate: Date = new Date(new Date().getTime() + 7 * 24 * 3600 * 1000);
-	public totalAmount: number;
+	public totalAmount: string;
 	public pizzasIds = [];
 
-	public get list() {
-		const index = [];
-		const storage = JSON.parse(localStorage.getItem('basket'));
-		for (const idx in storage) {
-			this.pizzasIds.push(idx);
-			for (const item in storage[idx]) {
-				index.push(storage[idx][item]);
-			}
-		}
-		return index;
-	}
-
 	ngOnInit(): void {
-		this.totalAmount = this.basket.actualBasket().amount;
-		this.list;
+		this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
+
 		this.initForm();
 		this.updateForm();
 	}
@@ -64,29 +52,29 @@ export class ShippingFormComponent implements OnInit {
 
 	private initForm(): void {
 		this.formDelivery = this.formBuilder.group({
-			firstName: [ '', [ Validators.required ] ],
-			phone: [ '', [ Validators.required ] ],
-			email: [ '', [ Validators.required, Validators.email ] ],
+			firstName: ['', [Validators.required]],
+			phone: ['', [Validators.required]],
+			email: ['', [Validators.required, Validators.email]],
 			address: this.formBuilder.group({
-				street: [ '', [ Validators.required ] ],
-				house: [ '', [ Validators.required ] ],
-				flat: [ '', [] ],
-				entrance: [ '', [] ],
-				code: [ '', [] ],
-				floor: [ '', [] ],
-				comment: [ '', [] ]
+				street: ['', [Validators.required]],
+				house: ['', [Validators.required]],
+				flat: ['', []],
+				entrance: ['', []],
+				code: ['', []],
+				floor: ['', []],
+				comment: ['', []]
 			}),
 			date: this.formBuilder.group({
-				date: [ new Date(), [ Validators.required ] ],
-				time: [ `${new Date().getHours() + 1}:${new Date().getMinutes()}`, [ Validators.required ] ]
+				date: [new Date(), [Validators.required]],
+				time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]]
 			}),
 			payment: this.formBuilder.group({
-				coupon: [ '', [] ],
-				remainder: [ '', [] ],
-				type: [ this.paymentTypes[0].value, [ Validators.required ] ]
+				coupon: ['', []],
+				remainder: ['', []],
+				type: [this.paymentTypes[0].value, [Validators.required]]
 			}),
-			pizzaIds: [ this.pizzasIds, [ Validators.required ] ],
-			amount: [ this.totalAmount, [ Validators.required ] ]
+			pizzaIds: [this.pizzasIds, [Validators.required]],
+			amount: [this.totalAmount, [Validators.required]]
 		});
 	}
 
@@ -95,7 +83,7 @@ export class ShippingFormComponent implements OnInit {
 			this.spinShipping = true;
 			this.http.create(this.formDelivery.value).subscribe((res) => {
 				this.spinShipping = false;
-				this.router.navigate([ '/' ]);
+				this.router.navigate(['/']);
 				localStorage.removeItem('basket');
 				this.notification.open({ data: 'Your order has been accepted!' });
 			});

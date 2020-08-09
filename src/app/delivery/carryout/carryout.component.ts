@@ -21,31 +21,19 @@ export class CarryoutComponent implements OnInit {
   maxDate: Date;
   totalAmount: any;
   pizzasIds = [];
-  paymentTypes = [ { name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash } ];
+  paymentTypes = [{ name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash }];
 
-  public get list() {
-    const index = [];
-    const storage = JSON.parse(localStorage.getItem('basket'));
-    for (const idx in storage) {
-      this.pizzasIds.push(idx);
-      for (const item in storage[idx]) {
-        index.push(storage[idx][item]);
-      }
-    }
-    return index;
-  }
   constructor(
     private formBuilder: FormBuilder,
     public dialog: MatDialog,
     private user: UserService,
     private notification: NotificationService,
     private rest: DeliveryDataService,
-    private basket: BasketService,
+    private basketService: BasketService,
     private router: Router
   ) { }
   ngOnInit() {
-    this.totalAmount = this.basket.actualBasket().amount;
-    this.list;
+    this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
 
     this.minDate = new Date();
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
