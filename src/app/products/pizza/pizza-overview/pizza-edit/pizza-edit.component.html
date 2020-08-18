@@ -67,8 +67,7 @@
 
 <div class="ant-col">
   <form [formGroup]="uploadImage">
-    <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
-    <img [src]="url" height="200" (click)="fileInput.click()" />
+    <app-file-uploader [src]="url" (upload)="showFile($event)"></app-file-uploader >
     <app-spin-button name="Upload" [loading]="loading" (click)="upload()"></app-spin-button>
   </form>
 </div>

@@ -36,10 +36,12 @@ import { ValidationErrorComponent } from './components/validation-error/validati
 import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
+    FileUploaderComponent,
     MobilePhoneDirective,
     HeaderComponent,
     FooterComponent,
@@ -110,7 +112,8 @@ import { LoginComponent } from './components/login/login.component';
     ExtractPipe,
     SelectComponent,
     ValidationErrorComponent,
-    MobilePhoneDirective
+    MobilePhoneDirective,
+    FileUploaderComponent
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

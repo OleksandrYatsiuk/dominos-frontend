@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RootService } from 'src/app/core/services/root.service';
-import { MatStepper } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../pizza-data.service';
 import { pluck } from 'rxjs/operators';
@@ -19,11 +18,10 @@ export class PizzaEditComponent implements OnInit {
 	pizzaForm: FormGroup;
 	uploadImage: FormGroup;
 	url: string | ArrayBuffer;
-	selectedFile: any;
-	imagePath: any;
 	ingredients: [] = [];
 	loading = false;
 	categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
+	file: any;
 	constructor(
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
@@ -42,7 +40,6 @@ export class PizzaEditComponent implements OnInit {
 	dropdownSettings = {};
 
 	onSelectAll(items: any) {
-		console.log(items);
 	}
 	ngOnInit(): void {
 		this.selectedItems = this.pizza.ingredients
@@ -86,6 +83,11 @@ export class PizzaEditComponent implements OnInit {
 		});
 	}
 
+	showFile(event) {
+		this.url = event.src;
+		this.file = event.file;
+	}
+
 	onSubmit() {
 		this.pizzaForm.markAllAsTouched();
 		if (this.pizzaForm.valid) {
@@ -107,26 +109,13 @@ export class PizzaEditComponent implements OnInit {
 	}
 
 	upload() {
-		if (this.selectedFile !== null && this.selectedFile !== undefined) {
-			const fd = new FormData();
-			fd.append('file', this.selectedFile, this.selectedFile.name);
+		console.log(this.file);
+		if (this.file) {
 			this.loading = !this.loading;
-			this.http.upload(this.pizza.id, fd).subscribe((result) => {
+			this.http.upload(this.pizza.id, this.file).subscribe((result) => {
 				this.loading = !this.loading;
 				this.notification.open({ data: 'Image has been successfully uploaded!' });
 			});
-		}
-	}
-
-	onFileSelected(event): void {
-		this.selectedFile = event.target.files[0];
-		if (event.target.files && event.target.files[0]) {
-			const reader = new FileReader();
-			this.imagePath = event.target.files;
-			reader.readAsDataURL(event.target.files[0]);
-			reader.onload = () => {
-				this.url = reader.result;
-			};
 		}
 	}
 }

@@ -1,0 +1,2 @@
+<input type="file" style="display:none" (change)="onFileSelected($event)" #input />
+<img [src]="src" height="200" (click)="input.click()" />
