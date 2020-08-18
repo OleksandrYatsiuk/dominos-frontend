@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, Optional, Host, SkipSelf } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, AbstractControl, ControlContainer, FormGroup, FormGroupDirective } from '@angular/forms';
-import { ValidationMessages } from '../../../core/models/error-list';
+import { ErrorList } from 'src/app/core/models/error-list';
 
 @Component({
   selector: 'app-input',
@@ -19,7 +19,6 @@ export class InputComponent implements ControlValueAccessor {
 
   constructor(@Optional() @Host() @SkipSelf() public container: FormGroupDirective) { }
 
-  public validations = ValidationMessages;
   public onTouch: Function;
   public onModelChange: Function;
   public focus: boolean;
@@ -29,12 +28,10 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type = 'text';
   @Input() value = '';
 
+  public errorArray = ErrorList;
 
   get control(): AbstractControl {
     return this.container.control.get(this.formControlName);
-  }
-  get errorArray() {
-    return this.validations[`${this.formControlName}`];
   }
 
 

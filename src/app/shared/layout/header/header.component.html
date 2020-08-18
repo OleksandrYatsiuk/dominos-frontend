@@ -17,6 +17,7 @@
   <div class="main-header">
     <div class="navigation">
       <h2 class="logo" routerLink="/"> Domino's Pizza </h2>
+      
       <div class="nav" appMenu>
         <span routerLink="/promotion" routerLinkActive="active">Акції</span>
         <span routerLink="/pizza" routerLinkActive="active">Піца</span>
@@ -27,7 +28,7 @@
       <div class="market" [ngClass]="{ disabled: basket.count === 0 }">
         <div class="count">{{ basket.count }}</div>
         <div class="total-price" *ngIf="basket.amount > 0">
-          <span>{{ basket.amount }} грн </span>
+          <span>{{ basket.amount }} UAH </span>
         </div>
         <a routerLink="/delivery/shipping">
           <button class="basket-button">Замовити</button>

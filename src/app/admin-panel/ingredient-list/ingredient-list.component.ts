@@ -12,13 +12,14 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 export class IngredientListComponent implements OnInit {
   public ingredients;
   displayedColumns: string[] = ['id', 'name', 'delete'];
-  page=1;
-  pages=1
+  page = 1;
+  pages = 1
   length = 100;
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 20];
   pageEvent: PageEvent;
-  
+  public collectionSize: number;
+
   constructor(
     private http: RootService,
     public dialog: MatDialog,
@@ -28,14 +29,15 @@ export class IngredientListComponent implements OnInit {
     this.getList(this.page, this.pageSize, 'name')
   }
 
-  getList(page, perPage, name) {
-    this.http.getIngredientsList(page, perPage, name)
+  getList(page: number, limit: number, sort = 'name') {
+    this.http.getIngredientsList({ params: { page, limit, sort } })
       .subscribe(({ result, _meta }) => {
         const { total } = _meta.pagination;
-        this.length = total;page
+        this.length = total;
         this.ingredients = result;
-        this.page= _meta.pagination.page
-        this.pages= _meta.pagination.pages
+        this.page = _meta.pagination.page;
+        this.pages = _meta.pagination.pages;
+        this.collectionSize = _meta.pagination.total / this.pageSize
       });
   }
 
@@ -50,14 +52,9 @@ export class IngredientListComponent implements OnInit {
       }
     });
   }
-  public setPage(page: number) {
-    if (page < 1) { page =1 }
-    this.http.getIngredientsList(page, 20, 'name').subscribe(({
-      result, _meta }) => {
-      this.ingredients = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+
+  public showPage(event: number) {
+    this.getList(event, this.pageSize, 'name')
   }
 
 }

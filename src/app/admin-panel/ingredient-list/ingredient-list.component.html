@@ -25,21 +25,6 @@
       </tr>
     </tbody>
   </table>
-  <nav aria-label="...">
-    <ul class="pagination">
-      <li class="page-item" [ngClass]="{disabled:page===1}">
-        <a class="page-link" (click)="setPage(1)" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item" [ngClass]="{disabled:page===1}">
-        <a *ngIf="page>1" class="page-link" (click)="setPage(page-1)">{{page-1}}</a></li>
-      <li class="page-item active">
-        <a class="page-link">{{page}}
-          <span class="sr-only">(current)</span>
-        </a>
-      </li>
-      <li class="page-item"><a class="page-link" *ngIf="pages>page" (click)="setPage(page+1)">{{page+1}}</a></li>
-      <li class="page-item" [ngClass]="{disabled:page===pages}">
-        <a class="page-link" (click)="setPage(page+1)">Next</a>
-      </li>
-    </ul>
-  </nav>
+  <ngb-pagination [collectionSize]="collectionSize*10" [(page)]="page" [maxSize]="4" [rotate]="true"
+  (pageChange)="showPage($event)" aria-label="Custom pagination">
+</ngb-pagination>

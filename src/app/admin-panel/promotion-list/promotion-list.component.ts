@@ -17,27 +17,26 @@ export class PromotionListComponent implements OnInit {
     public notification: NotificationService
   ) { }
   page = 1;
-  pages = 1;
+  pageSize = 20;
   promotions: any;
+  collectionSize: number;
   ngOnInit() {
-    this.http.getData({ params: { page: this.page, limit: 20 } }).subscribe(({ result, _meta }) => {
-
-      this.promotions = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+    this.getList(this.page, this.pageSize)
+  }
+  public getList(page: number, limit: number, sort = 'name') {
+    this.http.getData({ params: { page, limit, sort } })
+      .subscribe(({ result, _meta }) => {
+        this.promotions = result;
+        this.page = _meta.pagination.page;
+        this.pageSize = _meta.pagination.pages;
+        this.collectionSize = _meta.pagination.total / this.pageSize
+      });
   }
 
-
-  public setPage(page: number): void {
-    if (page < 1) { page = 1 }
-    this.http.getData({ params: { page: page, limit: 20 } }).subscribe(({
-      result, _meta }) => {
-      this.promotions = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+  public showPage(event: number) {
+    this.getList(event, this.pageSize)
   }
+
 
   public delete(item): void {
     const dialogRef = this.dialog.open(ModalComponent, {
@@ -47,7 +46,7 @@ export class PromotionListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.http.remove(item.id).subscribe(res => {
-          this.setPage(this.page);
+          this.getList(this.page, this.pageSize);
           this.notification.open({
             data: `Акція "${item.title}" видалена успішно!`
           });

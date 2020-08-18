@@ -20,6 +20,7 @@ export class DeliveryListComponent implements OnInit {
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 20];
   pageEvent: PageEvent;
+  collectionSize: number;
 
   constructor(
     private http: DeliveryDataService,
@@ -28,21 +29,30 @@ export class DeliveryListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getList(1, this.pageSize);
+    this.getList(this.page, this.pageSize)
 
   }
-  showChanges(event: PageEvent) {
-    this.getList(++event.pageIndex, event.pageSize);
+
+  getList(page: number, limit: number, sort = '-createdAt') {
+    this.http.deliveryList({ params: { page, limit, sort } })
+      .subscribe(({ result, _meta }) => {
+        const { total } = _meta.pagination;
+        this.length = total;
+        this.deliveries = result;
+        this.page = _meta.pagination.page
+        this.pages = _meta.pagination.pages
+        this.collectionSize = _meta.pagination.total / 20
+      });
   }
-  getList(page, perPage) {
-    this.http.deliveryList(page, perPage, '-createdAt').pipe(
-    ).subscribe(({ result, _meta }) => {
-      const { total } = _meta.pagination;
-      this.length = total;
-      this.deliveries = result;
-      this.page = _meta.pagination.page
-      this.pages = _meta.pagination.pages
-    });
+
+  public showPage(page: number) {
+    this.http.deliveryList({ params: { page, limit: 20, sort: '-createdAt' } })
+      .subscribe(({
+        result, _meta }) => {
+        this.deliveries = result;
+        this.page = _meta.pagination.page;
+        this.pages = _meta.pagination.pages;
+      });
   }
 
   delete(item): void {
@@ -54,15 +64,6 @@ export class DeliveryListComponent implements OnInit {
       if (result !== undefined) {
         this.getList(1, this.pageSize);
       }
-    });
-  }
-  public setPage(page: number) {
-    if (page < 1) { page = 1 }
-    this.http.deliveryList(page, 20, '-createdAt').subscribe(({
-      result, _meta }) => {
-      this.deliveries = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
     });
   }
 }

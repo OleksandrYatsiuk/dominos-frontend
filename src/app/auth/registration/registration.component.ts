@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../../shared/components/login/login.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ValidationMessages } from '../../core/models/error-list';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { MatDialog } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
@@ -32,7 +31,6 @@ export class RegistrationComponent implements OnInit {
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
   public spinRegister = false;
-  public validations = ValidationMessages;
 
   ngOnInit(): void {
     this.initForm();
@@ -64,16 +62,12 @@ export class RegistrationComponent implements OnInit {
       username: ['', [Validators.required, Validators.minLength(this.configService.getParameter('usernameMinLength')),
       Validators.maxLength(this.configService.getParameter('usernameMaxLength'))]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, passwordValidator()]],
+      password: ['', [Validators.required, passwordValidator(this.configService.getParameter('passwordRegexExp'))]],
       confirmPassword: ['', [Validators.required]]
     },
       {
         validators: confirmPasswordValidator('confirmPassword', 'password'),
       });
-    // this.registerForm.controls.confirmPassword.setValidators([
-    //   Validators.required,
-    //   confirmPasswordValidator(this.registerForm.controls.password),
-    // ]);
   }
 
   private showNotification(): void {

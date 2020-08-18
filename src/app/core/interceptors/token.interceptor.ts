@@ -17,10 +17,7 @@ export class ParamInterceptor implements HttpInterceptor {
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
     if (!/^(http|https):/i.test(request.url)) {
-      const headers: { [key: string]: string } = {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      };
+      const headers: { [key: string]: string } = {};
       const token = this.user.authData();
 
       if (token) {

@@ -1,22 +1,23 @@
 <h4>Create Promotion</h4>
 
 <form [formGroup]="createPromotionForm" (ngSubmit)="create()">
-    <app-form-item [control]="createPromotionForm.controls.title" name="title">
-        <input placeholder="Enter Title" formControlName="title">
+
+    <app-form-item [control]="createPromotionForm.controls.title" field="Title">
+        <input class="form-control" placeholder="Enter Title" formControlName="title">
     </app-form-item>
 
-    <app-form-item [control]="createPromotionForm.controls.content" name="content">
-        <textarea placeholder="Enter Description" formControlName="content"></textarea>
+    <app-form-item [control]="createPromotionForm.controls.content" field="Content">
+        <textarea class="form-control" placeholder="Enter Description" formControlName="content"></textarea>
     </app-form-item>
 
-    <app-form-item [control]="createPromotionForm.controls.image" name="image" (change)="onFileSelected($event)">
-        <input placeholder="Select Image" formControlName="image" type="file">
+    <app-form-item [control]="createPromotionForm.controls.image" field="Image" (change)="onFileSelected($event)">
+        <input class="form-control" placeholder="Select Image" formControlName="image" type="file">
     </app-form-item>
 
-    <app-form-item [control]="createPromotionForm.controls.startedAt" name="startedAt">
-        <input placeholder="Select Started Time" formControlName="startedAt" type="date">
+    <app-form-item [control]="createPromotionForm.controls.startedAt" field="startedAt">
+        <input class="form-control" placeholder="Select Started Time" formControlName="startedAt" type="date">
     </app-form-item>
-   
+
     <app-spin-button type="submit" name="Create" [loading]="loading"></app-spin-button>
 
 </form>

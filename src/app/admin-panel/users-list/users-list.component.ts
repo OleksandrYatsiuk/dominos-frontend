@@ -12,7 +12,8 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 export class UsersListComponent implements OnInit {
   users: any;
   public page = 1;
-  public pages = 1;
+  public pages = 20;
+  collectionSize: number;
   constructor(
     private http: UserManagementDataService,
     public dialog: MatDialog,
@@ -20,24 +21,25 @@ export class UsersListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getUsers()
+    this.getList(this.page, this.pages)
   }
-  private getUsers() {
-    this.http.getUsers().subscribe(({ result, _meta }) => {
-      this.users = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    }
-    );
+  private getList(page: number, limit: number, sort = 'createdAt') {
+    this.http.getUsers({
+      params: {
+        page, limit, sort
+      }
+    })
+      .subscribe(({ result, _meta }) => {
+        this.users = result;
+        this.page = _meta.pagination.page;
+        this.pages = _meta.pagination.pages;
+        this.collectionSize = _meta.pagination.total / this.pages;
+      }
+      );
   }
-  public setPage(page: number) {
-    if (page < 1) { page = 1 }
-    this.http.getUsers({ params: { page: page, limit: 20 } }).subscribe(({
-      result, _meta }) => {
-      this.users = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+
+  public showPage(event: number) {
+    this.getList(event, this.pages)
   }
 
   public delete(item): void {
@@ -48,7 +50,7 @@ export class UsersListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.http.deleteItem(item.id).subscribe(res => {
-          this.setPage(this.page);
+          this.getList(this.page, this.pages);
           this.notification.open({
             data: `Користувач "${item.username}" видалений успішно!`
           });

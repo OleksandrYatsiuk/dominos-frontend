@@ -11,30 +11,28 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 })
 export class ShopListComponent implements OnInit {
   public page = 1;
-  public pages = 1;
+  public pageSize = 20;
   shops: any;
+  collectionSize: number;
   constructor(
     private http: ShopService,
     public dialog: MatDialog,
     public notification: NotificationService) { }
 
   ngOnInit() {
-    this.http.getData({ params: { page: this.page, limit: 20 } }).subscribe(({ result, _meta }) => {
-      this.shops = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+    this.getList(this.page, this.pageSize)
   }
 
-
-  public setPage(page: number): void {
-    if (page < 1) { page = 1 }
-    this.http.getData({ params: { page: page, limit: 20 } }).subscribe(({
-      result, _meta }) => {
-      this.shops = result;
-      this.page = _meta.pagination.page;
-      this.pages = _meta.pagination.pages;
-    });
+  public getList(page: number, limit: number, sort = 'name') {
+    this.http.getData({ params: { page, limit, sort } })
+      .subscribe(({ result, _meta }) => {
+        this.shops = result;
+        this.page = _meta.pagination.page;
+        this.collectionSize = _meta.pagination.total / this.pageSize
+      });
+  }
+  public showPage(event: number) {
+    this.getList(event, this.pageSize)
   }
 
   public delete(item): void {
@@ -45,7 +43,7 @@ export class ShopListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.http.remove(item.id).subscribe(res => {
-          this.setPage(this.page);
+          this.getList(this.page, this.pageSize);
           this.notification.open({
             data: `Магазин "${item.address}" видалений успішно!`
           });

@@ -1,12 +1,12 @@
 <div class="delivery_page">
   <div class="order">
-    <h3>Оформлення замовлення</h3>
+    <h3>Making an order</h3>
     <div class="navigator">
       <div class="navigator-bar" routerLink="shipping" routerLinkActive="active">
-        Доставка
+        Delivery
       </div>
       <div class="navigator-bar" routerLink="carryout" routerLinkActive="active">
-        Самовивіз
+        Self-Pickup
       </div>
     </div>
     <div class="form">
@@ -15,10 +15,10 @@
   </div>
 
   <div class="order">
-    <h3>Ваше замовлення</h3>
+    <h3>Your Order</h3>
     <div *ngFor="let item of items">
       <app-basket-card-item [item]="item"></app-basket-card-item>
     </div>
-    <div class="amount">{{ totalAmount }} грн</div>
+    <div class="amount">{{ totalAmount }} UAH</div>
   </div>
 </div>

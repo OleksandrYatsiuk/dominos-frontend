@@ -10,11 +10,8 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-  getIngredientsList(page: any, limit: any, sort: string): Observable<any> {
-    return this.http.get(`ingredients`, {
-      params:
-        { page, limit, sort }
-    });
+  getIngredientsList(params?:object): Observable<any> {
+    return this.http.get(`ingredients`, params);
   }
   public createIngredient(data: any): Observable<any> {
     return this.http.post<any[]>(`ingredients`, data);

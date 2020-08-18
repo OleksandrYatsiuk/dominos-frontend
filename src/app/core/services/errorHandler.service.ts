@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { ValidationResponse, ValidationError } from '../models/response.interface';
 import { HttpStatusCode } from '../models/http-status-code';
-import { ValidationMessages } from '../models/error-list';
+import { ErrorList } from '../models/error-list';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class ErrorHandlerService {
   private msg = new BehaviorSubject<any>(null);
   errorMessage = this.msg.asObservable();
   constructor() { }
-  public validations = ValidationMessages;
+  public validations = ErrorList;
   public hasError(error: object) {
     this.msg.next(error);
   }
@@ -21,10 +21,9 @@ export class ErrorHandlerService {
       error.result.forEach(({ field, message }: ValidationError) => {
         const control = form.get(field);
         if (control) {
-          control.setErrors({ apiValidation: message });
+          this.validations.forEach(err => err.type === 'apiValidation' ? err.message = message : "");
           control.markAsDirty();
-          this.validations[field] = [];
-          this.validations[field].push({ type: 'apiValidation', message });
+          control.setErrors({ apiValidation: message });
         }
       });
       return;

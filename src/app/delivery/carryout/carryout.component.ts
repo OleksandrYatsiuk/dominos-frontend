@@ -7,7 +7,8 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { DeliveryDataService } from '../delivery-data.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { Router } from '@angular/router';
-import { PaymentTypes } from '../shipping-form/payments.model';
+import { PaymentTypes, Payments } from '../shipping-form/payments.model';
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
 @Component({
   selector: 'app-carryout',
   templateUrl: './carryout.component.html',
@@ -21,7 +22,7 @@ export class CarryoutComponent implements OnInit {
   maxDate: Date;
   totalAmount: any;
   pizzasIds = [];
-  paymentTypes = [{ name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash }];
+  public paymentTypes: Payments[] = this.configService.getStatuses('payment');
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +31,14 @@ export class CarryoutComponent implements OnInit {
     private notification: NotificationService,
     private rest: DeliveryDataService,
     private basketService: BasketService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private configService: ApiConfigService
+  ) {
+  }
   ngOnInit() {
-    this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
 
+    this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
+    this.pizzasIds = this.basketService._storage.map(el => el.id)
     this.minDate = new Date();
     this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
@@ -64,7 +68,7 @@ export class CarryoutComponent implements OnInit {
       payment: this.formBuilder.group({
         coupon: ['', []],
         remainder: ['', []],
-        type: [this.paymentTypes[0].value, [Validators.required]],
+        type: ['', [Validators.required]],
       }),
       pizzaIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],
@@ -83,13 +87,15 @@ export class CarryoutComponent implements OnInit {
 
 
   onSubmit() {
+    console.log(this.carryOut.value);
+    this.carryOut.markAllAsTouched();
     if (this.carryOut.valid) {
       this.loading = true;
       this.carryOut.controls.shopId.setValue(this.shopId);
       this.rest.create(this.carryOut.value).subscribe(res => {
         this.loading = false;
         this.router.navigate(['/']);
-        localStorage.removeItem('basket');
+        this.basketService.clear();
         this.notification.open({ data: 'Your order has been accepted!' });
       });
     }

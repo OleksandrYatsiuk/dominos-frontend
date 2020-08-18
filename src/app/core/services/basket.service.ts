@@ -18,7 +18,7 @@ export interface BasketOptions {
 @Injectable({ providedIn: 'root' })
 
 export class BasketService {
-  
+
   public key = 'basket';
   public _storage: PizzaItem[];
   public get storage() {
@@ -86,6 +86,11 @@ export class BasketService {
 
   public getItem(id: string, size: string) {
     return this.storage.find(el => el.id === id && el.size === size);
+  }
+
+  public clear() {
+    localStorage.removeItem(this.key)
+    this.updateCount({ count: 0, amount: '0' });
   }
 
 

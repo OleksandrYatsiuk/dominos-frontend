@@ -12,11 +12,9 @@ import { pluck } from 'rxjs/operators';
 @Component({
 	selector: 'app-pizza-edit',
 	templateUrl: './pizza-edit.component.html',
-	styleUrls: [ './pizza-edit.component.scss' ]
+	styleUrls: ['./pizza-edit.component.scss']
 })
 export class PizzaEditComponent implements OnInit {
-	@ViewChild('stepper', { static: true })
-	private myStepper: MatStepper;
 	pizza: any;
 	pizzaForm: FormGroup;
 	uploadImage: FormGroup;
@@ -25,7 +23,7 @@ export class PizzaEditComponent implements OnInit {
 	imagePath: any;
 	ingredients: [] = [];
 	loading = false;
-	categories = [ { value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' } ];
+	categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
 	constructor(
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
@@ -36,32 +34,54 @@ export class PizzaEditComponent implements OnInit {
 		private handler: ErrorHandlerService
 	) {
 		this.pizza = this.route.snapshot.data.pizza;
-    this.url = this.pizza.image;    
+		this.url = this.pizza.image;
 	}
 
+	dropdownList = [];
+	selectedItems = [];
+	dropdownSettings = {};
+
+	onSelectAll(items: any) {
+		console.log(items);
+	}
 	ngOnInit(): void {
-		this.rest.getIngredientsList('1', '100', 'name').pipe(pluck('result')).subscribe(result => (this.ingredients = result));
+		this.selectedItems = this.pizza.ingredients
+
+		this.dropdownSettings = {
+			singleSelection: false,
+			idField: 'id',
+			textField: 'name',
+			selectAllText: 'Select All',
+			unSelectAllText: 'UnSelect All',
+			itemsShowLimit: 2,
+			allowSearchFilter: false
+		};
+
+		this.rest.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
+			.pipe(pluck('result'))
+			.subscribe(result => this.ingredients = result);
+
 		this.title.setTitle(`Edit - ${this.pizza.name}`);
 		this.initForm();
 	}
 
 	initForm() {
 		this.uploadImage = this.formBuilder.group({
-			image: [ this.pizza.image, [ Validators.required ] ]
+			image: [this.pizza.image, [Validators.required]]
 		});
 		this.pizzaForm = this.formBuilder.group({
-			name: [ this.pizza.name, [ Validators.required, Validators.maxLength(15) ] ],
-			category: [ this.pizza.category, [ Validators.required ] ],
-			ingredients: [ this.pizza.ingredients.map((el) => el.id), [ Validators.required ] ],
+			name: [this.pizza.name, [Validators.required, Validators.maxLength(15)]],
+			category: [this.pizza.category, [Validators.required]],
+			ingredients: [this.pizza.ingredients, Validators.required],
 			weight: this.formBuilder.group({
-				small: [ this.pizza.weight.small, [ Validators.required ] ],
-				middle: [ this.pizza.weight.middle, [ Validators.required ] ],
-				big: [ this.pizza.weight.big, [ Validators.required ] ]
+				small: [this.pizza.weight.small, [Validators.required]],
+				middle: [this.pizza.weight.middle, [Validators.required]],
+				big: [this.pizza.weight.big, [Validators.required]]
 			}),
 			price: this.formBuilder.group({
-				small: [ this.pizza.price.small, [ Validators.required ] ],
-				middle: [ this.pizza.price.middle, [ Validators.required ] ],
-				big: [ this.pizza.price.big, [ Validators.required ] ]
+				small: [this.pizza.price.small, [Validators.required]],
+				middle: [this.pizza.price.middle, [Validators.required]],
+				big: [this.pizza.price.big, [Validators.required]]
 			})
 		});
 	}
@@ -70,11 +90,13 @@ export class PizzaEditComponent implements OnInit {
 		this.pizzaForm.markAllAsTouched();
 		if (this.pizzaForm.valid) {
 			this.loading = !this.loading;
-			return this.http.edit(this.pizza.id, this.pizzaForm.value).pipe(pluck('result')).subscribe(
+			let ingredients: any = this.pizzaForm.get('ingredients').value
+			ingredients = ingredients.map(el => el.id);
+			const data = Object.assign(this.pizzaForm.value, { ingredients });
+			return this.http.edit(this.pizza.id, data).pipe(pluck('result')).subscribe(
 				(pizza) => {
 					this.loading = !this.loading;
 					this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
-					this.myStepper.next();
 				},
 				(error) => {
 					this.loading = !this.loading;
@@ -91,11 +113,8 @@ export class PizzaEditComponent implements OnInit {
 			this.loading = !this.loading;
 			this.http.upload(this.pizza.id, fd).subscribe((result) => {
 				this.loading = !this.loading;
-				this.myStepper.next();
 				this.notification.open({ data: 'Image has been successfully uploaded!' });
 			});
-		} else {
-			this.myStepper.next();
 		}
 	}
 

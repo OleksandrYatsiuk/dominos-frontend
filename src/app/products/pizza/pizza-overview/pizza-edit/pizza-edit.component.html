@@ -1,92 +1,77 @@
 <h4>Edit Pizza</h4>
 
-<mat-horizontal-stepper [linear]="false" #stepper>
-  <mat-step [stepControl]="pizzaForm">
-    <ng-template matStepLabel>Add components</ng-template>
+<form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
+  <div class="ant-col">
+    <div class="form-item">
 
-    <form [formGroup]="pizzaForm" (ngSubmit)="onSubmit()">
-      <div class="ant-col">
-        <div class="form-item">
-          <app-form-item [control]="pizzaForm.controls.name" name="name">
-            <input matInput formControlName="name" placeholder="Enter Name" />
-          </app-form-item>
-        </div>
-        <div class="form-item">
-          <app-form-item [control]="pizzaForm.controls.category" name="pizzaCategory">
-            <mat-select formControlName="category">
-              <mat-option *ngFor="let item of categories" [value]="item.value">
-                {{ item.value }}
-              </mat-option>
-            </mat-select>
-          </app-form-item>
-          <app-form-item [control]="pizzaForm.controls.ingredients" name="ingredients">
-            <mat-select formControlName="ingredients" multiple>
-              <mat-select-trigger>
-                <span *ngIf="pizzaForm.controls.ingredients.value?.length == 1" class="example-additional-selection">
-                  {{pizzaForm.controls.ingredients.value|extract:ingredients}} 
-                </span>
-                <span *ngIf="pizzaForm.controls.ingredients.value?.length > 1" class="example-additional-selection">  {{pizzaForm.controls.ingredients.value|extract:ingredients}} 
-                  (+{{pizzaForm.controls.ingredients.value.length - 1}} {{pizzaForm.controls.ingredients.value?.length === 2 ? 'other' : 'others'}})
-                </span>
-              </mat-select-trigger>
-              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient.id">
-                {{ ingredient.name }}
-              </mat-option>
-            </mat-select>
-          </app-form-item>
-        </div>
-      </div>
-      <div formGroupName="weight">
-        <div class="ant-col">
-          <app-form-item [control]="pizzaForm.get('weight')['controls'].small" name="small" class="field">
-            <input formControlName="small" placeholder="Enter Small Weight" />
-          </app-form-item>
-          <app-form-item [control]="pizzaForm.get('weight')['controls'].middle" name="middle" class="field">
-            <input formControlName="middle" placeholder="Enter Middle Weight" />
-          </app-form-item>
-          <app-form-item [control]="pizzaForm.get('weight')['controls'].big" name="big" class="field">
-            <input formControlName="big" placeholder="Enter Big Weight" />
-          </app-form-item>
-
-        </div>
-      </div>
-      <div formGroupName="price">
-        <div class="ant-col">
-          <app-form-item [control]="pizzaForm.get('price')['controls'].small" name="small">
-            <input formControlName="small" placeholder="Enter Small Price" type="number" />
-          </app-form-item>
-
-          <app-form-item [control]="pizzaForm.get('price')['controls'].middle" name="middle">
-            <input formControlName="middle" placeholder="Enter Middle Price" type="number" />
-          </app-form-item>
-
-          <app-form-item [control]="pizzaForm.get('price')['controls'].big" name="big">
-            <input formControlName="big" placeholder="Enter Big Price" type="number" />
-          </app-form-item>
-        </div>
-      </div>
-      <div class="ant-col">
-
-        <app-spin-button name="Confirm" [loading]="loading"> </app-spin-button>
-      </div>
-    </form>
-
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>Upload image</ng-template>
-    <div class="ant-col">
-      <form [formGroup]="uploadImage">
-        <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
-        <img [src]="url" height="200" (click)="fileInput.click()" />
-        <app-spin-button name="Upload" [loading]="loading" (click)="upload()"></app-spin-button>
-      </form>
-  </div>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Finish!</ng-template>
-    <div class="ant-col">
-    <a routerLink="/">Great work! Go to Home Page</a>
+      <app-form-item [control]="pizzaForm.controls.name" field="Name">
+        <input class="form-control" formControlName="name" placeholder="Enter Name" />
+      </app-form-item>
     </div>
-  </mat-step>
-</mat-horizontal-stepper>
+    <div class="form-item">
+
+      <app-form-item [control]="pizzaForm.controls.category" field="Category">
+        <app-select formControlName="category" placeholder="Select Categories" [items]="categories" trackBy="value">
+        </app-select>
+      </app-form-item>
+
+      <app-form-item [control]="pizzaForm.controls.ingredients" field="Ingredients">
+        <ng-multiselect-dropdown placeholder='Select Ingredients' [data]="ingredients" [(ngModel)]="selectedItems"
+          formControlName="ingredients" [settings]="dropdownSettings">
+        </ng-multiselect-dropdown>
+      </app-form-item>
+
+
+
+    </div>
+  </div>
+  <div formGroupName="weight">
+    <div class="ant-col">
+
+      <app-form-item [control]="pizzaForm.get('weight')['controls'].small" field="Small Weight">
+        <input class="form-control" formControlName="small" placeholder="Enter Small Weight" />
+      </app-form-item>
+
+      <app-form-item [control]="pizzaForm.get('weight')['controls'].middle" field="Middle Weight">
+        <input class="form-control" formControlName="middle" placeholder="Enter Middle Weight" />
+      </app-form-item>
+
+      <app-form-item [control]="pizzaForm.get('weight')['controls'].big" field="Big Weight">
+        <input class="form-control" formControlName="big" placeholder="Enter Big Weight" />
+      </app-form-item>
+
+    </div>
+  </div>
+  <div formGroupName="price">
+    <div class="ant-col">
+
+      <app-form-item [control]="pizzaForm.get('price')['controls'].small" field="Small Price">
+        <input class="form-control" formControlName="small" placeholder="Enter Small Price" />
+      </app-form-item>
+
+      <app-form-item [control]="pizzaForm.get('price')['controls'].middle" field="Middle Price">
+        <input class="form-control" formControlName="middle" placeholder="Enter Middle Price" />
+      </app-form-item>
+
+      <app-form-item [control]="pizzaForm.get('price')['controls'].big" field="Big Price">
+        <input class="form-control" formControlName="big" placeholder="Enter Big Price" />
+      </app-form-item>
+    </div>
+  </div>
+  <div class="ant-col">
+
+    <app-spin-button name="Confirm" [loading]="loading"> </app-spin-button>
+  </div>
+</form>
+
+
+<div class="ant-col">
+  <form [formGroup]="uploadImage">
+    <input type="file" style="display:none" (change)="onFileSelected($event)" #fileInput />
+    <img [src]="url" height="200" (click)="fileInput.click()" />
+    <app-spin-button name="Upload" [loading]="loading" (click)="upload()"></app-spin-button>
+  </form>
+</div>
+<div class="ant-col">
+  <a routerLink="/">Great work! Go to Home Page</a>
+</div>

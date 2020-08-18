@@ -16,6 +16,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   declarations: [],
   imports: [
@@ -32,7 +34,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatGridListModule,
     MatAutocompleteModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbDatepickerModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   exports: [
     MatFormFieldModule,
@@ -47,7 +51,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatGridListModule,
     MatAutocompleteModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgbDatepickerModule,
+    NgMultiSelectDropDownModule,
   ],
   providers: [MatDatepickerModule,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

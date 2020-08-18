@@ -1,25 +1,27 @@
 <div class="profile_settings">
+
   <div class="portfolio">
-    <img src="../../../assets/data/profile.png" alt="user icon" />
-    <p>Change avatar</p>
+  <img src="../../../assets/data/profile.png" alt="user icon" />
+
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
 
-        <app-form-item [control]="changePasswordForm.controls.currentPassword" name="currentPassword">
-          <input placeholder="Enter Current Password" formControlName="currentPassword" type="password">
+        <app-form-item [control]="changePasswordForm.controls.currentPassword" name="Current Password">
+          <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
+            type="password">
         </app-form-item>
 
-        <app-form-item [control]="changePasswordForm.controls.newPassword" name="newPassword">
-          <input placeholder="Enter New Password" formControlName="newPassword" type="new-password">
+        <app-form-item [control]="changePasswordForm.controls.newPassword" name="New Password">
+          <input class="form-control" placeholder="Enter New Password" formControlName="newPassword"
+            type="new-password">
         </app-form-item>
 
-        <app-form-item [control]="changePasswordForm.controls.confirmPassword" name="confirmPassword">
-          <input placeholder="Enter confirmPassword" formControlName="confirmPassword" type="new-password">
+        <app-form-item [control]="changePasswordForm.controls.confirmPassword" name="Confirm Password"
+          otherField="New Password">
+          <input class="form-control" placeholder="Enter confirmPassword" formControlName="confirmPassword"
+            type="new-password">
         </app-form-item>
-
-        <div class="ant-btn">
-          <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
-        </div>
+        <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
       </div>
     </form>
   </div>
@@ -27,38 +29,31 @@
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
     <div class="update-profile">
 
-      <app-form-item [control]="updateProfileForm.controls.fullName" name="fullName" class="field">
-        <input placeholder="Enter FullName" formControlName="fullName">
+      <app-form-item [control]="updateProfileForm.controls.fullName" field="Full Name">
+        <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
       </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.username" name="username" class="field">
-        <input placeholder="Enter Username" formControlName="username">
+      <app-form-item [control]="updateProfileForm.controls.username" field="Username">
+        <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
       </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.email" name="email" class="field">
-        <input placeholder="Enter Email" formControlName="email">
+      <app-form-item [control]="updateProfileForm.controls.email" field="Email">
+        <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
       </app-form-item>
 
-      <div class="optional-info">
-        <mat-form-field class="custom" appearance="outline">
-          <app-form-item [control]="updateProfileForm.controls.birthday" name="birthday" class="field">
-            <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="birthday"
-              (dateInput)="dateInput($event)">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </app-form-item>
-        </mat-form-field>
+      <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
+        <input type="date" class="form-control" formControlName="birthday" placeholder="Enter Birthday"
+          placeholder="yyyy-mm-dd">
 
-        <app-form-item [control]="updateProfileForm.controls.phone" name="phone" class="field">
-          <input formControlName="phone" type="text" mobilePhone />
-        </app-form-item>
+        <!-- <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
+            #d="ngbDatepicker" (click)="d.toggle()" formControlName="birthday" (dateSelect)=dateInput($event)> -->
+      </app-form-item>
 
-      </div>
+      <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">
+        <input type="text" class="form-control" formControlName="phone" placeholder="Enter Phone">
+      </app-form-item>
 
-
-      <div class="ant-btn">
-        <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
-      </div>
+      <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
     </div>
   </form>
 </div>

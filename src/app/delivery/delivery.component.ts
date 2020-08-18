@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BasketService } from '../core/services/basket.service';
 import { Title } from '@angular/platform-browser';
-import { PizzaDataService } from '../products/pizza/pizza-data.service';
-import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-delivery',

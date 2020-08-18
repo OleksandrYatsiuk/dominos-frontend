@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule, NG_VALIDATORS } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule, } from '@angular/common/http';
@@ -8,14 +8,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { LoginComponent } from '../auth/login/login.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatInputModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
 import { MatSelectModule } from '@angular/material/select';
-import { CreatePizzaGuard } from '../core/guards/createPizza.guard';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
@@ -33,10 +31,16 @@ import { ModalComponent } from './components/modal/modal.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepperModule } from '@angular/material/stepper';
 import { ExtractPipe } from './pipe/extract.pipe';
-import { BasketService } from '../core/services/basket.service';
+import { SelectComponent } from './components/select/select.component';
+import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
+import { MultiSelectComponent } from './components/multi-select/multi-select.component';
+import { MobilePhoneDirective } from './directives/mobile-phone.directive';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
+    LoginComponent,
+    MobilePhoneDirective,
     HeaderComponent,
     FooterComponent,
     PizzaFilterPipe,
@@ -49,7 +53,10 @@ import { BasketService } from '../core/services/basket.service';
     InputComponent,
     FormItemComponent,
     MenuDirective,
-    ExtractPipe
+    ExtractPipe,
+    SelectComponent,
+    ValidationErrorComponent,
+    MultiSelectComponent,
   ],
   imports: [
     FormsModule,
@@ -79,6 +86,7 @@ import { BasketService } from '../core/services/basket.service';
 
   ],
   exports: [
+    MultiSelectComponent,
     NgbModule,
     BasketCardItemComponent,
     HeaderComponent,
@@ -99,12 +107,15 @@ import { BasketService } from '../core/services/basket.service';
     MenuDirective,
     MatTabsModule,
     MatStepperModule,
-    ExtractPipe
+    ExtractPipe,
+    SelectComponent,
+    ValidationErrorComponent,
+    MobilePhoneDirective
   ],
-  providers: [CreatePizzaGuard,
+  providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
-  entryComponents: [LoginComponent, NotificationComponent, ModalComponent]
+  entryComponents: []
 
 })
 export class SharedModule { }

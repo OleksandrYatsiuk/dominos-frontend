@@ -6,13 +6,13 @@
         <label>
             <input type="radio" (click)="setDrive()" name="travelMode" checked [disabled]="!data">
             <h4>Driving</h4>
-        </label>   
-        <label>   
+        </label>
+        <label>
             <input type="radio" (click)="setWalking()" name="travelMode" [disabled]="!data">
             <h4>Walking</h4>
-        </label>   
+        </label>
 
-    <app-spin-button name="Save My Location" (click)="saveLocation()" color="Basic"></app-spin-button>
+        <app-spin-button name="Save My Location" (click)="saveLocation()" color="Basic"></app-spin-button>
 
     </div>
     <div class="directions_options">
@@ -37,7 +37,7 @@
         <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
             [longitude]="m.lng"
             [iconUrl]="{ url: defaultImage, scaledSize: { width: 40, height: 40, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
-            [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: m.label}">
+            [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: 'Dominos'}">
         </agm-marker>
     </agm-marker-cluster>
 

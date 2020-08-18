@@ -1,0 +1,17 @@
+.selected {
+    display: flex;
+    margin-right: 5px;
+    margin: 2px;
+    background: #d0d4d8;
+    color: #000000c7;
+    border-radius: 3px;
+
+    span {
+        margin: 1px 3px;
+    }
+}
+
+.list-selected {
+    display: flex;
+    flex-wrap: wrap;
+}

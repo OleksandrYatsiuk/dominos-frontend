@@ -5,7 +5,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { pluck } from 'rxjs/operators';
-import { UserDataService } from '../user-data.service';
+import { UserDataService } from '../../../auth/user-data.service';
 
 @Component({
   selector: 'app-login',
@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     this.authForm.markAllAsTouched();
+    console.log(this.authForm)
     if (this.authForm.valid) {
       this.spinLogIn = !this.spinLogIn;
       this.http.login(this.authForm.value)

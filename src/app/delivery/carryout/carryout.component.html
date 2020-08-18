@@ -1,76 +1,80 @@
 <div class="content">
   <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
-    <h3>Контакти</h3>
+    <h3>Contacts</h3>
     <div class="row-item">
-      <app-form-item [control]="carryOut.controls.firstName" name="firstName">
-        <input placeholder="Enter First Name" formControlName="firstName">
-      </app-form-item>
-      <app-form-item [control]="carryOut.controls.phone" name="phone">
-        <input mobilePhone placeholder="Enter Phone" formControlName="phone">
+
+      <app-form-item [control]="carryOut.controls.firstName" field="First Name">
+        <input class="form-control" placeholder="Enter First Name" formControlName="firstName" type="text">
       </app-form-item>
 
-      <app-form-item [control]="carryOut.controls.email" name="email">
-        <input placeholder="Enter Email" formControlName="email">
+      <app-form-item [control]="carryOut.controls.phone" field="Phone">
+        <input class="form-control" placeholder="Enter Phone" formControlName="phone" type="text">
       </app-form-item>
+
+      <app-form-item [control]="carryOut.controls.email" field="Email">
+        <input class="form-control" placeholder="Enter Email" formControlName="email" type="email">
+      </app-form-item>
+
     </div>
 
 
-    <h3>Точка самовивозу</h3>
+    <h3>Self-pickup point</h3>
 
-      <div class="row-item">
-        <app-form-item [control]="carryOut.controls.shopId" name="shop" class="field">
-          <input mobilePhone placeholder="Enter Restaurant" formControlName="shopId">
-          <mat-icon (click)="openMap()" matSuffix>location_on</mat-icon>
-        </app-form-item>
-      </div>
+    <div class="row-item">
+      <app-form-item [control]="carryOut.controls.shopId" field="Shop">
+        <input class="form-control" placeholder="Choose Shop" formControlName="shopId" type="text" (click)="openMap()">
+      </app-form-item>
+    </div>
 
-      <div class="row-item">
-        <app-form-item [control]="carryOut.controls.comment" name="comment" class="field">
-          <textarea formControlName="comment"></textarea>
-        </app-form-item>
-      </div>
+    <div class="row-item">
+
+      <app-form-item [control]="carryOut.controls.comment" field="Comment">
+        <textarea class="form-control" formControlName="comment" placeholder="Enter Comment"></textarea>
+      </app-form-item>
+    </div>
 
     <h3>Date</h3>
     <div formGroupName="date">
+
       <div class="row-item">
-        <app-form-item [control]="carryOut.get('date')['controls'].date" name="date" class="date">
-          <input [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+
+        <app-form-item [control]="carryOut.get('date')['controls'].date" field="Date">
+          <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" [min]="minDate"
+            [max]="maxDate" value="2020-08-15">
         </app-form-item>
 
-        <app-form-item [control]="carryOut.get('date')['controls'].time" name="time" class="date">
-          <input type="time" placeholder="Enter Time" formControlName="time" step="600">
+        <app-form-item [control]="carryOut.get('date')['controls'].time" field="Tine">
+          <input type="time" class="form-control" placeholder="Enter Time" formControlName="time" step="600">
         </app-form-item>
       </div>
     </div>
 
     <h3>Payment</h3>
     <div formGroupName="payment">
+
       <div class="row-item">
-        <app-form-item [control]="carryOut.get('payment')['controls'].coupon" name="coupon" class="payment">
-          <input placeholder="Enter Coupon" formControlName="coupon">
+
+        <app-form-item [control]="carryOut.get('payment')['controls'].coupon" field="Coupon">
+          <input type="text" class="form-control" placeholder="Enter Coupon" formControlName="coupon">
         </app-form-item>
 
-        <app-form-item [control]="carryOut.get('payment')['controls'].remainder" name="remainder" class="payment">
-          <input placeholder="Enter Remainder" formControlName="remainder">
+        <app-form-item [control]="carryOut.get('payment')['controls'].remainder" field="Remainder">
+          <input type="text" class="form-control" placeholder="Enter Remainder" formControlName="remainder">
         </app-form-item>
       </div>
 
       <div class="row-item">
-          <app-form-item [control]="carryOut.get('payment')['controls'].type" name="type" class="field">
-            <mat-select formControlName="type">
-              <mat-option *ngFor="let type of paymentTypes" [value]=type.value>
-                {{type.name}}
-              </mat-option>
-            </mat-select>
-          </app-form-item>
+
+        <app-form-item [control]="carryOut.get('payment')['controls'].type" field="Payment Type">
+          <app-select formControlName="type" placeholder="Select Payment Type" [items]="paymentTypes">
+          </app-select>
+        </app-form-item>
       </div>
 
     </div>
     <div class="result">
       <h2>Total</h2>
-      <h2>{{totalAmount}} грн</h2>
+      <h2>{{totalAmount}} UAH</h2>
       <app-spin-button type="submit" (click)="onSubmit()" [loading]="loading" name="Order"></app-spin-button>
     </div>
   </form>

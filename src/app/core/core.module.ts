@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
+import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RootService } from './services/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NotificationService } from './services/notification.service';
-import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 
 
 
 @NgModule({
-  declarations: [MobilePhoneDirective],
+  declarations: [],
   imports: [CommonModule],
   providers: [
     RootService,
     NotificationService,
-    // ErrorHeadlerService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,
@@ -25,6 +23,13 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
       multi: true
     }
   ],
-  exports: [MobilePhoneDirective]
+  exports: []
 })
-export class CoreModule { }
+export class CoreModule {
+  constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
+    // Import guard
+    if (parentModule) {
+      throw new Error(`${parentModule} has already been loaded. Import Core module in the AppModule only.`);
+    }
+  }
+}

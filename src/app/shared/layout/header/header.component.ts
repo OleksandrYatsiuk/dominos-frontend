@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { BasketService } from "../../../core/services/basket.service";
-import { LoginComponent } from "src/app/auth/login/login.component";
+import { LoginComponent } from "src/app/shared/components/login/login.component";
 import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
 import { Router } from "@angular/router";

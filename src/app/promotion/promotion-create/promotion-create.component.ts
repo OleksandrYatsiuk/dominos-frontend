@@ -46,14 +46,17 @@ export class PromotionCreateComponent implements OnInit {
         .subscribe(result => {
           if (this.selectedFile !== null) {
             const fd = new FormData();
-            fd.append('file', this.selectedFile, this.selectedFile.name);
-            this.http.upload(result.id, fd).subscribe(({ result }) => {
-              this.loading = !this.loading;
-              this.createPromotionForm.reset();
-              this.notification.open({
-                data: `Акція "${result.title}" успішно збережена!`
-              })
-            });
+            setTimeout(() => {
+              fd.append('file', this.selectedFile, this.selectedFile.name);
+              this.http.upload(result.id, fd).subscribe(({ result }) => {
+                this.loading = !this.loading;
+                this.createPromotionForm.reset();
+                this.notification.open({
+                  data: `Акція "${result.title}" успішно збережена!`
+                })
+              });
+            }, 2000)
+
           }
         }, (error) => {
           this.loading = false;

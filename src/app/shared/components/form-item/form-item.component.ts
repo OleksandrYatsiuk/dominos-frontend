@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ValidationMessages } from '../../../core/models/error-list';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-item',
@@ -10,12 +9,10 @@ import { ValidationMessages } from '../../../core/models/error-list';
 export class FormItemComponent implements OnInit {
 
   constructor() { }
-  public validations = ValidationMessages;
-  @Input() control: FormControl ;
-  @Input() name: string;
-  get errorArray() {
-    return this.validations[`${this.name}`];
-  }
+  @Input() control: FormControl;
+  @Input() field = 'Field';
+  @Input() otherField = "Other Field";
+
   ngOnInit() {
 
   }

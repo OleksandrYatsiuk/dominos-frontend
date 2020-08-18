@@ -1,4 +1,4 @@
-<button mat-raised-button [color]="color">
-    <div *ngIf="loading" class="spinner-border"> </div>
+<button [type]="type" [class]="class">
+    <div *ngIf="loading" class="spinner-border" role="status"></div>
     <span *ngIf="!loading">{{name}}</span>
 </button>

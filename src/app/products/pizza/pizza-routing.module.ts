@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PizzaCreateComponent } from './pizza-create/pizza-create.component';
 import { PizzaComponent } from './pizza.component';
 import { MainComponent } from '../main/main.component';
-import { CreatePizzaGuard } from 'src/app/core/guards/createPizza.guard';
+import { CreatePizzaGuard } from 'src/app/shared/guards/createPizza.guard';
 
 const routes: Routes = [
 
@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'pizza', component: PizzaComponent,
   },
-  { path: 'create', component: PizzaCreateComponent, canActivate: [CreatePizzaGuard] },
+  { path: 'create', component: PizzaCreateComponent, canActivate:[CreatePizzaGuard] },
   {
     path: ':id',
     loadChildren: () => import('./pizza-overview/pizza-overview.module').then(m => m.PizzaOverviewModule),

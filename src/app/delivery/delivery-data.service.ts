@@ -14,10 +14,8 @@ export class DeliveryDataService {
   public create(delivery: Delivery): Observable<Delivery> {
     return this.http.post('/delivery', delivery);
   }
-  public deliveryList(page: number, limit: number, sort: string): Observable<PaginationResponse<Delivery[]>> {
-    return this.http.get('/delivery', {
-      params: { page, limit, sort }
-    });
+  public deliveryList(params?: object): Observable<PaginationResponse<Delivery[]>> {
+    return this.http.get('/delivery', params);
   }
   public delete(id: string): Observable<null> {
     return this.http.delete(`/delivery/${id}`);

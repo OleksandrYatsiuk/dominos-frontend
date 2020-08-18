@@ -1,5 +1,6 @@
 export interface Payments {
-    name: PaymentTypes;
+	label: PaymentTypes;
+	value: number;
 }
 export enum PaymentTypes {
 	Cash = 1,

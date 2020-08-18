@@ -5,7 +5,8 @@ import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { DeliveryDataService } from '../delivery-data.service';
 import { Router } from '@angular/router';
-import { PaymentTypes } from './payments.model';
+import { Payments } from './payments.model';
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
 
 @Component({
 	selector: 'app-shipping-form',
@@ -19,10 +20,11 @@ export class ShippingFormComponent implements OnInit {
 		private user: UserService,
 		private http: DeliveryDataService,
 		private router: Router,
-		private basketService: BasketService
+		private basketService: BasketService,
+		private configService: ApiConfigService
 	) { }
 
-	paymentTypes = [{ name: 'Card', value: PaymentTypes.Card }, { name: 'Cash', value: PaymentTypes.Cash }];
+	public paymentTypes: Payments[] = this.configService.getStatuses('payment');
 	public formDelivery: FormGroup;
 	public spinShipping = false;
 	public minDate: Date = new Date();
@@ -61,8 +63,8 @@ export class ShippingFormComponent implements OnInit {
 				entrance: ['', []],
 				code: ['', []],
 				floor: ['', []],
-				comment: ['', []]
 			}),
+			comment: ['', []],
 			date: this.formBuilder.group({
 				date: [new Date(), [Validators.required]],
 				time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]]
@@ -70,7 +72,7 @@ export class ShippingFormComponent implements OnInit {
 			payment: this.formBuilder.group({
 				coupon: ['', []],
 				remainder: ['', []],
-				type: [this.paymentTypes[0].value, [Validators.required]]
+				type: [this.paymentTypes[0].label, [Validators.required]]
 			}),
 			pizzaIds: [this.pizzasIds, [Validators.required]],
 			amount: [this.totalAmount, [Validators.required]]
@@ -78,6 +80,7 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	public createDelivery(): void {
+		this.formDelivery.markAllAsTouched();
 		if (this.formDelivery.valid) {
 			this.spinShipping = true;
 			this.http.create(this.formDelivery.value).subscribe((res) => {
@@ -86,8 +89,6 @@ export class ShippingFormComponent implements OnInit {
 				localStorage.removeItem('basket');
 				this.notification.open({ data: 'Your order has been accepted!' });
 			});
-		} else {
-			this.formDelivery.markAllAsTouched();
 		}
 	}
 }

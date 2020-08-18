@@ -1,0 +1,42 @@
+.page-item.active {
+    outline: none;
+}
+.page-link:focus {
+    z-index: 3;
+    outline: none;
+    box-shadow: none;
+    background: #3a80ba;
+    color: #fff;
+}
+.page-link {
+    width: 55px;
+    height: 48px;
+    border-radius: 8px;
+    margin: 4px;
+    padding-top: 13px;
+    padding-left: 9px;
+    text-align: center;
+
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #3a80ba;
+    border-color: #3a80ba ;
+    text-align: center;
+}
+
+
+.page-item:last-child .page-link,
+.page-item:first-child .page-link{
+    border-radius: 8px;
+}
+
+.page-item:last-child .page-link:hover,
+.page-item:last-child .page-link,
+.page-item:first-child .page-link:hover,
+.page-item:first-child .page-link {
+    background: #fff;
+    color: black;
+}

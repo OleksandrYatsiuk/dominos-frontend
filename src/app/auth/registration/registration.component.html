@@ -1,27 +1,29 @@
 <div class="form">
   <form [formGroup]="registerForm" (ngSubmit)="register()">
 
-    <app-form-item [control]="registerForm.controls.fullName" name="fullName">
-      <input placeholder="Enter Full Name" formControlName="fullName">
-    </app-form-item>
-    <app-form-item [control]="registerForm.controls.username" name="username">
-      <input placeholder="Enter Username" formControlName="username">
+    <app-form-item [control]="registerForm.controls.fullName" field="Full Name">
+      <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
     </app-form-item>
 
-    <app-form-item [control]="registerForm.controls.email" name="email">
-      <input placeholder="Enter Email" formControlName="email">
+    <app-form-item [control]="registerForm.controls.username" field="Username">
+      <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
     </app-form-item>
 
-    <app-form-item [control]="registerForm.controls.password" name="password">
-      <input placeholder="Enter Password" formControlName="password" type="password">
+    <app-form-item [control]="registerForm.controls.email" field="Email">
+      <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
     </app-form-item>
 
-    <app-form-item [control]="registerForm.controls.confirmPassword" name="confirmPassword">
-      <input placeholder="Enter Confirm Password" formControlName="confirmPassword" type="password">
+    <app-form-item [control]="registerForm.controls.password" field="Password">
+      <input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
+    </app-form-item>
+
+    <app-form-item [control]="registerForm.controls.confirmPassword" field="Confirm Password" otherField="Password">
+      <input type="password" class="form-control" formControlName="confirmPassword"
+        placeholder="Enter Confirm Password">
     </app-form-item>
 
     <div class="confirm">
-     <app-spin-button [loading]="spinRegister" name="Register"></app-spin-button>
+      <app-spin-button [loading]="spinRegister" name="Register"></app-spin-button>
     </div>
   </form>
 </div>

@@ -6,10 +6,11 @@ import { confirmPasswordValidator } from '../../core/validators/confirm-password
 import { passwordValidator } from '../../core/validators/password-validator';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
-import { ValidationMessages } from '../../core/models/error-list';
 import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { phoneValidator } from 'src/app/core/validators/phone-validator';
+import { NgbDateParserFormatter, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 // require('../../../assets/data/pizzas/man_2-512.png');
 @Component({
   selector: 'app-user-settings',
@@ -21,7 +22,7 @@ export class UserSettingsComponent implements OnInit {
   minDate: Date;
   maxDate: Date;
   currentUser: any;
-
+  public date: string;
   constructor(
     private http: UserDataService,
     private handler: ErrorHandlerService,
@@ -29,10 +30,11 @@ export class UserSettingsComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
-    private config: ApiConfigService,
-    private userService: UserService) { }
+    private configService: ApiConfigService,
+    private userService: UserService,
+    public formatter: NgbDateParserFormatter) { }
+
   public image = "../../../assets/data/pizzas/profile.png";
-  public validations = ValidationMessages;
   public updateProfileForm: FormGroup;
   public changePasswordForm: FormGroup;
   public spinEditProfile = false;
@@ -74,8 +76,17 @@ export class UserSettingsComponent implements OnInit {
 
   }
 
-  dateInput($event) {
-    console.log($event.target._value);
+
+  private formatDate(date: NgbDate, reverse = 'YY-MM-DD'): string {
+    if (reverse === 'YY-MM-DD') {
+      return `${date.year}-${date.month}-${date.day}`;
+    } else {
+      return `${date.day}-${date.month}-${date.year}`;
+    }
+  }
+
+  dateInput(date: NgbDate) {
+    this.date = this.formatDate(date, 'YY-MM-DD');
   }
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
@@ -97,7 +108,7 @@ export class UserSettingsComponent implements OnInit {
   initForm() {
     this.changePasswordForm = this.formBuilder.group({
       currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, passwordValidator()]],
+      newPassword: ['', [Validators.required, passwordValidator(this.configService.getParameter('passwordRegexExp'))]],
       confirmPassword: ['', [Validators.required]],
     }, {
       validators: confirmPasswordValidator('confirmPassword', 'newPassword')
@@ -106,17 +117,17 @@ export class UserSettingsComponent implements OnInit {
 
   initUpdateProfile() {
     this.updateProfileForm = this.formBuilder.group({
-      fullName: ['', [Validators.required,
-      Validators.minLength(this.config.getParameter('fullNameMinLength')),
-      Validators.maxLength(this.config.getParameter('fullNameMaxLength'))
+      fullName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
+      )
       ]],
       username: ['', [Validators.required,
-      Validators.minLength(this.config.getParameter('usernameMinLength')),
-      Validators.maxLength(this.config.getParameter('usernameMaxLength'))
+      Validators.minLength(this.configService.getParameter('usernameMinLength')),
+      Validators.maxLength(this.configService.getParameter('usernameMaxLength'))
       ]],
-      email: ['', [Validators.required]],
-      birthday: ['', []],
-      phone: ['', []],
+      email: ['', [Validators.required, Validators.email]],
+      birthday: [null, []],
+      phone: ['', [phoneValidator(this.configService.getParameter('phoneRegexExp'))]],
     });
   }
 

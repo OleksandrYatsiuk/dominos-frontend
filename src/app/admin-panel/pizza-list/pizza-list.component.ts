@@ -13,6 +13,7 @@ export class PizzaListComponent implements OnInit {
   public page = 1;
   public pages = 1;
   public pizzas: any
+  public collectionSize: number
   constructor(private http: PizzaDataService,
     public dialog: MatDialog,
     public notification: NotificationService
@@ -24,6 +25,7 @@ export class PizzaListComponent implements OnInit {
       this.pizzas = result;
       this.page = _meta.pagination.page;
       this.pages = _meta.pagination.pages;
+      this.collectionSize = _meta.pagination.total/20
     });
   }
 
@@ -31,6 +33,15 @@ export class PizzaListComponent implements OnInit {
   public setPage(page: number): void {
     if (page < 1) { page = 1 }
     this.http.getPizzas({ params: { page: page, limit: 20 } }).subscribe(({
+      result, _meta }) => {
+      this.pizzas = result;
+      this.page = _meta.pagination.page;
+      this.pages = _meta.pagination.pages;
+    });
+  }
+
+  public showPage(event: number) {
+    this.http.getPizzas({ params: { page: event, limit: 20 } }).subscribe(({
       result, _meta }) => {
       this.pizzas = result;
       this.page = _meta.pagination.page;

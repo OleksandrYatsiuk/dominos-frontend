@@ -9,6 +9,9 @@ export interface ConfigModel {
   errors: {
     [key: number]: string;
   };
+  lists: {
+    [key: number]: object;
+  };
 }
 
 @Injectable({ providedIn: 'root' })
@@ -46,6 +49,10 @@ export class ApiConfigService {
 
   public getParameter<T = number | string>(name: string): T {
     return this.config.params[name] as T;
+  }
+
+  public getStatuses<T = string>(name: string): T {
+    return this.config.lists[name] as T;
   }
 
 }

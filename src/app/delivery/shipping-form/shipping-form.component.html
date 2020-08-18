@@ -4,65 +4,70 @@
     <h3>Contacts</h3>
     <div class="row-item">
 
-      <app-form-item [control]="formDelivery.controls.firstName" name="firstName">
-        <input placeholder="Enter First Name" formControlName="firstName">
-      </app-form-item>
-      <app-form-item [control]="formDelivery.controls.phone" name="phone">
-        <input mobilePhone placeholder="Enter Phone" formControlName="phone">
+      <app-form-item [control]="formDelivery.controls.firstName" field="First Name">
+        <input class="form-control" placeholder="Enter First Name" formControlName="firstName" type="text">
       </app-form-item>
 
-      <app-form-item [control]="formDelivery.controls.email" name="email">
-        <input placeholder="Enter Email" formControlName="email">
+      <app-form-item [control]="formDelivery.controls.phone" field="Phone">
+        <input class="form-control" placeholder="Enter Phone" formControlName="phone" type="text">
+      </app-form-item>
+
+      <app-form-item [control]="formDelivery.controls.email" field="Email">
+        <input class="form-control" placeholder="Enter Email" formControlName="email" type="email">
       </app-form-item>
 
     </div>
-    <h3>Aдреса</h3>
+    <h3>Address</h3>
     <div formGroupName="address">
       <div class="row-item">
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].street" name="street">
-          <input placeholder="Enter Street" formControlName="street">
+
+        <app-form-item [control]="formDelivery.get('address')['controls'].street" field="Street">
+          <input class="form-control" placeholder="Enter Street" formControlName="street" type="text">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].house" name="house">
-          <input placeholder="Enter House" formControlName="house">
+        <app-form-item [control]="formDelivery.get('address')['controls'].house" field="House">
+          <input class="form-control" placeholder="Enter House" formControlName="house" type="text">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].flat" name="flat">
-          <input placeholder="Enter Flat" formControlName="flat">
+        <app-form-item [control]="formDelivery.get('address')['controls'].flat" field="Flat">
+          <input class="form-control" placeholder="Enter Flat" formControlName="flat" type="text">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].entrance" name="entrance">
-          <input placeholder="Enter Entrance" formControlName="entrance">
+        <app-form-item [control]="formDelivery.get('address')['controls'].entrance" field="Entrance">
+          <input class="form-control" placeholder="Enter Entrance" formControlName="entrance" type="text">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].code" name="code">
-          <input placeholder="Enter Code" type="number" formControlName="code">
+        <app-form-item [control]="formDelivery.get('address')['controls'].code" field="Code">
+          <input class="form-control" placeholder="Enter Code" formControlName="code" type="number">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('address')['controls'].floor" name="floor">
-          <input placeholder="Enter Floor" type="number" formControlName="floor">
+        <app-form-item [control]="formDelivery.get('address')['controls'].floor" field="Floor">
+          <input class="form-control" placeholder="Enter Floor" formControlName="floor" type="number">
         </app-form-item>
+
       </div>
-      <div class="row-item">
-        <app-form-item [control]="formDelivery.get('address')['controls'].comment" name="comment" class="field">
-          <textarea placeholder="Enter Comment" formControlName="comment"></textarea>
-        </app-form-item>
-      </div>
+    </div>
 
+    <div class="row-item">
+      <app-form-item [control]="formDelivery.controls.comment" field="Comment">
+        <textarea class="form-control" formControlName="comment" placeholder="Enter Comment"></textarea>
+      </app-form-item>
     </div>
 
     <h3>Date and Time</h3>
 
-    <div formGroupName="date">
+     <div formGroupName="date">
+
       <div class="row-item">
-        <app-form-item [control]="formDelivery.get('date')['controls'].date" name="date" class="date">
-          <input [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+
+        <app-form-item [control]="formDelivery.get('date')['controls'].date" field="Date">
+          <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" [min]="minDate"
+            [max]="maxDate" value="2020-08-15">
         </app-form-item>
-        <app-form-item [control]="formDelivery.get('date')['controls'].time" name="time" class="date">
-          <input type="time" placeholder="Enter Time" formControlName="time" step="600">
+
+        <app-form-item [control]="formDelivery.get('date')['controls'].time" field="Tine">
+          <input type="time" class="form-control" placeholder="Enter Time" formControlName="time" step="600">
         </app-form-item>
       </div>
     </div>
@@ -71,30 +76,31 @@
     <h3>Payment</h3>
 
     <div formGroupName="payment">
+
       <div class="row-item">
-        <app-form-item [control]="formDelivery.get('payment')['controls'].coupon" name="coupon" class="payment">
-          <input placeholder="Enter Coupon" formControlName="coupon">
+
+        <app-form-item [control]="formDelivery.get('payment')['controls'].coupon" field="Coupon">
+          <input type="text" class="form-control" placeholder="Enter Coupon" formControlName="coupon">
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('payment')['controls'].remainder" name="remainder" class="payment">
-          <input placeholder="Enter Remainder" formControlName="remainder">
+        <app-form-item [control]="formDelivery.get('payment')['controls'].remainder" field="Remainder">
+          <input type="text" class="form-control" placeholder="Enter Remainder" formControlName="remainder">
         </app-form-item>
       </div>
 
       <div class="row-item">
-        <app-form-item [control]="formDelivery.get('payment')['controls'].type" name="type" class="field">
-          <mat-select formControlName="type">
-            <mat-option *ngFor="let type of paymentTypes" [value]=type.value>
-              {{type.name}}
-            </mat-option>
-          </mat-select>
+
+        <app-form-item [control]="formDelivery.get('payment')['controls'].type" field="Payment Type">
+          <app-select formControlName="type" placeholder="Select Payment Type" [items]="paymentTypes">
+          </app-select>
         </app-form-item>
       </div>
+
     </div>
 
     <div class="result">
       <h2>Total</h2>
-      <h2>{{totalAmount}} грн</h2>
+      <h2>{{totalAmount}} UAH</h2>
       <app-spin-button type="submit" [loading]="spinShipping" name="Order"></app-spin-button>
     </div>
 

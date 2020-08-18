@@ -8,7 +8,6 @@ import { CarryoutComponent } from './carryout/carryout.component';
 import { MaterialModule } from '../shared/material.module';
 import { MapComponent } from '../shared/components/map/map.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
-import { CoreModule } from '../core/core.module';
 import { ModalComponent } from '../shared/components/modal/modal.component';
 
 
@@ -23,7 +22,6 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
     SharedModule,
     DeliveryRoutingModule,
     MaterialModule,
-    CoreModule
   ],
   entryComponents: [MapComponent, ModalComponent],
   providers: [

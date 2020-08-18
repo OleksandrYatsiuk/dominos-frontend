@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
-import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared';
 import { MaterialModule } from '../shared/material.module';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
@@ -27,7 +26,6 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
     IngredientListComponent
   ],
   imports: [
-    CoreModule,
     CommonModule,
     AdminPanelRoutingModule,
     SharedModule,
