@@ -38,9 +38,10 @@
 
       <div class="row-item">
 
+
         <app-form-item [control]="carryOut.get('date')['controls'].date" field="Date">
-          <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" [min]="minDate"
-            [max]="maxDate" value="2020-08-15">
+          <app-datepicker [min]="minDate" [date]="carryOut.get('date')['controls'].date.value||minDate"
+            (select)="showDate($event)"></app-datepicker>
         </app-form-item>
 
         <app-form-item [control]="carryOut.get('date')['controls'].time" field="Tine">

@@ -1,25 +1,14 @@
+.dropdown-menu::-webkit-scrollbar,
 body::-webkit-scrollbar {
     width: 0.5em;
 }
 
+.dropdown-menu::-webkit-scrollbar-track,
 body::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
+.dropdown-menu::-webkit-scrollbar-thumb,
 body::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
-}
-
-.dropdown-menu::-webkit-scrollbar {
-    width: 0.5em;
-}
-
-.dropdown-menu::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb {
     background-color: darkgrey;
     outline: 1px solid slategrey;
 }

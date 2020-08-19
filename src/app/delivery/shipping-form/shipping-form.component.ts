@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
@@ -90,5 +90,10 @@ export class ShippingFormComponent implements OnInit {
 				this.notification.open({ data: 'Your order has been accepted!' });
 			});
 		}
+	}
+
+	showDate(date: Date) {
+		const control = this.formDelivery.get('date')['controls'].date as FormControl;
+		control.setValue(date);
 	}
 }

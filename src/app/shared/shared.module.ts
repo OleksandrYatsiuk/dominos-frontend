@@ -37,16 +37,15 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { DatePickerComponent } from './components/datapicker/datepicker.component';
 
 @NgModule({
   declarations: [
+    // components
     LoginComponent,
     FileUploaderComponent,
-    MobilePhoneDirective,
     HeaderComponent,
     FooterComponent,
-    PizzaFilterPipe,
-    CustomLabelPipe,
     BasketCardItemComponent,
     MapComponent,
     ModalComponent,
@@ -54,11 +53,18 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     SpinButtonComponent,
     InputComponent,
     FormItemComponent,
-    MenuDirective,
-    ExtractPipe,
     SelectComponent,
     ValidationErrorComponent,
     MultiSelectComponent,
+    DatePickerComponent,
+    // pipes
+    PizzaFilterPipe,
+    CustomLabelPipe,
+    ExtractPipe,
+    // directives
+    MobilePhoneDirective,
+    MenuDirective
+
   ],
   imports: [
     FormsModule,
@@ -113,7 +119,8 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     SelectComponent,
     ValidationErrorComponent,
     MobilePhoneDirective,
-    FileUploaderComponent
+    FileUploaderComponent,
+    DatePickerComponent
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

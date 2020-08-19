@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
 import { MapComponent } from 'src/app/shared/components/map/map.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/core/services/user.service';
@@ -52,6 +52,11 @@ export class CarryoutComponent implements OnInit {
         });
       }
     });
+  }
+
+  showDate(date) {
+    const control = this.carryOut.get('date')['controls'].date as FormControl;
+    control.setValue(date);
   }
 
   initForm(): void {

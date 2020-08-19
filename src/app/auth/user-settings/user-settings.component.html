@@ -1,7 +1,7 @@
 <div class="profile_settings">
 
   <div class="portfolio">
-  <img src="../../../assets/data/profile.png" alt="user icon" />
+    <img src="../../../assets/data/profile.png" alt="user icon" />
 
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
@@ -42,11 +42,7 @@
       </app-form-item>
 
       <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
-        <input type="date" class="form-control" formControlName="birthday" placeholder="Enter Birthday"
-          placeholder="yyyy-mm-dd">
-
-        <!-- <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker
-            #d="ngbDatepicker" (click)="d.toggle()" formControlName="birthday" (dateSelect)=dateInput($event)> -->
+        <app-datepicker [date]="updateProfileForm.controls.birthday.value" (select)="showDate($event)"></app-datepicker>
       </app-form-item>
 
       <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">

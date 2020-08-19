@@ -11,7 +11,6 @@ import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
 import { NgbDateParserFormatter, NgbDate } from '@ng-bootstrap/ng-bootstrap';
-// require('../../../assets/data/pizzas/man_2-512.png');
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
@@ -76,25 +75,18 @@ export class UserSettingsComponent implements OnInit {
 
   }
 
-
-  private formatDate(date: NgbDate, reverse = 'YY-MM-DD'): string {
-    if (reverse === 'YY-MM-DD') {
-      return `${date.year}-${date.month}-${date.day}`;
-    } else {
-      return `${date.day}-${date.month}-${date.year}`;
-    }
+  public showDate(date: string): void {
+    this.updateProfileForm.controls.birthday.setValue(date);
   }
 
-  dateInput(date: NgbDate) {
-    this.date = this.formatDate(date, 'YY-MM-DD');
-  }
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = !this.spinEditProfile;
-      this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code }) => {
+      this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code, result }) => {
         if (code === 200) {
           this.spinEditProfile = !this.spinEditProfile;
+          this.userService.setCurrentUserData(result)
           this.notification.open(
             { data: 'Profile has been successfully updated!' });
         }
