@@ -23,7 +23,6 @@ import { environment } from 'src/environments/environment';
 import { NotificationComponent } from './components/notification/notification.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
-import { InputComponent } from './components/input/input.component';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
 import { MenuDirective } from './components/menu.directive';
@@ -38,6 +37,7 @@ import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { DatePickerComponent } from './components/datapicker/datepicker.component';
+import { MenuComponent } from './layout/header/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -46,12 +46,12 @@ import { DatePickerComponent } from './components/datapicker/datepicker.componen
     FileUploaderComponent,
     HeaderComponent,
     FooterComponent,
+    MenuComponent,
     BasketCardItemComponent,
     MapComponent,
     ModalComponent,
     NotificationComponent,
     SpinButtonComponent,
-    InputComponent,
     FormItemComponent,
     SelectComponent,
     ValidationErrorComponent,
@@ -109,7 +109,6 @@ import { DatePickerComponent } from './components/datapicker/datepicker.componen
     AgmCoreModule,
     SpinButtonComponent,
     NgxPermissionsModule,
-    InputComponent,
     PizzaFilterPipe,
     FormItemComponent,
     MenuDirective,
@@ -120,7 +119,8 @@ import { DatePickerComponent } from './components/datapicker/datepicker.componen
     ValidationErrorComponent,
     MobilePhoneDirective,
     FileUploaderComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    MenuComponent
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },

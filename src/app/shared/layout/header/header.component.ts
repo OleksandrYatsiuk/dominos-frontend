@@ -24,12 +24,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private basketService: BasketService,
-    private http: UserDataService,
     private geolocation: GeolocationService,
     private userService: UserService,
-    private router: Router,
     public dialog: MatDialog,
-    private config: ApiConfigService
+    private config: ApiConfigService,
+    private http: UserDataService,
+    private router: Router
   ) { }
 
   ngOnInit() {
