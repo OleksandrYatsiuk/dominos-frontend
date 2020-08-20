@@ -17,7 +17,6 @@
 }
 
 ul.form-control {
-    min-width: 200px;
     color: rgb(153, 150, 150);
     margin-bottom: 0px;
 
@@ -51,8 +50,11 @@ ul.form-control {
     font-size: 22px;
 }
 .multiselect-dropdown {
-    
+    min-width: 300px;
     .dropdown-btn {
+        span{
+            font-size: 14px;
+        }
         .selected-item {
             background: #d0d4d8 !important;
             color: #000000c7 !important;

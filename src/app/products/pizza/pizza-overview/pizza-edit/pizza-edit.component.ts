@@ -64,7 +64,7 @@ export class PizzaEditComponent implements OnInit {
 
 	initForm() {
 		this.uploadImage = this.formBuilder.group({
-			image: [this.pizza.image, [Validators.required]]
+			file: [this.pizza.image]
 		});
 		this.pizzaForm = this.formBuilder.group({
 			name: [this.pizza.name, [Validators.required, Validators.maxLength(15)]],
@@ -95,27 +95,31 @@ export class PizzaEditComponent implements OnInit {
 			let ingredients: any = this.pizzaForm.get('ingredients').value
 			ingredients = ingredients.map(el => el.id);
 			const data = Object.assign(this.pizzaForm.value, { ingredients });
-			return this.http.edit(this.pizza.id, data).pipe(pluck('result')).subscribe(
-				(pizza) => {
-					this.loading = !this.loading;
-					this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+			return this.http.edit(this.pizza.id, data)
+				.pipe(pluck('result'))
+				.subscribe(pizza => {
+					if (this.file) {
+						this.http.upload(this.pizza.id, this.file).subscribe((result) => {
+							this.loading = !this.loading;
+							this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+						}, (error) => {
+							this.loading = !this.loading;
+							this.handler.validation(error, this.pizzaForm);
+						});
+					} else {
+						this.loading = !this.loading;
+						this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+					}
 				},
-				(error) => {
-					this.loading = !this.loading;
-					this.handler.validation(error, this.pizzaForm);
-				}
-			);
+					(error) => {
+						this.loading = !this.loading;
+						this.handler.validation(error, this.uploadImage);
+					}
+				);
 		}
 	}
 
 	upload() {
-		console.log(this.file);
-		if (this.file) {
-			this.loading = !this.loading;
-			this.http.upload(this.pizza.id, this.file).subscribe((result) => {
-				this.loading = !this.loading;
-				this.notification.open({ data: 'Image has been successfully uploaded!' });
-			});
-		}
+
 	}
 }

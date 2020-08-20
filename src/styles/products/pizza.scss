@@ -1,0 +1,28 @@
+.product {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+
+  &_image {
+    margin: 0 auto;
+  }
+  &_form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px auto 0;
+    min-width: 350px;
+    width: 100%;
+    max-width: 1030px;
+  }
+
+  .form-row {
+    width: 100%;
+    padding: 0 5px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  app-form-item {
+    margin: 0 20px;
+  }
+}

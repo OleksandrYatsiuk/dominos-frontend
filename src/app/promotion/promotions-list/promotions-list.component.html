@@ -1,6 +1,5 @@
-<div class="list">
     <div *ngFor="let promotion of promotions" class="promotion">
-        <div class="title">
+        <div class="page">
             <img class="promotion-image" src="{{promotion.image}}" alt="noopener noreferrer">
             <div class="promotion-description">
                 <h6>{{promotion.startedAt|date}}</h6>
@@ -13,4 +12,3 @@
         </div>
         <hr>
     </div>
-</div>

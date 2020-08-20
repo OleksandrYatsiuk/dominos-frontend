@@ -131,7 +131,7 @@ export class UserSettingsComponent implements OnInit {
         this.spinChangePassword = false;
         this.notification.open(
           { data: 'Password has been successfully changed!' });
-        this.router.navigate(['/']);
+        this.changePasswordForm.reset();
       }, (error) => {
         this.spinChangePassword = false;
         this.handler.validation(error, this.changePasswordForm);

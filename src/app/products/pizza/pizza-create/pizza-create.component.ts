@@ -1,13 +1,11 @@
-import { Component, OnInit, ErrorHandler, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { RootService } from '../../../core/services/root.service';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { Ingredients } from '../../../core/models/pizza.interface';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { MatStepper } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../pizza-data.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 
 @Component({
@@ -17,19 +15,16 @@ import { pluck } from 'rxjs/operators';
 })
 export class PizzaCreateComponent implements OnInit {
 
-  isLinear = false;
-  ingredients: Ingredients[];
-
-
-  public spinCreatePizza = false;
-  public spinUpload = false;
+  public ingredients: Ingredients[];
+  public loading = false;
+  public file: FormData;
+  public url: string;
   categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
   formCreatingPizza: FormGroup;
   uploadImage: FormGroup;
-  pizzaId: string = ""
+
   dropdownSettings: { singleSelection: boolean; idField: string; textField: string; selectAllText: string; unSelectAllText: string; itemsShowLimit: number; allowSearchFilter: boolean; };
-  file: any;
-  url: any;
+
   constructor(
     private http: PizzaDataService,
     private root: RootService,
@@ -76,41 +71,35 @@ export class PizzaCreateComponent implements OnInit {
     });
   }
 
-  showFile(event) {
+  setFile(event) {
     this.url = event.src;
     this.file = event.file;
   }
-
-  upload() {
-    if (this.file) {
-      this.spinUpload = !this.spinUpload;
-      this.http.upload(this.pizzaId, this.file).subscribe(result => {
-        this.spinUpload = !this.spinUpload;
-        this.notification.open({ data: 'Image has been successfully uploaded!' });
-        this.router.navigateByUrl('/admin/pizzas')
-      });
-    }
-
-  }
-
   onSubmit() {
     this.formCreatingPizza.markAllAsTouched();
     if (this.formCreatingPizza.valid) {
-      this.spinCreatePizza = !this.spinCreatePizza;
+      this.loading = !this.loading;
       let ingredients: any = this.formCreatingPizza.get('ingredients').value
       ingredients = ingredients.map(el => el.id);
       const data = Object.assign(this.formCreatingPizza.value, { ingredients });
-      return this.http.create(data).subscribe(({ code, result }) => {
-        if (code === 201) {
-          this.pizzaId = result.id || result['_id'];
-          this.spinCreatePizza = !this.spinCreatePizza;
+      return this.http.create(data).subscribe(({ result }) => {
+        if (this.file) {
+          this.http.upload(result.id, this.file).subscribe(res => {
+            this.notification.open({ data: `Pizza '${result.name}' has been successfully created!` });
+            this.router.navigateByUrl('/admin/pizzas')
+          }, (error) => {
+            this.loading = !this.loading;
+            this.handler.validation(error, this.uploadImage);
+          });
+        } else {
+          this.loading = !this.loading;
           this.notification.open({ data: `Pizza '${result.name}' has been successfully created!` });
+          this.router.navigateByUrl('/admin/pizzas')
         }
-      },
-        (error) => {
-          this.spinCreatePizza = !this.spinCreatePizza;
-          this.handler.validation(error, this.formCreatingPizza);
-        });
+      }, (error) => {
+        this.loading = !this.loading;
+        this.handler.validation(error, this.formCreatingPizza);
+      });
     }
   }
 }

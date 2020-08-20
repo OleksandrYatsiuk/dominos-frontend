@@ -6,19 +6,19 @@
     <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
       <div class="change-password">
 
-        <app-form-item [control]="changePasswordForm.controls.currentPassword" name="Current Password">
+        <app-form-item [control]="changePasswordForm.controls.currentPassword" field="Current Password">
           <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
             type="password">
         </app-form-item>
 
-        <app-form-item [control]="changePasswordForm.controls.newPassword" name="New Password">
+        <app-form-item [control]="changePasswordForm.controls.newPassword" field="New Password">
           <input class="form-control" placeholder="Enter New Password" formControlName="newPassword"
             type="new-password">
         </app-form-item>
 
-        <app-form-item [control]="changePasswordForm.controls.confirmPassword" name="Confirm Password"
+        <app-form-item [control]="changePasswordForm.controls.confirmPassword" field="Confirm Password"
           otherField="New Password">
-          <input class="form-control" placeholder="Enter confirmPassword" formControlName="confirmPassword"
+          <input class="form-control" placeholder="Enter Confirm Password" formControlName="confirmPassword"
             type="new-password">
         </app-form-item>
         <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>

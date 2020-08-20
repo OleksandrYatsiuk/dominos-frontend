@@ -5,11 +5,12 @@
 @import "./styles/inputs.scss";
 @import "./styles/table.scss";
 @import "./styles/carusel.scss";
-@import "./styles/logo.scss";
 @import "./styles/delivery.scss";
 @import "./styles/pagination.scss";
 @import "./styles/select.scss";
 @import "./styles/scroll.scss";
+@import "./styles/texts.scss";
+@import "./styles/products/index.scss";
 
 html,
 body {
@@ -27,8 +28,10 @@ input {
   outline: none;
 }
 
-.mat-horizontal-content-container {
-  padding: 0 24px 150px 24px !important;
+.page {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
 }
 
 app-root {
@@ -37,48 +40,6 @@ app-root {
   min-height: 100%;
 }
 
-.mat-form-field-infix {
-  min-width: 100px !important;
-  textarea.mat-input-element {
-    width: 100%;
-  }
-}
-.mat-button-wrapper {
-  .mat-spinner {
-    margin: auto;
-    text-align: center;
-    height: 100% !important;
-    position: fixed;
-    svg {
-      height: 100% !important;
-    }
-  }
-}
-.mat-progress-spinner circle,
-.mat-spinner circle {
-  stroke: white;
-}
-.mat-menu-panel {
-  background-color: gray;
-  border-radius: 4px;
-  margin-top: 4px;
-  min-width: 150px !important;
-}
-
-button.mat-menu-item {
-  outline: none;
-  &:hover {
-    color: white !important;
-    font-weight: bold;
-  }
-}
-
-mat-form-field.mat-form-field-appearance-outline .mat-form-field-wrapper {
-  margin-bottom: 1em;
-}
-.mat-raised-button.mat-primary {
-  outline: none;
-}
 snack-bar-container.mat-snack-bar-container {
   min-width: 500px;
   padding: 0px;
@@ -105,9 +66,13 @@ input[type="number"]::-webkit-inner-spin-button {
   width: 100%;
   color: #f44336;
   font-size: 13px;
-
+  ul.form-control,
   input {
     border: 1px solid #f44336;
+  }
+  .dropdown-btn {
+    border: 1px solid #f44336 !important;
+    color: #495057;
   }
 }
 
