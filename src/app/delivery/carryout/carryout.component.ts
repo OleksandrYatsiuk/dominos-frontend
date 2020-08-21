@@ -73,7 +73,7 @@ export class CarryoutComponent implements OnInit {
       payment: this.formBuilder.group({
         coupon: ['', []],
         remainder: ['', []],
-        type: ['', [Validators.required]],
+        type: [this.paymentTypes[0].label, [Validators.required]],
       }),
       pizzaIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],

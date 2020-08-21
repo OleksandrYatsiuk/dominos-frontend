@@ -1,24 +1,28 @@
-.table-dark th,
-.table-dark td,
-.table-dark thead th {
-    border-color: white;
+thead th:last-of-type,
+tbody td:last-of-type {
+    width: 100px;
+    outline: none;
 }
 
-.table-dark mat-icon,
-.page-item {
+.action {
+    color: #14a7ff;
     cursor: pointer;
-}
-.page-item.disabled {
-    cursor: default;
+    &:hover {
+        font-weight: bolder;
+    }
 }
 
-tbody .icon-action {
+.icon-action {
     display: flex;
-    align-items: center;
     justify-content: space-around;
+    mat-icon {
+        &:focus {
+            outline: none;
+        }
+    }
 }
-
-.pagination {
-    justify-content: center;
-    padding-bottom: 10px;
-  }
+.table-responsive-sm {
+    margin: auto;
+    padding: 10px 10px;
+    width: 99%;
+}

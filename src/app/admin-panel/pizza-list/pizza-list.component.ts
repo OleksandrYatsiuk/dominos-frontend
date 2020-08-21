@@ -12,7 +12,7 @@ import { ModalComponent } from 'src/app/shared/components/modal/modal.component'
 export class PizzaListComponent implements OnInit {
   public page = 1;
   public pages = 1;
-  public pizzas: any
+  public pizzas: object[];
   public collectionSize: number
   constructor(private http: PizzaDataService,
     public dialog: MatDialog,

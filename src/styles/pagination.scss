@@ -1,3 +1,7 @@
+.pagination {
+    justify-content: center;
+}
+
 .page-item.active {
     outline: none;
 }
@@ -16,20 +20,18 @@
     padding-top: 13px;
     padding-left: 9px;
     text-align: center;
-
 }
 
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
     background-color: #3a80ba;
-    border-color: #3a80ba ;
+    border-color: #3a80ba;
     text-align: center;
 }
 
-
 .page-item:last-child .page-link,
-.page-item:first-child .page-link{
+.page-item:first-child .page-link {
     border-radius: 8px;
 }
 

@@ -1,30 +1,35 @@
-<table class="table table-hover table-dark">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">
-            <app-spin-button name="Add New" class="nav-item" color="basic" routerLink="/ingredient/create"></app-spin-button>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ingredient of ingredients;index as i;">
-        <th scope="row">{{i+1}}</th>
-        <td>{{ingredient.id}}</td>
-        <td>{{ingredient.name}}</td>
-        <td>
-          <div class="icon-action">
-            <mat-icon (click)="delete(ingredient)" aria-hidden="false" aria-label="Example home icon">
-                delete_forever
-            </mat-icon>
-            <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
+
+<div class="table-responsive-sm">
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">ID</th>
+      <th scope="col">Name</th>
+      <th scope="col" routerLink="/ingredient/create">
+        <span class="action">Add New</span>
+    </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let ingredient of ingredients;index as i;">
+      <th scope="row">{{i+1}}</th>
+      <td>{{ingredient.id}}</td>
+      <td>{{ingredient.name}}</td>
+      <td>
+        <div class="icon-action">
+          <mat-icon (click)="delete(ingredient)" aria-hidden="false" aria-label="Example home icon">
+            delete_forever
+          </mat-icon>
+          <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
         </div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="pagination" *ngIf="collectionSize>1">
   <ngb-pagination [collectionSize]="collectionSize*10" [(page)]="page" [maxSize]="4" [rotate]="true"
-  (pageChange)="showPage($event)" aria-label="Custom pagination">
-</ngb-pagination>
+    (pageChange)="showPage($event)" aria-label="Custom pagination">
+  </ngb-pagination>
+</div>
