@@ -42,7 +42,7 @@
       </app-form-item>
 
       <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
-        <app-datepicker [date]="updateProfileForm.controls.birthday.value" (select)="showDate($event)"></app-datepicker>
+        <app-datepicker formControlName="birthday" [minDate]="minDate"></app-datepicker>
       </app-form-item>
 
       <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">

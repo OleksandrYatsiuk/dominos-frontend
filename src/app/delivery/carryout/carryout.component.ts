@@ -68,7 +68,7 @@ export class CarryoutComponent implements OnInit {
       comment: ['', []],
       date: this.formBuilder.group({
         date: [new Date(), [Validators.required]],
-        time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]],
+        time: [new Date(), [Validators.required]],
       }),
       payment: this.formBuilder.group({
         coupon: ['', []],

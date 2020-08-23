@@ -1,0 +1,35 @@
+.modal-body {
+    margin: auto;
+}
+.material-icons {
+    font-size: 30px;
+    vertical-align: middle;
+}
+.btn-outline-secondary {
+    width: 70px;
+    border-radius: 0 6px 6px 0;
+    border: 1px solid #ced4da;
+}
+
+.form-inline .input-group,
+.form-inline .custom-select {
+    width: 100%;
+}
+.btn-outline-secondary:not(:disabled):not(.disabled):active:focus,
+.btn-outline-secondary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-outline-secondary.dropdown-toggle:focus {
+    box-shadow: none;
+    outline: none;
+}
+.btn-outline-secondary:focus,
+.btn-outline-secondary.focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control {
+    min-width: 0px;
+}
+.form-control:disabled {
+    cursor: not-allowed;
+}

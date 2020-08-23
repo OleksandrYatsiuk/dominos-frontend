@@ -43,6 +43,7 @@
     "js-marker-clusterer": "^1.0.0",
     "moment": "^2.27.0",
     "ng-multiselect-dropdown": "^0.2.10",
+    "ngx-material-timepicker": "^5.5.3",
     "ngx-permissions": "^7.0.3",
     "ngx-select-dropdown": "^1.4.3",
     "path": "^0.12.7",

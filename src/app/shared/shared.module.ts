@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule, } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
@@ -36,8 +36,10 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { DatePickerComponent } from './components/datapicker/datepicker.component';
+import { DatePickerComponent } from './components/datepicker/datepicker.component';
 import { MenuComponent } from './layout/header/menu/menu.component';
+import { TimePickerComponent } from './components/time-picker/time-picker.component';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { MenuComponent } from './layout/header/menu/menu.component';
     ValidationErrorComponent,
     MultiSelectComponent,
     DatePickerComponent,
+    TimePickerComponent,
     // pipes
     PizzaFilterPipe,
     CustomLabelPipe,
@@ -85,6 +88,7 @@ import { MenuComponent } from './layout/header/menu/menu.component';
     AgmDirectionModule,
     MatTabsModule,
     MatStepperModule,
+    NgxMaterialTimepickerModule,
     NgxPermissionsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
@@ -94,37 +98,44 @@ import { MenuComponent } from './layout/header/menu/menu.component';
 
   ],
   exports: [
+    //components
     MultiSelectComponent,
-    NgbModule,
     BasketCardItemComponent,
     HeaderComponent,
     FooterComponent,
+    MapComponent,
+    SpinButtonComponent,
+    FormItemComponent,
+    SelectComponent,
+    ValidationErrorComponent,
+    FileUploaderComponent,
+    DatePickerComponent,
+    MenuComponent,
+    TimePickerComponent,
+    //modules
     FormsModule,
+    NgbModule,
     ReactiveFormsModule,
     RouterModule,
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
-    MapComponent,
     AgmCoreModule,
-    SpinButtonComponent,
     NgxPermissionsModule,
-    PizzaFilterPipe,
-    FormItemComponent,
-    MenuDirective,
     MatTabsModule,
     MatStepperModule,
+    NgxMaterialTimepickerModule,
+    //pipes
+    PizzaFilterPipe,
     ExtractPipe,
-    SelectComponent,
-    ValidationErrorComponent,
+    //directives
     MobilePhoneDirective,
-    FileUploaderComponent,
-    DatePickerComponent,
-    MenuComponent
+    MenuDirective,
   ],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
+
   entryComponents: []
 
 })

@@ -34,7 +34,7 @@ export class ShippingFormComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
-
+		this.pizzasIds = this.basketService._storage.map(el => el.id)
 		this.initForm();
 		this.updateForm();
 	}
@@ -67,7 +67,7 @@ export class ShippingFormComponent implements OnInit {
 			comment: ['', []],
 			date: this.formBuilder.group({
 				date: [new Date(), [Validators.required]],
-				time: [`${new Date().getHours() + 1}:${new Date().getMinutes()}`, [Validators.required]]
+				time: [new Date(), [Validators.required]]
 			}),
 			payment: this.formBuilder.group({
 				coupon: ['', []],
@@ -80,6 +80,7 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	public createDelivery(): void {
+		console.log(this.formDelivery)
 		this.formDelivery.markAllAsTouched();
 		if (this.formDelivery.valid) {
 			this.spinShipping = true;
@@ -90,10 +91,5 @@ export class ShippingFormComponent implements OnInit {
 				this.notification.open({ data: 'Your order has been accepted!' });
 			});
 		}
-	}
-
-	showDate(date: Date) {
-		const control = this.formDelivery.get('date')['controls'].date as FormControl;
-		control.setValue(date);
 	}
 }

@@ -6,15 +6,10 @@ import { FormControl } from '@angular/forms';
   templateUrl: './form-item.component.html',
   styleUrls: ['./form-item.component.scss']
 })
-export class FormItemComponent implements OnInit {
+export class FormItemComponent {
 
   constructor() { }
   @Input() control: FormControl;
   @Input() field = 'Field';
   @Input() otherField = "Other Field";
-
-  ngOnInit() {
-
-  }
-
 }

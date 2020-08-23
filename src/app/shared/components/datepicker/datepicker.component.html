@@ -1,0 +1,11 @@
+<form class="form-inline">
+    <div class="input-group">
+        <input class="form-control" [value]="value|date" name="datepicker" ngbDatepicker #d="ngbDatepicker" [minDate]="minDate"
+           [maxDate]="maxDate" (dateSelect)="change($event)" (input)="change($event)" >
+        <div class="input-group-append">
+            <button class="btn-outline-secondary" type="button" (click)="d.toggle()">
+                <span class="material-icons"> today </span>
+            </button>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,4 @@
-<div class="dp-header-desktop">
+<header class="dp-header-desktop">
   <div class="fake-header">
     <button class="nav" *ngxPermissionsOnly="canManagePizza" routerLink="/admin/pizzas">Admin Panel</button>
     <app-menu *ngIf="currentUser" [user]="currentUser">
@@ -38,4 +38,4 @@
       </app-menu>
     </div>
   </div>
-</div>
+</header>

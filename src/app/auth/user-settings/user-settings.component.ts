@@ -10,23 +10,22 @@ import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
-import { NgbDateParserFormatter, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit {
+  public minDate: NgbDateStruct = { year: 1950, month: 1, day: 1 };
   message: { type: string; message: string; };
-  minDate: Date;
-  maxDate: Date;
+  
   currentUser: any;
   public date: string;
   constructor(
     private http: UserDataService,
     private handler: ErrorHandlerService,
     private title: Title,
-    private router: Router,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private configService: ApiConfigService,
@@ -50,9 +49,6 @@ export class UserSettingsComponent implements OnInit {
   get phone() { return this.updateProfileForm.get('phone'); }
 
   ngOnInit(): void {
-    const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 50, 0, 1);
-    this.maxDate = new Date(currentYear + 0, 0, 31);
     this.initForm();
     this.initUpdateProfile();
     this.title.setTitle('User Settings');
@@ -71,13 +67,8 @@ export class UserSettingsComponent implements OnInit {
         }
       }
     });
-
-
   }
 
-  public showDate(date: string): void {
-    this.updateProfileForm.controls.birthday.setValue(date);
-  }
 
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();

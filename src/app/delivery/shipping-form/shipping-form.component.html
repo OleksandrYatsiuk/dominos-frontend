@@ -62,12 +62,11 @@
       <div class="row-item">
 
         <app-form-item [control]="formDelivery.get('date')['controls'].date" field="Date">
-          <app-datepicker [min]="minDate" [date]="formDelivery.get('date')['controls'].date.value||minDate"
-            (select)="showDate($event)"></app-datepicker>
+          <app-datepicker formControlName="date" maxDate='-'></app-datepicker>
         </app-form-item>
 
-        <app-form-item [control]="formDelivery.get('date')['controls'].time" field="Tine">
-          <input type="time" class="form-control" placeholder="Enter Time" formControlName="time" step="600">
+        <app-form-item [control]="formDelivery.get('date')['controls'].time" field="Time">
+          <app-time-picker formControlName="time"></app-time-picker>
         </app-form-item>
       </div>
     </div>
