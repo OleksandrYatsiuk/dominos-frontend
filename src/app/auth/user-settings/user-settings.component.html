@@ -46,7 +46,7 @@
       </app-form-item>
 
       <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">
-        <input type="text" class="form-control" formControlName="phone" placeholder="Enter Phone">
+        <input class="form-control" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel">
       </app-form-item>
 
       <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>

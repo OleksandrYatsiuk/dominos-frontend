@@ -5,7 +5,7 @@
       <form [formGroup]="uploadImage">
         <app-form-item [control]="uploadImage.controls.file" field="Image">
           <div class="pizza-image">
-            <app-file-uploader [src]="url" (upload)="showFile($event)"></app-file-uploader>
+            <app-file-uploader [src]="url" formControlName="file"></app-file-uploader>
           </div>
         </app-form-item>
       </form>

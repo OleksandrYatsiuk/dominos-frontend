@@ -1,6 +1,6 @@
 <div class="file-uploader">
     <div class="image-container">
-        <img [src]="src" (click)="input.click()" />
+        <img [src]="value||imagePath" (click)="input.click()" />
     </div>
     <div hidden>
         <input type="file" style="display:none" (change)="onFileSelected($event)" #input />

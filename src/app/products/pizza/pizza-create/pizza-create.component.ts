@@ -72,6 +72,7 @@ export class PizzaCreateComponent implements OnInit {
   }
 
   setFile(event) {
+    console.log(event);
     this.url = event.src;
     this.file = event.file;
   }

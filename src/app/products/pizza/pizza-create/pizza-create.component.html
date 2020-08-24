@@ -3,7 +3,7 @@
   <div class="product">
     <div class="product_image">
       <form [formGroup]="uploadImage">
-        <app-file-uploader [src]="url" (upload)="setFile($event)"></app-file-uploader>
+        <app-file-uploader [src]="url" formControlName="image"></app-file-uploader>
       </form>
     </div>
     <div class="product_form">
@@ -41,20 +41,20 @@
 
         </div>
 
-          <div formGroupName="price" class="form-row">
+        <div formGroupName="price" class="form-row">
 
-            <app-form-item [control]="formCreatingPizza.get('price')['controls'].small" field="Small Price">
-              <input class="form-control" formControlName="small" placeholder="Enter Small Price" />
-            </app-form-item>
+          <app-form-item [control]="formCreatingPizza.get('price')['controls'].small" field="Small Price">
+            <input class="form-control" formControlName="small" placeholder="Enter Small Price" />
+          </app-form-item>
 
-            <app-form-item [control]="formCreatingPizza.get('price')['controls'].middle" field="Middle Price">
-              <input class="form-control" formControlName="middle" placeholder="Enter Middle Price" />
-            </app-form-item>
+          <app-form-item [control]="formCreatingPizza.get('price')['controls'].middle" field="Middle Price">
+            <input class="form-control" formControlName="middle" placeholder="Enter Middle Price" />
+          </app-form-item>
 
-            <app-form-item [control]="formCreatingPizza.get('price')['controls'].big" field="Big Price">
-              <input class="form-control" formControlName="big" placeholder="Enter Big Price" />
-            </app-form-item>
-          </div>
+          <app-form-item [control]="formCreatingPizza.get('price')['controls'].big" field="Big Price">
+            <input class="form-control" formControlName="big" placeholder="Enter Big Price" />
+          </app-form-item>
+        </div>
         <app-spin-button name="Confirm" [loading]="loading"> </app-spin-button>
       </form>
     </div>

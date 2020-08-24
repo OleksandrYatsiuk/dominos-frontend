@@ -7,6 +7,7 @@ import { RootService } from 'src/app/core/services/root.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../pizza-data.service';
 import { pluck } from 'rxjs/operators';
+import { fileValidator, imageValidator } from 'src/app/core/validators/file-validator';
 
 @Component({
 	selector: 'app-pizza-edit',
@@ -21,7 +22,7 @@ export class PizzaEditComponent implements OnInit {
 	ingredients: [] = [];
 	loading = false;
 	categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
-	file: any;
+	file: FormData;
 	constructor(
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
@@ -84,6 +85,7 @@ export class PizzaEditComponent implements OnInit {
 	}
 
 	showFile(event) {
+		console.log(event);
 		this.url = event.src;
 		this.file = event.file;
 	}

@@ -39,11 +39,11 @@
         </app-form-item>
 
         <app-form-item [control]="formDelivery.get('address')['controls'].code" field="Code">
-          <input class="form-control" placeholder="Enter Code" formControlName="code" type="number">
+          <input class="form-control" placeholder="Enter Code" formControlName="code" inputmode="numeric" type="number">
         </app-form-item>
 
         <app-form-item [control]="formDelivery.get('address')['controls'].floor" field="Floor">
-          <input class="form-control" placeholder="Enter Floor" formControlName="floor" type="number">
+          <input class="form-control" placeholder="Enter Floor" formControlName="floor" inputmode="numeric" type="number">
         </app-form-item>
 
       </div>
