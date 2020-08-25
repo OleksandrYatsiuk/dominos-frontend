@@ -9,6 +9,7 @@ import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserDataService } from 'src/app/auth/user-data.service';
 import { ShopService } from 'src/app/core/services/shop.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 export interface Location {
@@ -28,10 +29,11 @@ export class MapComponent implements OnInit {
     lat: 50.44966120868815,
     lng: 30.52501781267547
   };
+  public data;
   origin: Location;
   destination: Location;
 
- public  defaultImage = '../../../../assets/data/marker.png';
+  public defaultImage = '../../../../assets/data/marker.png';
   public currentPosition: Location;
 
   public markerOptions = {
@@ -55,8 +57,7 @@ export class MapComponent implements OnInit {
   currentAddress = 'Choose start position';
 
   constructor(
-    public dialogRef: MatDialogRef<MapComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    private modal: NgbActiveModal,
     private http: ShopService,
     private userService: UserService,
     private authService: UserDataService,
@@ -72,8 +73,8 @@ export class MapComponent implements OnInit {
     this.setMarkers();
   }
 
-  public onNoClick(): void {
-    this.dialogRef.close();
+  public close(data?: Marker): void {
+    this.modal.close(data);
   }
 
   public dragEnd(event) {
@@ -97,18 +98,17 @@ export class MapComponent implements OnInit {
   }
   public saveLocation() {
     if (this.userService.isAuthorized()) {
-      this.authService.updateLocation(this.currentPosition).subscribe(result => {
-        this.notification.open({ data: 'Position was updated succesfully!' });
-      });
+      this.authService.updateLocation(this.currentPosition)
+        .subscribe(result => {
+          this.notification.showSuccess('Position was updated successfully!');
+        });
     }
   }
 
   private setMarkers() {
     this.http.getData()
       .pipe(pluck('result'))
-      .subscribe(result => {
-        this.markers = result;
-      });
+      .subscribe(result => this.markers = result);
   }
 
   trackingPosition(): void {
@@ -180,14 +180,6 @@ export class MapComponent implements OnInit {
 
   public change(event: any): void {
     this.currentPosition = { lat: event.lat(), lng: event.lng() };
-  }
-  public setDrive() {
-    this.travelMode = google.maps.TravelMode.DRIVING;
-    this.calculateTravelTime(this.destination, google.maps.TravelMode.DRIVING);
-  }
-  public setWalking() {
-    this.travelMode = google.maps.TravelMode.WALKING;
-    this.calculateTravelTime(this.destination, google.maps.TravelMode.WALKING);
   }
 }
 

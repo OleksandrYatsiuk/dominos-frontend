@@ -4,20 +4,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HeaderComponent, FooterComponent } from './layout';
 import { HttpClientModule, } from '@angular/common/http';
-import { NgbModule, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { MatButtonModule } from '@angular/material/button';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatInputModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material';
-import { MatSelectModule } from '@angular/material/select';
 import { MapComponent } from './components/map/map.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { MaterialModule } from './material.module';
 import { AgmDirectionModule } from 'agm-direction';
 import { environment } from 'src/environments/environment';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -26,9 +19,7 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
 import { MenuDirective } from './components/menu.directive';
-import { ModalComponent } from './components/modal/modal.component';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatStepperModule } from '@angular/material/stepper';
+import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { ExtractPipe } from './pipe/extract.pipe';
 import { SelectComponent } from './components/select/select.component';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
@@ -40,6 +31,9 @@ import { DatePickerComponent } from './components/datepicker/datepicker.componen
 import { MenuComponent } from './layout/header/menu/menu.component';
 import { TimePickerComponent } from './components/time-picker/time-picker.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -51,7 +45,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     MenuComponent,
     BasketCardItemComponent,
     MapComponent,
-    ModalComponent,
+    DeleteModalComponent,
     NotificationComponent,
     SpinButtonComponent,
     FormItemComponent,
@@ -77,18 +71,12 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     NgbModule,
     RouterModule,
     SelectDropDownModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
     AgmJsMarkerClustererModule,
-    MaterialModule,
     AgmDirectionModule,
-    MatTabsModule,
-    MatStepperModule,
     NgxMaterialTimepickerModule,
+    NgbToastModule,
+    NgbDatepickerModule,
+    NgMultiSelectDropDownModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: environment.googleApiKey,
@@ -112,31 +100,25 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
     DatePickerComponent,
     MenuComponent,
     TimePickerComponent,
+    NotificationComponent,
     //modules
     FormsModule,
     NgbModule,
     ReactiveFormsModule,
     RouterModule,
-    MatButtonModule,
-    MatMenuModule,
-    MatIconModule,
     AgmCoreModule,
     NgxPermissionsModule,
-    MatTabsModule,
-    MatStepperModule,
     NgxMaterialTimepickerModule,
+    NgbToastModule,
+    NgbDatepickerModule,
+    NgMultiSelectDropDownModule,
     //pipes
     PizzaFilterPipe,
     ExtractPipe,
     //directives
     MobilePhoneDirective,
     MenuDirective,
-  ],
-  providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 7 * 1000, verticalPosition: 'top' } }],
-
-  entryComponents: []
+  ]
 
 })
 export class SharedModule { }

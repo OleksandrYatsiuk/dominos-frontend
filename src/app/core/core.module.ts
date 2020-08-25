@@ -2,7 +2,6 @@ import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RootService } from './services/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NotificationService } from './services/notification.service';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 
 
@@ -12,7 +11,6 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
   imports: [CommonModule],
   providers: [
     RootService,
-    NotificationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,

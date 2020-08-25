@@ -71,12 +71,12 @@ export class PizzaCreateComponent implements OnInit {
     });
   }
 
-  setFile(event) {
-    console.log(event);
+  public showFile(event): void {
     this.url = event.src;
     this.file = event.file;
   }
-  onSubmit() {
+
+  public onSubmit() {
     this.formCreatingPizza.markAllAsTouched();
     if (this.formCreatingPizza.valid) {
       this.loading = !this.loading;
@@ -86,7 +86,7 @@ export class PizzaCreateComponent implements OnInit {
       return this.http.create(data).subscribe(({ result }) => {
         if (this.file) {
           this.http.upload(result.id, this.file).subscribe(res => {
-            this.notification.open({ data: `Pizza '${result.name}' has been successfully created!` });
+            this.notification.showSuccess(`Pizza '${result.name}' has been successfully created!`);
             this.router.navigateByUrl('/admin/pizzas')
           }, (error) => {
             this.loading = !this.loading;
@@ -94,7 +94,7 @@ export class PizzaCreateComponent implements OnInit {
           });
         } else {
           this.loading = !this.loading;
-          this.notification.open({ data: `Pizza '${result.name}' has been successfully created!` });
+          this.notification.showSuccess(`Pizza '${result.name}' has been successfully created!`);
           this.router.navigateByUrl('/admin/pizzas')
         }
       }, (error) => {

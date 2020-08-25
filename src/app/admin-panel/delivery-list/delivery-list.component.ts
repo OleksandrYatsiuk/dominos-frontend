@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryDataService } from '../../delivery/delivery-data.service';
-import { PageEvent, MatDialog } from '@angular/material';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { map } from 'rxjs/operators';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-delivery-list',
@@ -18,19 +16,16 @@ export class DeliveryListComponent implements OnInit {
   pages = 1
   length = 100;
   pageSize = 20;
-  pageSizeOptions: number[] = [5, 10, 20];
-  pageEvent: PageEvent;
   collectionSize: number;
 
   constructor(
     private http: DeliveryDataService,
-    public dialog: MatDialog,
-    public notification: NotificationService
+    public notification: NotificationService,
+    public modalService: ModalService
   ) { }
 
   ngOnInit() {
     this.getList(this.page, this.pageSize)
-
   }
 
   getList(page: number, limit: number, sort = '-createdAt') {
@@ -56,14 +51,14 @@ export class DeliveryListComponent implements OnInit {
   }
 
   delete(item): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: { name: 'Ви дійсно хочете видалити замовлення?' }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
-        this.getList(1, this.pageSize);
-      }
-    });
+    this.modalService.openDeleteModal('delivery').result
+      .then(res => {
+        this.http.delete(item.id)
+          .subscribe(res => {
+            this.notification.showSuccess("Delivery was deleted successfully")
+            this.getList(1, this.pageSize);
+          })
+      })
+      .catch(e => e);
   }
 }

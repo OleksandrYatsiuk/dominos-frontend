@@ -43,7 +43,7 @@ export class FileUploaderComponent implements ControlValueAccessor {
       this.parseFile(event)
       this.upload.emit(
         {
-          file: event.target.files[0],
+          file: this.appendFile(event.target.files[0]),
           src: this.src
         });
     }
@@ -61,4 +61,11 @@ export class FileUploaderComponent implements ControlValueAccessor {
       }
     }
   }
+
+  private appendFile(file: File): FormData {
+    const fd: FormData = new FormData();
+    fd.append('file', file, file.name);
+    return fd;
+  }
 }
+

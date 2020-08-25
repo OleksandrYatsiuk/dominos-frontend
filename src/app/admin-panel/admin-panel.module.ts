@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from '../shared';
-import { MaterialModule } from '../shared/material.module';
 import { DeliveryListComponent } from './delivery-list/delivery-list.component';
-import { ModalComponent } from '../shared/components/modal/modal.component';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material';
 import { UsersListComponent } from './users-list/users-list.component';
 import { PromotionListComponent } from './promotion-list/promotion-list.component';
 import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteModalComponent } from '../shared/components/delete-modal/delete-modal.component';
 
 
 
@@ -28,12 +28,12 @@ import { IngredientListComponent } from './ingredient-list/ingredient-list.compo
   imports: [
     CommonModule,
     AdminPanelRoutingModule,
-    SharedModule,
-    MaterialModule,
+    SharedModule
   ],
-  entryComponents: [ModalComponent],
+  entryComponents: [DeleteModalComponent],
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    NgbActiveModal
   ]
 })
 export class AdminPanelModule { }

@@ -1,32 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@angular/forms';
-import { MapComponent } from 'src/app/shared/components/map/map.component';
-import { MatDialog } from '@angular/material/dialog';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { DeliveryDataService } from '../delivery-data.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { Router } from '@angular/router';
-import { PaymentTypes, Payments } from '../shipping-form/payments.model';
+import { Payments } from '../shipping-form/payments.model';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
+import { ModalService } from 'src/app/core/services/modal.service';
+
 @Component({
   selector: 'app-carryout',
   templateUrl: './carryout.component.html',
   styleUrls: ['./carryout.component.scss']
 })
+
 export class CarryoutComponent implements OnInit {
-  carryOut: FormGroup;
+  public carryOut: FormGroup;
   public loading = false;
   public shopId = false;
-  minDate: Date;
-  maxDate: Date;
-  totalAmount: any;
-  pizzasIds = [];
+  public totalAmount: string;
+  public pizzasIds: string[] = [];
   public paymentTypes: Payments[] = this.configService.getStatuses('payment');
 
   constructor(
     private formBuilder: FormBuilder,
-    public dialog: MatDialog,
+    public modal: ModalService,
+    private handler: ErrorHandlerService,
     private userService: UserService,
     private notification: NotificationService,
     private rest: DeliveryDataService,
@@ -39,8 +40,6 @@ export class CarryoutComponent implements OnInit {
 
     this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
     this.pizzasIds = this.basketService._storage.map(el => el.id)
-    this.minDate = new Date();
-    this.maxDate = new Date(new Date().getTime() + (7 * 24 * 3600 * 1000));
 
     this.initForm();
     this.userService.currentUser.subscribe(user => {
@@ -52,11 +51,6 @@ export class CarryoutComponent implements OnInit {
         });
       }
     });
-  }
-
-  showDate(date) {
-    const control = this.carryOut.get('date')['controls'].date as FormControl;
-    control.setValue(date);
   }
 
   initForm(): void {
@@ -73,7 +67,7 @@ export class CarryoutComponent implements OnInit {
       payment: this.formBuilder.group({
         coupon: ['', []],
         remainder: ['', []],
-        type: [this.paymentTypes[0].label, [Validators.required]],
+        type: [this.paymentTypes[0].value, [Validators.required]],
       }),
       pizzaIds: [this.pizzasIds, [Validators.required]],
       amount: [this.totalAmount, [Validators.required]],
@@ -81,28 +75,30 @@ export class CarryoutComponent implements OnInit {
   }
 
   openMap(): void {
-    const dialogRef = this.dialog.open(MapComponent);
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
+    this.carryOut.controls.shopId.markAsUntouched({ onlySelf: true })
+    this.modal.openMapModal().result
+      .then(result => {
         this.carryOut.controls.shopId.setValue(result.address);
         this.shopId = result.id;
-      }
-    });
+      }).catch(e => e)
   }
 
 
   onSubmit() {
-    console.log(this.carryOut.value);
     this.carryOut.markAllAsTouched();
     if (this.carryOut.valid) {
-      this.loading = true;
-      this.carryOut.controls.shopId.setValue(this.shopId);
-      this.rest.create(this.carryOut.value).subscribe(res => {
-        this.loading = false;
-        this.router.navigate(['/']);
-        this.basketService.clear();
-        this.notification.open({ data: 'Your order has been accepted!' });
-      });
+      this.loading = !this.loading;
+      const data = Object.assign(this.carryOut.value, { shopId: this.shopId })
+      this.rest.create(data)
+        .subscribe(res => {
+          this.loading = !this.loading;
+          this.router.navigate(['/']);
+          this.basketService.clear();
+          this.notification.showSuccess('Your order has been accepted!');
+        }, (e) => {
+          this.loading = !this.loading;
+          this.handler.validation(e, this.carryOut);
+        })
     }
   }
 }

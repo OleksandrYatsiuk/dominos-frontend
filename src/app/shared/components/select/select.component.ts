@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Payments } from 'src/app/delivery/shipping-form/payments.model';
 
 @Component({
   selector: 'app-select',
@@ -12,20 +13,22 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @Input() items: string[];
+  @Input() items: Payments[];
   @Input() placeholder = 'Select Item';
   @Input() trackBy = 'label';
   @Input() return = 'value';
-  public value: string;
+  public value: string | number;
   public isDisabled: boolean;
 
-  private onChange;
+  public onChange: any = () => { };
+  public onTouch: any = () => { };
 
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
 
   registerOnTouched(fn: any): void {
+    this.onTouch = fn;
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -33,16 +36,18 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   writeValue(value: any): void {
-    if (value.length > 0) {
-      this.value = value;
+    if (value) {
+      let item = this.items.find(el => value === el[this.return])
+      this.onChange(item[this.return]);
+      this.value = item[this.trackBy];
     }
   }
 
-  selectItem(item): void {
+  selectItem(item: any): void {
     this.onChange(item[this.return]);
     this.value = item[this.trackBy];
   }
-  public clear() {
+  public clear(): void {
     this.onChange(null);
     this.value = '';
   }

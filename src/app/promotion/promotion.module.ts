@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PromotionRoutingModule } from './promotion-routing.module';
-import { MaterialModule } from '../shared/material.module';
 import { SharedModule } from '../shared';
 import { PromotionComponent } from './promotion.component';
 import { PromotionDataService } from './promotion-data.service';
@@ -19,7 +18,6 @@ import { PromotionsListComponent } from './promotions-list/promotions-list.compo
   ],
   imports: [
     CommonModule,
-    MaterialModule,
     PromotionRoutingModule,
     SharedModule
   ], 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
@@ -14,6 +14,7 @@ import { ApiConfigService } from 'src/app/core/services/api-config.service';
 	styleUrls: ['./shipping-form.component.scss']
 })
 export class ShippingFormComponent implements OnInit {
+	
 	constructor(
 		private formBuilder: FormBuilder,
 		private notification: NotificationService,
@@ -27,10 +28,8 @@ export class ShippingFormComponent implements OnInit {
 	public paymentTypes: Payments[] = this.configService.getStatuses('payment');
 	public formDelivery: FormGroup;
 	public spinShipping = false;
-	public minDate: Date = new Date();
-	public maxDate: Date = new Date(new Date().getTime() + 7 * 24 * 3600 * 1000);
 	public totalAmount: string;
-	public pizzasIds = [];
+	public pizzasIds:string[] = [];
 
 	ngOnInit(): void {
 		this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
@@ -72,7 +71,7 @@ export class ShippingFormComponent implements OnInit {
 			payment: this.formBuilder.group({
 				coupon: ['', []],
 				remainder: ['', []],
-				type: [this.paymentTypes[0].label, [Validators.required]]
+				type: [this.paymentTypes[0].value, [Validators.required]]
 			}),
 			pizzaIds: [this.pizzasIds, [Validators.required]],
 			amount: [this.totalAmount, [Validators.required]]
@@ -80,7 +79,6 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	public createDelivery(): void {
-		console.log(this.formDelivery)
 		this.formDelivery.markAllAsTouched();
 		if (this.formDelivery.valid) {
 			this.spinShipping = true;
@@ -88,7 +86,7 @@ export class ShippingFormComponent implements OnInit {
 				this.spinShipping = false;
 				this.router.navigate(['/']);
 				localStorage.removeItem('basket');
-				this.notification.open({ data: 'Your order has been accepted!' });
+				this.notification.showSuccess('Your order has been accepted!');
 			});
 		}
 	}

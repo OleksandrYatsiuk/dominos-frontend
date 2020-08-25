@@ -85,7 +85,6 @@ export class PizzaEditComponent implements OnInit {
 	}
 
 	showFile(event) {
-		console.log(event);
 		this.url = event.src;
 		this.file = event.file;
 	}
@@ -100,17 +99,18 @@ export class PizzaEditComponent implements OnInit {
 			return this.http.edit(this.pizza.id, data)
 				.pipe(pluck('result'))
 				.subscribe(pizza => {
+					console.log(this.file)
 					if (this.file) {
 						this.http.upload(this.pizza.id, this.file).subscribe((result) => {
 							this.loading = !this.loading;
-							this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+							this.notification.showSuccess(`Pizza '${pizza.name}' has been successfully updated!`);
 						}, (error) => {
 							this.loading = !this.loading;
 							this.handler.validation(error, this.pizzaForm);
 						});
 					} else {
 						this.loading = !this.loading;
-						this.notification.open({ data: `Pizza '${pizza.name}' has been successfully updated!` });
+						this.notification.showSuccess(`Pizza '${pizza.name}' has been successfully updated!`);
 					}
 				},
 					(error) => {

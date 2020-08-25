@@ -1,13 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { BasketService } from "../../../core/services/basket.service";
-import { LoginComponent } from "src/app/shared/components/login/login.component";
 import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
 import { Router } from "@angular/router";
 import { CAN_MANAGE_PIZZA } from "./header-permissions";
-import { MatDialog } from "@angular/material";
 import { UserDataService } from "src/app/auth/user-data.service";
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: "app-header",
@@ -23,10 +22,10 @@ export class HeaderComponent implements OnInit {
   public canManagePizza = CAN_MANAGE_PIZZA;
 
   constructor(
+    private modal: ModalService,
     private basketService: BasketService,
     private geolocation: GeolocationService,
     private userService: UserService,
-    public dialog: MatDialog,
     private config: ApiConfigService,
     private http: UserDataService,
     private router: Router
@@ -39,8 +38,8 @@ export class HeaderComponent implements OnInit {
     this.geolocation.askGeoLocation();
   }
 
-  openModal() {
-    this.dialog.open(LoginComponent, { autoFocus: true });
+  openModal(): void {
+    this.modal.openLoginModal();
   }
 
   logout() {

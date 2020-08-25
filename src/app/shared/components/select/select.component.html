@@ -1,18 +1,18 @@
 <div ngbDropdown class="form-group">
-
   <ul class="form-control" ngbDropdownToggle>
     <div class="dropdown-value">
       <span *ngIf="value; else noItem">
         {{ value }}
       </span>
-        <span *ngIf="value" class="dropdown-clear" (click)=clear()></span>
+      <span *ngIf="value" class="dropdown-clear" (click)=clear()></span>
+    </div>
+    <ng-template #noItem>
+      <div class="dropdown-value">
+
+        <span>{{ placeholder }}</span>
+        <span class="dropdown-down"></span>
       </div>
-      <ng-template #noItem>
-        <div class="dropdown-value">
-        <span>{{ placeholder }}</span>  
-          <span class="dropdown-down"></span>
-        </div>
-      </ng-template>
+    </ng-template>
   </ul>
 
   <div ngbDropdownMenu class="dropdown-menu">

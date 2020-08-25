@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from 'src/app/core/services/root.service';
-import { MatDialog, PageEvent } from '@angular/material';
+import { PageEvent } from '@angular/material';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -22,8 +22,9 @@ export class IngredientListComponent implements OnInit {
 
   constructor(
     private http: RootService,
-    public dialog: MatDialog,
-    public notification: NotificationService) { }
+    public modal: ModalService,
+    public notification: NotificationService
+  ) { }
 
   ngOnInit(): void {
     this.getList(this.page, this.pageSize, 'name')
@@ -42,15 +43,13 @@ export class IngredientListComponent implements OnInit {
   }
 
   delete(item): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: { name: `Ви дійсно хочете видалити інгредієнт "${item.name}"?` }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result !== undefined) {
+    this.modal.openDeleteModal(`ingredient "${item.name}"`).result
+      .then(res => {
         this.getList(1, this.pageSize, 'name');
-      }
-    });
+        // this.notification.showSuccess(`Ingredient "${item.name}" was deleted successfully`)
+        this.notification.showDanger('Delete ingredient was not realise!')
+      })
+      .catch(e => e);
   }
 
   public showPage(event: number) {

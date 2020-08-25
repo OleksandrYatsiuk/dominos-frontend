@@ -1,11 +1,11 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { pluck } from 'rxjs/operators';
 import { UserDataService } from '../../../auth/user-data.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,7 @@ import { UserDataService } from '../../../auth/user-data.service';
 export class LoginComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<LoginComponent>,
-    @Inject(MAT_DIALOG_DATA) public data,
+    private modalService: NgbActiveModal,
     private http: UserDataService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -37,12 +36,11 @@ export class LoginComponent implements OnInit {
   }
 
   public close(): void {
-    this.dialogRef.close();
+    this.modalService.close()
   }
 
   public login(): void {
     this.authForm.markAllAsTouched();
-    console.log(this.authForm)
     if (this.authForm.valid) {
       this.spinLogIn = !this.spinLogIn;
       this.http.login(this.authForm.value)

@@ -3,7 +3,7 @@
   <div class="product">
     <div class="product_image">
       <form [formGroup]="uploadImage">
-        <app-file-uploader [src]="url" formControlName="image"></app-file-uploader>
+        <app-file-uploader [src]="url" formControlName="image" (upload)="showFile($event)"></app-file-uploader>
       </form>
     </div>
     <div class="product_form">

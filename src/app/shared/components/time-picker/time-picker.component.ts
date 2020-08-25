@@ -21,8 +21,9 @@ export class TimePickerComponent implements ControlValueAccessor {
 
   constructor(private modalService: NgbModal) { }
 
-  public open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
+  public open(content): void {
+    this.modalService.open(content,
+      { ariaLabelledBy: 'modal-basic-title', size: 'sm', centered: true })
       .result
       .then(result => this.parseTime(result))
       .catch(dismiss => this.onChange(new Date()));

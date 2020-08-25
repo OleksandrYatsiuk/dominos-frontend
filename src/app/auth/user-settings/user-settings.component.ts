@@ -19,7 +19,7 @@ import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstra
 export class UserSettingsComponent implements OnInit {
   public minDate: NgbDateStruct = { year: 1950, month: 1, day: 1 };
   message: { type: string; message: string; };
-  
+
   currentUser: any;
   public date: string;
   constructor(
@@ -69,22 +69,21 @@ export class UserSettingsComponent implements OnInit {
     });
   }
 
-
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = !this.spinEditProfile;
-      this.http.updateProfile(this.updateProfileForm.value).subscribe(({ code, result }) => {
-        if (code === 200) {
+      this.http.updateProfile(this.updateProfileForm.value)
+        .subscribe(({ code, result }) => {
+          if (code === 200) {
+            this.spinEditProfile = !this.spinEditProfile;
+            this.userService.setCurrentUserData(result)
+            this.notification.showSuccess('User profile has been successfully updated!')
+          }
+        }, (error) => {
           this.spinEditProfile = !this.spinEditProfile;
-          this.userService.setCurrentUserData(result)
-          this.notification.open(
-            { data: 'Profile has been successfully updated!' });
-        }
-      }, (error) => {
-        this.spinEditProfile = !this.spinEditProfile;
-        this.handler.validation(error, this.updateProfileForm);
-      });
+          this.handler.validation(error, this.updateProfileForm);
+        });
     }
   }
 
@@ -120,8 +119,7 @@ export class UserSettingsComponent implements OnInit {
       this.spinChangePassword = true;
       this.http.changePassword(this.changePasswordForm.value).subscribe(() => {
         this.spinChangePassword = false;
-        this.notification.open(
-          { data: 'Password has been successfully changed!' });
+        this.notification.showSuccess('Password has been successfully changed!')
         this.changePasswordForm.reset();
       }, (error) => {
         this.spinChangePassword = false;

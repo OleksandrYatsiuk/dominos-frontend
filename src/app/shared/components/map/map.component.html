@@ -1,57 +1,60 @@
-<div class="title">
-    <h1>Choose any Domino`s shop</h1>
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Choose any Domino`s shop</h4>
+    <button type="button" class="close" aria-label="Close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
-<div class="directions">
-    <div class="road">
-        <label>
-            <input type="radio" (click)="setDrive()" name="travelMode" checked [disabled]="!data">
-            <h4>Driving</h4>
-        </label>
-        <label>
-            <input type="radio" (click)="setWalking()" name="travelMode" [disabled]="!data">
-            <h4>Walking</h4>
-        </label>
+<div class="modal-body">
 
-        <app-spin-button name="Save My Location" (click)="saveLocation()" color="Basic"></app-spin-button>
+    <div class="directions">
+        <div class="road">
 
+            <div class="btn-group btn-group-toggle" ngbRadioGroup name="travelMode" [(ngModel)]="travelMode">
+                <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="DRIVING"> DRIVING
+                </label>
+                <label ngbButtonLabel>
+                    <input ngbButton type="radio" value="WALKING"> WALKING
+                </label>
+            </div>
+            <button class="btn-success" name="Save My Location" (click)="saveLocation()">Save My Location</button>
+        </div>
+        <div class="directions_options">
+            <p>From: <input [value]="currentAddress" /> </p>
+            <p>To: <input value="{{data?.address}}" /> </p>
+        </div>
+        <div class="directions_info">
+            <p *ngIf="distance">Distance: <strong>{{(distance/1000).toFixed(1)}} km </strong> </p>
+            <p *ngIf="duration">Time: <strong>{{(duration/60).toFixed(1)}} min </strong> </p>
+        </div>
     </div>
-    <div class="directions_options">
-        <h4>From:</h4>
-        <input [value]="currentAddress" />
-        <h4>To:</h4>
-        <input value="{{data?.address}}" />
-    </div>
-    <div class="directions_info">
-        <h3 *ngIf="distance">Distance: {{(distance/1000).toFixed(1)}} km</h3>
-        <h3 *ngIf="duration">Time: {{(duration/60).toFixed(1)}} min</h3>
-    </div>
-</div>
 
 
 
-<agm-map [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [zoom]="13" [disableDefaultUI]="false"
-    [zoomControl]="false" (mapReady)="mapReady($event)">
+    <agm-map [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [zoom]="13" [disableDefaultUI]="false"
+        [zoomControl]="false" (mapReady)="mapReady($event)">
+        <agm-marker-cluster
+            imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
+            <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
+                [longitude]="m.lng"
+                [iconUrl]="{ url: defaultImage, scaledSize: { width: 40, height: 40, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
+                [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: 'Dominos'}">
+            </agm-marker>
+        </agm-marker-cluster>
 
-    <agm-marker-cluster
-        imagePath="https://raw.githubusercontent.com/googlemaps/v3-utility-library/master/markerclustererplus/images/m">
-        <agm-marker *ngFor="let m of markers; let i = index" (markerClick)="clickedMarker(m)" [latitude]="m.lat"
-            [longitude]="m.lng"
-            [iconUrl]="{ url: defaultImage, scaledSize: { width: 40, height: 40, anchor : {x:19, y:19} }, labelOrigin:{x:20,y:40}}"
-            [label]="{color: 'red', fontWeight: 'bold', fontSize: '12px', backgroundColor:'red',  text: 'Dominos'}">
-        </agm-marker>
-    </agm-marker-cluster>
+        <agm-direction [origin]="origin" [destination]="destination" *ngIf="destination" [travelMode]="travelMode"
+            [markerOptions]="markerOptions" [renderOptions]="renderOptions" (originDrag)="change($event)">
+        </agm-direction>
 
-    <agm-direction [origin]="origin" [destination]="destination" *ngIf="destination" [travelMode]="travelMode"
-        [markerOptions]="markerOptions" [renderOptions]="renderOptions" (originDrag)="change($event)">
-    </agm-direction>
-
-    <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label]="'You'"
-        [markerDraggable]="true" (dragEnd)="dragEnd($event)" [iconUrl]="{ url: 'http://maps.google.com/mapfiles/kml/shapes/man.png', 
+        <agm-marker [latitude]="currentPosition.lat" [longitude]="currentPosition.lng" [label]="'You'"
+            [markerDraggable]="true" (dragEnd)="dragEnd($event)" [iconUrl]="{ url: 'http://maps.google.com/mapfiles/kml/shapes/man.png', 
         scaledSize: { width: 50, height: 50, anchor : {x:19, y:19} }, labelOrigin:{x:25,y:60}}">
-    </agm-marker>
-</agm-map>
+        </agm-marker>
+    </agm-map>
 
-<div class="footer">
-    <app-spin-button name="Close" (click)="onNoClick()" color="Basic"></app-spin-button>
-    <app-spin-button [mat-dialog-close]="data" name="Add" cdkFocusInitial></app-spin-button>
+</div>
+
+<div class="modal-footer">
+    <app-spin-button name="Close" (click)="close()" class="btn btn-secondary" ngbAutofocus></app-spin-button>
+    <app-spin-button name="Add" (click)="close(data)"></app-spin-button>
 </div>

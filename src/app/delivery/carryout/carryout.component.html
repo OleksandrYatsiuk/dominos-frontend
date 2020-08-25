@@ -18,11 +18,16 @@
     </div>
 
 
-    <h3>Self-pickup point</h3>
+    <h3>Self-Pickup Point</h3>
 
     <div class="row-item">
       <app-form-item [control]="carryOut.controls.shopId" field="Shop">
-        <input class="form-control" placeholder="Choose Shop" formControlName="shopId" type="text" (click)="openMap()">
+        <div class="input-group">
+          <input class="form-control" placeholder="Choose Shop" formControlName="shopId" type="text">
+          <span class="material-icons" (click)="openMap()"> map </span>
+        </div>
+
+
       </app-form-item>
     </div>
 
@@ -75,7 +80,7 @@
     <div class="result">
       <h2>Total</h2>
       <h2>{{totalAmount}} UAH</h2>
-      <app-spin-button type="submit" (click)="onSubmit()" [loading]="loading" name="Order"></app-spin-button>
+      <app-spin-button type="submit" [loading]="loading" name="Order"></app-spin-button>
     </div>
   </form>
 

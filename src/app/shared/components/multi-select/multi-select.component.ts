@@ -1,8 +1,6 @@
-import { Component, OnInit, Input, forwardRef, ViewChild, AfterContentInit, OnChanges, SimpleChanges } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormArray, FormControl } from '@angular/forms';
+import { Component, OnInit, Input, forwardRef, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, interval } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-multi-select',

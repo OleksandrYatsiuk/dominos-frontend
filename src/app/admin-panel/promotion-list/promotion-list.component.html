@@ -19,10 +19,10 @@
                 <td>{{promotion.startedAt|date}}</td>
                 <td>
                     <div class="icon-action">
-                        <mat-icon (click)="delete(promotion)" aria-hidden="false" aria-label="Example home icon">
+                        <span (click)="delete(promotion)" class="material-icons">
                             delete_forever
-                        </mat-icon>
-                        <mat-icon aria-hidden="false" aria-label="Example home icon">edit </mat-icon>
+                          </span>
+                          <span class="material-icons">edit </span>
                     </div>
                 </td>
             </tr>

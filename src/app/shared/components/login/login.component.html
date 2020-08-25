@@ -1,7 +1,10 @@
 <div class="modal-header">
-  <h4 class="modal-title">Авторизація </h4>
-  <span class="material-icons" (click)="close()"> close </span>
+  <h4 class="modal-title" id="modal-basic-title">Log In</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
+
 <form [formGroup]="authForm" (ngSubmit)="login()">
   <div class="modal-content">
     <app-form-item [control]="authForm.controls.username" field="Username">
@@ -13,7 +16,7 @@
   </div>
 
   <div class="modal-footer">
-    <app-spin-button type="submit" name="Log In" class="btn btn-primary" [loading]="spinLogIn"> </app-spin-button>
+    <app-spin-button type="submit" name="Log In" class="btn btn-primary" [loading]="spinLogIn" ngbAutofocus> </app-spin-button>
     <p>
       Have not account yet? Please,
       <a routerLink="/auth/registration" (click)="close()">register</a>

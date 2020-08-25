@@ -13,6 +13,8 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
+    "@types/toastr": "^2.1.38",
+    "toastr": "^2.1.4",
     "@agm/js-marker-clusterer": "^1.1.0",
     "@angular-devkit/core": "^10.0.4",
     "@angular/animations": "^9.1.12",
@@ -46,6 +48,7 @@
     "ngx-material-timepicker": "^5.5.3",
     "ngx-permissions": "^7.0.3",
     "ngx-select-dropdown": "^1.4.3",
+    "ngx-toastr": "^13.0.0",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
     "tslib": "^1.13.0",

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzaDataService } from 'src/app/products/pizza/pizza-data.service';
-import { MatDialog } from '@angular/material';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-pizza-list',
@@ -15,7 +14,7 @@ export class PizzaListComponent implements OnInit {
   public pizzas: object[];
   public collectionSize: number
   constructor(private http: PizzaDataService,
-    public dialog: MatDialog,
+    public modal: ModalService,
     public notification: NotificationService
   ) { }
 
@@ -25,7 +24,7 @@ export class PizzaListComponent implements OnInit {
       this.pizzas = result;
       this.page = _meta.pagination.page;
       this.pages = _meta.pagination.pages;
-      this.collectionSize = _meta.pagination.total/20
+      this.collectionSize = _meta.pagination.total / 20
     });
   }
 
@@ -50,26 +49,15 @@ export class PizzaListComponent implements OnInit {
   }
 
   public delete(item): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: { name: `Ви дійсно хочете видалити піцу "${item.name}" ?` }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.http.remove(item.id).subscribe(res => {
-          this.setPage(this.page);
-          this.notification.open({
-            data: `Піца "${item.name}" видалена успішно!`
-          });
-        }, (e) => {
-          this.notification.open({
-            data: {
-              status: false,
-              message: e.result
-            }
-          });
-        })
-      }
-    });
+    const dialogRef = this.modal.openDeleteModal(`pizza "${item.name}"`).result
+      .then(result => {
+        if (result) {
+          this.http.remove(item.id).subscribe(res => {
+            this.setPage(this.page);
+            this.notification.showSuccess(`Піца "${item.name}" видалена успішно!`);
+          })
+        }
+      })
+      .catch(e => e);
   }
 }

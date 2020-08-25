@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
-import { MatDialog } from '@angular/material';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalComponent } from 'src/app/shared/components/modal/modal.component';
+import { ModalService } from 'src/app/core/services/modal.service';
+import { Promotion } from 'src/app/promotion/promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-promotion-list',
@@ -13,7 +13,7 @@ export class PromotionListComponent implements OnInit {
 
   constructor(
     private http: PromotionDataService,
-    public dialog: MatDialog,
+    public modal: ModalService,
     public notification: NotificationService
   ) { }
   page = 1;
@@ -38,27 +38,16 @@ export class PromotionListComponent implements OnInit {
   }
 
 
-  public delete(item): void {
-    const dialogRef = this.dialog.open(ModalComponent, {
-      width: '500px',
-      data: { name: `Ви дійсно хочете видалити акцію "${item.title}" ?` }
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
+  public delete(item:Promotion): void {
+    this.modal.openDeleteModal(`promotion "${item.title}"`).result
+      .then(res => {
         this.http.remove(item.id).subscribe(res => {
           this.getList(this.page, this.pageSize);
-          this.notification.open({
-            data: `Акція "${item.title}" видалена успішно!`
-          });
+          this.notification.showSuccess(`Акція "${item.title}" видалена успішно!`);
         }, (e) => {
-          this.notification.open({
-            data: {
-              status: false,
-              message: e.result
-            }
-          });
+          this.notification.showDanger(e.result);
         })
-      }
-    });
+      })
+      .catch(e => e)
   }
 }

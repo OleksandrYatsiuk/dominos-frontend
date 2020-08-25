@@ -1,6 +1,7 @@
 agm-map {
   height: 500px;
-  width: 800px;
+  min-width: 350px;
+  width: 100%;
 }
 
 * {
@@ -18,6 +19,8 @@ a {
 .directions_options {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
+
   padding: 10px;
 
   input {
@@ -29,6 +32,7 @@ a {
 .directions_info {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   h3 {
     width: 50%;
     text-align: center;
@@ -37,33 +41,18 @@ a {
 .road {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   padding: 1px;
 
-  input:checked + h4 {
-    background-color: #6bfb20;
-    cursor: pointer;
-  }
-  input:disabled + h4 {
-    opacity: 0.3;
-    cursor: not-allowed;
+  .btn{
+    height: 25px;
   }
 }
 
-
-.title {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-input[type="radio"] {
-  display: none;
+label{
+  outline: none;
 }
 
-.footer {
-  display: flex;
-  justify-content: space-around;
-  padding: 10px;
-  app-spin-button{
-    width: 30%;
-  }
+.active {
+  color: red;
 }

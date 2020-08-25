@@ -19,12 +19,8 @@
                 <td>{{pizza.category}}</td>
                 <td>
                     <div class="icon-action">
-                        <mat-icon (click)="delete(pizza)" aria-hidden="false" aria-label="Example home icon">
-                            delete_forever
-                        </mat-icon>
-                        <mat-icon routerLink="/pizza/{{pizza.id}}/edit" aria-hidden="false"
-                            aria-label="Example home icon">
-                            edit </mat-icon>
+                        <span (click)="delete(pizza)" class="material-icons"> delete_forever </span>
+                        <span class="material-icons" routerLink="/pizza/{{pizza.id}}/edit">edit </span>
                     </div>
                 </td>
             </tr>

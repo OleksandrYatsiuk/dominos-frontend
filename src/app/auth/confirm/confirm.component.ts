@@ -6,7 +6,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 @Component({
 	selector: 'app-confirm',
 	templateUrl: './confirm.component.html',
-	styleUrls: [ './confirm.component.scss' ]
+	styleUrls: ['./confirm.component.scss']
 })
 export class ConfirmComponent implements OnInit {
 	hash: any;
@@ -24,15 +24,11 @@ export class ConfirmComponent implements OnInit {
 		this.http.confirm(this.hash).subscribe(
 			({ code }) => {
 				this.progress = 'Verifying completed!';
-				this.notification.open({
-					data: 'Email was confirmed successfully. You can sign in to the service.'
-				});
+				this.notification.showSuccess('Email was confirmed successfully. You can sign in to the service.')
 			},
 			(e) => {
-				this.notification.open({
-					data: { message: e.result, status: false }
-				});
-				this.router.navigate([ '/' ]);
+				this.notification.showDanger(e.result);
+				this.router.navigate(['/']);
 			}
 		);
 	}

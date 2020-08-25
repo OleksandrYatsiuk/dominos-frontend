@@ -8,6 +8,7 @@ import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service'
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { passwordValidator } from 'src/app/core/validators/password-validator';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-registration',
@@ -20,7 +21,7 @@ export class RegistrationComponent implements OnInit {
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private handler: ErrorHandlerService,
-    public dialog: MatDialog,
+    public modal: ModalService,
     private configService: ApiConfigService
   ) { }
 
@@ -34,17 +35,14 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    console.log()
-
   }
 
   public register(): void {
-    console.log(this.registerForm)
     this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
       this.spinRegister = !this.spinRegister;
       this.http.register(this.registerForm.value).subscribe(() => {
-        this.showNotification();
+        this.notification.showSuccess('We have sent a confirmation email to your email address. Please follow instructions in the email to continue.', false)
         this.spinRegister = !this.spinRegister;
       }, (error) => {
         this.handler.validation(error, this.registerForm);
@@ -71,13 +69,9 @@ export class RegistrationComponent implements OnInit {
   }
 
   private showNotification(): void {
-    this.notification.open({
-      data: 'We have sent a confirmation email to your email address. Please follow instructions in the email to continue.',
-      duration: null
-    });
   }
 
   public openAuthModal(): void {
-    this.dialog.open(LoginComponent, { autoFocus: true });
+    this.modal.openLoginModal();
   }
 }
