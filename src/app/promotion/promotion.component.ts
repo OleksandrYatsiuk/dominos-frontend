@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { Promotion } from './promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-promotion',
@@ -8,11 +9,11 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./promotion.component.scss']
 })
 export class PromotionComponent implements OnInit {
-  promotion: any;
+  promotion: Promotion;
   constructor(
     private route: ActivatedRoute,
     private title: Title, ) {
-    this.promotion = this.route.snapshot.data.pizza;
+    this.promotion = this.route.snapshot.data.promotion;
   }
 
   ngOnInit() {

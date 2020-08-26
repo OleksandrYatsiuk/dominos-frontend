@@ -7,6 +7,7 @@ import { PromotionDataService } from './promotion-data.service';
 import { PromotionResolver } from './promotion.resolver';
 import { PromotionCreateComponent } from './promotion-create/promotion-create.component';
 import { PromotionsListComponent } from './promotions-list/promotions-list.component';
+import { PromotionEditComponent } from './promotion-edit/promotion-edit.component';
 
 
 
@@ -14,7 +15,8 @@ import { PromotionsListComponent } from './promotions-list/promotions-list.compo
   declarations: [
     PromotionComponent,
     PromotionCreateComponent,
-    PromotionsListComponent
+    PromotionsListComponent,
+    PromotionEditComponent
   ],
   imports: [
     CommonModule,

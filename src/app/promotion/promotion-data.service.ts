@@ -23,14 +23,28 @@ export class PromotionDataService {
     return this.http.delete(`${this.path}/${id}`);
   }
 
-  public create(data: any):Observable<BaseResponse<Promotion>> {
-    return this.http.post(`${this.path}`, data);
+  public create(data: Promotion): Observable<BaseResponse<Promotion>> {
+    const formData = this.getCourseFormData(data);
+    return this.http.post(`${this.path}`, formData);
   }
-  public update(id: string) {
-    return this.http.put(`${this.path}/${id}`);
+  public update(id: string, data: Promotion): Observable<BaseResponse<Promotion>> {
+    const formData = this.getCourseFormData(data);
+    return this.http.patch(`${this.path}/${id}`, formData);
   }
   public upload(id: string, file: FormData): Observable<any> {
     return this.http.post(`${this.path}/${id}`, file);
+  }
+
+  private getCourseFormData(context: Promotion): FormData {
+    const formData = new FormData();
+
+    Object.entries(context)
+      .filter(([param, value]) => value !== null)
+      .forEach(([param, value]) => {
+        formData.append(param, value);
+      });
+
+    return formData;
   }
 
 }

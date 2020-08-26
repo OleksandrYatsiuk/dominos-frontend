@@ -32,7 +32,7 @@ export class UserSettingsComponent implements OnInit {
     private userService: UserService,
     public formatter: NgbDateParserFormatter) { }
 
-  public image = "../../../assets/data/pizzas/profile.png";
+  public image = "../../../assets/data/profile.png";
   public updateProfileForm: FormGroup;
   public changePasswordForm: FormGroup;
   public spinEditProfile = false;

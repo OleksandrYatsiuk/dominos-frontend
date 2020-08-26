@@ -1,12 +1,16 @@
-.promo_details_button {
+.btn-promo {
     outline: none;
     background-color: white;
     opacity: 0.5;
     border-radius: 5px;
+    border: 0px;
     color: black;
     font-size: 20px;
     &:hover {
         opacity: 1;
+    }
+    &:active {
+        outline: none;
     }
 }
 .basket-button {

@@ -30,7 +30,7 @@ export class PizzaDataService {
     return this.http.post(`/pizza/${id}/upload`, file);
   }
 
-  public edit(id: string, data: Pizza): Observable<BaseResponse<Pizza>> {
+  public edit(id: string, data: any): Observable<BaseResponse<Pizza>> {
     return this.http.put(`/pizza/${id}`, data);
   }
 }

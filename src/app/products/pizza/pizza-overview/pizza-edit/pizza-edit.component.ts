@@ -99,7 +99,6 @@ export class PizzaEditComponent implements OnInit {
 			return this.http.edit(this.pizza.id, data)
 				.pipe(pluck('result'))
 				.subscribe(pizza => {
-					console.log(this.file)
 					if (this.file) {
 						this.http.upload(this.pizza.id, this.file).subscribe((result) => {
 							this.loading = !this.loading;

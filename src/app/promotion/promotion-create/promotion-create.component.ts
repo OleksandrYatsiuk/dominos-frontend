@@ -4,16 +4,19 @@ import { PromotionDataService } from '../promotion-data.service';
 import { pluck } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { PromotionStatuses } from './promotions.interface';
+import { PromotionStatuses, Promotion } from './promotions.interface';
+import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-promotion-create',
   templateUrl: './promotion-create.component.html',
   styleUrls: ['./promotion-create.component.scss']
 })
 export class PromotionCreateComponent implements OnInit {
-  public createPromotionForm: FormGroup;
+  public form: FormGroup;
   public loading = false;
   selectedFile: any;
+  public file: File;
   imagePath: any;
   url: string | ArrayBuffer;
 
@@ -21,7 +24,9 @@ export class PromotionCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: PromotionDataService,
     private handler: ErrorHandlerService,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private config: ApiConfigService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -29,49 +34,28 @@ export class PromotionCreateComponent implements OnInit {
   }
 
   public initForms() {
-    this.createPromotionForm = this.formBuilder.group({
-      title: [null, [Validators.required]],
-      content: [null, [Validators.required, Validators.maxLength(2000)]],
-      image: ["", [Validators.required]],
-      startedAt: ["", [Validators.required]],
+    this.form = this.formBuilder.group({
+      title: [null, [Validators.required, Validators.maxLength(this.config.getParameter('titleMaxLength'))]],
+      content: [null, [Validators.required, Validators.maxLength(this.config.getParameter('descriptionMaxLength'))]],
+      image: [null, []],
+      startedAt: [new Date(), [Validators.required]],
     });
-
   }
+
   public create() {
-    this.createPromotionForm.markAllAsTouched();
-    if (this.createPromotionForm.valid) {
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
       this.loading = !this.loading;
-      this.http.create(this.createPromotionForm.value)
+      this.http.create({ ...this.form.getRawValue() })
         .pipe(pluck('result'))
         .subscribe(result => {
-          if (this.selectedFile !== null) {
-            const fd = new FormData();
-            setTimeout(() => {
-              fd.append('file', this.selectedFile, this.selectedFile.name);
-              this.http.upload(result.id, fd).subscribe(({ result }) => {
-                this.loading = !this.loading;
-                this.createPromotionForm.reset();
-                this.notification.showSuccess(`Акція "${result.title}" успішно збережена!`)
-              });
-            }, 2000)
-
-          }
+          this.loading = !this.loading;
+          this.notification.showSuccess(`Акція "${result.title}" успішно збережена!`);
+          this.router.navigateByUrl('/admin/promotions')
         }, (error) => {
           this.loading = false;
-          this.handler.validation(error, this.createPromotionForm);
+          this.handler.validation(error, this.form);
         });
-    }
-  }
-
-  onFileSelected(event) {
-    this.selectedFile = event.target.files[0];
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader();
-      this.imagePath = event.target.files;
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = () => {
-        this.url = reader.result;
-      };
     }
   }
 }

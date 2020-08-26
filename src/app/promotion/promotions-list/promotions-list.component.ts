@@ -9,6 +9,7 @@ import { PromotionStatuses, Promotion } from '../promotion-create/promotions.int
 })
 export class PromotionsListComponent implements OnInit {
   promotions: Array<Promotion>;
+  public defaultImage = '../../../assets/data/default_image.png'
   constructor(private http: PromotionDataService) { }
 
   ngOnInit() {

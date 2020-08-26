@@ -5,7 +5,7 @@
         <div class="product_image">
           <div class="photo">
             <img src="{{ item.image }}" *ngIf="item.image" alt="Замовити піцу" />
-            <img src="../../assets/data/pizzas/default_image.jpg" *ngIf="!item.image" alt="Замовити піцу" />
+            <img src="../../assets/data/default_image.png" *ngIf="!item.image" alt="Замовити піцу" />
           </div>
           <div class="product_weight">
             <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">

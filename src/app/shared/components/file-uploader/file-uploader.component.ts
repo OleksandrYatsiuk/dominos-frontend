@@ -1,10 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface FileOptions {
-  src: string | ArrayBuffer,
-  file: File | FormData;
+  src?: string | ArrayBuffer;
+  file: Files;
 }
+
+type Files = File | File[];
+
 @Component({
   selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html',
@@ -17,9 +20,9 @@ export interface FileOptions {
 })
 
 export class FileUploaderComponent implements ControlValueAccessor {
-  public imagePath = '../../../../assets/data/undefined_image.jpg';
-  public value: string | File | ArrayBuffer;
-  public onChange: any = () => { };
+  public imagePath = '../../../../assets/data/default_image.png';
+  public value: Files
+  public onChange = (v: Files | null): void => { };
   public onTouch: any = () => { };
   @Input() src: FileOptions['src'] | null;
   @Output() upload = new EventEmitter<FileOptions>();
@@ -27,8 +30,13 @@ export class FileUploaderComponent implements ControlValueAccessor {
   constructor() {
   }
 
-  writeValue(file: string | ArrayBuffer): void {
-    this.value = file;
+  writeValue(file: Files): void {
+    if (typeof file == 'string') {
+      this.src = file
+    } else {
+      this.onChange(file);
+      this.value = file;
+    }
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -40,12 +48,12 @@ export class FileUploaderComponent implements ControlValueAccessor {
   public onFileSelected(event: any): void {
 
     if (event.target.files && event.target.files[0]) {
-      this.parseFile(event)
+      this.parseFile(event);
+      this.writeValue(event.target.files[0])
       this.upload.emit(
         {
-          file: this.appendFile(event.target.files[0]),
-          src: this.src
-        });
+          file: event.target.files[0]
+        })
     }
   }
 
@@ -56,16 +64,8 @@ export class FileUploaderComponent implements ControlValueAccessor {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.src = reader.result;
-        this.writeValue(reader.result);
-        this.onChange(reader.result)
       }
     }
-  }
-
-  private appendFile(file: File): FormData {
-    const fd: FormData = new FormData();
-    fd.append('file', file, file.name);
-    return fd;
   }
 }
 

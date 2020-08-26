@@ -1,9 +1,9 @@
 <div class="page">
-    <span class="title">Create Promotion</span>
-    <form [formGroup]="form" (ngSubmit)="create()" class="product">
+    <span class="title">Edit Promotion: {{promotion.title}} </span>
+    <form [formGroup]="form" (ngSubmit)="update()" class="product">
         <div class="product_image">
             <app-form-item [control]="form.controls.image" field="Image">
-                <app-file-uploader formControlName="image"></app-file-uploader>
+                <app-file-uploader formControlName="image" [src]="promotion?.image"></app-file-uploader>
             </app-form-item>
         </div>
         <div class="form">
@@ -11,6 +11,14 @@
                 <app-form-item [control]="form.controls.title" field="Title">
                     <input class="form-control" placeholder="Enter Title" formControlName="title">
                 </app-form-item>
+            </div>
+
+            <div class="form-row">
+                <app-form-item [control]="form.controls.status" field="Status">
+                    <app-select formControlName="status" placeholder="Select Promotion Status" [items]="promoStatuses">
+                    </app-select>
+                </app-form-item>
+
                 <app-form-item [control]="form.controls.startedAt" field="Started Date">
                     <app-datepicker formControlName="startedAt" maxDate='-'> </app-datepicker>
                 </app-form-item>
@@ -22,7 +30,7 @@
                 </app-form-item>
             </div>
             <div class="form-row">
-                <app-spin-button name="Create" [loading]="loading"></app-spin-button>
+                <app-spin-button name="Save" [loading]="loading"></app-spin-button>
             </div>
         </div>
     </form>

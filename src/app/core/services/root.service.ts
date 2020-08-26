@@ -10,7 +10,7 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-  getIngredientsList(params?:object): Observable<any> {
+  getIngredientsList(params?: object): Observable<any> {
     return this.http.get(`ingredients`, params);
   }
   public createIngredient(data: any): Observable<any> {
