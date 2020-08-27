@@ -1,22 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { passwordValidator } from '../../core/validators/password-validator';
-import { Router } from '@angular/router';
 import { NotificationService } from '../../core/services/notification.service';
 import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
 import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { pluck } from 'rxjs/operators';
+import { ReplaySubject } from 'rxjs';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss']
 })
-export class UserSettingsComponent implements OnInit {
+export class UserSettingsComponent implements OnInit, OnDestroy {
   public minDate: NgbDateStruct = { year: 1950, month: 1, day: 1 };
   message: { type: string; message: string; };
 
@@ -32,11 +33,13 @@ export class UserSettingsComponent implements OnInit {
     private userService: UserService,
     public formatter: NgbDateParserFormatter) { }
 
-  public image = "../../../assets/data/profile.png";
+  public image: File;
   public updateProfileForm: FormGroup;
   public changePasswordForm: FormGroup;
+  public imgForm: FormGroup;
   public spinEditProfile = false;
   public spinChangePassword = false;
+  private destroy$ = new ReplaySubject<void>(1);
 
   get currentPassword() { return this.changePasswordForm.get('currentPassword'); }
   get newPassword() { return this.changePasswordForm.get('newPassword'); }
@@ -69,22 +72,46 @@ export class UserSettingsComponent implements OnInit {
     });
   }
 
+  showFile(event) {
+    this.image = event.file;
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next(null);
+    this.destroy$.complete();
+  }
+
   onSubmit() {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = !this.spinEditProfile;
       this.http.updateProfile(this.updateProfileForm.value)
-        .subscribe(({ code, result }) => {
-          if (code === 200) {
-            this.spinEditProfile = !this.spinEditProfile;
-            this.userService.setCurrentUserData(result)
-            this.notification.showSuccess('User profile has been successfully updated!')
+        .pipe(pluck('result'))
+        .subscribe(result => {
+          if (this.image) {
+            this.http.updateImage(this.image).subscribe(result => {
+              this.onSuccess(result)
+            }, (e) => {
+              this.onFail(e)
+            })
+          } else {
+            this.onSuccess(result)
           }
-        }, (error) => {
-          this.spinEditProfile = !this.spinEditProfile;
-          this.handler.validation(error, this.updateProfileForm);
+        }, (e) => {
+          this.onFail(e)
         });
     }
+  }
+
+  private onSuccess(result: object): void {
+    this.spinEditProfile = !this.spinEditProfile;
+    this.notification.showSuccess('User profile has been successfully updated!')
+    this.userService.setCurrentUserData(result)
+  }
+
+  private onFail(e: any): void {
+    this.spinEditProfile = !this.spinEditProfile;
+    this.handler.validation(e, this.updateProfileForm);
   }
 
   initForm() {
@@ -94,7 +121,7 @@ export class UserSettingsComponent implements OnInit {
       confirmPassword: ['', [Validators.required]],
     }, {
       validators: confirmPasswordValidator('confirmPassword', 'newPassword')
-    });
+    })
   }
 
   initUpdateProfile() {

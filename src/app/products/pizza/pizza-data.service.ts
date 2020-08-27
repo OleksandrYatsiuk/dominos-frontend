@@ -3,34 +3,32 @@ import { RootService } from 'src/app/core/services/root.service';
 import { Pizza } from 'src/app/core/models/pizza.interface';
 import { PaginationResponse, BaseResponse } from 'src/app/core/models/response.interface';
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 
 export class PizzaDataService {
 
   constructor(private http: RootService) { }
+  private path = '/pizza'
 
   public getPizzas(options?): Observable<PaginationResponse<Pizza[]>> {
-    return this.http.get('/pizza', options);
+    return this.http.get(this.path, options);
   }
 
   public getPizza(id: string): Observable<BaseResponse<Pizza>> {
-    return this.http.get(`/pizza/${id}`);
+    return this.http.get(`${this.path}/${id}`);
   }
 
   public remove(id: string): Observable<null> {
-    return this.http.delete(`/pizza/${id}`);
+    return this.http.delete(`${this.path}/${id}`);
   }
 
-  public create(data: Pizza): Observable<BaseResponse<Pizza>> {
-    return this.http.post('/pizza', data);
+  public create(data: Pizza): Observable<Pizza> {
+    return this.http.postFromData(this.path, data).pipe(pluck('result'));
   }
 
-  public upload(id: string, file: FormData): Observable<BaseResponse<Pizza>> {
-    return this.http.post(`/pizza/${id}/upload`, file);
-  }
-
-  public edit(id: string, data: any): Observable<BaseResponse<Pizza>> {
-    return this.http.put(`/pizza/${id}`, data);
+  public edit(id: string, data: Pizza): Observable<Pizza> {
+    return this.http.patchFromData(`${this.path}/${id}`, data).pipe(pluck('result'));
   }
 }

@@ -35,8 +35,9 @@ export class PromotionEditComponent implements OnInit {
 
   public initForms() {
     this.form = this.formBuilder.group({
-      title: [this.promotion.title, [Validators.required, Validators.maxLength(this.config.getParameter('titleMaxLength'))]],
-      content: [this.promotion.content, [Validators.required, Validators.maxLength(this.config.getParameter('descriptionMaxLength'))]],
+      title: [this.promotion.title, [Validators.required, Validators.maxLength(this.config.getParameter('promoTitleMaxLength'))]],
+      description: [this.promotion.description, [Validators.required,
+      Validators.maxLength(this.config.getParameter('promoDescriptionMaxLength'))]],
       status: [this.promotion.status, [Validators.required]],
       image: [null, []],
       startedAt: [this.promotion.startedAt, [Validators.required]],

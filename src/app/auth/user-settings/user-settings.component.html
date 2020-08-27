@@ -1,55 +1,50 @@
 <div class="profile_settings">
 
   <div class="portfolio">
-    <img src="../../../assets/data/profile.png" alt="user icon" />
-
-    <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-      <div class="change-password">
-
-        <app-form-item [control]="changePasswordForm.controls.currentPassword" field="Current Password">
-          <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
-            type="password">
-        </app-form-item>
-
-        <app-form-item [control]="changePasswordForm.controls.newPassword" field="New Password">
-          <input class="form-control" placeholder="Enter New Password" formControlName="newPassword"
-            type="new-password">
-        </app-form-item>
-
-        <app-form-item [control]="changePasswordForm.controls.confirmPassword" field="Confirm Password"
-          otherField="New Password">
-          <input class="form-control" placeholder="Enter Confirm Password" formControlName="confirmPassword"
-            type="new-password">
-        </app-form-item>
-        <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
-      </div>
-    </form>
+        <app-file-uploader [src]="currentUser?.image" (upload)=showFile($event)></app-file-uploader>
   </div>
 
+
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
-    <div class="update-profile">
 
-      <app-form-item [control]="updateProfileForm.controls.fullName" field="Full Name">
-        <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
-      </app-form-item>
+    <app-form-item [control]="updateProfileForm.controls.fullName" field="Full Name">
+      <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
+    </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.username" field="Username">
-        <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
-      </app-form-item>
+    <app-form-item [control]="updateProfileForm.controls.username" field="Username">
+      <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
+    </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.email" field="Email">
-        <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
-      </app-form-item>
+    <app-form-item [control]="updateProfileForm.controls.email" field="Email">
+      <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
+    </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
-        <app-datepicker formControlName="birthday" [minDate]="minDate"></app-datepicker>
-      </app-form-item>
+    <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
+      <app-datepicker formControlName="birthday" [minDate]="minDate"></app-datepicker>
+    </app-form-item>
 
-      <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">
-        <input class="form-control" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel">
-      </app-form-item>
+    <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">
+      <input class="form-control" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel">
+    </app-form-item>
 
-      <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
-    </div>
+    <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
+  </form>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+
+    <app-form-item [control]="changePasswordForm.controls.currentPassword" field="Current Password">
+      <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
+        type="password">
+    </app-form-item>
+
+    <app-form-item [control]="changePasswordForm.controls.newPassword" field="New Password">
+      <input class="form-control" placeholder="Enter New Password" formControlName="newPassword" type="new-password">
+    </app-form-item>
+
+    <app-form-item [control]="changePasswordForm.controls.confirmPassword" field="Confirm Password"
+      otherField="New Password">
+      <input class="form-control" placeholder="Enter Confirm Password" formControlName="confirmPassword"
+        type="new-password">
+    </app-form-item>
+    <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
   </form>
 </div>

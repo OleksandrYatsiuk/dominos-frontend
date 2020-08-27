@@ -35,8 +35,10 @@ export class PromotionCreateComponent implements OnInit {
 
   public initForms() {
     this.form = this.formBuilder.group({
-      title: [null, [Validators.required, Validators.maxLength(this.config.getParameter('titleMaxLength'))]],
-      content: [null, [Validators.required, Validators.maxLength(this.config.getParameter('descriptionMaxLength'))]],
+      title: [null, [Validators.required,
+      Validators.maxLength(this.config.getParameter('promoTitleMaxLength'))]],
+      description: [null, [Validators.required,
+      Validators.maxLength(this.config.getParameter('promoDescriptionMaxLength'))]],
       image: [null, []],
       startedAt: [new Date(), [Validators.required]],
     });

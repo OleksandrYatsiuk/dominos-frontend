@@ -24,18 +24,18 @@ export class PromotionDataService {
   }
 
   public create(data: Promotion): Observable<BaseResponse<Promotion>> {
-    const formData = this.getCourseFormData(data);
+    const formData = this.getFormData(data);
     return this.http.post(`${this.path}`, formData);
   }
   public update(id: string, data: Promotion): Observable<BaseResponse<Promotion>> {
-    const formData = this.getCourseFormData(data);
+    const formData = this.getFormData(data);
     return this.http.patch(`${this.path}/${id}`, formData);
   }
   public upload(id: string, file: FormData): Observable<any> {
     return this.http.post(`${this.path}/${id}`, file);
   }
 
-  private getCourseFormData(context: Promotion): FormData {
+  private getFormData(context: Promotion): FormData {
     const formData = new FormData();
 
     Object.entries(context)
@@ -43,7 +43,6 @@ export class PromotionDataService {
       .forEach(([param, value]) => {
         formData.append(param, value);
       });
-
     return formData;
   }
 

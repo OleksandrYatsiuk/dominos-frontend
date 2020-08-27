@@ -17,7 +17,7 @@ export class RootService {
     return this.http.post<any[]>(`ingredients`, data);
   }
 
-  public post(path, body?): Observable<any> {
+  public post(path:string, body?): Observable<any> {
     return this.http.post(`${path}`, body);
   }
 
@@ -34,5 +34,43 @@ export class RootService {
     return this.http.delete<any>(`${path}`);
   }
 
+  public postFromData(path, body?: any): Observable<any> {
+    const formData = this.getFormData(body);
+    return this.http.post(`${path}`, formData);
+  }
 
+  public patchFromData(path, body?: any): Observable<any> {
+    const formData = this.getFormData(body);
+    return this.http.patch(`${path}`, formData);
+  }
+
+
+  private getFormData(raw: object): FormData {
+    const formData = new FormData();
+
+    Object.entries(raw)
+      .filter(([param, value]) => value !== null)
+      .forEach(([param, value]) => {
+        if (Array.isArray(value)) {
+          this.setArrayKeys(formData, param, value)
+        } else if (typeof value == "object") {
+          this.setObjectKeys(formData, param, value)
+        } else {
+          formData.append(param, value);
+        }
+      });
+    return formData;
+  }
+
+  private setArrayKeys(formData: FormData, param: string, array: string[]): void {
+    array.forEach((el, index) => {
+      formData.append(`${param}[${index}]`, el);
+    })
+  }
+
+  private setObjectKeys(formData: FormData, param: string, object: object): void {
+    for (const key in object) {
+      formData.append(`${param}[${key}]`, object[key]);
+    }
+  }
 }

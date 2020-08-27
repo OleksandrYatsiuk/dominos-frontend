@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RootService } from '../core/services/root.service';
 import { UserLogin, User } from './auth.model';
 import { Observable } from 'rxjs';
+import { pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class UserDataService {
     return this.http.post(`/auth/login`, userLogin);
   }
 
-  changePassword(data): Observable<any> {
+  public changePassword(data: any): Observable<any> {
     return this.http.post(`/user/change-password`, data);
   }
-  updateProfile(data: any): Observable<any> {
-    return this.http.put(`/user/profile`, data);
+  public updateProfile(data: any): Observable<any> {
+    return this.http.put(`/user/profile`, data)
   }
 
   public register(user: User): Observable<any> {
@@ -35,6 +36,12 @@ export class UserDataService {
   public updateLocation(location: object): Observable<any> {
     return this.http.put(`/user/location`, location);
   }
+  public updateImage(file: File): Observable<any> {
+    const data = new FormData();
+    data.append('file', file);
+    return this.http.post(`/user/upload`, data).pipe(pluck('result'))
+  }
+
   public confirm(hash: string): Observable<any> {
     return this.http.get(`/auth/confirm/${hash}`);
   }
