@@ -25,9 +25,11 @@
             </div>
 
             <div class="form-row">
+                <div class="description">
                 <app-form-item [control]="form.controls.description" field="Description">
                     <textarea class="form-control" placeholder="Enter Description" formControlName="description"></textarea>
                 </app-form-item>
+            </div>
             </div>
             <div class="form-row">
                 <app-spin-button name="Save" [loading]="loading"></app-spin-button>
