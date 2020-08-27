@@ -88,8 +88,6 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       this.http.updateProfile(this.updateProfileForm.value)
         .pipe(pluck('result'))
         .subscribe(result => {
-          console.log(this.image);
-
           if (this.image instanceof File) {
             this.http.updateImage(this.image)
               .subscribe(result => {
