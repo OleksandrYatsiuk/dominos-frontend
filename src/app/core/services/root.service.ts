@@ -17,7 +17,7 @@ export class RootService {
     return this.http.post<any[]>(`ingredients`, data);
   }
 
-  public post(path:string, body?): Observable<any> {
+  public post(path: string, body?): Observable<any> {
     return this.http.post(`${path}`, body);
   }
 
@@ -54,7 +54,11 @@ export class RootService {
         if (Array.isArray(value)) {
           this.setArrayKeys(formData, param, value)
         } else if (typeof value == "object") {
-          this.setObjectKeys(formData, param, value)
+          if (value instanceof File) {
+            formData.append(param, value);
+          } else {
+            this.setObjectKeys(formData, param, value)
+          }
         } else {
           formData.append(param, value);
         }
@@ -69,6 +73,7 @@ export class RootService {
   }
 
   private setObjectKeys(formData: FormData, param: string, object: object): void {
+
     for (const key in object) {
       formData.append(`${param}[${key}]`, object[key]);
     }
