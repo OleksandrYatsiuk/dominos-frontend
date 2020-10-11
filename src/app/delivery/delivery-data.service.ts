@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { RootService } from '../core/services/root.service';
-import { Delivery } from './delivery.model';
+import { Delivery, Payment } from './delivery.model';
 import { Observable } from 'rxjs';
 import { PaginationResponse } from '../core/models/response.interface';
+import { pluck } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class DeliveryDataService {
   }
   public delete(id: string): Observable<null> {
     return this.http.delete(`/delivery/${id}`);
+  }
+  public createPayment(data: Payment): Observable<any> {
+    return this.http.post('payments', data).pipe(pluck('result'));
   }
 }

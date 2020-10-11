@@ -81,6 +81,7 @@
       <h2>Total</h2>
       <h2>{{totalAmount}} UAH</h2>
       <app-spin-button type="submit" [loading]="loading" name="Order"></app-spin-button>
+      <button (click)="sendPayment(totalAmount)">Payment</button>
     </div>
   </form>
 

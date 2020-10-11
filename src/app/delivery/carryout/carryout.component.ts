@@ -38,6 +38,8 @@ export class CarryoutComponent implements OnInit {
   }
   ngOnInit() {
 
+
+
     this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
     this.pizzasIds = this.basketService._storage.map(el => el.id)
 
@@ -51,6 +53,17 @@ export class CarryoutComponent implements OnInit {
         });
       }
     });
+  }
+
+  sendPayment(amount: string) {
+    this.rest.createPayment({
+      amount: +amount,
+      order_id: Date.now().toString(),
+      description: 'Order #' + Date.now().toString()
+    }).subscribe(response=>{
+      let link = `https://www.liqpay.ua/api/3/checkout?data=${response.data}&signature=${response.signature}`
+      window.open(link, '_blank');
+    })
   }
 
   initForm(): void {
