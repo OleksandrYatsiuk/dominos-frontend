@@ -13,8 +13,6 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
-    "@types/toastr": "^2.1.38",
-    "toastr": "^2.1.4",
     "@agm/js-marker-clusterer": "^1.1.0",
     "@angular-devkit/core": "^10.0.4",
     "@angular/animations": "^9.1.12",
@@ -35,6 +33,9 @@
     "@types/googlemaps": "^3.39.10",
     "@types/moment": "^2.13.0",
     "@types/node": "^8.10.62",
+    "@types/socket.io-client": "^1.4.33",
+    "@types/toastr": "^2.1.38",
+    "@types/uuid": "^8.3.0",
     "agm-direction": "^0.7.9",
     "bootstrap": "^4.5.0",
     "bootstrap-icons": "^1.0.0-alpha5",
@@ -51,8 +52,11 @@
     "ngx-toastr": "^13.0.0",
     "path": "^0.12.7",
     "rxjs": "~6.6.0",
+    "socket.io-client": "^2.3.0",
+    "toastr": "^2.1.4",
     "tslib": "^1.13.0",
     "typescript": "~3.8.3",
+    "uuid": "^8.3.0",
     "zone.js": "~0.10.3"
   },
   "devDependencies": {

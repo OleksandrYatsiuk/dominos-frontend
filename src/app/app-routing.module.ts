@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
   { path: 'promotion', loadChildren: () => import('./promotion/promotion.module').then(mod => mod.PromotionModule) },
   { path: 'admin', loadChildren: () => import('./admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule) },
+  { path: 'chat', loadChildren: () => import('./chat/chat.module').then(mod => mod.ChatModule) },
   { path: '', loadChildren: () => import('./products/products-list.module').then(mod => mod.ProductsListModule), data: { preload: true } },
   { path: '**', redirectTo: '/' }
 

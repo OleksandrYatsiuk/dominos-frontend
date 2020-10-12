@@ -1,0 +1,18 @@
+<div class="user-list">
+    <div *ngFor="let room of rooms" class="room" (click)="connectToRoom(room)"
+        routerLinkActive="router-link-active">
+        <div *ngIf="room.sender.id==user?.id ;else sender">
+            <img class="user-icon" src="{{room.receiver?.image}}" alt="">
+            <strong> {{room.receiver.fullName}}</strong>
+        </div>
+        <ng-template #sender>
+            <img class="user-icon" src="{{room.sender?.image}}" alt="">
+            <strong> {{room.sender?.fullName}}</strong>
+        </ng-template>
+    </div>
+    <hr>
+    <div *ngFor="let user of users" (click)="createRoom(user)" class="room">
+        <img class="user-icon" src="{{user?.image}}" alt="">
+        <strong> {{user.fullName}}</strong>
+    </div>
+</div>

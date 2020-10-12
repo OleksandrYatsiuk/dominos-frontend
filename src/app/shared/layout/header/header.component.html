@@ -1,5 +1,6 @@
 <header class="dp-header-desktop">
   <div class="fake-header">
+    <span class="nav material-icons" routerLink="chat"> email </span>
     <button class="nav" *ngxPermissionsOnly="canManagePizza" routerLink="/admin/pizzas">Admin Panel</button>
     <app-menu *ngIf="currentUser" [user]="currentUser">
       <button ngbDropdownItem routerLink="auth/user-settings"> User Settings</button>

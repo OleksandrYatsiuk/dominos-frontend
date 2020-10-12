@@ -8,4 +8,5 @@ export interface User extends UserLogin {
   fullName: string;
   email: string;
   confirmPassword: string;
+  image?: string | null;
 }

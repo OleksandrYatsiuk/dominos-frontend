@@ -1,6 +1,7 @@
 body,
 .dropdown-menu,
 textarea,
+.messages-list,
 .modal-body {
     &::-webkit-scrollbar {
         width: 0.5em;
@@ -10,6 +11,5 @@ textarea,
     }
     &::-webkit-scrollbar-thumb {
         background-color: darkgrey;
-        outline: 1px solid slategrey;
     }
 }
