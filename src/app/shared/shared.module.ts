@@ -8,11 +8,6 @@ import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-import { MapComponent } from './components/map/map.component';
-import { AgmCoreModule } from '@agm/core';
-import { AgmJsMarkerClustererModule } from '@agm/js-marker-clusterer';
-import { AgmDirectionModule } from 'agm-direction';
-import { environment } from 'src/environments/environment';
 import { NotificationComponent } from './components/notification/notification.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
@@ -44,7 +39,6 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     FooterComponent,
     MenuComponent,
     BasketCardItemComponent,
-    MapComponent,
     DeleteModalComponent,
     NotificationComponent,
     SpinButtonComponent,
@@ -71,18 +65,13 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     RouterModule,
     SelectDropDownModule,
-    AgmJsMarkerClustererModule,
-    AgmDirectionModule,
+    // AgmJsMarkerClustererModule,
+    // AgmDirectionModule,
     NgxMaterialTimepickerModule,
     NgbToastModule,
     NgbDatepickerModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgxPermissionsModule.forRoot(),
-    AgmCoreModule.forRoot({
-      apiKey: environment.googleApiKey,
-      libraries: ['geometry', 'places'],
-      language: 'uk'
-    })
+    NgxPermissionsModule.forRoot()
 
   ],
   exports: [
@@ -91,7 +80,6 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     BasketCardItemComponent,
     HeaderComponent,
     FooterComponent,
-    MapComponent,
     SpinButtonComponent,
     FormItemComponent,
     SelectComponent,
@@ -106,7 +94,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
     NgbModule,
     ReactiveFormsModule,
     RouterModule,
-    AgmCoreModule,
+    // AgmCoreModule,
     NgxPermissionsModule,
     NgxMaterialTimepickerModule,
     NgbToastModule,

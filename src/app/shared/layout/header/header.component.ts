@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { BasketService } from "../../../core/services/basket.service";
 import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
@@ -7,6 +7,7 @@ import { CAN_MANAGE_PIZZA } from "./header-permissions";
 import { UserDataService } from "src/app/auth/user-data.service";
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
   selector: "app-header",
@@ -17,19 +18,21 @@ export class HeaderComponent implements OnInit {
   public count: number;
   public basket: any;
   public amount: number;
-  public token = localStorage.getItem("auth");
   public currentUser = null;
   public canManagePizza = CAN_MANAGE_PIZZA;
+  isBrowser: boolean;
 
   constructor(
+    @Inject(PLATFORM_ID) private _pid: any,
     private modal: ModalService,
     private basketService: BasketService,
     private geolocation: GeolocationService,
     private userService: UserService,
-    private config: ApiConfigService,
     private http: UserDataService,
     private router: Router
-  ) { }
+  ) {
+    this.isBrowser = isPlatformBrowser(_pid);
+  }
 
   ngOnInit() {
     this.userService.setCurrentUser();
@@ -50,5 +53,11 @@ export class HeaderComponent implements OnInit {
         this.router.navigateByUrl('/').then(() => location.reload());
       }
     });
+  }
+
+  get token(): any {
+    if (this.isBrowser) {
+      return localStorage.getItem("auth");
+    }
   }
 }

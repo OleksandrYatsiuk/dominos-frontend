@@ -19,7 +19,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
     preloadingStrategy: PreloadAllModules,
     scrollPositionRestoration: 'enabled',
-    relativeLinkResolution: 'legacy'
+    relativeLinkResolution: 'legacy',
+    initialNavigation: 'enabled'
 }),
   ],
   exports: [RouterModule],

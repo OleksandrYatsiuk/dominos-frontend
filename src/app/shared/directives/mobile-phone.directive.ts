@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core';
+import { Directive, ElementRef, HostListener, HostBinding, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
@@ -6,7 +6,10 @@ import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core'
 })
 export class MobilePhoneDirective {
 
-  constructor(private element: ElementRef) { }
+  constructor(
+    @Inject(PLATFORM_ID) private _pid: any,
+    private element: ElementRef
+  ) { }
   @HostBinding('style.border')
   border: string;
 

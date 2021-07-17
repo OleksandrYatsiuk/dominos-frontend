@@ -5,7 +5,6 @@ import { DeliveryComponent } from './delivery.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { DeliveryRoutingModule } from './delivery-routing.module';
 import { CarryoutComponent } from './carryout/carryout.component';
-import { MapComponent } from '../shared/components/map/map.component';
 
 
 @NgModule({
@@ -19,7 +18,6 @@ import { MapComponent } from '../shared/components/map/map.component';
     SharedModule,
     DeliveryRoutingModule
   ],
-  entryComponents: [MapComponent],
   providers: []
 })
 export class DeliveryModule { }

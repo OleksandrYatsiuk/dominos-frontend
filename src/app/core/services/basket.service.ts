@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export interface PizzaItem {
@@ -18,13 +19,24 @@ export interface BasketOptions {
 @Injectable({ providedIn: 'root' })
 
 export class BasketService {
+  isBrowser: boolean;
+  constructor(
+    @Inject(PLATFORM_ID) _pid: any
+  ) {
+    this.isBrowser = isPlatformBrowser(_pid)
+  }
 
   public key = 'basket';
   public _storage: PizzaItem[];
+
   public get storage() {
-    return this.localStorage()
-      ? (this._storage = JSON.parse(localStorage.getItem(this.key)))
-      : (this._storage = []);
+    if (this.isBrowser) {
+      return this.localStorage()
+        ? (this._storage = JSON.parse(localStorage.getItem(this.key)))
+        : (this._storage = []);
+    }
+    return []
+
   }
 
   private count$ = new BehaviorSubject<BasketOptions>(this.checkBasket(this.storage));
@@ -35,7 +47,9 @@ export class BasketService {
   }
 
   private localStorage(): string {
-    return JSON.parse(localStorage.getItem(this.key));
+    if (this.isBrowser) {
+      return JSON.parse(localStorage.getItem(this.key));
+    }
   }
 
   public add(item: PizzaItem) {
@@ -46,7 +60,9 @@ export class BasketService {
       ++this._storage[index].count
     }
     this.updateCount(this.checkBasket(this._storage));
-    localStorage.setItem(this.key, JSON.stringify(this._storage));
+    if (this.isBrowser) {
+      localStorage.setItem(this.key, JSON.stringify(this._storage));
+    }
 
   }
 
@@ -64,19 +80,21 @@ export class BasketService {
       }
     }
     this.updateCount(this.checkBasket(this._storage));
-    localStorage.setItem(this.key, JSON.stringify(this._storage));
+    if (this.isBrowser) {
+      localStorage.setItem(this.key, JSON.stringify(this._storage));
+    }
   }
 
 
   public calculateCount(arr: PizzaItem[]): number {
     let value = 0;
-    arr.forEach(el => value += +el.count);
+    arr?.forEach(el => value += +el.count);
     return value;
   }
 
   private calculatePrice(arr: PizzaItem[]): string {
     let value = 0;
-    arr.forEach(el => value += +el.price * el.count);
+    arr?.forEach(el => value += +el.price * el.count);
     return Number.parseFloat(value.toString()).toFixed(2);
   }
 
@@ -85,12 +103,14 @@ export class BasketService {
   }
 
   public getItem(id: string, size: string) {
-    return this.storage.find(el => el.id === id && el.size === size);
+    return this.storage?.find(el => el.id === id && el.size === size);
   }
 
   public clear() {
-    localStorage.removeItem(this.key)
-    this.updateCount({ count: 0, amount: '0' });
+    if (this.isBrowser) {
+      localStorage.removeItem(this.key)
+      this.updateCount({ count: 0, amount: '0' });
+    }
   }
 
 

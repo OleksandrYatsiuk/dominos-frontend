@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { UserDataService } from 'src/app/auth/user-data.service';
+import { inject } from '@angular/core/testing';
+import { isPlatformBrowser } from '@angular/common';
 
 export interface Credentials {
   // Customize received credentials here
@@ -16,6 +18,7 @@ export interface Credentials {
 })
 export class UserService {
 
+  isBrowser: boolean;
 
   private credentialsKey = 'auth';
 
@@ -24,9 +27,12 @@ export class UserService {
   public currentUser = this.currentUserSubject$.asObservable();
 
   constructor(
+    @Inject(PLATFORM_ID) _pid: any,
     private http: UserDataService,
     private permissionsService: NgxPermissionsService
-  ) { }
+  ) {
+    this.isBrowser = isPlatformBrowser(_pid);
+  }
 
   public setCurrentUser() {
     if (this.isAuthorized()) {
@@ -50,15 +56,22 @@ export class UserService {
   }
 
   public authData() {
-    return localStorage.getItem(this.credentialsKey)
+    if (this.isBrowser) {
+      return localStorage.getItem(this.credentialsKey)
+    }
   }
 
   public setCredentials(data): void {
-    localStorage.setItem(this.credentialsKey, data)
+    if (this.isBrowser) {
+      localStorage.setItem(this.credentialsKey, data)
+    }
   }
 
   public removeCredentials(): void {
-    localStorage.removeItem(this.credentialsKey)
+    if (this.isBrowser) {
+
+      localStorage.removeItem(this.credentialsKey)
+    }
   }
 
 }

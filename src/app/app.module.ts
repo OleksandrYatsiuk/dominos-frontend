@@ -11,11 +11,13 @@ import { UserService } from './core/services/user.service';
 import { GeolocationService } from './core/services/geolocation.service';
 import { ApiConfigService } from './core/services/api-config.service';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     AppRoutingModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     RouterModule,
     CommonModule,
     SharedModule,

@@ -76,11 +76,11 @@ export class CarryoutComponent implements OnInit {
 
   openMap(): void {
     this.carryOut.controls.shopId.markAsUntouched({ onlySelf: true })
-    this.modal.openMapModal().result
-      .then(result => {
-        this.carryOut.controls.shopId.setValue(result.address);
-        this.shopId = result.id;
-      }).catch(e => e)
+    // this.modal.openMapModal().result
+    //   .then(result => {
+    //     this.carryOut.controls.shopId.setValue(result.address);
+    //     this.shopId = result.id;
+    //   }).catch(e => e)
   }
 
 
