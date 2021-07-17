@@ -78,7 +78,7 @@
           <p>{{ count }}</p>
           <button class="basket-button" (click)="addToCard(item)">+</button>
         </div>
-        <button class="basket-button" *ngIf="count == 0" (click)="addToCard(item)">В кошик</button>
+        <button class="basket-button" *ngIf="count === 0" (click)="addToCard(item)">В кошик</button>
       </div>
     </form>
   </div>

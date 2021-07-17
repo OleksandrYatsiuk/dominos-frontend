@@ -5,6 +5,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 	selector: 'app-notification',
 	templateUrl: './notification.component.html',
 	styleUrls: ['./notification.component.scss'],
+	// eslint-disable-next-line @angular-eslint/no-host-metadata-property
 	host: { '[class.ngb-toasts]': 'true' }
 })
 export class NotificationComponent {
