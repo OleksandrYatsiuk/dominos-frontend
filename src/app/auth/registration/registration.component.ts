@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoginComponent } from '../../shared/components/login/login.component';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
-import { MatDialog } from '@angular/material';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';

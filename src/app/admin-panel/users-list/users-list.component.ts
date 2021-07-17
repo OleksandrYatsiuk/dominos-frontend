@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementDataService } from 'src/app/core/services/user-management-data.service';
-import { MatDialog } from '@angular/material';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { User } from 'src/app/auth/auth.model';

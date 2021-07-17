@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from 'src/app/core/services/root.service';
-import { PageEvent } from '@angular/material';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 
@@ -17,7 +16,7 @@ export class IngredientListComponent implements OnInit {
   length = 100;
   pageSize = 20;
   pageSizeOptions: number[] = [5, 10, 20];
-  pageEvent: PageEvent;
+  pageEvent: any;
   public collectionSize: number;
 
   constructor(

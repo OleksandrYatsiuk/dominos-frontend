@@ -17,9 +17,10 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules,
-      scrollPositionRestoration: 'enabled'
-    }),
+    preloadingStrategy: PreloadAllModules,
+    scrollPositionRestoration: 'enabled',
+    relativeLinkResolution: 'legacy'
+}),
   ],
   exports: [RouterModule],
   providers: [],
