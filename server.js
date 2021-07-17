@@ -9,8 +9,8 @@ app.use(express.static(__dirname + '/dist/Dominos'));
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname + '/dist/Dominos/index.html'));
 });
-console.log(path.join(__dirname))
 
 // default Heroku PORT
-app.listen(process.env.PORT || 3000);
-console.log("Server was started on localhost:3000")
+app.listen(process.env.PORT || 4000, (ev) => {
+    console.log("\nServer was started on http://localhost:4000")
+})
