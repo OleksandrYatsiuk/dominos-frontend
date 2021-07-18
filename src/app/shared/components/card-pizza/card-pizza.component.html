@@ -1,85 +1,63 @@
 <div class="product-block">
-  <div class="item">
-    <form [formGroup]="pizzaForm">
-      <div class="product-row">
-        <div class="product_image">
-          <div class="photo">
-            <img src="{{ item.image }}" *ngIf="item.image" alt="Замовити піцу" />
-            <img src="../../assets/data/default_image.png" *ngIf="!item.image" alt="Замовити піцу" />
-          </div>
-          <div class="product_weight">
-            <span *ngIf="pizzaForm.controls.size.value === 'Маленька'">
-              {{ item.weight.small }} г
-            </span>
-            <span *ngIf="pizzaForm.controls.size.value === 'Середня'">
-              {{ item.weight.middle }} г
-            </span>
-            <span *ngIf="pizzaForm.controls.size.value === 'Велика'">
-              {{ item.weight.big }} г
-            </span>
-          </div>
+  <div class="item" [formGroup]="pizzaForm">
+    <div class="product-row">
+      <div class="product_image">
+        <img
+          class="photo"
+          [src]="item.image || '/assets/data/default_image.png'"
+          alt="Замовити піцу"
+        />
+        <div class="product_weight">
+          <span>{{ sizeValue.weight?.toLocaleString("uk") }} г</span>
         </div>
       </div>
-      <div class="product-row">
-        <a [routerLink]="['/pizza/', item.id]" class="product_name">
-          Піца {{ item.name }}</a>
+    </div>
+    <div class="product-row">
+      <a [routerLink]="['/pizza/', item.id]" class="product_name">
+        Піца {{ item.name }}</a
+      >
+    </div>
+    <div class="product-row">
+      <div class="product_ingredients">
+        <span *ngFor="let ingredient of item.ingredients; let last = last">
+          {{ ingredient.name }}<ng-container  *ngIf="!last">, </ng-container>
+        </span>
       </div>
-      <div class="product-row">
-        <div class="product_ingredients">
-          <span *ngFor="let ingredient of item.ingredients">
-            {{ ingredient.name }}
-          </span>
-        </div>
-      </div>
-      <div class="product-row">
-        <div class="size">
-          <label class="radio">
-            <input type="radio" name="size" formControlName="size" value="Маленька" />
-            <span>Маленька</span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="size" formControlName="size" value="Середня" />
-            <span> Середня </span>
-          </label>
-          <label class="radio">
-            <input type="radio" name="size" formControlName="size" value="Велика" />
-            <span>Велика</span>
-          </label>
-        </div>
-      </div>
+    </div>
+    <div class="product-row product-row--centered">
+      <p-selectButton
+        [options]="sizes"
+        formControlName="size"
+        class="d-select-button"
+      ></p-selectButton>
+    </div>
 
-      <div class="product-row">
-        <div class="form">
-          <label>
-            <input type="radio" formControlName="form" value="Стандарт" />
-            <span>Стандарт</span>
-          </label>
-          <label>
-            <input type="radio" formControlName="form" value="Тонке" />
-            <span>Тонке</span>
-          </label>
-          <label>
-            <input type="radio" formControlName="form" value="Філадельфія" />
-            <span>Філадельфія</span>
-          </label>
-          <label>
-            <input type="radio" formControlName="form" value="Борт Хот-Дог" />
-            <span>Борт Хот-Дог</span>
-          </label>
-        </div>
+    <div class="product-row product-row--centered">
+      <p-selectButton
+        [options]="options"
+        formControlName="options"
+        class="d-select-button d-select-button--separated"
+      ></p-selectButton>
+    </div>
+    <div class="product-row">
+      <div class="price">
+        <span>{{ this.sizeValue.price?.toLocaleString("uk") }} </span>
+        <span class="currency"> грн</span>
       </div>
-      <div class="product-row">
-        <div class="price">
-          <span> {{ price }}</span>
-          <span class="currency"> UAH</span>
-        </div>
-        <div class="checked_product" *ngIf="count !== 0">
-          <button class="basket-button" (click)="removeFromCard(item)">-</button>
-          <p>{{ count }}</p>
-          <button class="basket-button" (click)="addToCard(item)">+</button>
-        </div>
-        <button class="basket-button" *ngIf="count === 0" (click)="addToCard(item)">В кошик</button>
+      <div class="checked_product" *ngIf="count !== 0">
+        <button class="basket-button" (click)="removeFromCard(sizeValue)">
+          -
+        </button>
+        <p>{{ count }}</p>
+        <button class="basket-button" (click)="addToCard(sizeValue)">+</button>
       </div>
-    </form>
+      <button
+        class="basket-button"
+        *ngIf="count === 0"
+        (click)="addToCard(sizeValue)"
+      >
+        В кошик
+      </button>
+    </div>
   </div>
 </div>

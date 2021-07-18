@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output } from "@angular/core";
+import { Component, Input, Output } from "@angular/core";
 import { BasketService, PizzaItem } from "../../../core/services/basket.service";
-import { PizzaDataService } from "src/app/products/pizza/pizza-data.service";
 
 @Component({
   selector: "app-basket-card-item",
@@ -17,7 +16,7 @@ export class BasketCardItemComponent {
   }
 
   addToCard(item: PizzaItem) {
-    this.basketService.add({ id: item.id, name: item.name, size: item.size, price: item.price, image: item.image });
+    this.basketService.add({ id: item.id, type: item.type, price: item.price });
   }
 
   removeFromCard(item: PizzaItem) {

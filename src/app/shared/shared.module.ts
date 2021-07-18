@@ -24,6 +24,7 @@ import { TimePickerComponent } from './components/time-picker/time-picker.compon
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
+import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardPizzaComponent } from './components/card-pizza/card-pizza.component';
 
 
@@ -62,7 +63,8 @@ import { CardPizzaComponent } from './components/card-pizza/card-pizza.component
     NgbToastModule,
     NgbDatepickerModule,
     NgxPermissionsModule.forRoot(),
-    DropdownModule
+    DropdownModule,
+    SelectButtonModule
 
   ],
   exports: [

@@ -1,14 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { EPizzaSizes } from '@shared/components/card-pizza/card-pizza.component';
 import { BehaviorSubject } from 'rxjs';
 
 export interface PizzaItem {
   id: string;
-  size: string;
-  name: string;
+  type: EPizzaSizes;
   price: number;
-  image: string;
   count?: number;
+  weight?: number;
 }
 
 export interface BasketOptions {
@@ -30,7 +30,7 @@ export class BasketService {
   public _storage: PizzaItem[];
   private count$ = new BehaviorSubject<BasketOptions>({ count: 0, amount: '0' });
 
-  public get storage() {
+  public get storage(): PizzaItem[] {
     if (this._getItem()) {
       this._storage = this.localStorage()
     } else {
@@ -67,30 +67,25 @@ export class BasketService {
 
 
   public add(item: PizzaItem): void {
-    const index = this.storage.findIndex(pizza => item.id === pizza.id && item.size === pizza.size);
-    if (index === -1) {
-      this._storage.push(Object.assign(item, { count: 1 }));
+    const index = this.storage.findIndex(pizza => item.id === pizza.id && item.type === pizza.type);
+    if (index !== -1) {
+      this._storage[index].count = this._storage[index].count + 1;
     } else {
-      ++this._storage[index].count
+      this._storage.push({ ...item, count: 1 });
     }
     this.updateCount(this.checkBasket(this._storage));
     if (this.isBrowser) {
       localStorage.setItem(this.key, JSON.stringify(this._storage));
     }
-
   }
 
-  public remove(item: PizzaItem, size?: string) {
-    const index = this.storage.findIndex(pizza => item.id === pizza.id && size || item.size === pizza.size);
+  public remove(item: PizzaItem): void {
+    const index = this.storage.findIndex(pizza => item.id === pizza.id && item.type === pizza.type);
     if (index !== -1) {
       if (this._storage[index].count > 1) {
-        --this._storage[index].count
+        this._storage[index].count = this._storage[index].count - 1;
       } else {
-        if (size) {
-          this._storage = this._storage.filter(el => el.id !== item.id || (el.id === item.id && el.size !== size))
-        } else {
-          this._storage = this._storage.filter(el => el.id !== item.id || (el.id === item.id && el.size !== item.size))
-        }
+        this._storage.splice(index, 1);
       }
     }
     this.updateCount(this.checkBasket(this._storage));
@@ -116,9 +111,14 @@ export class BasketService {
     return { count: this.calculateCount(storage), amount: this.calculatePrice(storage) };
   }
 
-  public getItem(id: string, size: string) {
-    return this.storage?.find(el => el.id === id && el.size === size);
+  public getItem(id: string, type: EPizzaSizes) {
+    return this.storage?.find(el => el.id === id && el.type === type);
   }
+
+  getStorage(): PizzaItem[] {
+    return this.storage;
+  }
+
 
   public clear(): void {
     if (this.isBrowser) {
