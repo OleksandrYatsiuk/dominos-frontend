@@ -1,8 +1,8 @@
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ShippingFormComponent } from './shipping-form/shipping-form.component';
+import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 import { DeliveryComponent } from './delivery.component';
-import { CarryoutComponent } from './carryout/carryout.component';
+import { CarryoutComponent } from './components/carryout/carryout.component';
 
 
 const deliveryRoutes: Routes = [

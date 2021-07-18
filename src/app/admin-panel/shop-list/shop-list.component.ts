@@ -23,7 +23,7 @@ export class ShopListComponent implements OnInit {
   }
 
   public getList(page: number, limit: number, sort = 'name') {
-    this.http.getData({ params: { page, limit, sort } })
+    this.http.queryShopsList({ params: { page, limit, sort } })
       .subscribe(({ result, _meta }) => {
         this.shops = result;
         this.page = _meta.pagination.page;

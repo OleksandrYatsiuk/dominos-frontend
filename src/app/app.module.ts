@@ -15,6 +15,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { HeaderModule } from './module-header/module-header.module';
 import { FooterModule } from './module-footer/module-footer.module';
 import { SharedModule } from '@shared/shared.module';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,8 +32,8 @@ import { SharedModule } from '@shared/shared.module';
     HttpClientModule,
     CalendarModule
   ],
-  exports:[SharedModule],
-  providers: [BasketService, UserService, GeolocationService, ApiConfigService, {
+  exports: [SharedModule],
+  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, {
     provide: APP_INITIALIZER,
     useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
     deps: [ApiConfigService],

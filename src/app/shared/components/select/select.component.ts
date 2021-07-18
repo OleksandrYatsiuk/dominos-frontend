@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Payments } from 'src/app/delivery/shipping-form/payments.model';
+import { Payments } from 'src/app/delivery/components/shipping-form/payments.model';
 
 @Component({
   selector: 'app-select',

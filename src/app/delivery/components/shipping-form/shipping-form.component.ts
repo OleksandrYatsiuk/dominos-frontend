@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
-import { DeliveryDataService } from '../delivery-data.service';
+import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
 import { Payments } from './payments.model';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';

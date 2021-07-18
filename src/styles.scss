@@ -15,6 +15,20 @@
 @import "./styles/multi-select";
 @import "./styles/checkbox";
 @import "./styles/menu";
+@import "./styles/dialog";
+@import "../node_modules/leaflet/dist/leaflet.css";
+
+.marker-popup {
+  .leaflet-popup-content-wrapper {
+    .leaflet-popup-content {
+      @include genText(13px, 18px, 500, gray);
+    }
+  }
+  .leaflet-popup-tip {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
 
 html,
 body {

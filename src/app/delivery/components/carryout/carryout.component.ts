@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { DeliveryDataService } from '../delivery-data.service';
-import { BasketService } from 'src/app/core/services/basket.service';
+import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
 import { Payments } from '../shipping-form/payments.model';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { ModalService } from 'src/app/core/services/modal.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MapComponent } from '../map/map.component';
+import { BasketService } from '@core/services/basket.service';
+import { IShop } from '@core/models/shop.interface';
+import { ShopService } from '@core/services/shop.service';
+import { Observable, pluck } from 'rxjs';
+
 
 @Component({
   selector: 'app-carryout',
@@ -16,13 +22,16 @@ import { ModalService } from 'src/app/core/services/modal.service';
   styleUrls: ['./carryout.component.scss']
 })
 
-export class CarryoutComponent implements OnInit {
+export class CarryoutComponent implements OnInit, OnDestroy {
   public carryOut: FormGroup;
   public loading = false;
   public shopId = false;
   public totalAmount: string;
   public pizzasIds: string[] = [];
   public paymentTypes: Payments[] = this.configService.getStatuses('payment');
+  shops$: Observable<IShop[]>;
+
+  private _ref: DynamicDialogRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -33,10 +42,20 @@ export class CarryoutComponent implements OnInit {
     private rest: DeliveryDataService,
     private basketService: BasketService,
     private router: Router,
-    private configService: ApiConfigService
+    private configService: ApiConfigService,
+    private _ds: DialogService,
+    private _ss: ShopService
   ) {
   }
+
+  ngOnDestroy(): void {
+    if (this._ref) {
+      this._ref.destroy();
+    }
+  }
   ngOnInit() {
+
+    this.shops$ = this._ss.queryShopsList().pipe(pluck('result'));
 
     this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
     this.pizzasIds = this.basketService._storage.map(el => el.id)
@@ -74,13 +93,18 @@ export class CarryoutComponent implements OnInit {
     });
   }
 
-  openMap(): void {
-    this.carryOut.controls.shopId.markAsUntouched({ onlySelf: true })
-    // this.modal.openMapModal().result
-    //   .then(result => {
-    //     this.carryOut.controls.shopId.setValue(result.address);
-    //     this.shopId = result.id;
-    //   }).catch(e => e)
+  openMap(shops: IShop[]): void {
+    this.carryOut.controls.shopId.markAsUntouched({ onlySelf: true });
+    this._ref = this._ds.open(MapComponent, {
+      dismissableMask: true, showHeader: false, width: '100%', height: '100%', styleClass: 'd-dialog',
+      data: { shops },
+      baseZIndex: 10000,
+    });
+    this._ref.onClose.subscribe((shop: IShop) => {
+      if (shop) {
+        this.carryOut.controls.shopId.setValue(shop.id);
+      }
+    });
   }
 
 
@@ -101,4 +125,6 @@ export class CarryoutComponent implements OnInit {
         })
     }
   }
+
+
 }
