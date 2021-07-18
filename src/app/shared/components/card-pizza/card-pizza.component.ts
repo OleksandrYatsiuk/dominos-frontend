@@ -4,12 +4,12 @@ import { BasketService, PizzaItem } from '../../../core/services/basket.service'
 
 
 @Component({
-  selector: 'app-pizza-item',
-  templateUrl: './pizza-item.component.html',
-  styleUrls: ['./pizza-item.component.scss']
+  selector: 'app-card-pizza',
+  templateUrl: './card-pizza.component.html',
+  styleUrls: ['./card-pizza.component.scss']
 })
 
-export class PizzaItemComponent implements OnInit {
+export class CardPizzaComponent implements OnInit {
 
   @Input() item;
 

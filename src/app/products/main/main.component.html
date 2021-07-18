@@ -1,10 +1,15 @@
 <div class="main">
   <div class="home-carousel">
-    <ngb-carousel #carousel [interval]="5000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">
+    <ngb-carousel
+      #carousel
+      [interval]="5000"
+      [pauseOnHover]="pauseOnHover"
+      (slide)="onSlide($event)"
+    >
       <ng-template ngbSlide *ngFor="let promo of promos; index as i">
         <div class="carousel-caption">
           <a [routerLink]="['/promotion/', promo.id]" class="product_name">
-            <button class="btn-promo">Детальніше </button>
+            <button class="btn-promo">Детальніше</button>
           </a>
         </div>
         <div class="picsum-img-wrapper">
@@ -16,8 +21,8 @@
 
   <div class="pizza-list">
     <div class="product-block">
-      <div *ngFor="let pizza of all" class="child">
-        <app-pizza-item [item]="pizza"></app-pizza-item>
+      <div *ngFor="let pizza of pizzas$ | async" class="child">
+        <app-card-pizza [item]="pizza"></app-card-pizza>
       </div>
     </div>
   </div>

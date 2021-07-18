@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { PizzaOverviewComponent } from './pizza-overview.component';
 import { PizzaEditComponent } from './pizza-edit/pizza-edit.component';
 import { PizzaOverviewRoutingModule } from './pizza-overview-routing.module';
-import { SharedModule } from 'src/app/shared';
 import { PizzaDataService } from '../pizza-data.service';
-
+import { MultiSelectModule } from 'primeng/multiselect';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '@shared/shared.module';
+import { MatIconModule } from '@angular/material/icon';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 
 @NgModule({
@@ -13,8 +17,14 @@ import { PizzaDataService } from '../pizza-data.service';
   imports: [
     CommonModule,
     PizzaOverviewRoutingModule,
-    SharedModule
+    SharedModule,
+    MultiSelectModule,
+    DropdownModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    NgxPermissionsModule
   ],
-  providers: [PizzaDataService, PizzaOverviewModule]
+  providers: [PizzaDataService]
 })
 export class PizzaOverviewModule { }

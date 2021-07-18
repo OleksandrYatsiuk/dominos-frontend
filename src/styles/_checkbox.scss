@@ -1,0 +1,38 @@
+.p-checkbox {
+  cursor: pointer;
+  margin-right: 13px;
+  .p-checkbox-box {
+    position: relative;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s;
+    &.p-highlight {
+      border: 1px solid #3a6cff;
+      .p-checkbox-icon {
+        opacity: 1;
+      }
+    }
+  }
+  .p-checkbox-icon {
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 7px;
+    border: 3px solid #3a6cff;
+    border-top: none;
+    border-right: none;
+    opacity: 0;
+    transform: translate(-35%, -80%) rotate(-45deg);
+    transition: all 0.3s;
+  }
+}

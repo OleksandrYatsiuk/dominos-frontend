@@ -23,36 +23,50 @@ export class BasketService {
   constructor(
     @Inject(PLATFORM_ID) _pid: any
   ) {
-    this.isBrowser = isPlatformBrowser(_pid)
+    this.isBrowser = isPlatformBrowser(_pid);
   }
 
   public key = 'basket';
   public _storage: PizzaItem[];
+  private count$ = new BehaviorSubject<BasketOptions>({ count: 0, amount: '0' });
 
   public get storage() {
-    if (this.isBrowser) {
-      return this.localStorage()
-        ? (this._storage = JSON.parse(localStorage.getItem(this.key)))
-        : (this._storage = []);
+    if (this._getItem()) {
+      this._storage = this.localStorage()
+    } else {
+      this._storage = []
     }
-    return []
+    this.updateCount(this.checkBasket(this._storage));
+    return this._storage;
 
   }
 
-  private count$ = new BehaviorSubject<BasketOptions>(this.checkBasket(this.storage));
+
   basket = this.count$.asObservable();
 
   public updateCount(opt: BasketOptions): void {
     this.count$.next(opt);
   }
 
-  private localStorage(): string {
+  private localStorage(): PizzaItem[] {
+    return JSON.parse(this._getItem() || []);
+  }
+
+
+  private _getItem(): any {
     if (this.isBrowser) {
-      return JSON.parse(localStorage.getItem(this.key));
+      return localStorage.getItem(this.key);
     }
   }
 
-  public add(item: PizzaItem) {
+  private _setItem(value: any): void {
+    if (this.isBrowser) {
+      localStorage.setItem(this.key, value);
+    }
+  }
+
+
+  public add(item: PizzaItem): void {
     const index = this.storage.findIndex(pizza => item.id === pizza.id && item.size === pizza.size);
     if (index === -1) {
       this._storage.push(Object.assign(item, { count: 1 }));
@@ -98,7 +112,7 @@ export class BasketService {
     return Number.parseFloat(value.toString()).toFixed(2);
   }
 
-  private checkBasket(storage) {
+  private checkBasket(storage: PizzaItem[]): { count: number; amount: string } {
     return { count: this.calculateCount(storage), amount: this.calculatePrice(storage) };
   }
 
@@ -106,7 +120,7 @@ export class BasketService {
     return this.storage?.find(el => el.id === id && el.size === size);
   }
 
-  public clear() {
+  public clear(): void {
     if (this.isBrowser) {
       localStorage.removeItem(this.key)
       this.updateCount({ count: 0, amount: '0' });

@@ -1,0 +1,49 @@
+<header class="dp-header-desktop">
+  <div class="fake-header" *ngIf="currentUser$ | async as user; else login">
+    <button
+      class="nav"
+      *ngxPermissionsOnly="canManagePizza"
+      routerLink="/admin/pizzas"
+    >
+      Admin Panel
+    </button>
+    <button class="nav" (click)="userMenu.toggle($event)">
+      {{ user?.fullName }}
+    </button>
+    <p-menu #userMenu [popup]="true" [model]="items"></p-menu>
+  </div>
+  <ng-template #login>
+    <div class="fake-header">
+      <button class="nav" (click)="openModal()">Log In</button>
+    </div>
+  </ng-template>
+  <div class="main-header">
+    <div class="navigation">
+      <h2 class="logo" routerLink="/">Domino's Pizza</h2>
+
+      <div class="nav-menu">
+        <button class="nav" (click)="mainMenu.toggle($event)">
+          Menu
+        </button>
+        <p-menu #mainMenu [popup]="true" [model]="pagesItems"></p-menu>
+      </div>
+
+      <div class="nav menu">
+        <span routerLink="/promotion" routerLinkActive="active">Акції</span>
+        <span routerLink="/pizza" routerLinkActive="active">Піца</span>
+        <span routerLink="/">Напої</span>
+        <span routerLink="/">Сайди</span>
+        <span routerLink="/">Десерти</span>
+      </div>
+      <div class="market" [ngClass]="{ disabled: basket.count === 0 }" *ngIf="basket$|async as basket">
+        <div class="count">{{ basket.count }}</div>
+        <div class="total-price" *ngIf="basket.amount > 0">
+          <span>{{ basket.amount }} UAH </span>
+        </div>
+        <a routerLink="/delivery/shipping">
+          <button class="basket-button">Замовити</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

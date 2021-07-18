@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RootService } from 'src/app/core/services/root.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../pizza-data.service';
-import { pluck } from 'rxjs/operators';
-import { fileValidator, imageValidator } from 'src/app/core/validators/file-validator';
+import { map, pluck } from 'rxjs/operators';
 import { Pizza } from 'src/app/core/models/pizza.interface';
+import { SelectItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 
 @Component({
 	selector: 'app-pizza-edit',
@@ -20,7 +21,7 @@ export class PizzaEditComponent implements OnInit {
 	form: FormGroup;
 	uploadImage: FormGroup;
 	url: string | ArrayBuffer;
-	ingredients: [] = [];
+	ingredients$: Observable<SelectItem[]>;
 	loading = false;
 	categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
 	file: FormData;
@@ -38,33 +39,20 @@ export class PizzaEditComponent implements OnInit {
 	}
 
 	dropdownList = [];
-	selectedItems = [];
 	dropdownSettings = {};
 
 	onSelectAll(items: any) {
 	}
 	ngOnInit(): void {
-		this.selectedItems = this.pizza.ingredients
 
-		this.dropdownSettings = {
-			singleSelection: false,
-			idField: 'id',
-			textField: 'name',
-			selectAllText: 'Select All',
-			unSelectAllText: 'UnSelect All',
-			itemsShowLimit: 2,
-			allowSearchFilter: false
-		};
-
-		this.rest.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
-			.pipe(pluck('result'))
-			.subscribe(result => this.ingredients = result);
+		this.ingredients$ = this.rest.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
+			.pipe(pluck('result'), map(ingredients => ingredients.map(i => ({ label: i.name, value: i.id }))));
 
 		this.title.setTitle(`Edit - ${this.pizza.name}`);
 		this.initForm();
 	}
 
-	initForm() {
+	initForm(): void {
 		this.form = this.formBuilder.group({
 			name: [this.pizza.name, [Validators.required, Validators.maxLength(15)]],
 			category: [this.pizza.category, [Validators.required]],
@@ -78,7 +66,7 @@ export class PizzaEditComponent implements OnInit {
 				middle: [this.pizza.price.middle, [Validators.required]],
 				big: [this.pizza.price.big, [Validators.required]]
 			}),
-			ingredients: [this.pizza.ingredients, Validators.required],
+			ingredients: [this.pizza.ingredients.map(i => i.id), Validators.required],
 			image: [null, []]
 		});
 	}
@@ -87,12 +75,9 @@ export class PizzaEditComponent implements OnInit {
 		this.form.markAllAsTouched();
 		if (this.form.valid) {
 			this.loading = !this.loading;
-			let ingredients: any = this.form.get('ingredients').value
-			ingredients = ingredients.map(el => el.id);
 
 			const params: Pizza = {
 				...this.form.getRawValue(),
-				ingredients: ingredients,
 				weight: this.form.get('weight').value,
 				price: this.form.get('price').value
 			};

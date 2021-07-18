@@ -1,3 +1,5 @@
+@import "../../../../styles/helpers/index";
+
 .dp-header-desktop {
   position: fixed;
   top: 0;
@@ -130,4 +132,21 @@ ul > .mat-icon {
   color: white;
   font-size: 14px;
   font-weight: normal;
+}
+
+.username {
+  background: transparent;
+  color: white;
+}
+
+.nav-menu {
+  display: block;
+  @include mobile-up {
+    display: none;
+  }
+}
+.menu {
+  @include mobile {
+    display: none;
+  }
 }

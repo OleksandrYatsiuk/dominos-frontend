@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { IDictionary } from '../models/dictionary';
+import { BaseResponse, PaginationResponse } from '../models/response.interface';
 
 
 @Injectable()
@@ -10,36 +12,37 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-  getIngredientsList(params?: object): Observable<any> {
-    return this.http.get(`ingredients`, params);
+  getIngredientsList(params?: object): Observable<PaginationResponse<IDictionary[]>> {
+    return this.http.get<PaginationResponse<IDictionary[]>>(`ingredients`, params);
   }
-  public createIngredient(data: any): Observable<any> {
+
+  createIngredient(data: any): Observable<any> {
     return this.http.post<any[]>(`ingredients`, data);
   }
 
-  public post(path: string, body?): Observable<any> {
+  post(path: string, body?): Observable<any> {
     return this.http.post(`${path}`, body);
   }
 
-  public get(path: string, options?): Observable<any> {
+  get(path: string, options?): Observable<any> {
     return this.http.get<any>(`${path}`, options);
   }
-  public put(path: string, options?): Observable<any> {
+  put(path: string, options?): Observable<any> {
     return this.http.put<any>(`${path}`, options);
   }
-  public patch(path: string, options?): Observable<any> {
+  patch(path: string, options?): Observable<any> {
     return this.http.patch<any>(`${path}`, options);
   }
-  public delete(path: string): Observable<any> {
+  delete(path: string): Observable<any> {
     return this.http.delete<any>(`${path}`);
   }
 
-  public postFromData(path, body?: any): Observable<any> {
+  postFromData(path, body?: any): Observable<any> {
     const formData = this.getFormData(body);
     return this.http.post(`${path}`, formData);
   }
 
-  public patchFromData(path, body?: any): Observable<any> {
+  patchFromData(path, body?: any): Observable<any> {
     const formData = this.getFormData(body);
     return this.http.patch(`${path}`, formData);
   }

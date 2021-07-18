@@ -29,7 +29,7 @@ export class UserDataService {
   public logout(): Observable<null> {
     return this.http.post(`/user/logout`);
   }
-  public current(): Observable<null> {
+  public current(): Observable<any> {
     return this.http.get(`/user/current`);
   }
 

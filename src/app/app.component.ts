@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { ApiConfigService } from './core/services/api-config.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',

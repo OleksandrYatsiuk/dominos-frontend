@@ -5,9 +5,10 @@ import { GeolocationService } from "src/app/core/services/geolocation.service";
 import { Router } from "@angular/router";
 import { CAN_MANAGE_PIZZA } from "./header-permissions";
 import { UserDataService } from "src/app/auth/user-data.service";
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { isPlatformBrowser } from "@angular/common";
+import { MenuItem } from "primeng/api";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-header",
@@ -16,11 +17,13 @@ import { isPlatformBrowser } from "@angular/common";
 })
 export class HeaderComponent implements OnInit {
   public count: number;
-  public basket: any;
+  basket$: Observable<any>;
   public amount: number;
-  public currentUser = null;
+  public currentUser$: Observable<any>;
   public canManagePizza = CAN_MANAGE_PIZZA;
   isBrowser: boolean;
+  items: MenuItem[];
+  pagesItems: MenuItem[];
 
   constructor(
     @Inject(PLATFORM_ID) private _pid: any,
@@ -35,10 +38,24 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.userService.setCurrentUser();
-    this.userService.currentUser.subscribe(user => this.currentUser = user)
-    this.basketService.basket.subscribe(options => this.basket = options);
+    this.currentUser$ = this.userService.currentUser;
+    this.basket$ = this.basketService.basket;
     this.geolocation.askGeoLocation();
+
+    this.items = [
+      { label: 'User Settings', routerLink: 'auth/user-settings' },
+      { label: 'Logout', command: () => { this.logout() } },
+    ];
+
+    this.pagesItems = [
+      { label: 'Акції', routerLink: '/promotion' },
+      { label: 'Піца', routerLink: '/pizza' },
+      { label: 'Напої', routerLink: '/' },
+      { label: 'Сайди', routerLink: '/' },
+      { label: 'Десерти', routerLink: '/' }
+    ];
   }
 
   openModal(): void {

@@ -1,26 +1,19 @@
 import { NgModule } from '@angular/core';
 import { MainComponent } from './main.component';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { RouterModule, Routes } from '@angular/router';
 import { ProductsListModule } from '../products-list.module';
-import { SharedModule } from '../../shared';
+import { SharedModule } from '@shared/shared.module';
+
+const routes: Routes = [{ path: '', component: MainComponent }];
 
 @NgModule({
-  declarations: [
-    MainComponent,
-  ],
+  declarations: [MainComponent],
   imports: [
     CommonModule,
     SharedModule,
     ProductsListModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: MainModule
-      }
-    ]),
-    SelectDropDownModule,
+    RouterModule.forChild(routes)
   ],
 })
 export class MainModule { }

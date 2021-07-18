@@ -1,5 +1,4 @@
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,10 @@ import { GeolocationService } from './core/services/geolocation.service';
 import { ApiConfigService } from './core/services/api-config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { CalendarModule } from 'primeng/calendar';
+import { HeaderModule } from './module-header/module-header.module';
+import { FooterModule } from './module-footer/module-footer.module';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,13 +24,14 @@ import { BrowserModule } from '@angular/platform-browser';
     RouterModule,
     CommonModule,
     SharedModule,
+    FooterModule,
+    HeaderModule,
     BrowserAnimationsModule,
     CoreModule,
-    HttpClientModule
+    HttpClientModule,
+    CalendarModule
   ],
-  exports: [
-    SharedModule,
-  ],
+  exports:[SharedModule],
   providers: [BasketService, UserService, GeolocationService, ApiConfigService, {
     provide: APP_INITIALIZER,
     useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),

@@ -5,8 +5,9 @@ import {
   NgbSlideEvent
 } from '@ng-bootstrap/ng-bootstrap';
 import { PizzaDataService } from '../pizza/pizza-data.service';
-import { pluck } from 'rxjs/operators';
+import { pluck, tap } from 'rxjs/operators';
 import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main',
@@ -24,7 +25,7 @@ export class MainComponent implements OnInit {
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
   promos: [];
-  all: any;
+  pizzas$: Observable<any[]>;
   categories: { category: string; items: any; }[];
 
   togglePaused() {
@@ -62,24 +63,23 @@ export class MainComponent implements OnInit {
 
 
   getPizzaList() {
-    this.http.getPizzas()
-      .pipe(pluck('result'))
-      .subscribe(pizzas => {
-        this.categories = [
-          {
-            category: 'Краща Ціна',
-            items: pizzas.filter(el => el.category === 'Краща Ціна')
-          },
-          {
-            category: 'Класичні',
-            items: pizzas.filter(el => el.category === 'Класичні')
-          },
-          {
-            category: 'Фірмові',
-            items: pizzas.filter(el => el.category === 'Фірмові')
-          },
-        ];
-        this.all = pizzas;
-      });
+    this.pizzas$ = this.http.getPizzas()
+      .pipe(pluck('result'),
+        tap((pizzas) => {
+          this.categories = [
+            {
+              category: 'Краща Ціна',
+              items: pizzas.filter(el => el.category === 'Краща Ціна')
+            },
+            {
+              category: 'Класичні',
+              items: pizzas.filter(el => el.category === 'Класичні')
+            },
+            {
+              category: 'Фірмові',
+              items: pizzas.filter(el => el.category === 'Фірмові')
+            },
+          ];
+        }));
   }
 }

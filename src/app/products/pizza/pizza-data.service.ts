@@ -29,7 +29,6 @@ export class PizzaDataService {
   }
 
   public edit(id: string, data: Pizza): Observable<Pizza> {
-    console.log(data);
     return this.http.patchFromData(`${this.path}/${id}`, data).pipe(pluck('result'));
   }
 }

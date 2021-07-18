@@ -7,6 +7,7 @@ import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service'
 import { PizzaDataService } from '../pizza-data.service';
 import { Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pizza-create',
@@ -15,7 +16,7 @@ import { pluck } from 'rxjs/operators';
 })
 export class PizzaCreateComponent implements OnInit {
 
-  public ingredients: Ingredients[];
+  ingredients$: Observable<Ingredients[]>;
   public loading = false;
   public file: FormData;
   public url: string;
@@ -36,19 +37,8 @@ export class PizzaCreateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'id',
-      textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 2,
-      allowSearchFilter: false
-    };
-
-    this.root.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
-      .pipe(pluck('result'))
-      .subscribe(res => this.ingredients = res)
+    this.ingredients$ = this.root.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
+      .pipe(pluck('result'));
 
     this.form = this.formBuilder.group({
       name: ['', [Validators.required, Validators.maxLength(15)]],
@@ -77,11 +67,9 @@ export class PizzaCreateComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.loading = !this.loading;
-      let ingredients: any = this.form.get('ingredients').value
-      ingredients = ingredients.map(el => el.id);
+
       const params: Pizza = {
         ...this.form.getRawValue(),
-        ingredients: ingredients,
         weight: this.form.get('weight').value,
         price: this.form.get('price').value
       };
