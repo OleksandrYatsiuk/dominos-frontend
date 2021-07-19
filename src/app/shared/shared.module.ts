@@ -26,6 +26,7 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardPizzaComponent } from './components/card-pizza/card-pizza.component';
+import { CardNewsComponent } from './components/card-news/card-news.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { CardPizzaComponent } from './components/card-pizza/card-pizza.component
     CustomLabelPipe,
     ExtractPipe,
     // directives
-    MobilePhoneDirective
+    MobilePhoneDirective,
+    CardNewsComponent
 
   ],
   imports: [
@@ -80,6 +82,7 @@ import { CardPizzaComponent } from './components/card-pizza/card-pizza.component
     TimePickerComponent,
     NotificationComponent,
     CardPizzaComponent,
+    CardNewsComponent,
     //modules
     FormsModule,
     DropdownModule,

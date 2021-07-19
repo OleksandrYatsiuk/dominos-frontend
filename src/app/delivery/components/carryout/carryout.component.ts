@@ -112,8 +112,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     this.carryOut.markAllAsTouched();
     if (this.carryOut.valid) {
       this.loading = !this.loading;
-      const data = Object.assign(this.carryOut.value, { shopId: this.shopId })
-      this.rest.create(data)
+      this.rest.create(this.carryOut.value)
         .subscribe(res => {
           this.loading = !this.loading;
           this.router.navigate(['/']);

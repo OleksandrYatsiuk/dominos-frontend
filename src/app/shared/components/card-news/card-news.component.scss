@@ -1,0 +1,48 @@
+@import "../../../../styles/helpers/index";
+
+.news {
+  &__container {
+    max-width: 300px;
+    width: 100%;
+    margin: 10px;
+  }
+
+  &__card {
+    display: grid;
+    border-radius: 15px;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 100%;
+    max-width: 300px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.4s;
+    &:hover {
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+.card-news__image {
+  border-radius: 15px 15px 0 0;
+  height: auto;
+  max-height: 175px;
+  width: 100%;
+}
+.card-news__title {
+  @include genText(20px, 20px, bold, $c-black);
+  margin: 10px 0;
+}
+.card-news__date {
+  @include genText(12px, 12px, normal, $c-blue);
+  margin: 5px;
+  text-align: right;
+}
+.card-news__content {
+  padding: 10px;
+}
+.card-news__description {
+  display: -webkit-box;
+  @include genText(13px, 120%, normal, $c-gray);
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PromotionDataService } from '../promotion-data.service';
 import { PromotionStatuses, Promotion } from '../promotion-create/promotions.interface';
+import { Observable, pluck } from 'rxjs';
 
 @Component({
   selector: 'app-promotions-list',
@@ -8,14 +9,11 @@ import { PromotionStatuses, Promotion } from '../promotion-create/promotions.int
   styleUrls: ['./promotions-list.component.scss']
 })
 export class PromotionsListComponent implements OnInit {
-  promotions: Array<Promotion>;
-  public defaultImage = '../../../assets/data/default_image.png'
+  promotions$: Observable<Promotion[]>;
   constructor(private http: PromotionDataService) { }
 
   ngOnInit() {
-    this.http.getData({ params: { status: [PromotionStatuses.Active, PromotionStatuses.New] } }).subscribe(res => {
-      this.promotions = res.result;
-    })
+    this.promotions$ = this.http.getData({ params: { status: [PromotionStatuses.Active, PromotionStatuses.New] } }).pipe(pluck('result'));
   }
 
 }

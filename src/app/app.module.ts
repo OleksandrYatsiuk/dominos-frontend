@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
@@ -16,6 +16,12 @@ import { HeaderModule } from './module-header/module-header.module';
 import { FooterModule } from './module-footer/module-footer.module';
 import { SharedModule } from '@shared/shared.module';
 import { DialogService } from 'primeng/dynamicdialog';
+import { registerLocaleData } from '@angular/common';
+import uk from '@angular/common/locales/uk';
+import ru from '@angular/common/locales/ru';
+
+registerLocaleData(uk);
+registerLocaleData(ru);
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,12 +39,15 @@ import { DialogService } from 'primeng/dynamicdialog';
     CalendarModule
   ],
   exports: [SharedModule],
-  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, {
-    provide: APP_INITIALIZER,
-    useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
-    deps: [ApiConfigService],
-    multi: true
-  }],
+  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
+      deps: [ApiConfigService],
+      multi: true
+    },
+    { provide: LOCALE_ID, useValue: 'uk' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
