@@ -22,8 +22,7 @@ const routes: Routes = [
   },
   {
     path: ':id',
-    component: PromotionComponent,
-    resolve: { promotion: PromotionResolver }
+    component: PromotionComponent
   }
 
 ];

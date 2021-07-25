@@ -1,8 +1,24 @@
 <div class="news__container">
   <a class="news__card" [routerLink]="['/promotion/', news.id]">
-    <img class="card-news__image" [src]="news.image||defaultImage" alt="noopener noreferrer" />
+    <img
+      class="card-news__image"
+      [src]="news.image || defaultImage"
+      alt="noopener noreferrer"
+    />
     <div class="card-news__content">
-      <div class="card-news__date">{{ news.startedAt | date }}</div>
+      <div class="card-news__date-wrapper" [ngSwitch]="news.status">
+        <span
+          class="card-news__date card-news__date--active"
+          *ngSwitchCase="status.Active"
+          >Активна з {{ news.startedAt | date:'dd.MM.yyy' }}
+        </span>
+        <span class="card-news__date" *ngSwitchCase="status.New"
+          >{{ news.startedAt | date:'dd.MM.yyy' }}
+        </span>
+        <span class="card-news__date" *ngSwitchCase="status.Finished"
+          >Завершено
+        </span>
+      </div>
       <div class="card-news__title">{{ news.title }}</div>
       <div class="card-news__description">
         <span>{{ news.description }}</span>

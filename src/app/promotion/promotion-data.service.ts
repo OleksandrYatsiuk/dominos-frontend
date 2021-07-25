@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RootService } from '../core/services/root.service';
-import { Observable } from 'rxjs';
-import { BaseResponse } from '../core/models/response.interface';
-import { Promotion } from './promotion-create/promotions.interface';
+import { map, Observable } from 'rxjs';
+import { BaseResponse, PaginationResponse } from '../core/models/response.interface';
+import { ModelPromotion, Promotion } from './promotion-create/promotions.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +11,17 @@ export class PromotionDataService {
   public path = '/promotion';
   constructor(private http: RootService) {
   }
-  public getData(options?: object) {
-    return this.http.get(this.path, options);
+  public getData(options?: object): Observable<PaginationResponse<ModelPromotion[]>> {
+    return this.http.get(this.path, options)
+      .pipe(
+        map((response: PaginationResponse<Promotion[]>) => {
+          return { ...response, result: response.result.map(p => new ModelPromotion(p)) };
+        }));
   }
 
-  public getItem(id: string) {
-    return this.http.get(`${this.path}/${id}`);
+  public getItem(id: string): Observable<BaseResponse<ModelPromotion>> {
+    return this.http.get(`${this.path}/${id}`).pipe(
+      map((p: BaseResponse<Promotion>) => ({ ...p, result: new ModelPromotion(p.result) })));
   }
 
   public remove(id: string): Observable<null> {

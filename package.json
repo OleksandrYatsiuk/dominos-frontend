@@ -48,6 +48,7 @@
     "ngx-toastr": "^13.0.0",
     "primeng": "^11.4.3",
     "rxjs": "~7.2.0",
+    "swiper": "^6.8.0",
     "toastr": "^2.1.4",
     "tslib": "^2.3.0",
     "typescript": "~4.3.5",

@@ -31,10 +31,20 @@
   @include genText(20px, 20px, bold, $c-black);
   margin: 10px 0;
 }
+.card-news__date-wrapper {
+  text-align: end;
+}
 .card-news__date {
-  @include genText(12px, 12px, normal, $c-blue);
+  @include genText(12px, 12px, normal);
   margin: 5px;
   text-align: right;
+  padding: 3px;
+  background-color: $c-light-gray;
+  border-radius: 7px;
+
+  &--active {
+    background-color: $c-yellow;
+  }
 }
 .card-news__content {
   padding: 10px;

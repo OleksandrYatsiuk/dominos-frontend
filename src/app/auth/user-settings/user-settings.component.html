@@ -20,7 +20,13 @@
     </app-form-item>
 
     <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
-      <app-datepicker formControlName="birthday" [minDate]="minDate"></app-datepicker>
+      <p-calendar
+      formControlName="birthday"
+      class="d-calendar"
+      [showIcon]="true"
+      [firstDayOfWeek]="1"
+      dateFormat="dd-mm-yy"
+    ></p-calendar>
     </app-form-item>
 
     <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">

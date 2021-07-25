@@ -97,4 +97,8 @@ export class ShippingFormComponent implements OnInit {
 			});
 		}
 	}
+
+	get minDate(): Date {
+		return new Date();
+	}
 }

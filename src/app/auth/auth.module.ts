@@ -6,6 +6,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { ConfirmEmailResolver } from './confirm-email.resolver';
 import { SharedModule } from '@shared/shared.module';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     AuthRoutingModule,
     SharedModule,
+    CalendarModule
   ],
   entryComponents: [],
   providers: [ConfirmEmailResolver]

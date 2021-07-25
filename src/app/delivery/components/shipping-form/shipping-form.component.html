@@ -62,11 +62,26 @@
       <div class="row-item">
 
         <app-form-item [control]="formDelivery.get('date')['controls'].date" field="Date">
-          <app-datepicker formControlName="date" maxDate='-'></app-datepicker>
+          <p-calendar
+          formControlName="date"
+          class="d-calendar"
+          [showIcon]="true"
+          [minDate]="minDate"
+          [firstDayOfWeek]="1"
+          dateFormat="dd-mm-yy"
+        ></p-calendar>
         </app-form-item>
 
         <app-form-item [control]="formDelivery.get('date')['controls'].time" field="Time">
-          <app-time-picker formControlName="time"></app-time-picker>
+          <p-calendar
+          formControlName="time"
+          class="d-calendar"
+          [showIcon]="true"
+          [firstDayOfWeek]="1"
+          [minDate]="minDate"
+          [timeOnly]="true"
+          dateFormat="dd-mm-yy"
+        ></p-calendar>
         </app-form-item>
       </div>
     </div>

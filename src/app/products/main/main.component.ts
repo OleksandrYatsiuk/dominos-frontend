@@ -8,6 +8,7 @@ import { PizzaDataService } from '../pizza/pizza-data.service';
 import { pluck, tap } from 'rxjs/operators';
 import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
 import { Observable } from 'rxjs';
+import { ModelPromotion } from 'src/app/promotion/promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,9 @@ import { Observable } from 'rxjs';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private http: PizzaDataService, private promoService: PromotionDataService) { }
+  constructor(
+    private http: PizzaDataService,
+    private _ps: PromotionDataService) { }
 
   paused = false;
   unpauseOnArrow = false;
@@ -24,7 +27,7 @@ export class MainComponent implements OnInit {
   pauseOnHover = true;
 
   @ViewChild('carousel', { static: true }) carousel: NgbCarousel;
-  promos: [];
+  promos$: Observable<ModelPromotion[]>;
   pizzas$: Observable<any[]>;
   categories: { category: string; items: any; }[];
 
@@ -33,7 +36,7 @@ export class MainComponent implements OnInit {
     this.paused = !this.paused;
   }
 
-  onSlide(slideEvent: NgbSlideEvent) {
+  onSlide(slideEvent: NgbSlideEvent): void {
     if (
       this.unpauseOnArrow &&
       slideEvent.paused &&
@@ -52,17 +55,13 @@ export class MainComponent implements OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.promos$ = this._queryPromotionList();
     this.getPizzaList();
-    this.getPromoList();
-  }
-
-  getPromoList() {
-    this.promoService.getData().subscribe(promos => this.promos = promos.result);
   }
 
 
-  getPizzaList() {
+  getPizzaList(): void {
     this.pizzas$ = this.http.getPizzas()
       .pipe(pluck('result'),
         tap((pizzas) => {
@@ -81,5 +80,9 @@ export class MainComponent implements OnInit {
             },
           ];
         }));
+  }
+
+  private _queryPromotionList(): Observable<ModelPromotion[]> {
+    return this._ps.getData().pipe(pluck('result'), tap((res) => console.log(res)));
   }
 }

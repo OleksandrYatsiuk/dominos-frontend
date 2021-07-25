@@ -125,5 +125,8 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     }
   }
 
+  get minDate(): Date {
+    return new Date();
+  }
 
 }

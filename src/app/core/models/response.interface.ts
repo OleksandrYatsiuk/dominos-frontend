@@ -1,4 +1,4 @@
-export interface BaseResponse<T = {}> {
+export interface BaseResponse<T = any> {
     code: number;
     status: string;
     message: string;

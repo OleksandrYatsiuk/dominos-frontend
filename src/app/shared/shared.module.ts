@@ -19,8 +19,6 @@ import { MultiSelectComponent } from './components/multi-select/multi-select.com
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { DatePickerComponent } from './components/datepicker/datepicker.component';
-import { TimePickerComponent } from './components/time-picker/time-picker.component';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
@@ -42,8 +40,6 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     SelectComponent,
     ValidationErrorComponent,
     MultiSelectComponent,
-    DatePickerComponent,
-    TimePickerComponent,
     CardPizzaComponent,
     // pipes
     PizzaFilterPipe,
@@ -78,8 +74,6 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     SelectComponent,
     ValidationErrorComponent,
     FileUploaderComponent,
-    DatePickerComponent,
-    TimePickerComponent,
     NotificationComponent,
     CardPizzaComponent,
     CardNewsComponent,

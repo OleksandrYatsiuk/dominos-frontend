@@ -4,7 +4,6 @@ import { PromotionDataService } from '../promotion-data.service';
 import { pluck } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { PromotionStatuses, Promotion } from './promotions.interface';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { Router } from '@angular/router';
 @Component({

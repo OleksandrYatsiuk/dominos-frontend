@@ -6,7 +6,7 @@
       [pauseOnHover]="pauseOnHover"
       (slide)="onSlide($event)"
     >
-      <ng-template ngbSlide *ngFor="let promo of promos; index as i">
+      <ng-template ngbSlide *ngFor="let promo of promos$ | async">
         <div class="carousel-caption">
           <a [routerLink]="['/promotion/', promo.id]" class="product_name">
             <button class="btn-promo">Детальніше</button>

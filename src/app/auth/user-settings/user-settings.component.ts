@@ -18,7 +18,6 @@ import { ReplaySubject } from 'rxjs';
   styleUrls: ['./user-settings.component.scss']
 })
 export class UserSettingsComponent implements OnInit, OnDestroy {
-  public minDate: NgbDateStruct = { year: 1950, month: 1, day: 1 };
   message: { type: string; message: string; };
 
   currentUser: any;
@@ -62,7 +61,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
           fullName: user.fullName,
           username: user.username,
           email: user.email,
-          birthday: user.birthday,
+          birthday: new Date(user.birthday),
           phone: user.phone,
         });
         if (user.image !== null) {

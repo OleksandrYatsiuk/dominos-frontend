@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { ModelPromotion, PromotionStatuses } from 'src/app/promotion/promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-card-news',
@@ -6,13 +7,12 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
   styleUrls: ['./card-news.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardNewsComponent implements OnInit {
-  @Input() news: any;
+export class CardNewsComponent {
+  @Input() news: ModelPromotion;
   defaultImage = '/assets/data/default_image.png';
+  status = PromotionStatuses;
   constructor() { }
 
-  ngOnInit(): void {
-    console.log(this.news);
-  }
+
 
 }

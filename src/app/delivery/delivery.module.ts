@@ -6,6 +6,7 @@ import { DeliveryRoutingModule } from './delivery-routing.module';
 import { CarryoutComponent } from './components/carryout/carryout.component';
 import { SharedModule } from '@shared/shared.module';
 import { MapComponent } from './components/map/map.component';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { MapComponent } from './components/map/map.component';
   imports: [
     CommonModule,
     SharedModule,
-    DeliveryRoutingModule
+    DeliveryRoutingModule,
+    CalendarModule
   ],
   providers: []
 })

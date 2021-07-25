@@ -1,14 +1,41 @@
-<hr>
-<div class="page">
-    <div class="product">
-        <img class="promotion-image" [src]="promotion.image" alt="noopener noreferrer">
-        <div class="promotion-description">
-            <h5>{{promotion.startedAt|date}}</h5>
-            <h2>{{promotion.title}}</h2>
-            <span>{{promotion.description}}</span>
-        </div>
+<div class="promotion__container" *ngIf="promotion$|async as promo">
+  <div class="promotion__content">
+    <img
+      class="promotion__image"
+      [src]="promo.image"
+      alt="noopener noreferrer"
+    />
+    <div class="promotion__details" [ngSwitch]="promo.status">
+      <span
+        class="promotion__date promotion__date--active"
+        *ngSwitchCase="status.Active"
+      >
+        Активна з {{ promo.startedAt | date: "dd.MM.yyyy" }}
+      </span>
+      <span class="promotion__date" *ngSwitchCase="status.New">{{
+        promo.startedAt | date: "dd.MM.yyyy"
+      }}</span>
+      <span
+        class="promotion__date promotion__date--finished"
+        *ngSwitchCase="status.Finished"
+        >{{ "Завершена" }}</span
+      >
+      <h1 class="promotion__title">{{ promo.title }}</h1>
+
+      <article
+        class="promotion__description"
+        [innerHTML]="promo.description"
+      ></article>
     </div>
+  </div>
 
+  <div class="promotion__other">
+    <div class="promotion__other-label">Інші акції:</div>
+
+    <swiper [config]="config">
+      <ng-template swiperSlide *ngFor="let promo of promotions$ | async">
+        <app-card-news [news]="promo"></app-card-news>
+      </ng-template>
+    </swiper>
+  </div>
 </div>
-
-<hr>

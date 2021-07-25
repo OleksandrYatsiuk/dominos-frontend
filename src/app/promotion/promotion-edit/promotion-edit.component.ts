@@ -40,7 +40,7 @@ export class PromotionEditComponent implements OnInit {
       Validators.maxLength(this.config.getParameter('promoDescriptionMaxLength'))]],
       status: [this.promotion.status, [Validators.required]],
       image: [null, []],
-      startedAt: [this.promotion.startedAt, [Validators.required]],
+      startedAt: [new Date(this.promotion.startedAt), [Validators.required]],
     });
   }
 
