@@ -10,10 +10,16 @@
         <span
           class="card-news__date card-news__date--active"
           *ngSwitchCase="status.Active"
-          >Активна з {{ news.startedAt | date:'dd.MM.yyy' }}
+          >
+          <ng-container *ngIf="news.endedAt; else activeFrom">
+            Активна до {{ news.endedAt | date: "dd.MM.yyyy" }}
+          </ng-container>
+          <ng-template #activeFrom>
+            Активна з {{ news.startedAt | date: "dd.MM.yyyy" }}
+          </ng-template>
         </span>
         <span class="card-news__date" *ngSwitchCase="status.New"
-          >{{ news.startedAt | date:'dd.MM.yyy' }}
+          > Незабаром: {{ news.startedAt | date:'dd.MM.yyy' }}
         </span>
         <span class="card-news__date" *ngSwitchCase="status.Finished"
           >Завершено

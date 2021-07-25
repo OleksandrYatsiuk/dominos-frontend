@@ -1,22 +1,15 @@
 <div class="main">
   <div class="home-carousel">
-    <ngb-carousel
-      #carousel
-      [interval]="5000"
-      [pauseOnHover]="pauseOnHover"
-      (slide)="onSlide($event)"
-    >
-      <ng-template ngbSlide *ngFor="let promo of promos$ | async">
+    <swiper class="main-carousel">
+      <ng-template swiperSlide *ngFor="let promo of promos$ | async">
         <div class="carousel-caption">
           <a [routerLink]="['/promotion/', promo.id]" class="product_name">
             <button class="btn-promo">Детальніше</button>
           </a>
         </div>
-        <div class="picsum-img-wrapper">
-          <img [src]="promo.image" alt="My image promo.image description" />
-        </div>
+          <img class="main-carousel__image" [src]="promo.image" alt="My image promo.image description" />
       </ng-template>
-    </ngb-carousel>
+    </swiper>
   </div>
 
   <div class="pizza-list">

@@ -21,16 +21,8 @@
       </div>
 
       <div class="form-row">
-        <app-form-item [control]="form.controls.status" field="Status">
-          <app-select
-            formControlName="status"
-            placeholder="Select Promotion Status"
-            [items]="promoStatuses"
-          >
-          </app-select>
-        </app-form-item>
 
-        <app-form-item [control]="form.controls.startedAt" field="Started Date">
+        <app-form-item [control]="form.controls.startedAt" field="Дата початку акції">
           <p-calendar
             formControlName="startedAt"
             class="d-calendar"
@@ -38,6 +30,23 @@
             [firstDayOfWeek]="1"
             dateFormat="dd-mm-yy"
           ></p-calendar>
+        </app-form-item>
+        <app-form-item [control]="form.controls.startedAt" field="Дата завершення акції">
+          <p-calendar
+            formControlName="endedAt"
+            class="d-calendar"
+            [showIcon]="true"
+            [firstDayOfWeek]="1"
+            dateFormat="dd-mm-yy"
+          ></p-calendar>
+        </app-form-item>
+        <app-form-item [control]="form.controls.status" field="Status">
+          <app-select
+            formControlName="status"
+            placeholder="Select Promotion Status"
+            [items]="promoStatuses"
+          >
+          </app-select>
         </app-form-item>
       </div>
 

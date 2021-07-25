@@ -5,7 +5,6 @@
 @import "./styles/promotion.scss";
 @import "./styles/inputs.scss";
 @import "./styles/table.scss";
-@import "./styles/carusel.scss";
 @import "./styles/delivery.scss";
 @import "./styles/pagination.scss";
 @import "./styles/select.scss";
@@ -18,7 +17,8 @@
 @import "./styles/menu";
 @import "./styles/dialog";
 @import "./styles/select-button";
-@import "./styles//calendar";
+@import "./styles/calendar";
+@import "./styles/buttons";
 @import "../node_modules/leaflet/dist/leaflet.css";
 
 .marker-popup {

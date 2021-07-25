@@ -39,6 +39,7 @@ export class PromotionCreateComponent implements OnInit {
       description: [null, [Validators.required,
       Validators.maxLength(this.config.getParameter('promoDescriptionMaxLength'))]],
       image: [null, []],
+      endedAt: [null, []],
       startedAt: [new Date(), [Validators.required]],
     });
   }

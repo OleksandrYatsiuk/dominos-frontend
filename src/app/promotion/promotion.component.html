@@ -1,4 +1,4 @@
-<div class="promotion__container" *ngIf="promotion$|async as promo">
+<div class="promotion__container" *ngIf="promotion$ | async as promo">
   <div class="promotion__content">
     <img
       class="promotion__image"
@@ -10,16 +10,22 @@
         class="promotion__date promotion__date--active"
         *ngSwitchCase="status.Active"
       >
-        Активна з {{ promo.startedAt | date: "dd.MM.yyyy" }}
+        <ng-container *ngIf="promo.endedAt; else activeFrom">
+          Активна до {{ promo.endedAt | date: "dd.MM.yyyy" }}
+        </ng-container>
+        <ng-template #activeFrom>
+          Активна з {{ promo.startedAt | date: "dd.MM.yyyy" }}
+        </ng-template>
       </span>
-      <span class="promotion__date" *ngSwitchCase="status.New">{{
-        promo.startedAt | date: "dd.MM.yyyy"
-      }}</span>
       <span
         class="promotion__date promotion__date--finished"
         *ngSwitchCase="status.Finished"
         >{{ "Завершена" }}</span
       >
+      <span class="promotion__date" *ngSwitchCase="status.New">
+        Незабаром {{ promo.startedAt | date: "dd.MM.yyyy" }}
+      </span>
+
       <h1 class="promotion__title">{{ promo.title }}</h1>
 
       <article

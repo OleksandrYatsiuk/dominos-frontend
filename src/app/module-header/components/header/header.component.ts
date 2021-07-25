@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
 import { BasketService } from "../../../core/services/basket.service";
 import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
@@ -13,14 +13,13 @@ import { Observable } from "rxjs";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
-  styleUrls: ["./header.component.scss"]
+  styleUrls: ["./header.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-  public count: number;
   basket$: Observable<any>;
-  public amount: number;
-  public currentUser$: Observable<any>;
-  public canManagePizza = CAN_MANAGE_PIZZA;
+  currentUser$: Observable<any>;
+  canManagePizza = CAN_MANAGE_PIZZA;
   isBrowser: boolean;
   items: MenuItem[];
   pagesItems: MenuItem[];
@@ -37,11 +36,12 @@ export class HeaderComponent implements OnInit {
     this.isBrowser = isPlatformBrowser(_pid);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.userService.setCurrentUser();
     this.currentUser$ = this.userService.currentUser;
     this.basket$ = this.basketService.basket;
+    this.basketService.getStorage();
     this.geolocation.askGeoLocation();
 
     this.items = [
@@ -62,7 +62,7 @@ export class HeaderComponent implements OnInit {
     this.modal.openLoginModal();
   }
 
-  logout() {
+  logout(): void {
     this.http.logout().subscribe(req => {
       if (!req) {
         this.userService.removeCredentials()
@@ -72,7 +72,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  get token(): any {
+  get token(): string {
     if (this.isBrowser) {
       return localStorage.getItem("auth");
     }

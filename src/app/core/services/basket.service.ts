@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { EPizzaSizes } from '@shared/components/card-pizza/card-pizza.component';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 export interface PizzaItem {
   id: string;
@@ -30,7 +30,7 @@ export class BasketService {
   public _storage: PizzaItem[];
   private count$ = new BehaviorSubject<BasketOptions>({ count: 0, amount: '0' });
 
-  public get storage(): PizzaItem[] {
+  get storage(): PizzaItem[] {
     if (this._getItem()) {
       this._storage = this.localStorage()
     } else {

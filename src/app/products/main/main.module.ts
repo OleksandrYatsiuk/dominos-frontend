@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsListModule } from '../products-list.module';
 import { SharedModule } from '@shared/shared.module';
+import { SwiperModule } from 'swiper/angular';
 
 const routes: Routes = [{ path: '', component: MainComponent }];
 
@@ -13,6 +14,7 @@ const routes: Routes = [{ path: '', component: MainComponent }];
     CommonModule,
     SharedModule,
     ProductsListModule,
+    SwiperModule,
     RouterModule.forChild(routes)
   ],
 })

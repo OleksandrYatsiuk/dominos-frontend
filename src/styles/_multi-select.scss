@@ -1,23 +1,22 @@
+@import "./helpers/index";
+
 .d-multi-select {
   .p-multiselect {
     width: 100%;
     position: relative;
-    width: 300px;
+    background-color: $c-gray-2;
+    border: 1px solid $c-gray-1;
+    border-radius: 8px;
   }
   .p-multiselect-label {
     padding: 5px 30px 5px 10px;
-    border-radius: 8px;
     display: flex;
     width: 100%;
     align-items: center;
     min-height: 50px;
-    background-color: #f3f4f5;
-    border-radius: 6px;
-    font-size: 14px;
-    border: 1px solid #ced4da;
+    @include genText(14px, 16px, normal, $c-black);
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
   }
   .p-multiselect-items-wrapper {
     margin-top: 5px;
@@ -26,6 +25,7 @@
     border: 1px solid #ced4da;
 
     .p-multiselect-item {
+      padding: 0 7px;
       color: black;
       margin: 5px 10px;
       transition: all 0.3s;
@@ -45,5 +45,38 @@
   }
   .p-multiselect-close {
     display: none;
+  }
+  .p-multiselect-trigger {
+    width: 30px;
+    .p-multiselect-trigger-icon {
+      transition: 0.5s;
+      &.pi-chevron-down {
+        position: absolute;
+        background-repeat: no-repeat;
+        background: url(/assets/icons/arrow.svg);
+        width: 10px;
+        height: 15px;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  .p-multiselect-open {
+    .p-multiselect-trigger-icon.pi-chevron-down {
+      transform: rotate(90deg);
+    }
+  }
+  .p-multiselect-token-icon {
+    position: relative;
+    cursor: pointer;
+    margin: 0 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border: 1px solid gray;
+    border-radius: 50%;
+    &.pi-times-circle {
+      background-image: url(/assets/icons/cancel-grey.svg);
+    }
   }
 }

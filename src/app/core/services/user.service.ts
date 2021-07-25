@@ -23,8 +23,8 @@ export class UserService {
   private credentialsKey = 'auth';
 
 
-  private currentUserSubject$ = new BehaviorSubject<any>(null);
-  public currentUser = this.currentUserSubject$.asObservable();
+  currentUserSubject$ = new BehaviorSubject<any>(null);
+  currentUser = this.currentUserSubject$.asObservable();
 
   constructor(
     @Inject(PLATFORM_ID) _pid: any,
@@ -34,7 +34,7 @@ export class UserService {
     this.isBrowser = isPlatformBrowser(_pid);
   }
 
-  public setCurrentUser() {
+  public setCurrentUser(): void {
     if (this.isAuthorized()) {
       this.sendCurrentRequest().subscribe(user => {
         this.setCurrentUserData(user);
@@ -47,29 +47,28 @@ export class UserService {
     return this.http.current().pipe(pluck('result'));
   }
 
-  public setCurrentUserData(user): void {
+  public setCurrentUserData(user: any): void {
     this.currentUserSubject$.next(user);
   }
 
-  public isAuthorized() {
+  public isAuthorized(): boolean {
     return this.authData() ? true : false;
   }
 
-  public authData() {
+  public authData(): string {
     if (this.isBrowser) {
       return localStorage.getItem(this.credentialsKey)
     }
   }
 
-  public setCredentials(data): void {
+  public setCredentials(token: string): void {
     if (this.isBrowser) {
-      localStorage.setItem(this.credentialsKey, data)
+      localStorage.setItem(this.credentialsKey, token)
     }
   }
 
   public removeCredentials(): void {
     if (this.isBrowser) {
-
       localStorage.removeItem(this.credentialsKey)
     }
   }

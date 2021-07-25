@@ -5,7 +5,7 @@ import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service'
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Promotion } from '../promotion-create/promotions.interface';
+import { ModelPromotion, Promotion } from '../promotion-create/promotions.interface';
 import { pluck } from 'rxjs/operators';
 
 @Component({
@@ -16,7 +16,7 @@ import { pluck } from 'rxjs/operators';
 export class PromotionEditComponent implements OnInit {
   public form: FormGroup;
   public loading = false;
-  public promotion: Promotion = this.route.snapshot.data.promotion;
+  public promotion: ModelPromotion = this.route.snapshot.data.promotion;
   public promoStatuses = this.config.getStatuses('promotionStatuses')
   constructor(
     private formBuilder: FormBuilder,
@@ -33,14 +33,16 @@ export class PromotionEditComponent implements OnInit {
     this.initForms();
   }
 
-  public initForms() {
+  public initForms(): void {
+    console.log(this.promotion);
     this.form = this.formBuilder.group({
       title: [this.promotion.title, [Validators.required, Validators.maxLength(this.config.getParameter('promoTitleMaxLength'))]],
       description: [this.promotion.description, [Validators.required,
       Validators.maxLength(this.config.getParameter('promoDescriptionMaxLength'))]],
       status: [this.promotion.status, [Validators.required]],
       image: [null, []],
-      startedAt: [new Date(this.promotion.startedAt), [Validators.required]],
+      endedAt: [this.promotion.endedAt ? new Date(this.promotion.endedAt) : null, []],
+      startedAt: [this.promotion.startedAt ? new Date(this.promotion.startedAt) : null, [Validators.required]],
     });
   }
 

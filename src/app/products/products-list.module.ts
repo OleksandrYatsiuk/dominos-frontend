@@ -5,6 +5,7 @@ import { ProductsListComponent } from './products-list.component';
 import { MainComponent } from './main/main.component';
 import { PizzaModule } from './pizza/pizza.module';
 import { SharedModule } from '@shared/shared.module';
+import { SwiperModule } from 'swiper/angular';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { SharedModule } from '@shared/shared.module';
   imports: [
     CommonModule,
     PizzaModule,
+    SwiperModule,
     ProductsRoutingModule,
     SharedModule
   ],
