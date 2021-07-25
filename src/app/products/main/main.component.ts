@@ -17,15 +17,17 @@ export class MainComponent implements OnInit {
     slidesPerView: 1,
     observer: true
   }
+  defaultImage = '/assets/data/default_image.png';
+  promos$: Observable<ModelPromotion[]>;
+  pizzas$: Observable<any[]>;
+  categories: { category: string; items: any; }[];
 
   constructor(
     private http: PizzaDataService,
     private _ps: PromotionDataService) { }
 
 
-  promos$: Observable<ModelPromotion[]>;
-  pizzas$: Observable<any[]>;
-  categories: { category: string; items: any; }[];
+
 
 
   ngOnInit(): void {
@@ -56,6 +58,6 @@ export class MainComponent implements OnInit {
   }
 
   private _queryPromotionList(): Observable<ModelPromotion[]> {
-    return this._ps.getData().pipe(pluck('result'), tap((res) => console.log(res)));
+    return this._ps.getData().pipe(pluck('result'));
   }
 }
