@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { BasketService, PizzaItem } from '../../../core/services/basket.service';
@@ -12,7 +12,8 @@ export enum EPizzaSizes {
 @Component({
   selector: 'app-card-pizza',
   templateUrl: './card-pizza.component.html',
-  styleUrls: ['./card-pizza.component.scss']
+  styleUrls: ['./card-pizza.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CardPizzaComponent implements OnInit {
@@ -27,7 +28,7 @@ export class CardPizzaComponent implements OnInit {
   sizesEnum = EPizzaSizes;
   sizes: SelectItem<{ price: number; weight: number, type: EPizzaSizes }>[] = [];
   options: SelectItem[] = [];
-
+  defaultImage = '/assets/data/default_image.png';
   constructor(
     private fb: FormBuilder,
     private basketService: BasketService,

@@ -2,7 +2,8 @@
   <a class="news__card" [routerLink]="['/promotion/', news.id]">
     <img
       class="card-news__image"
-      [src]="news.image || defaultImage"
+      [lazyLoad]="news.image"
+      [defaultImage]="defaultImage"
       alt="noopener noreferrer"
     />
     <div class="card-news__content">

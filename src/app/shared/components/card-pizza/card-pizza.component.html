@@ -4,7 +4,8 @@
       <div class="product_image">
         <img
           class="photo"
-          [src]="item.image || '/assets/data/default_image.png'"
+          [lazyLoad]="item.image"
+          [defaultImage]="defaultImage"
           alt="Замовити піцу"
         />
         <div class="product_weight">

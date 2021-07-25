@@ -21,6 +21,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardPizzaComponent } from './components/card-pizza/card-pizza.component';
 import { CardNewsComponent } from './components/card-news/card-news.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     NgbToastModule,
     NgxPermissionsModule.forRoot(),
     DropdownModule,
-    SelectButtonModule
+    SelectButtonModule,
+    LazyLoadImageModule
 
   ],
   exports: [
@@ -80,7 +82,8 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     PizzaFilterPipe,
     ExtractPipe,
     //directives
-    MobilePhoneDirective
+    MobilePhoneDirective,
+    LazyLoadImageModule
   ]
 
 })
