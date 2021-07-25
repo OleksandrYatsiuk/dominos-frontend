@@ -41,12 +41,12 @@
           ></p-calendar>
         </app-form-item>
         <app-form-item [control]="form.controls.status" field="Status">
-          <app-select
+          <p-dropdown
             formControlName="status"
             placeholder="Select Promotion Status"
-            [items]="promoStatuses"
+            [options]="promoStatuses"
           >
-          </app-select>
+          </p-dropdown>
         </app-form-item>
       </div>
 

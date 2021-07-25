@@ -38,10 +38,18 @@
   <div class="promotion__other">
     <div class="promotion__other-label">Інші акції:</div>
 
-    <swiper [config]="config">
-      <ng-template swiperSlide *ngFor="let promo of promotions$ | async">
-        <app-card-news [news]="promo"></app-card-news>
-      </ng-template>
-    </swiper>
+    <div
+      class="swiper-container"
+      [swiper]="config"
+      *ngIf="promotions$ | async as promos"
+    >
+      <div class="swiper-wrapper">
+        <app-card-news
+          class="swiper-slide"
+          *ngFor="let promo of promos"
+          [news]="promo"
+        ></app-card-news>
+      </div>
+    </div>
   </div>
 </div>

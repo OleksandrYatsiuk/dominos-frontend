@@ -2,17 +2,15 @@
 
 .news {
   &__container {
-    max-width: 300px;
     width: 100%;
-    margin: 10px;
   }
 
   &__card {
     display: grid;
     border-radius: 15px;
+    margin: 15px;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: 100%;
-    max-width: 300px;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.4s;
@@ -24,7 +22,8 @@
 .card-news__image {
   border-radius: 15px 15px 0 0;
   height: auto;
-  max-height: 175px;
+  height: 175px;
+  object-fit: cover;
   width: 100%;
 }
 .card-news__title {

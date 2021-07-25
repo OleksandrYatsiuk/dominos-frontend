@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { EPizzaSizes } from '@shared/components/card-pizza/card-pizza.component';
-import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface PizzaItem {
   id: string;

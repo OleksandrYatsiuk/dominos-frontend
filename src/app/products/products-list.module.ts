@@ -5,7 +5,7 @@ import { ProductsListComponent } from './products-list.component';
 import { MainComponent } from './main/main.component';
 import { PizzaModule } from './pizza/pizza.module';
 import { SharedModule } from '@shared/shared.module';
-import { SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 @NgModule({
   declarations: [

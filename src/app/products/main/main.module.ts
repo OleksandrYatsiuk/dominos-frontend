@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { ProductsListModule } from '../products-list.module';
 import { SharedModule } from '@shared/shared.module';
-import { SwiperModule } from 'swiper/angular';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 const routes: Routes = [{ path: '', component: MainComponent }];
 

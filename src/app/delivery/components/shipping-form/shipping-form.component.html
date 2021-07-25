@@ -105,8 +105,13 @@
       <div class="row-item">
 
         <app-form-item [control]="formDelivery.get('payment')['controls'].type" field="Payment Type">
-          <app-select formControlName="type" placeholder="Select Payment Type" [items]="paymentTypes">
-          </app-select>
+          <p-dropdown
+          class="d-dropdown"
+          formControlName="type"
+          placeholder="Select Payment Type"
+          [options]="paymentTypes"
+        >
+        </p-dropdown>
         </app-form-item>
       </div>
 

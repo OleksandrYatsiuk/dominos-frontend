@@ -13,14 +13,10 @@ import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
 import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { ExtractPipe } from './pipe/extract.pipe';
-import { SelectComponent } from './components/select/select.component';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
-import { MultiSelectComponent } from './components/multi-select/multi-select.component';
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
 import { LoginComponent } from './components/login/login.component';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardPizzaComponent } from './components/card-pizza/card-pizza.component';
@@ -37,9 +33,7 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     NotificationComponent,
     SpinButtonComponent,
     FormItemComponent,
-    SelectComponent,
     ValidationErrorComponent,
-    MultiSelectComponent,
     CardPizzaComponent,
     // pipes
     PizzaFilterPipe,
@@ -57,9 +51,7 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     HttpClientModule,
     NgbModule,
     RouterModule,
-    NgxMaterialTimepickerModule,
     NgbToastModule,
-    NgbDatepickerModule,
     NgxPermissionsModule.forRoot(),
     DropdownModule,
     SelectButtonModule
@@ -67,11 +59,9 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
   ],
   exports: [
     //components
-    MultiSelectComponent,
     BasketCardItemComponent,
     SpinButtonComponent,
     FormItemComponent,
-    SelectComponent,
     ValidationErrorComponent,
     FileUploaderComponent,
     NotificationComponent,
@@ -85,9 +75,7 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
     RouterModule,
     // AgmCoreModule,
     NgxPermissionsModule,
-    NgxMaterialTimepickerModule,
     NgbToastModule,
-    NgbDatepickerModule,
     //pipes
     PizzaFilterPipe,
     ExtractPipe,

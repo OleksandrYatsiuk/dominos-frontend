@@ -129,12 +129,13 @@
           [control]="carryOut.get('payment')['controls'].type"
           field="Payment Type"
         >
-          <app-select
+          <p-dropdown
+            class="d-dropdown"
             formControlName="type"
             placeholder="Select Payment Type"
-            [items]="paymentTypes"
+            [options]="paymentTypes"
           >
-          </app-select>
+          </p-dropdown>
         </app-form-item>
       </div>
     </div>

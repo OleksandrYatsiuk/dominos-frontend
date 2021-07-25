@@ -7,9 +7,9 @@ import { PromotionCreateComponent } from './promotion-create/promotion-create.co
 import { PromotionsListComponent } from './promotions-list/promotions-list.component';
 import { PromotionEditComponent } from './promotion-edit/promotion-edit.component';
 import { SharedModule } from '@shared/shared.module';
-import { SwiperModule } from 'swiper/angular';
 import { PromotionResolver } from './promotion.resolver';
 import { CalendarModule } from 'primeng/calendar';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 
 @NgModule({

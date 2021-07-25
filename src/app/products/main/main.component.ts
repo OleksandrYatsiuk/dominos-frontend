@@ -4,6 +4,7 @@ import { pluck, tap } from 'rxjs/operators';
 import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
 import { Observable } from 'rxjs';
 import { ModelPromotion } from 'src/app/promotion/promotion-create/promotions.interface';
+import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 @Component({
   selector: 'app-main',
@@ -11,6 +12,11 @@ import { ModelPromotion } from 'src/app/promotion/promotion-create/promotions.in
   styleUrls: ['./main.component.scss']
 })
 export class MainComponent implements OnInit {
+
+  config: SwiperConfigInterface = {
+    slidesPerView: 1,
+    observer: true
+  }
 
   constructor(
     private http: PizzaDataService,
@@ -20,7 +26,6 @@ export class MainComponent implements OnInit {
   promos$: Observable<ModelPromotion[]>;
   pizzas$: Observable<any[]>;
   categories: { category: string; items: any; }[];
-
 
 
   ngOnInit(): void {
