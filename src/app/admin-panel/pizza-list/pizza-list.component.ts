@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PizzaDataService } from 'src/app/products/pizza/pizza-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-pizza-list',
@@ -14,7 +14,7 @@ export class PizzaListComponent implements OnInit {
   public pizzas: object[];
   public collectionSize: number
   constructor(private http: PizzaDataService,
-    public modal: ModalService,
+    private _cs: ConfirmService,
     public notification: NotificationService
   ) { }
 
@@ -39,7 +39,7 @@ export class PizzaListComponent implements OnInit {
     });
   }
 
-  public showPage(event: number) {
+  showPage(event: number) {
     this.http.getPizzas({ params: { page: event, limit: 20 } }).subscribe(({
       result, _meta }) => {
       this.pizzas = result;
@@ -48,16 +48,14 @@ export class PizzaListComponent implements OnInit {
     });
   }
 
-  public delete(item): void {
-    const dialogRef = this.modal.openDeleteModal(`pizza "${item.name}"`).result
-      .then(result => {
-        if (result) {
-          this.http.remove(item.id).subscribe(res => {
-            this.setPage(this.page);
-            this.notification.showSuccess(`Піца "${item.name}" видалена успішно!`);
-          })
-        }
-      })
-      .catch(e => e);
+  delete(item): void {
+    this._cs.delete().subscribe(result => {
+      if (result) {
+        this.http.remove(item.id).subscribe(res => {
+          this.setPage(this.page);
+          this.notification.showSuccess(`Піца "${item.name}" видалена успішно!`);
+        })
+      }
+    });
   }
 }

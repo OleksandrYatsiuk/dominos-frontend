@@ -1,14 +1,15 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, PLATFORM_ID } from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from "@angular/core";
 import { BasketService } from "../../../core/services/basket.service";
 import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
 import { Router } from "@angular/router";
 import { CAN_MANAGE_PIZZA } from "./header-permissions";
 import { UserDataService } from "src/app/auth/user-data.service";
-import { ModalService } from 'src/app/core/services/modal.service';
 import { isPlatformBrowser } from "@angular/common";
 import { MenuItem } from "primeng/api";
 import { Observable } from "rxjs";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
+import { LoginComponent } from "@shared/components/login/login.component";
 
 @Component({
   selector: "app-header",
@@ -16,24 +17,30 @@ import { Observable } from "rxjs";
   styleUrls: ["./header.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   basket$: Observable<any>;
   currentUser$: Observable<any>;
   canManagePizza = CAN_MANAGE_PIZZA;
   isBrowser: boolean;
   items: MenuItem[];
   pagesItems: MenuItem[];
+  ref: DynamicDialogRef
 
   constructor(
     @Inject(PLATFORM_ID) private _pid: any,
-    private modal: ModalService,
     private basketService: BasketService,
     private geolocation: GeolocationService,
     private userService: UserService,
     private http: UserDataService,
-    private router: Router
+    private router: Router,
+    private _ds: DialogService
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
+  }
+  ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.destroy();
+    }
   }
 
   ngOnInit(): void {
@@ -59,7 +66,8 @@ export class HeaderComponent implements OnInit {
   }
 
   openModal(): void {
-    this.modal.openLoginModal();
+
+    this.ref = this._ds.open(LoginComponent, {});
   }
 
   logout(): void {

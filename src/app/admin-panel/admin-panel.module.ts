@@ -8,8 +8,6 @@ import { PromotionListComponent } from './promotion-list/promotion-list.componen
 import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteModalComponent } from '../shared/components/delete-modal/delete-modal.component';
 import { SharedModule } from '@shared/shared.module';
 
 
@@ -29,9 +27,6 @@ import { SharedModule } from '@shared/shared.module';
     AdminPanelRoutingModule,
     SharedModule
   ],
-  entryComponents: [DeleteModalComponent],
-  providers: [
-    NgbActiveModal
-  ]
+  providers: []
 })
 export class AdminPanelModule { }

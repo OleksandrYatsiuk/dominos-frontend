@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
 import { Promotion } from 'src/app/promotion/promotion-create/promotions.interface';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-promotion-list',
@@ -13,17 +13,18 @@ export class PromotionListComponent implements OnInit {
 
   constructor(
     private http: PromotionDataService,
-    public modal: ModalService,
+    private _cs: ConfirmService,
     public notification: NotificationService
   ) { }
   page = 1;
   pageSize = 20;
   promotions: any;
   collectionSize: number;
+
   ngOnInit() {
     this.getList(this.page, this.pageSize)
   }
-  public getList(page: number, limit: number, sort = 'name') {
+  getList(page: number, limit: number, sort = 'name') {
     this.http.getData({ params: { page, limit, sort } })
       .subscribe(({ result, _meta }) => {
         this.promotions = result;
@@ -33,21 +34,22 @@ export class PromotionListComponent implements OnInit {
       });
   }
 
-  public showPage(event: number) {
+  showPage(event: number) {
     this.getList(event, this.pageSize)
   }
 
 
-  public delete(item:Promotion): void {
-    this.modal.openDeleteModal(`promotion "${item.title}"`).result
-      .then(res => {
-        this.http.remove(item.id).subscribe(res => {
-          this.getList(this.page, this.pageSize);
-          this.notification.showSuccess(`Акція "${item.title}" видалена успішно!`);
-        }, (e) => {
-          this.notification.showDanger(e.result);
-        })
-      })
-      .catch(e => e)
+  delete(item: Promotion): void {
+    this._cs.delete().subscribe(res => {
+      if (res) {
+        this.http.remove(item.id)
+          .subscribe(res => {
+            this.getList(this.page, this.pageSize);
+            this.notification.showSuccess(`Акція "${item.title}" видалена успішно!`);
+          }, (e) => {
+            this.notification.showDanger(e.result);
+          })
+      }
+    });
   }
 }

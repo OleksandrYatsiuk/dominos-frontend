@@ -16,9 +16,13 @@ import { HeaderModule } from './module-header/module-header.module';
 import { FooterModule } from './module-footer/module-footer.module';
 import { SharedModule } from '@shared/shared.module';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { registerLocaleData } from '@angular/common';
 import uk from '@angular/common/locales/uk';
 import ru from '@angular/common/locales/ru';
+import { ConfirmService } from '@core/services/confirm.service';
+import { ConfirmationService } from 'primeng/api';
 
 registerLocaleData(uk);
 registerLocaleData(ru);
@@ -36,10 +40,12 @@ registerLocaleData(ru);
     BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
-    CalendarModule
+    CalendarModule,
+    ConfirmDialogModule,
+
   ],
   exports: [SharedModule],
-  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService,
+  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, ConfirmService, ConfirmationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),

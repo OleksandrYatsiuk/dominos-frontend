@@ -5,7 +5,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { pluck } from 'rxjs/operators';
 import { UserDataService } from '../../../auth/user-data.service';
-import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +15,8 @@ import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class LoginComponent implements OnInit {
 
   constructor(
-    private modalService: NgbActiveModal,
     private http: UserDataService,
+    private _ref: DynamicDialogRef,
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   public close(): void {
-    this.modalService.close()
+    this._ref.close();
   }
 
   public login(): void {

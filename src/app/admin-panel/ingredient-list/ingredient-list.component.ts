@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RootService } from 'src/app/core/services/root.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -21,7 +21,7 @@ export class IngredientListComponent implements OnInit {
 
   constructor(
     private http: RootService,
-    public modal: ModalService,
+    private _cs: ConfirmService,
     public notification: NotificationService
   ) { }
 
@@ -42,16 +42,16 @@ export class IngredientListComponent implements OnInit {
   }
 
   delete(item): void {
-    this.modal.openDeleteModal(`ingredient "${item.name}"`).result
-      .then(res => {
+    this._cs.delete().subscribe(res => {
+      if (res) {
         this.getList(1, this.pageSize, 'name');
         // this.notification.showSuccess(`Ingredient "${item.name}" was deleted successfully`)
         this.notification.showDanger('Delete ingredient was not realise!')
-      })
-      .catch(e => e);
+      }
+    });
   }
 
-  public showPage(event: number) {
+  showPage(event: number) {
     this.getList(event, this.pageSize, 'name')
   }
 

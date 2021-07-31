@@ -11,7 +11,6 @@ import { SpinButtonComponent } from './components/spin-button/spin-button.compon
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
-import { DeleteModalComponent } from './components/delete-modal/delete-modal.component';
 import { ExtractPipe } from './pipe/extract.pipe';
 import { ValidationErrorComponent } from './components/validation-error/validation-error.component';
 import { MobilePhoneDirective } from './directives/mobile-phone.directive';
@@ -30,7 +29,6 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     LoginComponent,
     FileUploaderComponent,
     BasketCardItemComponent,
-    DeleteModalComponent,
     NotificationComponent,
     SpinButtonComponent,
     FormItemComponent,

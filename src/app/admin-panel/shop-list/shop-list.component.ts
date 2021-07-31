@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-shop-list',
@@ -15,7 +15,7 @@ export class ShopListComponent implements OnInit {
   collectionSize: number;
   constructor(
     private http: ShopService,
-    public modal: ModalService,
+    private _cs: ConfirmService,
     public notification: NotificationService) { }
 
   ngOnInit() {
@@ -35,15 +35,15 @@ export class ShopListComponent implements OnInit {
   }
 
   public delete(item: any): void {
-    this.modal.openDeleteModal(`shop "${item.address}"`).result
-      .then(res => {
+    this._cs.delete().subscribe(res => {
+      if (res) {
         this.http.remove(item.id).subscribe(res => {
           this.getList(this.page, this.pageSize);
           this.notification.showSuccess(`Shop "${item.address}" was deleted successfully!`);
         }, (e) => {
           this.notification.showDanger(e.result);
         })
-      })
-      .catch(e => e)
+      };
+    });
   }
 }

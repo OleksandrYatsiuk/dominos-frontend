@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { Payments } from '../shipping-form/payments.model';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
-import { ModalService } from 'src/app/core/services/modal.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MapComponent } from '../map/map.component';
 import { BasketService } from '@core/services/basket.service';
@@ -35,7 +34,6 @@ export class CarryoutComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    public modal: ModalService,
     private handler: ErrorHandlerService,
     private userService: UserService,
     private notification: NotificationService,

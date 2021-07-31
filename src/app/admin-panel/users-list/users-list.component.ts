@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserManagementDataService } from 'src/app/core/services/user-management-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
 import { User } from 'src/app/auth/auth.model';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-users-list',
@@ -11,24 +11,21 @@ import { User } from 'src/app/auth/auth.model';
 })
 export class UsersListComponent implements OnInit {
   users: any;
-  public page = 1;
-  public pages = 20;
+  page = 1;
+  pages = 20;
   collectionSize: number;
   constructor(
     private http: UserManagementDataService,
-    public modal: ModalService,
+    private _cs: ConfirmService,
     public notification: NotificationService
   ) { }
 
   ngOnInit() {
     this.getList(this.page, this.pages)
   }
+
   private getList(page: number, limit: number, sort = 'createdAt') {
-    this.http.getUsers({
-      params: {
-        page, limit, sort
-      }
-    })
+    this.http.getUsers({ params: { page, limit, sort } })
       .subscribe(({ result, _meta }) => {
         this.users = result;
         this.page = _meta.pagination.page;
@@ -38,21 +35,20 @@ export class UsersListComponent implements OnInit {
       );
   }
 
-  public showPage(event: number) {
+  showPage(event: number) {
     this.getList(event, this.pages)
   }
 
-  public delete(item:User): void {
-    this.modal.openDeleteModal(`user "${item.username}"`).result
-      .then(res => {
+  delete(item: User): void {
+    this._cs.delete().subscribe(res => {
+      if (res) {
         this.http.deleteItem(item.id).subscribe(res => {
           this.getList(this.page, this.pages);
           this.notification.showSuccess(`User "${item.username}" was deleted successfully!`);
         }, (e) => {
           this.notification.showDanger(e.result);
         })
-
-      })
-      .catch(e => e)
+      }
+    })
   }
 }

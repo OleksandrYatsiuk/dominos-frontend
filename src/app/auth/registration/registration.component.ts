@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
@@ -6,46 +6,55 @@ import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service'
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { passwordValidator } from 'src/app/core/validators/password-validator';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { LoginComponent } from '@shared/components/login/login.component';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss']
+  styleUrls: ['./registration.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent implements OnInit, OnDestroy {
+  registerForm: FormGroup;
+  spinRegister = false;
+  private _ref: DynamicDialogRef;
   constructor(
     private http: UserDataService,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private handler: ErrorHandlerService,
-    public modal: ModalService,
-    private configService: ApiConfigService
+    private _ds: DialogService,
+    private configService: ApiConfigService,
+    private _cd: ChangeDetectorRef
   ) { }
 
-  public registerForm: FormGroup;
-  get fullName() { return this.registerForm.get('fullName'); }
-  get username() { return this.registerForm.get('username'); }
-  get email() { return this.registerForm.get('email'); }
-  get password() { return this.registerForm.get('password'); }
-  get confirmPassword() { return this.registerForm.get('confirmPassword'); }
-  public spinRegister = false;
+  ngOnDestroy(): void {
+    if (this._ref) {
+      this._ref.destroy();
+    }
+  }
+
 
   ngOnInit(): void {
     this.initForm();
   }
 
-  public register(): void {
+  register(): void {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
-      this.spinRegister = !this.spinRegister;
-      this.http.register(this.registerForm.value).subscribe(() => {
-        this.notification.showSuccess('We have sent a confirmation email to your email address. Please follow instructions in the email to continue.', false)
-        this.spinRegister = !this.spinRegister;
-      }, (error) => {
-        this.handler.validation(error, this.registerForm);
-        this.spinRegister = !this.spinRegister;
-      });
+      this.spinRegister = true;
+      this.http.register(this.registerForm.value)
+        .subscribe(() => {
+          this.notification.showSuccess('We have sent a confirmation email to your email address. Please follow instructions in the email to continue.', false)
+          this.spinRegister = false;
+          this._cd.detectChanges();
+        }, (error) => {
+          this.handler.validation(error, this.registerForm);
+          this.spinRegister = false;
+          this._cd.detectChanges();
+        });
     }
   }
 
@@ -66,10 +75,15 @@ export class RegistrationComponent implements OnInit {
       });
   }
 
-  private showNotification(): void {
+  openAuthModal(): void {
+    this._ref = this._ds.open(LoginComponent, {});
   }
 
-  public openAuthModal(): void {
-    this.modal.openLoginModal();
-  }
+  get fullName() { return this.registerForm.get('fullName'); }
+  get username() { return this.registerForm.get('username'); }
+  get email() { return this.registerForm.get('email'); }
+  get password() { return this.registerForm.get('password'); }
+  get confirmPassword() { return this.registerForm.get('confirmPassword'); }
+
+
 }

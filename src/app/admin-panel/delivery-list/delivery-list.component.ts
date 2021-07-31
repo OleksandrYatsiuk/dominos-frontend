@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DeliveryDataService } from '../../delivery/delivery-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({
   selector: 'app-delivery-list',
@@ -21,7 +21,7 @@ export class DeliveryListComponent implements OnInit {
   constructor(
     private http: DeliveryDataService,
     public notification: NotificationService,
-    public modalService: ModalService
+    private _cs: ConfirmService
   ) { }
 
   ngOnInit() {
@@ -51,14 +51,14 @@ export class DeliveryListComponent implements OnInit {
   }
 
   delete(item): void {
-    this.modalService.openDeleteModal('delivery').result
-      .then(res => {
+    this._cs.delete().subscribe(res => {
+      if (res) {
         this.http.delete(item.id)
           .subscribe(res => {
             this.notification.showSuccess("Delivery was deleted successfully")
             this.getList(1, this.pageSize);
           })
-      })
-      .catch(e => e);
+      }
+    })
   }
 }
