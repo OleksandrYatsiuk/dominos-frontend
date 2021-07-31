@@ -8,7 +8,7 @@ import { PromotionListComponent } from './promotion-list/promotion-list.componen
 import { PizzaListComponent } from './pizza-list/pizza-list.component';
 import { ShopListComponent } from './shop-list/shop-list.component';
 import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from 'src/app/module-shared/shared.module';
 
 
 

@@ -2,7 +2,7 @@ import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { UserDataService } from 'src/app/auth/user-data.service';
+import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { inject } from '@angular/core/testing';
 import { isPlatformBrowser } from '@angular/common';
 

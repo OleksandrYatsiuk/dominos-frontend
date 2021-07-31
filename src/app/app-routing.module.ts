@@ -1,13 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { MainComponent } from './module-main/components/main/main.component';
 
 
 const routes: Routes = [
-  { path: 'delivery', loadChildren: () => import('./delivery/delivery.module').then(mod => mod.DeliveryModule) },
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(mod => mod.AuthModule) },
-  { path: 'promotion', loadChildren: () => import('./promotion/promotion.module').then(mod => mod.PromotionModule) },
+  { path: '', component: MainComponent },
+  { path: 'pizzas', loadChildren: () => import('./module-pizzas/pizzas.module').then(mod => mod.PizzaModule) },
+  { path: 'promotions', loadChildren: () => import('./module-promotions/promotions.module').then(mod => mod.PromotionsModule) },
+  { path: 'delivery', loadChildren: () => import('./module-delivery/delivery.module').then(mod => mod.DeliveryModule) },
+  { path: 'auth', loadChildren: () => import('./module-auth/auth.module').then(mod => mod.AuthModule) },
   { path: 'admin', loadChildren: () => import('./module-admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule) },
-  { path: '', loadChildren: () => import('./products/products-list.module').then(mod => mod.ProductsListModule) },
   { path: '**', redirectTo: '/' }
 
 ];
@@ -18,8 +20,6 @@ const routes: Routes = [
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected'
     }),
-  ],
-  exports: [RouterModule]
-
+  ]
 })
 export class AppRoutingModule { }

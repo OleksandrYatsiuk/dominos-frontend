@@ -4,12 +4,12 @@ import { UserService } from "src/app/core/services/user.service";
 import { GeolocationService } from "src/app/core/services/geolocation.service";
 import { Router } from "@angular/router";
 import { CAN_MANAGE_PIZZA } from "./header-permissions";
-import { UserDataService } from "src/app/auth/user-data.service";
+import { UserDataService } from "src/app/module-auth/user-data.service";
 import { isPlatformBrowser } from "@angular/common";
 import { MenuItem } from "primeng/api";
 import { Observable } from "rxjs";
 import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
-import { LoginComponent } from "@shared/components/login/login.component";
+import { LoginComponent } from "src/app/module-shared/components/login/login.component";
 
 @Component({
   selector: "app-header",

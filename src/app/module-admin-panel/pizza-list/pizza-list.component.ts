@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PizzaDataService } from 'src/app/products/pizza/pizza-data.service';
+import { PizzaDataService } from '@core/services/pizza-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ConfirmService } from '@core/services/confirm.service';
+import { Pizza } from '@core/models/pizza.interface';
 
 @Component({
   selector: 'app-pizza-list',
@@ -11,7 +12,7 @@ import { ConfirmService } from '@core/services/confirm.service';
 export class PizzaListComponent implements OnInit {
   public page = 1;
   public pages = 1;
-  public pizzas: object[];
+  public pizzas: Pizza[];
   public collectionSize: number
   constructor(private http: PizzaDataService,
     private _cs: ConfirmService,

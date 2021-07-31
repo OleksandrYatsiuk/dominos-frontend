@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { PromotionDataService } from 'src/app/promotion/promotion-data.service';
+import { PromotionDataService } from '@core/services/promotion-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { Promotion } from 'src/app/promotion/promotion-create/promotions.interface';
+import { Promotion } from 'src/app/module-promotions/components/promotion-create/promotions.interface';
 import { ConfirmService } from '@core/services/confirm.service';
 
 @Component({

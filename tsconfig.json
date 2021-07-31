@@ -29,7 +29,7 @@
         "src/environments/*"
       ],
       "@shared/*": [
-        "src/app/shared/*"
+        "src/app/module-shared/*"
       ],
       "@core/*": [
         "src/app/core/*"

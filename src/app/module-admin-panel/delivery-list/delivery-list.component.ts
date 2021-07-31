@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DeliveryDataService } from '../../delivery/delivery-data.service';
+import { DeliveryDataService } from '../../module-delivery/delivery-data.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ConfirmService } from '@core/services/confirm.service';
 

@@ -1,6 +1,6 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UserService } from './user.service';
-import { UserDataService } from 'src/app/auth/user-data.service';
+import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 

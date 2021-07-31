@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: '',
     component: AdminPanelComponent,
-    children:[
+    children: [
       {
         path: 'deliveries',
         component: DeliveryListComponent
@@ -39,21 +39,7 @@ const routes: Routes = [
       },
     ]
   },
-  
-
-  // {
-  //   path: '',
-  //   component: AdminPanelComponent,
-  //   children: [
-  //     {
-  //       path: '',
-  //       children: [
-  //         { path: 'shipping', component: ShippingFormComponent },
-  //         { path: 'carryout', component: CarryoutComponent },
-  //       ]
-  //   вопросы на собеседовании верстальщик  },
-  //   ]
-  // }
+  { path: 'pizzas', loadChildren: async () => ((await import('./module-pizzas/module-pizzas.module')).ModulePizzasModule) }
 ];
 
 @NgModule({

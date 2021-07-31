@@ -2,7 +2,6 @@ import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { BasketService } from './core/services/basket.service';
@@ -14,10 +13,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
 import { HeaderModule } from './module-header/module-header.module';
 import { FooterModule } from './module-footer/module-footer.module';
-import { SharedModule } from '@shared/shared.module';
+import { SharedModule } from 'src/app/module-shared/shared.module';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
 import { registerLocaleData } from '@angular/common';
 import uk from '@angular/common/locales/uk';
 import ru from '@angular/common/locales/ru';
@@ -32,7 +30,6 @@ registerLocaleData(ru);
   imports: [
     AppRoutingModule,
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    RouterModule,
     CommonModule,
     SharedModule,
     FooterModule,
@@ -41,10 +38,8 @@ registerLocaleData(ru);
     CoreModule,
     HttpClientModule,
     CalendarModule,
-    ConfirmDialogModule,
-
+    ConfirmDialogModule
   ],
-  exports: [SharedModule],
   providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, ConfirmService, ConfirmationService,
     {
       provide: APP_INITIALIZER,
