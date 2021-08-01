@@ -12,8 +12,8 @@ export class PizzaDataService {
   constructor(private http: RootService) { }
   private path = '/pizza'
 
-  public getPizzas(options?): Observable<PaginationResponse<Pizza[]>> {
-    return this.http.get(this.path, options);
+  public getPizzas(options?: { page?: number, limit?: number, sort?: keyof Pizza }): Observable<PaginationResponse<Pizza[]>> {
+    return this.http.get(this.path, { params: options });
   }
 
   public getPizza(id: string): Observable<BaseResponse<Pizza>> {

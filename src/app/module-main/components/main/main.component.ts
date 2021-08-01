@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { PizzaDataService } from '../../../core/services/pizza-data.service';
 import { pluck, tap } from 'rxjs/operators';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 import { Observable } from 'rxjs';
-import { ModelPromotion } from 'src/app/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { Pizza } from '@core/models/pizza.interface';
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  styleUrls: ['./main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainComponent implements OnInit {
 
@@ -19,15 +21,15 @@ export class MainComponent implements OnInit {
   categories: { category: string; items: any; }[];
 
   constructor(
-    private http: PizzaDataService) { }
+    private _ps: PizzaDataService) { }
 
   ngOnInit(): void {
-    this.getPizzaList();
+    this.pizzas$ = this.queryPizzaList();
   }
 
 
-  getPizzaList(): void {
-    this.pizzas$ = this.http.getPizzas()
+  private queryPizzaList(): Observable<Pizza[]> {
+    return this._ps.getPizzas({ page: 1, limit: 20 })
       .pipe(pluck('result'),
         tap((pizzas) => {
           this.categories = [

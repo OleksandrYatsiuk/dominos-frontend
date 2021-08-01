@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RootService } from './root.service';
 import { map, Observable } from 'rxjs';
 import { BaseResponse, PaginationResponse } from '../models/response.interface';
-import { ModelPromotion, Promotion } from '../../module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion, Promotion } from '../../module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 
 @Injectable({
   providedIn: 'root'

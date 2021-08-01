@@ -37,7 +37,7 @@ export class PizzaCreateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.ingredients$ = this.root.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
+    this.ingredients$ = this.root.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
       .pipe(pluck('result'));
 
     this.form = this.formBuilder.group({

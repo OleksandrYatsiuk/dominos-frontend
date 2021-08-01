@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PromotionDataService } from '../../../core/services/promotion-data.service';
-import { PromotionStatuses, Promotion } from '../promotion-create/promotions.interface';
+import { PromotionStatuses, Promotion } from '../../../module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { Observable, pluck } from 'rxjs';
 
 @Component({

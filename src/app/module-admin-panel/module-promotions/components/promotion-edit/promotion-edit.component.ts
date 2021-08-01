@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { PromotionDataService } from '../../../core/services/promotion-data.service';
+import { PromotionDataService } from '../../../../core/services/promotion-data.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';

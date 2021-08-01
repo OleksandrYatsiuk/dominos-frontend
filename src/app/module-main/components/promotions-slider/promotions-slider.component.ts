@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { pluck } from 'rxjs';
 import { Observable } from 'rxjs';
-import { ModelPromotion } from 'src/app/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 
 @Component({

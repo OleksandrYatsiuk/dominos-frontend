@@ -13,14 +13,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let delivery of deliveries;index as i;">
-        <th scope="row">{{i+1}}</th>
-        <td>{{delivery.id}}</td>
-        <td>{{delivery.firstName}}</td>
-        <td>{{delivery.phone}}</td>
-        <td>{{delivery.email}}</td>
-        <td>{{delivery.date.date|date}}</td>
-        <td>{{delivery.date.time|date:'shortTime'}}</td>
+      <tr *ngFor="let delivery of deliveries$ | async; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ delivery.id }}</td>
+        <td>{{ delivery.firstName }}</td>
+        <td>{{ delivery.phone }}</td>
+        <td>{{ delivery.email }}</td>
+        <td>{{ delivery.date.date | date }}</td>
+        <td>{{ delivery.date.time | date: "shortTime" }}</td>
         <td>
           <div class="icon-action">
             <span (click)="delete(delivery)" class="material-icons">
@@ -33,8 +33,14 @@
     </tbody>
   </table>
 </div>
-<div class="pagination" *ngIf="collectionSize>1">
-  <ngb-pagination [collectionSize]="collectionSize*10" [(page)]="page" [maxSize]="4" [rotate]="true"
-    (pageChange)="showPage($event)" aria-label="Custom pagination">
-  </ngb-pagination>
+
+<div class="pagination">
+  <p-paginator
+    class="d-paginator"
+    [totalRecords]="totalPages"
+    [pageLinkSize]="5"
+    [rows]="rows"
+    [alwaysShow]="false"
+    (onPageChange)="onPageChange($event.page)"
+  ></p-paginator>
 </div>

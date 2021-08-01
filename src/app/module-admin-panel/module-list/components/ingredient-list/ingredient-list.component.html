@@ -11,13 +11,13 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let ingredient of ingredients;index as i;">
-        <th scope="row">{{i+1}}</th>
-        <td>{{ingredient.id}}</td>
-        <td>{{ingredient.name}}</td>
+      <tr *ngFor="let ingredient of ingredients$ | async; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <td>{{ ingredient.id }}</td>
+        <td>{{ ingredient.name }}</td>
         <td>
           <div class="icon-action">
-            <span (click)="delete(ingredient)" class="material-icons">
+            <span (click)="onDelete(ingredient)" class="material-icons">
               delete_forever
             </span>
             <span class="material-icons">edit </span>
@@ -27,8 +27,12 @@
     </tbody>
   </table>
 </div>
-<div class="pagination" *ngIf="collectionSize>1">
-  <ngb-pagination [collectionSize]="collectionSize*10" [(page)]="page" [maxSize]="4" [rotate]="true"
-    (pageChange)="showPage($event)" aria-label="Custom pagination">
-  </ngb-pagination>
-</div>
+
+<p-paginator
+  class="d-paginator"
+  [totalRecords]="totalRecords"
+  [pageLinkSize]="3"
+  [alwaysShow]="false"
+  [rows]="rows"
+  (onPageChange)="onPageChange($event.page)"
+></p-paginator>

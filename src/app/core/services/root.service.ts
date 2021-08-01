@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { IDictionary } from '../models/dictionary';
 import { BaseResponse, PaginationResponse } from '../models/response.interface';
+import { IQueryParams } from '@core/models/pagination-query';
 
 
 @Injectable()
@@ -12,8 +13,8 @@ export class RootService {
 
   constructor(private http: HttpClient) {
   }
-  getIngredientsList(params?: object): Observable<PaginationResponse<IDictionary[]>> {
-    return this.http.get<PaginationResponse<IDictionary[]>>(`ingredients`, params);
+  getIngredientsList(params?: Partial<IQueryParams<IDictionary>>): Observable<PaginationResponse<IDictionary[]>> {
+    return this.http.get<PaginationResponse<IDictionary[]>>(`ingredients`, { params });
   }
 
   createIngredient(data: any): Observable<any> {

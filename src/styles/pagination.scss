@@ -1,44 +1,53 @@
-.pagination {
-    justify-content: center;
-}
+@import "./helpers/index";
 
-.page-item.active {
-    outline: none;
-}
-.page-link:focus {
-    z-index: 3;
-    outline: none;
-    box-shadow: none;
-    background: #3a80ba;
-    color: #fff;
-}
-.page-link {
-    width: 55px;
-    height: 48px;
-    border-radius: 8px;
-    margin: 4px;
-    padding-top: 13px;
-    padding-left: 9px;
-    text-align: center;
-}
+.d-paginator {
+  .p-paginator {
+    .p-paginator-element {
+      height: 45px;
+      min-width: 45px;
+      margin: 3px;
+      padding: 10px 15px;
+      border: 0;
+      border-radius: 5px;
+      background-color: $c-white;
+      opacity: 0.8;
+      transition: all 0.3s;
+      &:hover:not(.p-disabled) {
+        opacity: 1;
+        background-color: $c-gray-1;
+        color: $c-white;
+      }
+      &.p-highlight {
+        background-color: $c-blue;
+      }
 
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #3a80ba;
-    border-color: #3a80ba;
-    text-align: center;
-}
+      &.p-disabled {
+        background-color: $c-gray;
+        cursor: not-allowed;
+      }
+      .p-paginator-icon {
+        &.pi-angle-left,
+        &.pi-angle-right {
+          display: block;
+          width: 14px;
+          height: 20px;
+          background: url(/assets/icons/arrow-next.svg);
+        }
+        &.pi-angle-left {
+          transform: rotate(180deg);
+        }
 
-.page-item:last-child .page-link,
-.page-item:first-child .page-link {
-    border-radius: 8px;
-}
-
-.page-item:last-child .page-link:hover,
-.page-item:last-child .page-link,
-.page-item:first-child .page-link:hover,
-.page-item:first-child .page-link {
-    background: #fff;
-    color: black;
+        &.pi-angle-double-left,
+        &.pi-angle-double-right {
+          display: block;
+          width: 21px;
+          height: 20px;
+          background: url(/assets/icons/arrow-double.svg);
+        }
+        &.pi-angle-double-left {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
 }

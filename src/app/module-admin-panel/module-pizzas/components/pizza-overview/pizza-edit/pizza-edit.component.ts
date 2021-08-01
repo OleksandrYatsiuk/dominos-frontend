@@ -45,7 +45,7 @@ export class PizzaEditComponent implements OnInit {
 	}
 	ngOnInit(): void {
 
-		this.ingredients$ = this.rest.getIngredientsList({ params: { page: 1, limit: 20, sort: 'name' } })
+		this.ingredients$ = this.rest.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
 			.pipe(pluck('result'), map(ingredients => ingredients.map(i => ({ label: i.name, value: i.id }))));
 
 		this.title.setTitle(`Edit - ${this.pizza.name}`);

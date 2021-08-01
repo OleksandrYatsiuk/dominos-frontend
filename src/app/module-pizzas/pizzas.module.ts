@@ -23,7 +23,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    PizzaCreateComponent,
     PizzaComponent,
   ],
   imports: [

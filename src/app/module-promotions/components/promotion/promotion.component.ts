@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { ModelPromotion, PromotionStatuses } from './components/promotion-create/promotions.interface';
-import { PromotionDataService } from '../core/services/promotion-data.service';
 import { map, mergeMap, Observable, pluck, tap } from 'rxjs';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
+import { PromotionDataService } from '@core/services/promotion-data.service';
+import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-promotion',

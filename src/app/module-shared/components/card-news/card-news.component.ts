@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ModelPromotion, PromotionStatuses } from 'src/app/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 
 @Component({
   selector: 'app-card-news',
