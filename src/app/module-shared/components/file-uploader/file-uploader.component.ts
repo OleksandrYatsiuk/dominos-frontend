@@ -20,7 +20,7 @@ type Files = File | File[];
 })
 
 export class FileUploaderComponent implements ControlValueAccessor {
-  public imagePath = '../../../../assets/data/default_image.png';
+  public imagePath = '../..//assets/img/stub-image.png';
   public value: Files
   public onChange = (v: Files | null): void => { };
   public onTouch: any = () => { };

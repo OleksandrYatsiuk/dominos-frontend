@@ -33,7 +33,7 @@ export class ShopListComponent implements OnInit {
     this.shops$ = this._queryShopList(this.currentPage);
   }
 
-  public delete(item: any): void {
+  onDelete(item: IShop): void {
     this._cs.delete().subscribe(res => {
       if (res) {
         this._ss.remove(item.id).subscribe(res => {

@@ -44,7 +44,7 @@ export class MapService {
 
     addMarker(item: any, options?: L.MarkerOptions, popupOptions?: L.Popup): L.Marker {
         const marker = this.marker({ lat: item.lat, lng: item.lng }, {
-            icon: this._getIcon(item?.icon || 'marker.png'),
+            icon: this._getIcon(item?.icon || 'marker.svg'),
             draggable: false,
             ...options
         }).addTo(this._map);
@@ -57,11 +57,11 @@ export class MapService {
 
     selectMarker(id: string): void {
         const index = this._markers.findIndex(m => m.data.id === id);
-        this._markers.forEach(m => m.marker.setIcon(this._getIcon(m?.data?.icon || 'marker.png')));
+        this._markers.forEach(m => m.marker.setIcon(this._getIcon(m?.data?.icon || 'marker.svg')));
         if (index !== -1) {
             const marker = this._markers[index].marker;
             const item = this._markers[index].data;
-            marker.setIcon(this._getIcon(item?.selectedIcon || 'marker.png')).openPopup();
+            marker.setIcon(this._getIcon(item?.selectedIcon || 'marker.svg')).openPopup();
             if (item?.centerOnClick) {
                 this._map.flyTo(marker.getLatLng());
             }
@@ -118,7 +118,7 @@ export class MapService {
         }).addTo(this._map);
     }
 
-    private _getIcon(icon: string = 'marker.png'): L.Icon {
+    private _getIcon(icon: string = 'marker.svg'): L.Icon {
         return this.icon({ iconUrl: `../../../assets/icons/${icon}` });
     }
 

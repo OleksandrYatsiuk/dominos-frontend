@@ -15,7 +15,7 @@ import { Pizza } from '@core/models/pizza.interface';
 })
 export class MainComponent implements OnInit {
 
-  defaultImage = '/assets/data/default_image.png';
+  defaultImage = '/assets/img/stub-image.png';
   promos$: Observable<ModelPromotion[]>;
   pizzas$: Observable<any[]>;
   categories: { category: string; items: any; }[];

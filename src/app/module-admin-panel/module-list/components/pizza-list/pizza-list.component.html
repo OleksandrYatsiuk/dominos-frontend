@@ -19,14 +19,11 @@
         <td>{{ pizza.category }}</td>
         <td>
           <div class="icon-action">
-            <span (click)="onDelete(pizza)" class="material-icons">
-              delete_forever
-            </span>
-            <span
-              class="material-icons"
+            <i class="icon icon--trash" (click)="onDelete(pizza)"></i>
+            <i
+              class="icon icon--edit"
               routerLink="/pizzas/{{ pizza.id }}/edit"
-              >edit
-            </span>
+            ></i>
           </div>
         </td>
       </tr>

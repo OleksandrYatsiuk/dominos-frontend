@@ -9,7 +9,6 @@
         <th scope="col">Role</th>
         <th scope="col">Email</th>
         <th scope="col"></th>
-        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -22,14 +21,8 @@
         <td>{{ user.email }}</td>
         <td>
           <div class="icon-action">
-            <span (click)="onDelete(user)" class="material-icons">
-              delete_forever
-            </span>
-          </div>
-        </td>
-        <td>
-          <div class="icon-action">
-            <span class="material-icons">edit </span>
+            <i class="icon icon--trash" (click)="onDelete(user)"></i>
+            <i class="icon icon--edit"></i>
           </div>
         </td>
       </tr>

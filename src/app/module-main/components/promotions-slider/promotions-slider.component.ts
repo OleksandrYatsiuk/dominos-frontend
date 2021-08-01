@@ -13,7 +13,7 @@ import { PromotionDataService } from '@core/services/promotion-data.service';
 })
 export class PromotionsSliderComponent implements OnInit {
 
-  defaultImage = '/assets/data/default_image.png';
+  defaultImage = '/assets/img/stub-image.png';
   promos$: Observable<ModelPromotion[]>;
   config: SwiperConfigInterface = {
     slidesPerView: 1,

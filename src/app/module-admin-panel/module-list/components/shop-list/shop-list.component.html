@@ -17,10 +17,8 @@
         <td>{{ shop.address }}</td>
         <td>
           <div class="icon-action">
-            <span (click)="delete(shop)" class="material-icons">
-              delete_forever
-            </span>
-            <span class="material-icons">edit </span>
+            <i class="icon icon--trash" (click)="onDelete(shop)"></i>
+            <i class="icon icon--edit"></i>
           </div>
         </td>
       </tr>

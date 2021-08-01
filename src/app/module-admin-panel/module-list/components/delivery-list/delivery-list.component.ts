@@ -35,7 +35,7 @@ export class DeliveryListComponent implements OnInit {
     this.deliveries$ = this._queryPromotionList(this.currentPage);
   }
 
-  delete(item: Delivery): void {
+  onDelete(item: Delivery): void {
     this._cs.delete().subscribe(res => {
       if (res) {
         this._ds.delete(item.id)

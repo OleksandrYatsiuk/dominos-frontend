@@ -9,7 +9,7 @@ import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/mo
 })
 export class CardNewsComponent {
   @Input() news: ModelPromotion;
-  defaultImage = '/assets/data/default_image.png';
+  defaultImage = '/assets/img/stub-image.png';
   status = PromotionStatuses;
   constructor() { }
 

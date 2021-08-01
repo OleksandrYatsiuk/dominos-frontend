@@ -28,7 +28,7 @@ export class CardPizzaComponent implements OnInit {
   sizesEnum = EPizzaSizes;
   sizes: SelectItem<{ price: number; weight: number, type: EPizzaSizes }>[] = [];
   options: SelectItem[] = [];
-  defaultImage = '/assets/data/default_image.png';
+  defaultImage = '/assets/img/stub-image.png';
   constructor(
     private fb: FormBuilder,
     private basketService: BasketService,
