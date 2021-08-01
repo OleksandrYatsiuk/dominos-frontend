@@ -1,0 +1,23 @@
+@import "./helpers/index";
+
+.p-tabview-nav {
+  .p-tabview-nav-link {
+    @include genText(16px, 18px, normal, $c-black);
+    padding: 10px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid $c-black;
+    background-color: $c-white;
+    transition: all 0.3s;
+    &:hover {
+      background-color: $c-light-gray;
+    }
+  }
+
+  .p-highlight {
+    .p-tabview-nav-link {
+      background-color: $c-yellow;
+    }
+  }
+}
