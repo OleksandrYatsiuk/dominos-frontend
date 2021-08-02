@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { RootService } from 'src/app/core/services/root.service';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { ConfirmService } from '@core/services/confirm.service';
 import { IDictionary } from '@core/models/dictionary';
 import { Observable, pluck, tap } from 'rxjs';
+import { IngredientsService } from '@core/services/ingredients.service';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -22,7 +22,7 @@ export class IngredientListComponent implements OnInit {
   public collectionSize: number;
 
   constructor(
-    private http: RootService,
+    private _is: IngredientsService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
     public notification: NotificationService
@@ -48,7 +48,7 @@ export class IngredientListComponent implements OnInit {
   }
 
   private _queryIngredientsList(page: number): Observable<IDictionary[]> {
-    return this.http.getIngredientsList({ page, limit: this.rows }).pipe(
+    return this._is.getIngredientsList({ page, limit: this.rows }).pipe(
       tap(({ result, _meta }) => {
         const { page, total } = _meta.pagination;
         this.currentPage = page;

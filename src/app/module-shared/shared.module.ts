@@ -20,6 +20,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardNewsComponent } from './components/card-news/card-news.component';
 import { MainModule } from '../module-main/main.module';
+import { TranslateOptionsPipe } from './pipe/translate-options.pipe';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { MainModule } from '../module-main/main.module';
     PizzaFilterPipe,
     CustomLabelPipe,
     ExtractPipe,
+    TranslateOptionsPipe,
     // directives
     MobilePhoneDirective,
     CardNewsComponent
@@ -52,7 +55,8 @@ import { MainModule } from '../module-main/main.module';
     NgxPermissionsModule.forRoot(),
     DropdownModule,
     SelectButtonModule,
-    MainModule
+    MainModule,
+    TranslateModule
   ],
   exports: [
     //components
@@ -69,6 +73,7 @@ import { MainModule } from '../module-main/main.module';
     NgbModule,
     ReactiveFormsModule,
     RouterModule,
+    TranslateModule,
     // AgmCoreModule,
     NgxPermissionsModule,
     NgbToastModule,
@@ -76,6 +81,7 @@ import { MainModule } from '../module-main/main.module';
     //pipes
     PizzaFilterPipe,
     ExtractPipe,
+    TranslateOptionsPipe,
     //directives
     MobilePhoneDirective,
   ]

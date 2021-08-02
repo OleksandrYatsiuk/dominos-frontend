@@ -8,6 +8,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
 import { CardPizzaComponent } from './components/card-pizza/card-pizza.component';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
+    TranslateModule,
     SelectButtonModule,
     ReactiveFormsModule,
     LazyLoadImageModule,
@@ -25,6 +27,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   exports: [
     MainComponent,
+    TranslateModule,
     LazyLoadImageModule,
     CardPizzaComponent,
   ]

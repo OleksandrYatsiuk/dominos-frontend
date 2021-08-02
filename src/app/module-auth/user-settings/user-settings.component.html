@@ -7,19 +7,19 @@
 
   <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
 
-    <app-form-item [control]="updateProfileForm.controls.fullName" field="Full Name">
+    <app-form-item [control]="updateProfileForm.controls.fullName" [field]="'labels.fullName'|translate">
       <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
     </app-form-item>
 
-    <app-form-item [control]="updateProfileForm.controls.username" field="Username">
+    <app-form-item [control]="updateProfileForm.controls.username" [field]="'labels.username'|translate">
       <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
     </app-form-item>
 
-    <app-form-item [control]="updateProfileForm.controls.email" field="Email">
+    <app-form-item [control]="updateProfileForm.controls.email" [field]="'labels.email'|translate">
       <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
     </app-form-item>
 
-    <app-form-item [control]="updateProfileForm.controls.birthday" field="Birthday">
+    <app-form-item [control]="updateProfileForm.controls.birthday" [field]="'labels.birthday'|translate">
       <p-calendar
       formControlName="birthday"
       class="d-calendar"
@@ -29,25 +29,25 @@
     ></p-calendar>
     </app-form-item>
 
-    <app-form-item [control]="updateProfileForm.controls.phone" field="Phone">
+    <app-form-item [control]="updateProfileForm.controls.phone" [field]="'labels.phone'|translate">
       <input class="form-control" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel">
     </app-form-item>
 
-    <app-spin-button name="Save" [loading]="spinEditProfile"></app-spin-button>
+    <app-spin-button [name]="'saveLabel'|translate" [loading]="spinEditProfile"></app-spin-button>
   </form>
   <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
 
-    <app-form-item [control]="changePasswordForm.controls.currentPassword" field="Current Password">
+    <app-form-item [control]="changePasswordForm.controls.currentPassword" [field]="'labels.currentPassword'|translate">
       <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
         type="password">
     </app-form-item>
 
-    <app-form-item [control]="changePasswordForm.controls.newPassword" field="New Password">
+    <app-form-item [control]="changePasswordForm.controls.newPassword" [field]="'labels.newPassword'|translate">
       <input class="form-control" placeholder="Enter New Password" formControlName="newPassword" type="new-password">
     </app-form-item>
 
-    <app-form-item [control]="changePasswordForm.controls.confirmPassword" field="Confirm Password"
-      otherField="New Password">
+    <app-form-item [control]="changePasswordForm.controls.confirmPassword" [field]="'labels.confirmPassword'|translate"
+      [otherField]="'labels.newPassword'|translate">
       <input class="form-control" placeholder="Enter Confirm Password" formControlName="confirmPassword"
         type="new-password">
     </app-form-item>

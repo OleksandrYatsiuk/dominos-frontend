@@ -8,7 +8,7 @@ import { BasketService } from './core/services/basket.service';
 import { UserService } from './core/services/user.service';
 import { GeolocationService } from './core/services/geolocation.service';
 import { ApiConfigService } from './core/services/api-config.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
 import { HeaderModule } from './module-header/module-header.module';
@@ -17,13 +17,25 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { registerLocaleData } from '@angular/common';
-import uk from '@angular/common/locales/uk';
-import ru from '@angular/common/locales/ru';
 import { ConfirmService } from '@core/services/confirm.service';
 import { ConfirmationService } from 'primeng/api';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+
+import uk from '@angular/common/locales/uk';
+import ru from '@angular/common/locales/ru';
+import en from '@angular/common/locales/en';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { ELanguage } from '@core/models/language';
+
 
 registerLocaleData(uk);
 registerLocaleData(ru);
+registerLocaleData(en);
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +50,15 @@ registerLocaleData(ru);
     CoreModule,
     HttpClientModule,
     CalendarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    TranslateModule.forRoot({
+      defaultLanguage: ELanguage.uk,
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, ConfirmService, ConfirmationService,
     {
@@ -47,7 +67,7 @@ registerLocaleData(ru);
       deps: [ApiConfigService],
       multi: true
     },
-    { provide: LOCALE_ID, useValue: 'uk' },
+    { provide: LOCALE_ID, useValue: ELanguage.uk }
   ],
   bootstrap: [AppComponent],
 })

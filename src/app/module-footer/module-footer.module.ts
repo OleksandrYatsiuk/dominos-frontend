@@ -4,6 +4,7 @@ import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'primeng/api';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 
@@ -13,7 +14,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     CommonModule,
     RouterModule,
     SharedModule,
-    NgxPermissionsModule
+    NgxPermissionsModule,
+    TranslateModule
   ],
   exports: [FooterComponent]
 })

@@ -8,7 +8,7 @@
       <div class="swiper-slide" *ngFor="let promo of promos">
         <div class="carousel-caption">
           <a [routerLink]="['/promotions/', promo.id]" class="product_name">
-            <button class="btn-promo">Детальніше</button>
+            <button class="btn-promo">{{'detailsLabel'|translate}}</button>
           </a>
         </div>
         <img

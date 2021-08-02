@@ -1,8 +1,8 @@
 <div class="content">
   <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
-    <h3>Contacts</h3>
+    <h3>{{'contactsLabel'|translate}}</h3>
     <div class="row-item">
-      <app-form-item [control]="carryOut.controls.firstName" field="First Name">
+      <app-form-item [control]="carryOut.controls.firstName" [field]="'labels.firstName'|translate">
         <input
           class="form-control"
           placeholder="Enter First Name"
@@ -11,7 +11,7 @@
         />
       </app-form-item>
 
-      <app-form-item [control]="carryOut.controls.phone" field="Phone">
+      <app-form-item [control]="carryOut.controls.phone" [field]="'labels.phone'|translate">
         <input
           class="form-control"
           placeholder="Enter Phone"
@@ -20,7 +20,7 @@
         />
       </app-form-item>
 
-      <app-form-item [control]="carryOut.controls.email" field="Email">
+      <app-form-item [control]="carryOut.controls.email" [field]="'labels.email'|translate">
         <input
           class="form-control"
           placeholder="Enter Email"
@@ -35,7 +35,7 @@
     <div class="row-item">
       <app-form-item
         [control]="carryOut.controls.shopId"
-        field="Shop"
+        [field]="'labels.shop'|translate"
         *ngIf="shops$ | async as shops"
       >
         <div class="input-group">
@@ -53,7 +53,7 @@
     </div>
 
     <div class="row-item">
-      <app-form-item [control]="carryOut.controls.comment" field="Comment">
+      <app-form-item [control]="carryOut.controls.comment" [field]="'labels.comment'|translate">
         <textarea
           class="form-control"
           formControlName="comment"
@@ -62,12 +62,12 @@
       </app-form-item>
     </div>
 
-    <h3>Date</h3>
+    <h3>{{'labels.date'|translate}}</h3>
     <div formGroupName="date">
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('date')['controls'].date"
-          field="Date"
+          [field]="'labels.date'|translate"
         >
           <p-calendar
             formControlName="date"
@@ -81,7 +81,7 @@
 
         <app-form-item
           [control]="carryOut.get('date')['controls'].time"
-          field="Time"
+          [field]="'labels.time'|translate"
         >
           <p-calendar
             formControlName="time"
@@ -101,7 +101,7 @@
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('payment')['controls'].coupon"
-          field="Coupon"
+          [field]="'labels.coupon'|translate"
         >
           <input
             type="text"
@@ -113,7 +113,7 @@
 
         <app-form-item
           [control]="carryOut.get('payment')['controls'].remainder"
-          field="Remainder"
+          [field]="'labels.remainder'|translate"
         >
           <input
             type="text"
@@ -127,7 +127,7 @@
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('payment')['controls'].type"
-          field="Payment Type"
+          [field]="'labels.paymentType'|translate"
         >
           <p-dropdown
             class="d-dropdown"

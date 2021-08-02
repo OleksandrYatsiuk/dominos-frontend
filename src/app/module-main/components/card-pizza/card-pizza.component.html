@@ -9,7 +9,7 @@
           alt="Замовити піцу"
         />
         <div class="product_weight">
-          <span>{{ sizeValue.weight?.toLocaleString("uk") }} г</span>
+          <span>{{ sizeValue.weight?.toLocaleString("uk") }} {{'gram'|translate}}</span>
         </div>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <div class="product-row">
       <div class="product_ingredients">
         <span *ngFor="let ingredient of item.ingredients; let last = last">
-          {{ ingredient.name }}<ng-container  *ngIf="!last">, </ng-container>
+          {{ ingredient.name }}<ng-container *ngIf="!last">, </ng-container>
         </span>
       </div>
     </div>
@@ -43,7 +43,7 @@
     <div class="product-row">
       <div class="price">
         <span>{{ this.sizeValue.price?.toLocaleString("uk") }} </span>
-        <span class="currency"> грн</span>
+        <span class="currency"> {{'uah'|translate}}</span>
       </div>
       <div class="checked_product" *ngIf="count !== 0">
         <button class="basket-button" (click)="removeFromCard(sizeValue)">
@@ -57,7 +57,7 @@
         *ngIf="count === 0"
         (click)="addToCard(sizeValue)"
       >
-        В кошик
+        {{ "inBasket" | translate }}
       </button>
     </div>
   </div>

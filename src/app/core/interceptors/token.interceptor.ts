@@ -11,23 +11,21 @@ export class ParamInterceptor implements HttpInterceptor {
 
   constructor(private user: UserService, @Inject(PLATFORM_ID) private _pid: any) {
     this.isBrowser = isPlatformBrowser(_pid);
-   }
+  }
 
-  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (!/^(http|https):/i.test(request.url)) {
-      const headers: { [key: string]: string } = {};
+
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (request.url.includes(environment.serverUrl)) {
       const token = this.user.authData();
 
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
-
       request = request.clone({
-        url: `${environment.serverUrl}${request.url.replace(/^\/+/, '')}`,
-        setHeaders: headers,
+        setHeaders: {
+          Authorization: `Bearer ${token}`
+        }
       });
     }
+
     return next.handle(request);
   }
 }

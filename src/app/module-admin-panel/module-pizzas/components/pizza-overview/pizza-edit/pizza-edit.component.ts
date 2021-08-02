@@ -3,13 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { NotificationService } from 'src/app/core/services/notification.service';
-import { RootService } from 'src/app/core/services/root.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../../../../core/services/pizza-data.service';
 import { map, pluck } from 'rxjs/operators';
 import { Pizza } from 'src/app/core/models/pizza.interface';
 import { SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { IngredientsService } from '@core/services/ingredients.service';
 
 @Component({
 	selector: 'app-pizza-edit',
@@ -31,7 +32,7 @@ export class PizzaEditComponent implements OnInit {
 		private title: Title,
 		private notification: NotificationService,
 		private http: PizzaDataService,
-		private rest: RootService,
+		private _is: IngredientsService,
 		private handler: ErrorHandlerService
 	) {
 		this.pizza = this.route.snapshot.data.pizza;
@@ -45,7 +46,7 @@ export class PizzaEditComponent implements OnInit {
 	}
 	ngOnInit(): void {
 
-		this.ingredients$ = this.rest.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
+		this.ingredients$ = this._is.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
 			.pipe(pluck('result'), map(ingredients => ingredients.map(i => ({ label: i.name, value: i.id }))));
 
 		this.title.setTitle(`Edit - ${this.pizza.name}`);
@@ -81,16 +82,16 @@ export class PizzaEditComponent implements OnInit {
 				weight: this.form.get('weight').value,
 				price: this.form.get('price').value
 			};
-			return this.http.edit(this.pizza.id, params)
-				.subscribe(pizza => {
-					this.loading = !this.loading;
-					this.notification.showSuccess(`Pizza '${pizza.name}' has been successfully updated!`);
-				},
-					(error) => {
-						this.loading = !this.loading;
-						this.handler.validation(error, this.uploadImage);
-					}
-				);
+			// return this.http.edit(this.pizza.id, params)
+			// 	.subscribe(pizza => {
+			// 		this.loading = !this.loading;
+			// 		this.notification.showSuccess(`Pizza '${pizza.name}' has been successfully updated!`);
+			// 	},
+			// 		(error) => {
+			// 			this.loading = !this.loading;
+			// 			this.handler.validation(error, this.uploadImage);
+			// 		}
+			// 	);
 		}
 	}
 }

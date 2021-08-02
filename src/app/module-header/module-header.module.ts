@@ -4,6 +4,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { MenuModule } from 'primeng/menu';
+import { TranslateModule } from '@ngx-translate/core';
+import { DropdownModule } from 'primeng/dropdown';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -12,7 +15,10 @@ import { MenuModule } from 'primeng/menu';
     CommonModule,
     RouterModule,
     NgxPermissionsModule,
-    MenuModule
+    MenuModule,
+    SharedModule,
+    TranslateModule,
+    DropdownModule
   ],
   exports: [HeaderComponent]
 })

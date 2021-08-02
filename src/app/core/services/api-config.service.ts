@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { RootService } from './root.service';
 import { pluck } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 export interface ConfigModel {
   params: {
@@ -18,15 +19,16 @@ export interface ConfigModel {
 export class ApiConfigService {
 
   private _config: ConfigModel;
+  private _apiUrl = environment.serverUrl;
 
-  constructor(private http: RootService) { }
+  constructor(private http: HttpClient) { }
 
   getConfig(): ConfigModel {
     return this._config;
   }
 
   loadApiConfig(): Promise<any> {
-    return this.http.get('/config')
+    return this.http.get<any>(`${this._apiUrl}/config`)
       .pipe(pluck('result'))
       .toPromise()
       .then(data => this._config = data);

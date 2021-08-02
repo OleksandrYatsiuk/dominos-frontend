@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
-import { RootService } from './root.service';
 import { map, Observable } from 'rxjs';
 import { BaseResponse, PaginationResponse } from '../models/response.interface';
 import { ModelPromotion, Promotion } from '../../module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionDataService {
-  public path = '/promotion';
-  constructor(private http: RootService) {
+
+  private _apiUrl = environment.serverUrl;
+
+  path = `${this._apiUrl}/promotion`;
+  constructor(private http: HttpClient) {
   }
   public getData(options?: object): Observable<PaginationResponse<ModelPromotion[]>> {
     return this.http.get(this.path, options)
@@ -25,16 +29,16 @@ export class PromotionDataService {
   }
 
   public remove(id: string): Observable<null> {
-    return this.http.delete(`${this.path}/${id}`);
+    return this.http.delete<null>(`${this.path}/${id}`);
   }
 
   public create(data: Promotion): Observable<BaseResponse<Promotion>> {
     const formData = this.getFormData(data);
-    return this.http.post(`${this.path}`, formData);
+    return this.http.post<BaseResponse<Promotion>>(`${this.path}`, formData);
   }
   public update(id: string, data: Promotion): Observable<BaseResponse<Promotion>> {
     const formData = this.getFormData(data);
-    return this.http.patch(`${this.path}/${id}`, formData);
+    return this.http.patch<BaseResponse<Promotion>>(`${this.path}/${id}`, formData);
   }
   public upload(id: string, file: FormData): Observable<any> {
     return this.http.post(`${this.path}/${id}`, file);

@@ -55,3 +55,18 @@
     display: none;
   }
 }
+
+.d-language-dropdown {
+  margin-right: 5px;
+  .p-dropdown {
+    background-color: transparent;
+    .p-dropdown-label {
+      height: unset;
+      color: $c-white;
+    }
+    .p-dropdown-items-wrapper {
+      background-color: $c-white;
+      color: $c-black;
+    }
+  }
+}

@@ -1,20 +1,19 @@
-<footer class='footer-content'>
-      <div class="footer-menu-items">
-        <span>Domino's Pizza</span>
-          <nav>
-          <a routerLink="/"> Menu </a>
-          <a routerLink="/pizzas">Pizzas</a>
-          <a routerLink="/promotions">Promotions</a>
-        </nav>
-      </div>
-      <div class="footer-menu-items" *ngxPermissionsOnly="isManagement">
-        <span>Settings</span>
-        <nav>
-          <a href={{swaggerUILink}} >Swagger</a>
-        </nav>
-      </div>
-      <div class="logo">
-         <a routerLink="/">Domino's Pizza</a> 
-      </div>
+<footer class="footer-content">
+  <div class="footer-menu-items">
+    <span>{{ "dominosLabel" | translate }}</span>
+    <nav>
+      <a routerLink="/"> {{'mainLabel'|translate}} </a>
+      <a routerLink="/pizzas">{{'pageTitles.pizzas'|translate}}</a>
+      <a routerLink="/promotions">{{'pageTitles.promotions'|translate}}</a>
+    </nav>
+  </div>
+  <div class="footer-menu-items" *ngxPermissionsOnly="isManagement">
+    <span>{{'settingsLabel'|translate}}</span>
+    <nav>
+      <a href="{{ swaggerUILink }}">{{'swaggerLabel'|translate}}</a>
+    </nav>
+  </div>
+  <div class="logo">
+    <a routerLink="/">{{'dominosLabel'|translate}}</a>
+  </div>
 </footer>
-

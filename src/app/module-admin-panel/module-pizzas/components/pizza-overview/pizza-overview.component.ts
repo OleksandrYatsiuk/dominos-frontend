@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RootService } from '../../../../core/services/root.service';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { NotificationService } from 'src/app/core/services/notification.service';
 import { CAN_EDIT_PIZZA } from '../../../../module-pizzas/components/pizza/pizza-permissions';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { UserService } from 'src/app/core/services/user.service';

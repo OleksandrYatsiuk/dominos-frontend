@@ -1,22 +1,25 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IQueryParams } from '@core/models/pagination-query';
+import { environment } from '@environments/environment';
 import { User } from 'src/app/module-auth/auth.model';
-import { RootService } from './root.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserManagementDataService {
-  path = '/user-management';
-  constructor(private http: RootService) { }
+  private _apiUrl = environment.serverUrl;
 
-  public getUsers(params?: Partial<IQueryParams<User>>) {
-    return this.http.get(this.path, { params });
+  path = `${this._apiUrl}/user-management`;
+  constructor(private _http: HttpClient) { }
+
+  public getUsers(params?: Partial<IQueryParams<User>>): any {
+    return this._http.get(this.path, { params });
   }
   public deleteItem(id: string) {
-    return this.http.delete(`${this.path}/${id}`);
+    return this._http.delete(`${this.path}/${id}`);
   }
   public updateRole(id: string, data: any) {
-    return this.http.put(`${this.path}/${id}`, data);
+    return this._http.put(`${this.path}/${id}`, data);
   }
 }

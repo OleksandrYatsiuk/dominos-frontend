@@ -1,5 +1,4 @@
 import { Component, OnInit, } from '@angular/core';
-import { RootService } from '../../../../core/services/root.service';
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { Ingredients, Pizza } from '../../../../core/models/pizza.interface';
 import { NotificationService } from 'src/app/core/services/notification.service';
@@ -8,6 +7,7 @@ import { PizzaDataService } from '../../../../core/services/pizza-data.service';
 import { Router } from '@angular/router';
 import { pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { IngredientsService } from '@core/services/ingredients.service';
 
 @Component({
   selector: 'app-pizza-create',
@@ -28,7 +28,7 @@ export class PizzaCreateComponent implements OnInit {
 
   constructor(
     private http: PizzaDataService,
-    private root: RootService,
+    private _is: IngredientsService,
     private formBuilder: FormBuilder,
     private notification: NotificationService,
     private handler: ErrorHandlerService,
@@ -37,7 +37,7 @@ export class PizzaCreateComponent implements OnInit {
 
   ngOnInit() {
 
-    this.ingredients$ = this.root.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
+    this.ingredients$ = this._is.getIngredientsList({ page: 1, limit: 20, sort: 'name' })
       .pipe(pluck('result'));
 
     this.form = this.formBuilder.group({
@@ -74,14 +74,14 @@ export class PizzaCreateComponent implements OnInit {
         price: this.form.get('price').value
       };
 
-      return this.http.create(params).subscribe(result => {
-        this.loading = !this.loading;
-        this.notification.showSuccess(`Pizza '${result.name}' has been successfully created!`);
-        this.router.navigateByUrl('/admin/pizzas')
-      }, (error) => {
-        this.loading = !this.loading;
-        this.handler.validation(error, this.form);
-      });
+      // return this.http.create(params).subscribe(result => {
+      //   this.loading = !this.loading;
+      //   this.notification.showSuccess(`Pizza '${result.name}' has been successfully created!`);
+      //   this.router.navigateByUrl('/admin/pizzas')
+      // }, (error) => {
+      //   this.loading = !this.loading;
+      //   this.handler.validation(error, this.form);
+      // });
     }
   }
 }
