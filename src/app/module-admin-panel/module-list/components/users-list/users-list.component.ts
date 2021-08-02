@@ -16,8 +16,9 @@ import { pluck } from 'rxjs';
 export class UsersListComponent implements OnInit {
   totalPages: number;
   currentPage = 1;
-  rows = 20;
+  rows = 10;
   users$: Observable<User[]>;
+  cols: { field: string; header: string; }[];
 
   constructor(
     private _us: UserManagementDataService,
@@ -28,6 +29,15 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
     this.users$ = this._queryUserList(this.currentPage);
+
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'username', header: 'Username' },
+      { field: 'fullName', header: 'Full Name' },
+      { field: 'role', header: 'Role' },
+      { field: 'email', header: 'Email' },
+    ];
   }
 
   onPageChange(page: number): void {

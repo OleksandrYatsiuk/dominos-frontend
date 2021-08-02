@@ -1,24 +1,32 @@
-<div class="table-responsive-sm">
-  <table class="table table-dark">
-    <thead>
+<div class="pizzas-list">
+  <p-table [columns]="cols" [value]="pizzas$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col">Category</th>
-        <th scope="col" routerLink="/pizzas/create">
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/pizzas/create">
           <span class="action">Add New</span>
         </th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let pizza of pizzas$ | async; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ pizza.id }}</td>
-        <td>{{ pizza.name }}</td>
-        <td>{{ pizza.category }}</td>
-        <td>
-          <div class="icon-action">
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-pizza
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'startedAt'">
+            {{ pizza[col.field] | date }}
+          </div>
+
+          <div *ngSwitchDefault>{{ pizza[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
             <i class="icon icon--trash" (click)="onDelete(pizza)"></i>
             <i
               class="icon icon--edit"
@@ -27,8 +35,8 @@
           </div>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
 </div>
 
 <p-paginator

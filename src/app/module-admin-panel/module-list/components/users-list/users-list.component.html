@@ -1,33 +1,33 @@
-<div class="table-responsive-sm">
-  <table class="table table-dark">
-    <thead>
+<div class="user-list">
+  <p-table [columns]="cols" [value]="users$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">ID</th>
-        <th scope="col">Username</th>
-        <th scope="col">Full Name</th>
-        <th scope="col">Role</th>
-        <th scope="col">Email</th>
-        <th scope="col"></th>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions"></th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users$ | async; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.fullName }}</td>
-        <td>{{ user.role }}</td>
-        <td>{{ user.email }}</td>
-        <td>
-          <div class="icon-action">
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-user
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchDefault>{{ user[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
             <i class="icon icon--trash" (click)="onDelete(user)"></i>
             <i class="icon icon--edit"></i>
           </div>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
 </div>
 
 <p-paginator

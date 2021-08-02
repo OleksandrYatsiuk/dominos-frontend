@@ -12,12 +12,11 @@ import { Delivery } from 'src/app/module-delivery/delivery.model';
 })
 export class DeliveryListComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phone', 'email', 'amount', 'date', 'delete'];
   deliveries$: Observable<Delivery[]>
   currentPage = 1
   totalPages = 100;
-  rows = 20;
-  collectionSize: number;
+  rows = 10;
+  cols: { field: string; header: string; }[];
 
   constructor(
     private _ds: DeliveryDataService,
@@ -27,6 +26,14 @@ export class DeliveryListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'firstName', header: 'First Name' },
+      { field: 'phone', header: 'Phone' },
+      { field: 'amount', header: 'Amount' },
+      { field: 'date', header: 'Date' },
+    ];
     this.deliveries$ = this._queryPromotionList(this.currentPage);
   }
 

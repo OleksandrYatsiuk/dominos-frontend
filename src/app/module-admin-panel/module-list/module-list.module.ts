@@ -10,6 +10,8 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { DeliveryListComponent } from './components/delivery-list/delivery-list.component';
 import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { IngredientListComponent } from './components/ingredient-list/ingredient-list.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { TableModule } from 'primeng/table';
 
 const routes: Routes = [{ path: '', component: ListComponent }];
 
@@ -28,6 +30,8 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     CommonModule,
     TabViewModule,
     PaginatorModule,
+    TranslateModule,
+    TableModule,
     RouterModule.forChild(routes)
   ]
 })

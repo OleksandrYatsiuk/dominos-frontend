@@ -13,9 +13,9 @@ import { IShop } from '@core/models/shop.interface';
 export class ShopListComponent implements OnInit {
   totalRecords: number;
   currentPage = 1;
-  rows = 20;
+  rows = 10;
   shops$: Observable<IShop[]>;
-  collectionSize: number;
+  cols: { field: string; header: string; }[];
   constructor(
     private _ss: ShopService,
     private _cs: ConfirmService,
@@ -25,6 +25,12 @@ export class ShopListComponent implements OnInit {
 
   ngOnInit() {
     this.shops$ = this._queryShopList(this.currentPage);
+
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'address', header: 'Address' }
+    ];
   }
 
 

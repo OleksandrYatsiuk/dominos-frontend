@@ -5,7 +5,11 @@
     "drinks": "Drinks",
     "sides": "Sides",
     "desserts": "Desserts",
-    "order": "Order"
+    "order": "Order",
+    "users": "Users",
+    "deliveries": "Deliveries",
+    "shops": "Shops",
+    "ingredients": "Ingredients"
   },
   "orderLabel": "Order",
   "mainLabel": "Main",
@@ -40,6 +44,9 @@
     "shop": "Shop",
     "paymentType": "Payment Type"
   },
+  "messages": {
+    "delete": "Please, confirm you deleting!"
+  },
   "inBasket": "In Basket",
   "uah": "uah",
   "gram": "g",
@@ -48,5 +55,8 @@
   "yourOrderLabel": "Your Order",
   "paymentLabel": "Payment",
   "contactsLabel": "Contacts",
-  "saveLabel": "Save"
+  "saveLabel": "Save",
+  "cancelLabel": "Cancel",
+  "deleteLabel": "Delete",
+  "confirmLabel": "Confirm"
 }

@@ -1,0 +1,43 @@
+@import "../styles/helpers/index";
+
+.d-table {
+  .p-datatable table {
+    width: 100%;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  table,
+  td {
+    border: 1px solid $c-gray;
+  }
+  .p-datatable-thead {
+    th {
+      @include genText(16px, 16px, bold, $c-white);
+      text-align: center;
+      padding: 5px;
+      background-color: $c-gray;
+      border-right: 1px solid $c-white;
+    }
+    th.cell-actions {
+      width: 100px;
+    }
+    th:last-child {
+      border-right: inherit;
+    }
+  }
+  .p-datatable-tbody {
+    td {
+      padding: 5px;
+    }
+    td.cell-actions {
+      background-color: $c-gray-1;
+    }
+  }
+}
+.cell-options-icons {
+  display: grid;
+  justify-content: space-evenly;
+  grid-template-columns: repeat(2, auto);
+}

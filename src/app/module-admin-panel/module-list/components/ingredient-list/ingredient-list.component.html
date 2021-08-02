@@ -1,29 +1,35 @@
-<div class="table-responsive-sm">
-  <table class="table table-dark">
-    <thead>
+<div class="ingredients-list">
+  <p-table [columns]="cols" [value]="ingredients$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
       <tr>
-        <th scope="col">#</th>
-        <th scope="col">ID</th>
-        <th scope="col">Name</th>
-        <th scope="col" routerLink="/ingredient/create">
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/ingredient/create">
           <span class="action">Add New</span>
         </th>
       </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let ingredient of ingredients$ | async; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>{{ ingredient.id }}</td>
-        <td>{{ ingredient.name }}</td>
-        <td>
-          <div class="icon-action">
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-ingredient
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchDefault>{{ ingredient[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
             <i class="icon icon--trash" (click)="onDelete(ingredient)"></i>
             <i class="icon icon--edit"></i>
           </div>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </ng-template>
+  </p-table>
 </div>
 
 <p-paginator

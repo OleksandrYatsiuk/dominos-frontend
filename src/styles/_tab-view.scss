@@ -10,6 +10,7 @@
     border: 1px solid $c-black;
     background-color: $c-white;
     transition: all 0.3s;
+    outline: none;
     &:hover {
       background-color: $c-light-gray;
     }

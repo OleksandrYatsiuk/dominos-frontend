@@ -5,7 +5,11 @@
     "drinks": "Напитки",
     "sides": "Сайды",
     "desserts": "Десерты",
-    "order": "Заказ"
+    "order": "Заказ",
+    "users": "Пользователи",
+    "deliveries": "Заказы",
+    "shops": "Магазины",
+    "ingredients": "Ингредиенты"
   },
   "orderLabel": "Заказать",
   "mainLabel": "Главная",
@@ -109,6 +113,9 @@
     "today": "Сегодня",
     "weekHeader": "Неделя"
   },
+  "messages": {
+    "delete": "Пожалуйста, подтвердите удаление!"
+  },
   "inBasket": "В корзину",
   "uah": "грн",
   "gram": "г",
@@ -117,5 +124,8 @@
   "yourOrderLabel": "Ваш заказ",
   "paymentLabel": "Оплата",
   "contactsLabel": "Контакты",
-  "saveLabel": "Сохранить"
+  "saveLabel": "Сохранить",
+  "cancelLabel": "Отменить",
+  "deleteLabel": "Удалить",
+  "confirmLabel": "Подтвердить"
 }

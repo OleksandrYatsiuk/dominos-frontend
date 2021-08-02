@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Confirmation, ConfirmationService } from 'primeng/api';
 import { Observable, Observer } from 'rxjs';
 
@@ -7,7 +8,7 @@ import { Observable, Observer } from 'rxjs';
 })
 export class ConfirmService {
 
-  constructor(private _cs: ConfirmationService) { }
+  constructor(private _cs: ConfirmationService, private _ts: TranslateService) { }
 
   confirm(confirmation?: Confirmation): Observable<boolean> {
     return new Observable((observer: Observer<boolean>) => {
@@ -16,8 +17,8 @@ export class ConfirmService {
         message: "Are you agree?",
         acceptButtonStyleClass: 'btn btn--yellow',
         rejectButtonStyleClass: 'btn btn--gray',
-        acceptLabel: "Confirm",
-        rejectLabel: "Cancel",
+        acceptLabel: this._ts.instant('confirmLabel'),
+        rejectLabel: this._ts.instant('cancelLabel'),
         ...confirmation,
         accept: () => {
           observer.next(true);
@@ -35,12 +36,12 @@ export class ConfirmService {
     return new Observable((observer: Observer<boolean>) => {
       this._cs.confirm({
         dismissableMask: true,
-        message: 'Are you want to delete?',
+        message: this._ts.instant('messages.delete'),
         rejectButtonStyleClass: 'btn btn--gray',
         acceptButtonStyleClass: 'btn btn--red',
         key: 'dangerous',
-        rejectLabel: "Cancel",
-        acceptLabel: "Delete",
+        rejectLabel: this._ts.instant('cancelLabel'),
+        acceptLabel: this._ts.instant('deleteLabel'),
         ...confirmation,
         accept: () => {
           observer.next(true);

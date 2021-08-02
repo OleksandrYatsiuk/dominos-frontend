@@ -13,13 +13,11 @@ import { IngredientsService } from '@core/services/ingredients.service';
 })
 export class IngredientListComponent implements OnInit {
   ingredients$: Observable<IDictionary[]>;
-  displayedColumns: string[] = ['id', 'name', 'delete'];
   currentPage = 1
   totalRecords: number;
   rows = 10;
   pageSizeOptions: number[] = [5, 10, 20];
-  pageEvent: any;
-  public collectionSize: number;
+  cols: { field: string; header: string; }[];
 
   constructor(
     private _is: IngredientsService,
@@ -29,6 +27,11 @@ export class IngredientListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' }
+    ];
     this.ingredients$ = this._queryIngredientsList(this.currentPage);
   }
 

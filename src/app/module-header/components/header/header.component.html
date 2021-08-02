@@ -1,11 +1,5 @@
 <header class="dp-header-desktop">
   <div class="fake-header" *ngIf="currentUser$ | async as user; else login">
-    <p-dropdown
-      [options]="languagesOpt"
-      [ngModel]="lang"
-      class="d-dropdown d-language-dropdown"
-      (onChange)="onChangeLang($event.value)"
-    ></p-dropdown>
     <button
       class="nav"
       *ngxPermissionsOnly="canManagePizza"
@@ -21,12 +15,24 @@
       [popup]="true"
       [model]="items | translateOptions"
     ></p-menu>
+    <p-dropdown
+      [options]="languagesOpt"
+      [ngModel]="lang"
+      class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)"
+    ></p-dropdown>
   </div>
   <ng-template #login>
     <div class="fake-header">
       <button class="nav" (click)="openModal()">
         {{ "loginLabel" | translate }}
       </button>
+      <p-dropdown
+        [options]="languagesOpt"
+        [ngModel]="lang"
+        class="d-dropdown d-language-dropdown"
+        (onChange)="onChangeLang($event.value)"
+      ></p-dropdown>
     </div>
   </ng-template>
   <div class="main-header">

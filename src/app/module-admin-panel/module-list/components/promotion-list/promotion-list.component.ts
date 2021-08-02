@@ -4,7 +4,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { Promotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck } from 'rxjs';
-import { tap } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-promotion-list',
@@ -15,9 +15,9 @@ import { tap } from 'rxjs';
 export class PromotionListComponent implements OnInit {
   totalPages: number;
   currentPage = 1;
-  rows = 20;
+  rows = 10;
   promotions$: Observable<Promotion[]>;
-  collectionSize: number;
+  cols: { field: string; header: string; }[];
 
   constructor(
     private _ps: PromotionDataService,
@@ -29,6 +29,13 @@ export class PromotionListComponent implements OnInit {
 
   ngOnInit(): void {
     this.promotions$ = this._queryPromotionList(this.currentPage);
+
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'title', header: 'Title' },
+      { field: 'startedAt', header: 'Start Date' },
+    ];
   }
 
 

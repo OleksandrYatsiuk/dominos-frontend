@@ -16,7 +16,7 @@ export class PizzaListComponent implements OnInit {
   totalPages = 1;
   currentPage = 1;
   pizzas$: Observable<Pizza[]>;
-  collectionSize: number
+  cols: { field: string; header: string; }[];
   constructor(
     private _ps: PizzaDataService,
     private _cs: ConfirmService,
@@ -26,6 +26,13 @@ export class PizzaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.pizzas$ = this._queryPizzaList(this.currentPage);
+
+    this.cols = [
+      { field: 'index', header: '#' },
+      { field: 'id', header: 'ID' },
+      { field: 'name', header: 'Name' },
+      { field: 'category', header: 'Category' }
+    ];
   }
 
   onPageChange(page: number): void {

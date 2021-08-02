@@ -1,21 +1,21 @@
 <section>
   <p-tabView>
-    <p-tabPanel header="Pizzas">
+    <p-tabPanel [header]="'pageTitles.pizzas'|translate">
       <app-pizza-list></app-pizza-list>
     </p-tabPanel>
-    <p-tabPanel header="Promotions">
+    <p-tabPanel [header]="'pageTitles.promotions'|translate">
       <app-promotion-list></app-promotion-list>
     </p-tabPanel>
-    <p-tabPanel header="Users">
+    <p-tabPanel [header]="'pageTitles.users'|translate">
       <app-users-list></app-users-list>
     </p-tabPanel>
-    <p-tabPanel header="Deliveries">
+    <p-tabPanel [header]="'pageTitles.deliveries'|translate">
       <app-delivery-list></app-delivery-list>
     </p-tabPanel>
-    <p-tabPanel header="Shops">
+    <p-tabPanel [header]="'pageTitles.shops'|translate">
       <app-shop-list></app-shop-list>
     </p-tabPanel>
-    <p-tabPanel header="Ingredients">
+    <p-tabPanel [header]="'pageTitles.ingredients'|translate">
       <app-ingredient-list></app-ingredient-list>
     </p-tabPanel>
   </p-tabView>
