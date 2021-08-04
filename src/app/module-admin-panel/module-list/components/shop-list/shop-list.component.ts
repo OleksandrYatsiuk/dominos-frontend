@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ShopService } from 'src/app/core/services/shop.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck, tap } from 'rxjs';
 import { IShop } from '@core/models/shop.interface';
@@ -20,7 +20,7 @@ export class ShopListComponent implements OnInit {
     private _ss: ShopService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
-    public notification: NotificationService
+    private _ms: MessageService
   ) { }
 
   ngOnInit() {
@@ -44,9 +44,9 @@ export class ShopListComponent implements OnInit {
       if (res) {
         this._ss.remove(item.id).subscribe(res => {
           this.shops$ = this._queryShopList(this.currentPage);
-          this.notification.showSuccess(`Shop "${item.address}" was deleted successfully!`);
+          this._ms.add({ severity: 'success', detail: `Shop "${item.address}" was deleted successfully!` });
         }, (e) => {
-          this.notification.showDanger(e.result);
+          this._ms.add({ severity: 'error', detail: e.result });
         })
       };
     });

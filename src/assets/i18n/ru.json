@@ -27,6 +27,7 @@
     "email": "Электронная почта",
     "birthday": "Дата рождения",
     "phone": "Телефон",
+    "password": "Пароль",
     "currentPassword": "Текущий пароль",
     "newPassword": "Новый пароль",
     "confirmPassword": "Подтверждение пароля",
@@ -42,7 +43,12 @@
     "coupon": "Купон",
     "remainder": "Сдача",
     "shop": "Магазин",
-    "paymentType": "Тип оплаты"
+    "paymentType": "Тип оплаты",
+    "name": "Название",
+    "category": "Категория",
+    "ingredients": "Ингредиенты",
+    "weight": "Вес",
+    "price": "Цена"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -112,6 +118,9 @@
     ],
     "today": "Сегодня",
     "weekHeader": "Неделя"
+  },
+  "validation": {
+    "required": "Поле \"{{field}}\" обязательное для заполнения."
   },
   "messages": {
     "delete": "Пожалуйста, подтвердите удаление!"

@@ -1,31 +1,61 @@
 <div *ngFor="let validation of list">
-    <div class="error"
-        *ngIf="control.hasError(validation.type) && control.invalid && (control.dirty || control.touched)">
-        <ng-container [ngSwitch]="validation.type">
-            <ng-container *ngSwitchCase="'required'">"{{ field }}" cannot be blank.</ng-container>
-            <ng-container *ngSwitchCase="'mismatch'">"{{ field }}" must be equal to "{{ otherField }}".</ng-container>
-            <ng-container *ngSwitchCase="'minlength'">
-                "{{ field }}" should contain at least
-                {{ control.errors.minlength.requiredLength | i18nPlural: { '=1': '1 character', other: '# characters' } }}.
-            </ng-container>
-            <ng-container *ngSwitchCase="'maxlength'">
-                "{{ field }}" should contain at most
-                {{ control.errors.maxlength.requiredLength | i18nPlural: { '=1': '1 character', other: '# characters' } }}.
-            </ng-container>
-            <ng-container *ngSwitchCase="'email'">"{{ field }}" is not a valid email address.</ng-container>
-            <ng-container *ngSwitchCase="'url'">"{{ field }}" is not a valid link.</ng-container>
-            <ng-container *ngSwitchCase="'min'">"{{ field }}" must be no less than {{ control.errors.min.min }}
-            </ng-container>
-            <ng-container *ngSwitchCase="'max'">"{{ field }}" must be no greater than {{ control.errors.max.max }}
-            </ng-container>
-            <ng-container *ngSwitchCase="'phoneNumber'">"{{ field }}" is not a valid phone number.</ng-container>
-            <ng-container *ngSwitchCase="'password'">
-                "{{ field }}" should contain at least 8 symbols, one upper case, one lowercase and one number
-            </ng-container>
-            <ng-container *ngSwitchCase="'confirmPasswordError'">"{{ field }}" must be equal to "{{ otherField }}".
-            </ng-container>
-            <ng-container *ngSwitchCase="'requiredWhen'">"{{ field }}" can't be empty.</ng-container>
-            <ng-container *ngSwitchCase="'apiValidation'">{{ control.errors.apiValidation }}</ng-container>
-        </ng-container>
-    </div>
+  <div
+    class="error"
+    *ngIf="
+      control.hasError(validation.type) &&
+      control.invalid &&
+      (control.dirty || control.touched)
+    "
+  >
+    <ng-container [ngSwitch]="validation.type">
+      <ng-container *ngSwitchCase="'required'">
+        {{ "validation.required" | translate: { field: field } }}</ng-container
+      >
+      <ng-container *ngSwitchCase="'mismatch'"
+        >"{{ field }}" must be equal to "{{ otherField }}".</ng-container
+      >
+      <ng-container *ngSwitchCase="'minlength'">
+        "{{ field }}" should contain at least
+        {{
+          control.errors.minlength.requiredLength
+            | i18nPlural: { "=1": "1 character", other: "# characters" }
+        }}.
+      </ng-container>
+      <ng-container *ngSwitchCase="'maxlength'">
+        "{{ field }}" should contain at most
+        {{
+          control.errors.maxlength.requiredLength
+            | i18nPlural: { "=1": "1 character", other: "# characters" }
+        }}.
+      </ng-container>
+      <ng-container *ngSwitchCase="'email'"
+        >"{{ field }}" is not a valid email address.</ng-container
+      >
+      <ng-container *ngSwitchCase="'url'"
+        >"{{ field }}" is not a valid link.</ng-container
+      >
+      <ng-container *ngSwitchCase="'min'"
+        >"{{ field }}" must be no less than {{ control.errors.min.min }}
+      </ng-container>
+      <ng-container *ngSwitchCase="'max'"
+        >"{{ field }}" must be no greater than {{ control.errors.max.max }}
+      </ng-container>
+      <ng-container *ngSwitchCase="'phoneNumber'"
+        >"{{ field }}" is not a valid phone number.</ng-container
+      >
+      <ng-container *ngSwitchCase="'password'">
+        "{{ field }}" should contain at least 8 symbols, one upper case, one
+        lowercase and one number
+      </ng-container>
+      <ng-container *ngSwitchCase="'confirmPasswordError'"
+        >"{{ field }}" must be equal to "{{ otherField }}".
+      </ng-container>
+      <ng-container *ngSwitchCase="'requiredWhen'"
+        >"{{ field }}" can't be empty.</ng-container
+      >
+      <ng-container *ngSwitchCase="'apiValidation'">{{
+        control.errors.apiValidation
+      }}</ng-container>
+    </ng-container>
+  </div>
 </div>

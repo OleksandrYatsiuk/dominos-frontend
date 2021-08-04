@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/core/services/user.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
 import { Payments } from '../shipping-form/payments.model';
@@ -36,7 +36,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private handler: ErrorHandlerService,
     private userService: UserService,
-    private notification: NotificationService,
+    private _ms:MessageService,
     private rest: DeliveryDataService,
     private basketService: BasketService,
     private router: Router,
@@ -115,7 +115,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
           this.loading = !this.loading;
           this.router.navigate(['/']);
           this.basketService.clear();
-          this.notification.showSuccess('Your order has been accepted!');
+          this._ms.add({ severity: 'success', detail: 'Your order has been accepted!'});
         }, (e) => {
           this.loading = !this.loading;
           this.handler.validation(e, this.carryOut);

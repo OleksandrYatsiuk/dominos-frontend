@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PromotionDataService } from '@core/services/promotion-data.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { Promotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck } from 'rxjs';
@@ -22,7 +22,7 @@ export class PromotionListComponent implements OnInit {
   constructor(
     private _ps: PromotionDataService,
     private _cs: ConfirmService,
-    private notification: NotificationService,
+    private _ms: MessageService,
     private _cd: ChangeDetectorRef
   ) { }
 
@@ -51,10 +51,10 @@ export class PromotionListComponent implements OnInit {
         this._ps.remove(item.id)
           .subscribe(res => {
             this.promotions$ = this._queryPromotionList(this.currentPage);
-            this.notification.showSuccess(`Акція "${item.title}" видалена успішно!`);
+            this._ms.add({ severity: 'success', detail: `Акція "${item.title}" видалена успішно!` });
             this._cd.detectChanges();
           }, (e) => {
-            this.notification.showDanger(e.result);
+            this._ms.add({ severity: 'error', detail: e.result });
             this._cd.detectChanges();
           })
       }

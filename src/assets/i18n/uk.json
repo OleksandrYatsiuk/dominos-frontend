@@ -27,6 +27,7 @@
     "email": "Електронна пошта",
     "birthday": "Дата народження",
     "phone": "Телефон",
+    "password": "Пароль",
     "currentPassword": "Поточний пароль",
     "newPassword": "Новий пароль",
     "confirmPassword": "Підтвердження паролю",
@@ -42,7 +43,12 @@
     "coupon": "Купон",
     "remainder": "Решта",
     "shop": "Магазин",
-    "paymentType": "Тип оплати"
+    "paymentType": "Тип оплати",
+    "name": "Назва",
+    "category": "Категорія",
+    "ingredients": "Інгредієнти",
+    "weight": "Вага",
+    "price": "Ціна"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -112,6 +118,9 @@
     ],
     "today": "Сьогодні",
     "weekHeader": "Тиждень"
+  },
+  "validation": {
+    "required": "Поле \"{{field}}\" обов'язкове для заповнення."
   },
   "messages": {
     "delete": "Будь-ласка, підтвердіть видалення!"

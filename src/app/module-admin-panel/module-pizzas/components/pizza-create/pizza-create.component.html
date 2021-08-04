@@ -4,13 +4,19 @@
     <div class="product_form">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="product_image">
-          <app-form-item [control]="form.controls.name" field="Name">
+          <app-form-item
+            [control]="form.controls.name"
+            [field]="'labels.name' | translate"
+          >
             <app-file-uploader formControlName="image"></app-file-uploader>
           </app-form-item>
         </div>
 
         <div class="form-row">
-          <app-form-item [control]="form.controls.name" field="Name">
+          <app-form-item
+            [control]="form.controls.name"
+            [field]="'labels.name' | translate"
+          >
             <input
               class="form-control"
               formControlName="name"
@@ -18,7 +24,10 @@
             />
           </app-form-item>
 
-          <app-form-item [control]="form.controls.category" field="Category">
+          <app-form-item
+            [control]="form.controls.category"
+            [field]="'labels.category' | translate"
+          >
             <p-dropdown
               class="d-dropdown"
               placeholder="Select Categories"
@@ -31,7 +40,7 @@
 
           <app-form-item
             [control]="form.controls.ingredients"
-            field="Ingredients"
+            [field]="'labels.ingredients' | translate"
           >
             <p-multiSelect
               *ngIf="ingredients$ | async as ingredients"
@@ -51,7 +60,7 @@
         <div formGroupName="weight" class="form-row">
           <app-form-item
             [control]="form.get('weight')['controls'].small"
-            field="Small Weight"
+            [field]="'labels.weight' | translate"
           >
             <input
               class="form-control"
@@ -62,7 +71,7 @@
 
           <app-form-item
             [control]="form.get('weight')['controls'].middle"
-            field="Middle Weight"
+            [field]="'labels.weight' | translate"
           >
             <input
               class="form-control"
@@ -73,7 +82,7 @@
 
           <app-form-item
             [control]="form.get('weight')['controls'].big"
-            field="Big Weight"
+            [field]="'labels.weight' | translate"
           >
             <input
               class="form-control"
@@ -86,7 +95,7 @@
         <div formGroupName="price" class="form-row">
           <app-form-item
             [control]="form.get('price')['controls'].small"
-            field="Small Price"
+            [field]="'labels.price' | translate"
           >
             <input
               class="form-control"
@@ -97,7 +106,7 @@
 
           <app-form-item
             [control]="form.get('price')['controls'].middle"
-            field="Middle Price"
+            [field]="'labels.price' | translate"
           >
             <input
               class="form-control"
@@ -108,7 +117,7 @@
 
           <app-form-item
             [control]="form.get('price')['controls'].big"
-            field="Big Price"
+            [field]="'labels.price' | translate"
           >
             <input
               class="form-control"
@@ -117,7 +126,11 @@
             />
           </app-form-item>
         </div>
-        <app-spin-button name="Confirm" [loading]="loading"> </app-spin-button>
+        <app-spin-button
+          [name]="'confirmLabel' | translate"
+          [loading]="loading"
+        >
+        </app-spin-button>
       </form>
     </div>
   </div>

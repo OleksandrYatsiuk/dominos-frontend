@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { UserDataService } from '../user-data.service';
@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   constructor(
     private http: UserDataService,
     private formBuilder: FormBuilder,
-    private notification: NotificationService,
+    private _ms: MessageService,
     private handler: ErrorHandlerService,
     private _ds: DialogService,
     private configService: ApiConfigService,
@@ -47,7 +47,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       this.spinRegister = true;
       this.http.register(this.registerForm.value)
         .subscribe(() => {
-          this.notification.showSuccess('We have sent a confirmation email to your email address. Please follow instructions in the email to continue.', false)
+          this._ms.add({ severity: 'success', detail: 'We have sent a confirmation email to your email address. Please follow instructions in the email to continue.' })
           this.spinRegister = false;
           this._cd.detectChanges();
         }, (error) => {

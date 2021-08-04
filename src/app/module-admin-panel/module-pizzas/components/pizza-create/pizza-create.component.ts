@@ -1,7 +1,7 @@
 import { Component, OnInit, } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, } from '@angular/forms';
 import { Ingredients, Pizza } from '../../../../core/models/pizza.interface';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../../../core/services/pizza-data.service';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class PizzaCreateComponent implements OnInit {
     private http: PizzaDataService,
     private _is: IngredientsService,
     private formBuilder: FormBuilder,
-    private notification: NotificationService,
+    private _ms:MessageService,
     private handler: ErrorHandlerService,
     private router: Router
   ) { }
@@ -76,7 +76,7 @@ export class PizzaCreateComponent implements OnInit {
 
       // return this.http.create(params).subscribe(result => {
       //   this.loading = !this.loading;
-      //   this.notification.showSuccess(`Pizza '${result.name}' has been successfully created!`);
+      //   this._ms.add({ severity: 'success', detail: `Pizza '${result.name}' has been successfully created!`);
       //   this.router.navigateByUrl('/admin/pizzas')
       // }, (error) => {
       //   this.loading = !this.loading;

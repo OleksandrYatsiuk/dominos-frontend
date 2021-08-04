@@ -4,14 +4,14 @@ import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { passwordValidator } from '../../core/validators/password-validator';
-import { NotificationService } from '../../core/services/notification.service';
 import { UserService } from '../../core/services/user.service';
 import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { pluck } from 'rxjs/operators';
 import { ReplaySubject } from 'rxjs';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
@@ -27,9 +27,9 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     private handler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
-    private notification: NotificationService,
     private configService: ApiConfigService,
     private userService: UserService,
+    private _ms: MessageService,
     public formatter: NgbDateParserFormatter) { }
 
   public image: File;
@@ -75,7 +75,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     this.image = event.file;
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.destroy$.next(null);
     this.destroy$.complete();
   }
@@ -95,7 +95,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
                 this.onFail(e)
               })
           } else {
-            this.onSuccess(result)
+            this.onSuccess(result);
           }
         }, (e) => {
           this.onFail(e)
@@ -105,7 +105,8 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
 
   private onSuccess(result: object): void {
     this.spinEditProfile = !this.spinEditProfile;
-    this.notification.showSuccess('User profile has been successfully updated!')
+    this._ms.add({ severity: 'success', detail: 'User profile has been successfully updated!' });
+    // this._ms.add({ severity: 'success', detail: 'User profile has been successfully updated!');
     this.userService.setCurrentUserData(result)
   }
 
@@ -146,7 +147,7 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
       this.spinChangePassword = true;
       this.http.changePassword(this.changePasswordForm.value).subscribe(() => {
         this.spinChangePassword = false;
-        this.notification.showSuccess('Password has been successfully changed!')
+        this._ms.add({ severity: 'success', detail: 'Password has been successfully changed!'})
         this.changePasswordForm.reset();
       }, (error) => {
         this.spinChangePassword = false;

@@ -18,7 +18,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { registerLocaleData } from '@angular/common';
 import { ConfirmService } from '@core/services/confirm.service';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 
@@ -60,7 +60,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, ConfirmService, ConfirmationService,
+  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),

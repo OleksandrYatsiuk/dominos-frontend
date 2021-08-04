@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { PizzaDataService } from '../../../../../core/services/pizza-data.service';
 import { map, pluck } from 'rxjs/operators';
@@ -30,7 +30,7 @@ export class PizzaEditComponent implements OnInit {
 		private route: ActivatedRoute,
 		private formBuilder: FormBuilder,
 		private title: Title,
-		private notification: NotificationService,
+		private _ms:MessageService,
 		private http: PizzaDataService,
 		private _is: IngredientsService,
 		private handler: ErrorHandlerService
@@ -85,7 +85,7 @@ export class PizzaEditComponent implements OnInit {
 			// return this.http.edit(this.pizza.id, params)
 			// 	.subscribe(pizza => {
 			// 		this.loading = !this.loading;
-			// 		this.notification.showSuccess(`Pizza '${pizza.name}' has been successfully updated!`);
+			// 		this._ms.add({ severity: 'success', detail: `Pizza '${pizza.name}' has been successfully updated!`);
 			// 	},
 			// 		(error) => {
 			// 			this.loading = !this.loading;

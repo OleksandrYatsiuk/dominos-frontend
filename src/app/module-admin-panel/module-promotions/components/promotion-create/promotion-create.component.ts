@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PromotionDataService } from '../../../../core/services/promotion-data.service';
 import { pluck } from 'rxjs/operators';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { Router } from '@angular/router';
 @Component({
@@ -23,7 +23,7 @@ export class PromotionCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: PromotionDataService,
     private handler: ErrorHandlerService,
-    private notification: NotificationService,
+    private _ms:MessageService,
     private config: ApiConfigService,
     private router: Router
   ) { }
@@ -52,7 +52,7 @@ export class PromotionCreateComponent implements OnInit {
         .pipe(pluck('result'))
         .subscribe(result => {
           this.loading = !this.loading;
-          this.notification.showSuccess(`Акція "${result.title}" успішно збережена!`);
+          this._ms.add({ severity: 'success', detail: `Акція "${result.title}" успішно збережена!`});
           this.router.navigateByUrl('/admin/promotions')
         }, (error) => {
           this.loading = false;

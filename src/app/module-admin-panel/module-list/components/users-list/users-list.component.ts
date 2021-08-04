@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { UserManagementDataService } from 'src/app/core/services/user-management-data.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { User } from 'src/app/module-auth/auth.model';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable } from 'rxjs';
@@ -24,7 +24,7 @@ export class UsersListComponent implements OnInit {
     private _us: UserManagementDataService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
-    private notification: NotificationService
+    private _ms: MessageService
   ) { }
 
   ngOnInit() {
@@ -51,10 +51,10 @@ export class UsersListComponent implements OnInit {
       if (res) {
         this._us.deleteItem(item.id).subscribe(res => {
           this.users$ = this._queryUserList(this.currentPage);
-          this.notification.showSuccess(`User "${item.username}" was deleted successfully!`);
+          this._ms.add({ severity: 'success', detail: `User "${item.username}" was deleted successfully!` });
           this._cd.detectChanges();
         }, (e) => {
-          this.notification.showDanger(e.result);
+          this._ms.add({ severity: 'error', detail: e.result });
           this._cd.detectChanges();
         })
       }

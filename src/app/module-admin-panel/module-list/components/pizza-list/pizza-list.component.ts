@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PizzaDataService } from '@core/services/pizza-data.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
 import { Observable, pluck, tap } from 'rxjs';
@@ -21,7 +21,7 @@ export class PizzaListComponent implements OnInit {
     private _ps: PizzaDataService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
-    private notification: NotificationService
+    private _ms: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class PizzaListComponent implements OnInit {
         this._ps.remove(item.id)
           .subscribe(() => {
             this.pizzas$ = this._queryPizzaList(1);
-            this.notification.showSuccess(`Піца "${item.name}" видалена успішно!`);
+            this._ms.add({ severity: 'success', detail: `Піца "${item.name}" видалена успішно!` });
             this._cd.detectChanges();
           })
       }

@@ -27,6 +27,7 @@
     "email": "Email",
     "birthday": "Birthday",
     "phone": "Phone",
+    "password": "Password",
     "currentPassword": "Current Password",
     "newPassword": "New Password",
     "confirmPassword": "Confirm Password",
@@ -42,7 +43,15 @@
     "coupon": "Coupon",
     "remainder": "Remainder",
     "shop": "Shop",
-    "paymentType": "Payment Type"
+    "paymentType": "Payment Type",
+    "name": "Name",
+    "category": "Category",
+    "ingredients": "Ingredients",
+    "weight": "Weight",
+    "price": "Price"
+  },
+  "validation": {
+    "required": "Field \"{{field}}\" cannot be blank."
   },
   "messages": {
     "delete": "Please, confirm you deleting!"

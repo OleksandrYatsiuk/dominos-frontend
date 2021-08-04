@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { IDictionary } from '@core/models/dictionary';
 import { Observable, pluck, tap } from 'rxjs';
@@ -23,7 +23,7 @@ export class IngredientListComponent implements OnInit {
     private _is: IngredientsService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
-    public notification: NotificationService
+    private _ms:MessageService
   ) { }
 
   ngOnInit(): void {
@@ -39,8 +39,8 @@ export class IngredientListComponent implements OnInit {
     this._cs.delete().subscribe(res => {
       if (res) {
         this.ingredients$ = this._queryIngredientsList(this.currentPage);
-        // this.notification.showSuccess(`Ingredient "${item.name}" was deleted successfully`)
-        this.notification.showDanger('Delete ingredient was not realise!')
+        // this._ms.add({ severity: 'success', detail: `Ingredient "${item.name}" was deleted successfully`)
+        this._ms.add({severity:'error', detail:'Delete ingredient was not realise!'})
       }
     });
   }

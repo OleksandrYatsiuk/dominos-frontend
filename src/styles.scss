@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.css";
-@import url(https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css);
 @import "./styles/promotion.scss";
-@import "./styles/inputs.scss";
+@import "./styles/inputs";
 @import "./styles/table";
 @import "./styles/delivery.scss";
 @import "./styles/pagination.scss";
@@ -21,6 +20,7 @@
 @import "./styles/swiper";
 @import "./styles/tab-view";
 @import "./styles/icons";
+@import "./styles/toast";
 @import "../node_modules/leaflet/dist/leaflet.css";
 
 .marker-popup {

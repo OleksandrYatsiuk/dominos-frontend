@@ -1,9 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { DeliveryDataService } from '../../../../module-delivery/delivery-data.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck, tap } from 'rxjs';
 import { Delivery } from 'src/app/module-delivery/delivery.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-delivery-list',
@@ -20,7 +20,7 @@ export class DeliveryListComponent implements OnInit {
 
   constructor(
     private _ds: DeliveryDataService,
-    public notification: NotificationService,
+    private _ms: MessageService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef
   ) { }
@@ -47,7 +47,7 @@ export class DeliveryListComponent implements OnInit {
       if (res) {
         this._ds.delete(item.id)
           .subscribe(res => {
-            this.notification.showSuccess("Delivery was deleted successfully");
+            this._ms.add({ severity: 'success', detail: "Delivery was deleted successfully" });
             this.deliveries$ = this._queryPromotionList(this.currentPage);
             this._cd.detectChanges();
           })

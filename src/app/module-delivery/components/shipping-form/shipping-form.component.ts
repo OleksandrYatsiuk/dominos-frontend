@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 import { UserService } from 'src/app/core/services/user.service';
 import { BasketService } from 'src/app/core/services/basket.service';
 import { DeliveryDataService } from '../../delivery-data.service';
@@ -20,7 +20,7 @@ export class ShippingFormComponent implements OnInit {
 	constructor(
 		@Inject(PLATFORM_ID) private _pid: any,
 		private formBuilder: FormBuilder,
-		private notification: NotificationService,
+		private _ms:MessageService,
 		private user: UserService,
 		private http: DeliveryDataService,
 		private router: Router,
@@ -93,7 +93,7 @@ export class ShippingFormComponent implements OnInit {
 				if (this.isBrowser) {
 					localStorage.removeItem('basket');
 				}
-				this.notification.showSuccess('Your order has been accepted!');
+				this._ms.add({ severity: 'success', detail: 'Your order has been accepted!'});
 			});
 		}
 	}

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserDataService } from '../user-data.service';
-import { NotificationService } from 'src/app/core/services/notification.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
 	selector: 'app-confirm',
@@ -15,7 +15,7 @@ export class ConfirmComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private http: UserDataService,
-		private notification: NotificationService
+		private _ms: MessageService
 	) {
 		this.hash = this.route.snapshot.data.hash;
 	}
@@ -24,10 +24,10 @@ export class ConfirmComponent implements OnInit {
 		this.http.confirm(this.hash).subscribe(
 			({ code }) => {
 				this.progress = 'Verifying completed!';
-				this.notification.showSuccess('Email was confirmed successfully. You can sign in to the service.')
+				this._ms.add({ severity: 'success', detail: 'Email was confirmed successfully. You can sign in to the service.' })
 			},
 			(e) => {
-				this.notification.showDanger(e.result);
+				this._ms.add({ severity: 'error', detail: e.result });
 				this.router.navigate(['/']);
 			}
 		);

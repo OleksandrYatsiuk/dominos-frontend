@@ -3,10 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HttpClientModule, } from '@angular/common/http';
-import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
-import { NotificationComponent } from './components/notification/notification.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
@@ -22,7 +21,7 @@ import { CardNewsComponent } from './components/card-news/card-news.component';
 import { MainModule } from '../module-main/main.module';
 import { TranslateOptionsPipe } from './pipe/translate-options.pipe';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { TranslateModule } from '@ngx-translate/core';
     LoginComponent,
     FileUploaderComponent,
     BasketCardItemComponent,
-    NotificationComponent,
     SpinButtonComponent,
     FormItemComponent,
     ValidationErrorComponent,
@@ -51,12 +49,12 @@ import { TranslateModule } from '@ngx-translate/core';
     HttpClientModule,
     NgbModule,
     RouterModule,
-    NgbToastModule,
     NgxPermissionsModule.forRoot(),
     DropdownModule,
     SelectButtonModule,
     MainModule,
-    TranslateModule
+    TranslateModule,
+    ToastModule
   ],
   exports: [
     //components
@@ -65,7 +63,6 @@ import { TranslateModule } from '@ngx-translate/core';
     FormItemComponent,
     ValidationErrorComponent,
     FileUploaderComponent,
-    NotificationComponent,
     CardNewsComponent,
     //modules
     FormsModule,
@@ -74,9 +71,9 @@ import { TranslateModule } from '@ngx-translate/core';
     ReactiveFormsModule,
     RouterModule,
     TranslateModule,
+    ToastModule,
     // AgmCoreModule,
     NgxPermissionsModule,
-    NgbToastModule,
     MainModule,
     //pipes
     PizzaFilterPipe,
