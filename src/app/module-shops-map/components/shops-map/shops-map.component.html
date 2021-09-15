@@ -1,0 +1,17 @@
+<div class="shops__wrapper">
+  <div id="shops" class="map"></div>
+
+  <div class="shops-card__details" *ngIf="selectedMarker">
+    <img
+      src="assets/icons/cancel-grey.svg"
+      class="shops-card__close-bnt"
+      (click)="onClose()"
+    />
+    <img
+      class="shops-card__image"
+      [lazyLoad]="selectedMarker.image"
+      [alt]="selectedMarker.address | lang"
+    />
+    {{ selectedMarker.address | lang }}
+  </div>
+</div>

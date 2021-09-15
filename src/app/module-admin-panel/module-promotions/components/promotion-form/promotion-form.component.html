@@ -1,0 +1,59 @@
+<div class="form-grid__container" [formGroup]="form">
+  <div class="form__control">
+    <span>Назва</span>
+    <d-multi-language-field formControlName="name"></d-multi-language-field>
+    <validation-error [control]="form.controls.name"></validation-error>
+  </div>
+  <div class="form__control">
+    <label class="form-control__label"> Публікувати</label>
+    <p-inputSwitch
+      formControlName="isActive"
+      [disabled]="!promotion"
+      class="d-inputswitch"
+    ></p-inputSwitch>
+  </div>
+  <div class="form__control">
+    <span class="form-control__label">Дата початку акції</span>
+    <p-calendar
+      formControlName="startedAt"
+      class="d-calendar"
+      [showIcon]="true"
+      [firstDayOfWeek]="1"
+      dateFormat="dd-mm-yy"
+    ></p-calendar>
+  </div>
+  <div class="form__control">
+    <span class="form-control__label">Дата завершення акції</span>
+    <p-calendar
+      formControlName="endedAt"
+      class="d-calendar"
+      [showIcon]="true"
+      [firstDayOfWeek]="1"
+      dateFormat="dd-mm-yy"
+    ></p-calendar>
+  </div>
+
+  <div class="form__control">
+    <span>Опис</span>
+    <d-multi-language-field
+      formControlName="description"
+      [type]="'vcvic'"
+    ></d-multi-language-field>
+    <validation-error
+      [control]="form.controls.description"
+      [field]="'Descripton'"
+    ></validation-error>
+  </div>
+
+  <div class="promotion__options">
+    <app-file-uploader
+      formControlName="image"
+      [src]="promotion?.image"
+    ></app-file-uploader>
+    <app-spin-button
+      [loading]="loading"
+      [name]="'saveLabel' | translate"
+      (click)="onSave()"
+    ></app-spin-button>
+  </div>
+</div>

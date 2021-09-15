@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Pizza } from '@core/models/pizza.interface';
 import { SelectItem } from 'primeng/api';
 import { BasketService, PizzaItem } from '../../../core/services/basket.service';
 
@@ -18,7 +19,7 @@ export enum EPizzaSizes {
 
 export class CardPizzaComponent implements OnInit {
 
-  @Input() item;
+  @Input() item: Pizza;
 
   public count = 0;
   public ingredientsList = [];

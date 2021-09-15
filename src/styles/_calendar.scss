@@ -14,7 +14,7 @@
   }
   .p-inputtext {
     box-shadow: none;
-    min-height: 50px;
+    min-height: 40px;
     height: 100%;
     padding: 13px;
     background-color: inherit;
@@ -33,7 +33,7 @@
       position: absolute;
       height: 20px;
       width: 20px;
-      top: 16px;
+      top: 13px;
       background: url(/assets/icons/calendar.svg);
       background-repeat: no-repeat;
     }
@@ -87,8 +87,10 @@
       border-radius: 50%;
       border-radius: 10px;
       transition: all 0.3s;
+      width: max-content;
       &.p-highlight {
-        background: $c-gray;
+        background: $c-gray-1;
+        padding: 0 5px;
       }
       &.p-disabled {
         opacity: 0.2;

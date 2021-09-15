@@ -39,7 +39,7 @@ import { ToastModule } from 'primeng/toast';
     TranslateOptionsPipe,
     // directives
     MobilePhoneDirective,
-    CardNewsComponent
+    CardNewsComponent,
 
   ],
   imports: [

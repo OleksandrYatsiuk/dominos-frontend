@@ -1,9 +1,11 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface FileOptions {
   src?: string | ArrayBuffer;
-  file: Files;
+  value?: File;
+  isDelete: boolean;
+  isUpdate: boolean;
 }
 
 type Files = File | File[];
@@ -16,30 +18,35 @@ type Files = File | File[];
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => FileUploaderComponent),
     multi: true
-  }]
+  }],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FileUploaderComponent implements ControlValueAccessor {
-  public imagePath = '../..//assets/img/stub-image.png';
-  public value: Files
-  public onChange = (v: Files | null): void => { };
-  public onTouch: any = () => { };
+  imagePath = '/assets/img/stub-image.png';
+  value: Files
+  onChanged = (v: Files | null): void => { };
+  onTouch: any = () => { };
   @Input() src: FileOptions['src'] | null;
-  @Output() upload = new EventEmitter<FileOptions>();
+  @Input() width: number;
+  @Input() imageStyle: any;
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
+  @Output() onChange = new EventEmitter<FileOptions>();
 
-  constructor() {
+  constructor(private _cd: ChangeDetectorRef) {
   }
 
   writeValue(file: Files): void {
     if (typeof file == 'string') {
       this.src = file
     } else {
-      this.onChange(file);
+      this.onChanged(file);
       this.value = file;
     }
   }
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChanged = fn;
   }
   registerOnTouched(fn: any): void {
     this.onTouch = fn;
@@ -48,12 +55,17 @@ export class FileUploaderComponent implements ControlValueAccessor {
   public onFileSelected(event: any): void {
 
     if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0]
       this.parseFile(event);
-      this.writeValue(event.target.files[0])
-      this.upload.emit(
+      this.writeValue(file)
+      this.onChange.emit(
         {
-          file: event.target.files[0]
-        })
+          value: file,
+          isUpdate: true,
+          isDelete: false
+        });
+      this._cd.detectChanges();
+
     }
   }
 
@@ -64,8 +76,17 @@ export class FileUploaderComponent implements ControlValueAccessor {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.src = reader.result;
+        this._cd.detectChanges();
       }
     }
+  }
+
+  onDeleteFile(): void {
+    this.value = null;
+    this.src = null;
+    this.onChange.emit({ value: null, isUpdate: false, isDelete: true })
+    this.onChanged(null)
+    this._cd.detectChanges();
   }
 }
 

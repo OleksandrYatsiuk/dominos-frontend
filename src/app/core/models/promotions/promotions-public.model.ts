@@ -1,41 +1,46 @@
-export interface Promotion {
-    readonly id?: string;
-    readonly _id?: string;
-    title: string;
-    description: string
-    image: string;
-    status: PromotionStatuses;
-    endedAt: Date;
-    startedAt: Date;
-    createdAt: number;
-    updatedAt: number;
+export enum PromotionStatuses {
+    New = 1,
+    Active = 2,
+    Deactivate = 3,
+    Finished = 4
 }
 
-export class ModelPromotion implements Promotion {
-    readonly id?: string;
-    readonly _id?: string;
-    title: string;
-    description: string
-    image: string;
-    status: PromotionStatuses;
-    endedAt: Date;
-    startedAt: Date;
-    createdAt: number;
-    updatedAt: number;
+export interface IPromotionPublic {
+    readonly id: string;
+    readonly name: string;
+    readonly description: string;
+    readonly image: string;
+    readonly status: PromotionStatuses;
+    readonly isActive: boolean;
+    readonly startedAt: Date;
+    readonly endedAt: Date;
+    readonly createdAt: Date;
+    readonly updatedAt: Date;
+}
+
+export class ModelPromotionPublic implements IPromotionPublic {
+    readonly id: string;
+    readonly name: string;
+    readonly description: string;
+    readonly image: string;
+    readonly isActive: boolean;
+    readonly startedAt: Date;
+    readonly endedAt: Date;
+    readonly status: PromotionStatuses;
+    readonly createdAt: Date;
+    readonly updatedAt: Date;
     constructor({
         id = null,
-        _id = null,
-        title = null,
+        name = null,
         description = null,
         image = null,
         endedAt = null,
         startedAt = null,
         createdAt = null,
         updatedAt = null
-    }: Partial<Promotion> = {}) {
+    }: Partial<IPromotionPublic> = {}) {
         this.id = id;
-        this._id = _id;
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.image = image;
         this.status = this._status(startedAt, endedAt);
@@ -55,8 +60,6 @@ export class ModelPromotion implements Promotion {
             const active = now >= new Date(start).getTime();
             const ended = now >= new Date(end).getTime();
 
-
-
             if (end && ended) {
                 return PromotionStatuses.Finished;
             }
@@ -68,13 +71,4 @@ export class ModelPromotion implements Promotion {
         }
     }
 
-}
-
-
-
-export enum PromotionStatuses {
-    New = 1,
-    Active = 2,
-    Deactivate = 3,
-    Finished = 4
 }

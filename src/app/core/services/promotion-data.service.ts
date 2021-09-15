@@ -1,58 +1,60 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { BaseResponse, PaginationResponse } from '../models/response.interface';
-import { ModelPromotion, Promotion } from '../../module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { BaseResponse, IPaginationResponse, PaginationResponse } from '../models/response.interface';
+import { ModelPromotion, Promotion } from '../models/promotions/promotions.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { IPromotionPublic, ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
+import { IQueryParams } from '@core/models/pagination-query';
+import { transformToFormData } from 'src/utils/form-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PromotionDataService {
 
-  private _apiUrl = environment.serverUrl;
+  private _apiUrl = environment.nestServerUrl;
 
-  path = `${this._apiUrl}/promotion`;
+  private _path = `${this._apiUrl}/promotions`;
+  private _public_path = `${this._apiUrl}/public/promotions`;
   constructor(private http: HttpClient) {
   }
-  public getData(options?: object): Observable<PaginationResponse<ModelPromotion[]>> {
-    return this.http.get(this.path, options)
+  getData(options?: object): Observable<IPaginationResponse<ModelPromotion[]>> {
+    return this.http.get(this._path, options)
       .pipe(
-        map((response: PaginationResponse<Promotion[]>) => {
+        map((response: IPaginationResponse<Promotion[]>) => {
           return { ...response, result: response.result.map(p => new ModelPromotion(p)) };
         }));
   }
-
-  public getItem(id: string): Observable<BaseResponse<ModelPromotion>> {
-    return this.http.get(`${this.path}/${id}`).pipe(
-      map((p: BaseResponse<Promotion>) => ({ ...p, result: new ModelPromotion(p.result) })));
+  queryPromotionPublicList(params?: object): Observable<IPaginationResponse<ModelPromotionPublic[]>> {
+    return this.http.get(this._public_path, params).pipe(
+      map((response: IPaginationResponse<IPromotionPublic[]>) => ({ ...response, result: response.result.map(p => new ModelPromotionPublic(p)) }))
+    );
   }
 
-  public remove(id: string): Observable<null> {
-    return this.http.delete<null>(`${this.path}/${id}`);
+  getItem(id: string): Observable<ModelPromotion> {
+    return this.http.get(`${this._path}/${id}`).pipe(map((p: Promotion) => new ModelPromotion(p)));
   }
 
-  public create(data: Promotion): Observable<BaseResponse<Promotion>> {
-    const formData = this.getFormData(data);
-    return this.http.post<BaseResponse<Promotion>>(`${this.path}`, formData);
-  }
-  public update(id: string, data: Promotion): Observable<BaseResponse<Promotion>> {
-    const formData = this.getFormData(data);
-    return this.http.patch<BaseResponse<Promotion>>(`${this.path}/${id}`, formData);
-  }
-  public upload(id: string, file: FormData): Observable<any> {
-    return this.http.post(`${this.path}/${id}`, file);
+  getPublicItem(id: string): Observable<ModelPromotionPublic> {
+    return this.http.get(`${this._public_path}/${id}`).pipe(
+      map((p: IPromotionPublic) => new ModelPromotionPublic(p)));
   }
 
-  private getFormData(context: Promotion): FormData {
-    const formData = new FormData();
+  remove(id: string): Observable<null> {
+    return this.http.delete<null>(`${this._public_path}/${id}`);
+  }
 
-    Object.entries(context)
-      .filter(([param, value]) => value !== null)
-      .forEach(([param, value]) => {
-        formData.append(param, value);
-      });
-    return formData;
+  create(data: Promotion): Observable<Promotion> {
+    const formData = transformToFormData(data);
+    return this.http.post(`${this._path}`, formData).pipe(map(p => new ModelPromotion(p)));
+  }
+  update(id: string, data: Promotion): Observable<Promotion> {
+    return this.http.patch<Promotion>(`${this._path}/${id}`, data);
+  }
+  upload(id: string, image: File): Observable<ModelPromotion> {
+    const formData = transformToFormData({ image });
+    return this.http.post(`${this._path}/upload/${id}`, formData).pipe(map(p => new ModelPromotion(p)));
   }
 
 }

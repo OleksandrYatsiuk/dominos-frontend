@@ -19,6 +19,13 @@ export interface PaginationResponse<T = {}> extends BaseResponse<T> {
     };
 }
 
+export interface IPaginationResponse<T = any[]> {
+    total: number;
+    limit: number;
+    page: number;
+    result: T;
+}
+
 
 export interface ValidationResponse extends BaseResponse<ValidationError[]> { }
 

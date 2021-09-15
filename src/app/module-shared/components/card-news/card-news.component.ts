@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions/promotions-public.model';
+import { ModelPromotion } from '@core/models/promotions/promotions.model';
 
 @Component({
   selector: 'app-card-news',
@@ -8,7 +9,7 @@ import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/mo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardNewsComponent {
-  @Input() news: ModelPromotion;
+  @Input() news: ModelPromotionPublic;
   defaultImage = '/assets/img/stub-image.png';
   status = PromotionStatuses;
   constructor() { }

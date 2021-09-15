@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'delivery', loadChildren: () => import('./module-delivery/delivery.module').then(mod => mod.DeliveryModule) },
   { path: 'auth', loadChildren: () => import('./module-auth/auth.module').then(mod => mod.AuthModule) },
   { path: 'admin', loadChildren: () => import('./module-admin-panel/admin-panel.module').then(mod => mod.AdminPanelModule) },
+  { path: 'shops', loadChildren: () => import('./module-shops-map/shops-map.module').then(mod => mod.ShopsMapModule) },
   { path: '**', redirectTo: '/' }
 
 ];

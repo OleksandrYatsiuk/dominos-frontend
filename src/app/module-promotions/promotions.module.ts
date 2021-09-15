@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PromotionDataService } from '../core/services/promotion-data.service';
 import { PromotionsListComponent } from './components/promotions-list/promotions-list.component';
 import { SharedModule } from 'src/app/module-shared/shared.module';
 import { PromotionResolver } from './promotion.resolver';
@@ -25,7 +24,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     PromotionComponent,
-    PromotionsListComponent,
+    PromotionsListComponent
   ],
   imports: [
     CommonModule,

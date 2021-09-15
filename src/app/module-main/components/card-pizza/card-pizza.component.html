@@ -9,13 +9,16 @@
           alt="Замовити піцу"
         />
         <div class="product_weight">
-          <span>{{ sizeValue.weight?.toLocaleString("uk") }} {{'gram'|translate}}</span>
+          <span
+            >{{ sizeValue.weight?.toLocaleString("uk") }}
+            {{ "gram" | translate }}</span
+          >
         </div>
       </div>
     </div>
     <div class="product-row">
       <a [routerLink]="['/pizza/', item.id]" class="product_name">
-        Піца {{ item.name }}</a
+        Піца {{ item.name | lang }}</a
       >
     </div>
     <div class="product-row">
@@ -43,7 +46,7 @@
     <div class="product-row">
       <div class="price">
         <span>{{ this.sizeValue.price?.toLocaleString("uk") }} </span>
-        <span class="currency"> {{'uah'|translate}}</span>
+        <span class="currency"> {{ "uah" | translate }}</span>
       </div>
       <div class="checked_product" *ngIf="count !== 0">
         <button class="basket-button" (click)="removeFromCard(sizeValue)">

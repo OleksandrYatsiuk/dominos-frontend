@@ -1,29 +1,30 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { PizzaCreateComponent } from './components/pizza-create/pizza-create.component';
+import { PizzaCreateComponent } from './containers/pizza-create/pizza-create.component';
 import { CreatePizzaGuard } from 'src/app/module-shared/guards/createPizza.guard';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from '@shared/shared.module';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DropdownModule } from 'primeng/dropdown';
+import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
+import { PizzaFormComponent } from './components/pizza-form/pizza-form.component';
+import { PizzaEditComponent } from './containers/pizza-edit/pizza-edit.component';
 
 const routes: Routes = [
-  { path: 'create', component: PizzaCreateComponent, canActivate: [CreatePizzaGuard] },
-  {
-    path: ':id',
-    loadChildren: () => import('./components/pizza-overview/pizza-overview.module').then(m => m.PizzaOverviewModule),
-  }
+  { path: 'create', component: PizzaCreateComponent },
+  { path: ':id', component: PizzaEditComponent }
 ];
 
 @NgModule({
-  declarations: [PizzaCreateComponent],
+  declarations: [PizzaCreateComponent, PizzaFormComponent, PizzaEditComponent],
   imports: [
     CommonModule,
     TableModule,
     SharedModule,
     MultiSelectModule,
     DropdownModule,
+    MultiLanguageFieldModule,
     RouterModule.forChild(routes)
   ]
 })

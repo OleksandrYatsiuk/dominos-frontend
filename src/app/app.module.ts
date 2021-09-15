@@ -27,6 +27,7 @@ import ru from '@angular/common/locales/ru';
 import en from '@angular/common/locales/en';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { ELanguage } from '@core/models/language';
+import { LangService } from '@core/services/lang.service';
 
 
 registerLocaleData(uk);
@@ -52,7 +53,6 @@ export function createTranslateLoader(http: HttpClient) {
     CalendarModule,
     ConfirmDialogModule,
     TranslateModule.forRoot({
-      defaultLanguage: ELanguage.uk,
       loader: {
         provide: TranslateLoader,
         useFactory: (createTranslateLoader),
@@ -67,7 +67,11 @@ export function createTranslateLoader(http: HttpClient) {
       deps: [ApiConfigService],
       multi: true
     },
-    { provide: LOCALE_ID, useValue: ELanguage.uk }
+    {
+      provide: LOCALE_ID,
+      deps: [LangService],      //some service handling global settings
+      useFactory: (langService: LangService) => langService.getLang()  //returns locale string
+    }
   ],
   bootstrap: [AppComponent],
 })

@@ -42,14 +42,14 @@ export class MapComponent implements OnInit, OnDestroy {
     this._gs.location
       .pipe(pluck('position'))
       .subscribe(loc => {
-        this._ms.addMarker({ ...loc, icon: 'map-blue-small.svg', address:'You are here!' });
+        this._ms.addMarker({ ...loc, icon: 'map-blue-small.svg', address: 'You are here!' });
         this._cd.detectChanges();
       });
 
   }
 
   private _initMarkers(m: IShop[]): void {
-    m.forEach(marker => this._ms.addMarker(marker)
+    m.forEach(marker => this._ms.addMarker({ ...marker, address: null })
       .on('click', () => {
         this._ms.selectMarker(marker.id);
         this._selectedMarker = marker;

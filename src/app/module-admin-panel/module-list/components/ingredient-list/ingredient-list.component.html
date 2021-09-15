@@ -19,6 +19,14 @@
       <tr>
         <td *ngFor="let col of columns" [ngSwitch]="col.field">
           <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'name'">{{ ingredient[col.field] | lang }}</div>
+
+          <div *ngSwitchCase="'createdAt'">
+            {{ ingredient[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'updatedAt'">
+            {{ ingredient[col.field] | date: "medium" }}
+          </div>
           <div *ngSwitchDefault>{{ ingredient[col.field] }}</div>
         </td>
         <td class="cell-actions">

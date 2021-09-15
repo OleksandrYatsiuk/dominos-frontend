@@ -35,14 +35,12 @@
     </div>
   </div>
 
-  <div class="promotion__other">
-    <div class="promotion__other-label">Інші акції:</div>
+  <div class="promotion__other" *ngIf="promotions$ | async as promos">
+    <div class="promotion__other-label" *ngIf="promos.length > 0">
+      Інші акції:
+    </div>
 
-    <div
-      class="swiper-container"
-      [swiper]="config"
-      *ngIf="promotions$ | async as promos"
-    >
+    <div class="swiper-container" [swiper]="config">
       <div class="swiper-wrapper">
         <app-card-news
           class="swiper-slide"

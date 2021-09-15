@@ -5,7 +5,7 @@
         <th *ngFor="let col of columns">
           {{ col.header }}
         </th>
-        <th class="cell-actions" routerLink="/pizzas/create">
+        <th class="cell-actions" routerLink="/admin/pizzas/create">
           <span class="action">Add New</span>
         </th>
       </tr>
@@ -19,6 +19,14 @@
       <tr>
         <td *ngFor="let col of columns" [ngSwitch]="col.field">
           <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'image'">
+            <img
+              class="photo"
+              [lazyLoad]="pizza.image"
+              [alt]="pizza.name | lang"
+            />
+          </div>
+          <div *ngSwitchCase="'name'">{{ pizza[col.field] | lang }}</div>
           <div *ngSwitchCase="'startedAt'">
             {{ pizza[col.field] | date }}
           </div>
@@ -30,7 +38,7 @@
             <i class="icon icon--trash" (click)="onDelete(pizza)"></i>
             <i
               class="icon icon--edit"
-              routerLink="/pizzas/{{ pizza.id }}/edit"
+              [routerLink]="['/admin/pizzas/', pizza.id]"
             ></i>
           </div>
         </td>

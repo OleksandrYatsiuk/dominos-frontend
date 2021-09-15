@@ -19,6 +19,22 @@
       <tr>
         <td *ngFor="let col of columns" [ngSwitch]="col.field">
           <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'address'">{{ shop[col.field] | lang }}</div>
+          <div *ngSwitchCase="'createdAt'">
+            {{ shop[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'updatedAt'">
+            {{ shop[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'image'">
+            <img
+              class="photo"
+              style="width: 100%; height: auto;"
+              [lazyLoad]="shop[col.field]"
+              [defaultImage]="defaultImage"
+              alt="Замовити піцу"
+            />
+          </div>
           <div *ngSwitchDefault>{{ shop[col.field] }}</div>
         </td>
         <td class="cell-actions">

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { map, mergeMap, Observable, pluck, tap } from 'rxjs';
+import { map, mergeMap, Observable, pluck, shareReplay, tap } from 'rxjs';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { PromotionDataService } from '@core/services/promotion-data.service';
-import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion } from '@core/models/promotions/promotions.model';
+import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions/promotions-public.model';
 
 @Component({
   selector: 'app-promotion',
@@ -13,8 +14,8 @@ import { ModelPromotion, PromotionStatuses } from 'src/app/module-admin-panel/mo
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromotionComponent implements OnInit {
-  promotion$: Observable<ModelPromotion>;
-  promotions$: Observable<ModelPromotion[]>;
+  promotion$: Observable<ModelPromotionPublic>;
+  promotions$: Observable<ModelPromotionPublic[]>;
   status = PromotionStatuses;
   config: SwiperConfigInterface = {
     observer: true,
@@ -42,12 +43,12 @@ export class PromotionComponent implements OnInit {
   ngOnInit(): void {
 
     this.promotion$ = this.route.params
-      .pipe(mergeMap(({ id }) => this._ps.getItem(id).pipe(pluck('result'))),
-        tap((promo) => {
-          this.title.setTitle(`Акція - ${promo.title}`);
-          this.promotions$ = this._ps.getData()
+      .pipe(mergeMap(({ id }) => this._ps.getPublicItem(id)),
+        tap(promo => {
+          this.title.setTitle(`Акція - ${promo.name}`);
+          this.promotions$ = this._ps.queryPromotionPublicList()
             .pipe(pluck('result'),
-              map(promos => promos.filter(p => p.id !== promo.id)));
+              map(promos => promos.filter(p => p.id !== promo.id)), shareReplay(1));
         })
       );
   }

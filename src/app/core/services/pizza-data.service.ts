@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from 'src/app/core/models/pizza.interface';
-import { PaginationResponse, BaseResponse } from 'src/app/core/models/response.interface';
+import { PaginationResponse, BaseResponse, IPaginationResponse } from 'src/app/core/models/response.interface';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { transformToFormData } from 'src/utils/form-data';
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,24 +15,25 @@ export class PizzaDataService {
     private http: HttpClient,
   ) { }
   private path = `${this._apiUrl}/pizza`;
+  private pathNest = `${environment.nestServerUrl}/pizzas`;
 
-  public getPizzas(options?: { page?: number, limit?: number, sort?: keyof Pizza }): Observable<PaginationResponse<Pizza[]>> {
-    return this.http.get<PaginationResponse<Pizza[]>>(`${this.path}`, { params: options });
+  getPizzas(options?: { page?: number, limit?: number, sort?: keyof Pizza }): Observable<IPaginationResponse<Pizza[]>> {
+    return this.http.get<IPaginationResponse<Pizza[]>>(`${this.pathNest}`, { params: options });
   }
 
-  public getPizza(id: string): Observable<BaseResponse<Pizza>> {
-    return this.http.get<BaseResponse<Pizza>>(`${this.path}/${id}`);
+  getPizza(id: string): Observable<Pizza> {
+    return this.http.get<Pizza>(`${this.pathNest}/${id}`);
   }
 
-  public remove(id: string): Observable<null> {
+  remove(id: string): Observable<null> {
     return this.http.delete<null>(`${this.path}/${id}`);
   }
 
-  // public create(data: Pizza): Observable<Pizza> {
-  //   return this._root.postFromData(this.path, data).pipe(pluck('result'));
-  // }
+  create(data: Pizza): Observable<Pizza> {
+    return this.http.post<Pizza>(this.pathNest, transformToFormData(data));
+  }
 
-  // public edit(id: string, data: Pizza): Observable<Pizza> {
-  //   return this._root.patchFromData(`${this.path}/${id}`, data).pipe(pluck('result'));
-  // }
+  edit(id: string, data: Pizza): Observable<Pizza> {
+    return this.http.patch<Pizza>(`${this.pathNest}/${id}`, transformToFormData(data));
+  }
 }

@@ -28,7 +28,7 @@ export class PizzaListComponent implements OnInit {
     this.pizzas$ = this._queryPizzaList(this.currentPage);
 
     this.cols = [
-      { field: 'index', header: '#' },
+      { field: 'image', header: 'Image' },
       { field: 'id', header: 'ID' },
       { field: 'name', header: 'Name' },
       { field: 'category', header: 'Category' }
@@ -56,9 +56,9 @@ export class PizzaListComponent implements OnInit {
 
   private _queryPizzaList(page: number): Observable<Pizza[]> {
     return this._ps.getPizzas({ page, limit: this.rows }).pipe(
-      tap(({ result, _meta }) => {
-        this.currentPage = _meta.pagination.page;
-        this.totalPages = _meta.pagination.total;
+      tap(({ page, total }) => {
+        this.currentPage = page;
+        this.totalPages = total;
       }),
       pluck('result'));
   }

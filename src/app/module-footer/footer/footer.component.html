@@ -5,12 +5,13 @@
       <a routerLink="/"> {{'mainLabel'|translate}} </a>
       <a routerLink="/pizzas">{{'pageTitles.pizzas'|translate}}</a>
       <a routerLink="/promotions">{{'pageTitles.promotions'|translate}}</a>
+      <a routerLink="/shops">{{'pageTitles.shops'|translate}}</a>
     </nav>
   </div>
   <div class="footer-menu-items" *ngxPermissionsOnly="isManagement">
     <span>{{'settingsLabel'|translate}}</span>
     <nav>
-      <a href="{{ swaggerUILink }}">{{'swaggerLabel'|translate}}</a>
+      <a [href]="swaggerUILink">{{'swaggerLabel'|translate}}</a>
     </nav>
   </div>
   <div class="logo">

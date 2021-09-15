@@ -36,7 +36,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private handler: ErrorHandlerService,
     private userService: UserService,
-    private _ms:MessageService,
+    private _ms: MessageService,
     private rest: DeliveryDataService,
     private basketService: BasketService,
     private router: Router,
@@ -53,7 +53,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
 
-    this.shops$ = this._ss.queryShopsList().pipe(pluck('result'));
+    this.shops$ = this._ss.queryShopsList();
 
     this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
     this.pizzasIds = this.basketService._storage.map(el => el.id)
@@ -115,7 +115,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
           this.loading = !this.loading;
           this.router.navigate(['/']);
           this.basketService.clear();
-          this._ms.add({ severity: 'success', detail: 'Your order has been accepted!'});
+          this._ms.add({ severity: 'success', detail: 'Your order has been accepted!' });
         }, (e) => {
           this.loading = !this.loading;
           this.handler.validation(e, this.carryOut);

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 import { MessageService } from 'primeng/api';
-import { Promotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { Promotion } from '@core/models/promotions/promotions.model';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -31,9 +31,10 @@ export class PromotionListComponent implements OnInit {
     this.promotions$ = this._queryPromotionList(this.currentPage);
 
     this.cols = [
-      { field: 'index', header: '#' },
-      { field: 'id', header: 'ID' },
-      { field: 'title', header: 'Title' },
+      // { field: 'index', header: '#' },
+      { field: 'image', header: 'Image' },
+      { field: 'name', header: 'Name' },
+      { field: 'description', header: 'Description' },
       { field: 'startedAt', header: 'Start Date' },
     ];
   }
@@ -51,7 +52,7 @@ export class PromotionListComponent implements OnInit {
         this._ps.remove(item.id)
           .subscribe(res => {
             this.promotions$ = this._queryPromotionList(this.currentPage);
-            this._ms.add({ severity: 'success', detail: `Акція "${item.title}" видалена успішно!` });
+            this._ms.add({ severity: 'success', detail: `Акція "${item.name}" видалена успішно!` });
             this._cd.detectChanges();
           }, (e) => {
             this._ms.add({ severity: 'error', detail: e.result });
@@ -63,9 +64,9 @@ export class PromotionListComponent implements OnInit {
 
   private _queryPromotionList(page: number): Observable<Promotion[]> {
     return this._ps.getData({ page, limit: this.rows }).pipe(
-      tap(({ result, _meta }) => {
-        this.currentPage = _meta.pagination.page;
-        this.totalPages = _meta.pagination.total;
+      tap(({ page, total }) => {
+        this.currentPage = page;
+        this.totalPages = total;
       }),
       pluck('result'));
   }

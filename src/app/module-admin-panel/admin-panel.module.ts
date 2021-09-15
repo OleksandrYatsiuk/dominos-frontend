@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AdminPanelComponent } from './admin-panel.component';
 import { AdminPanelRoutingModule } from './admin-panel-routing.module';
 import { SharedModule } from 'src/app/module-shared/shared.module';
+import { MultiLanguageFieldModule } from '../multi-language-field/multi-language-field.module';
 
 
 
@@ -13,7 +14,8 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
   imports: [
     CommonModule,
     AdminPanelRoutingModule,
-    SharedModule
+    SharedModule,
+    MultiLanguageFieldModule
   ],
   providers: []
 })

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PizzaOverviewComponent } from './pizza-overview.component';
 import { PizzaOverviewResolver } from './pizza-overview.resolver';
 import { Routes, RouterModule } from '@angular/router';
-import { PizzaEditComponent } from './pizza-edit/pizza-edit.component';
+import { PizzaEditComponent } from '../../containers/pizza-edit/pizza-edit.component';
 
 const routes: Routes = [
 

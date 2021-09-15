@@ -1,7 +1,9 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { ICoords } from '@core/models/shop.interface';
 // use only for interfaces
 import * as L from 'leaflet';
+import { LangService } from './lang.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -21,6 +23,7 @@ export class MapService {
 
     constructor(
         @Inject(PLATFORM_ID) private _pid,
+        private _ls: LangService
     ) {
         this.isBrowser = isPlatformBrowser(_pid);
         if (this.isBrowser) {
@@ -43,13 +46,13 @@ export class MapService {
     }
 
     addMarker(item: any, options?: L.MarkerOptions, popupOptions?: L.Popup): L.Marker {
-        const marker = this.marker({ lat: item.lat, lng: item.lng }, {
+        const marker = this.marker(item.coords, {
             icon: this._getIcon(item?.icon || 'marker.svg'),
             draggable: false,
             ...options
         }).addTo(this._map);
         if (item?.address) {
-            marker.bindPopup(item.address, { closeButton: false, className: 'marker-popup', ...popupOptions });
+            marker.bindPopup(item.address[this._ls.getLang()], { closeButton: false, className: 'marker-popup', ...popupOptions });
         }
         this._markers.push({ marker, data: item });
         return marker;

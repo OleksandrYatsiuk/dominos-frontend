@@ -2,6 +2,7 @@ import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
+import { LangInterceptor } from './interceptors/lang.interceptor';
 
 
 
@@ -16,6 +17,11 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
     }, {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LangInterceptor,
       multi: true
     }
   ],

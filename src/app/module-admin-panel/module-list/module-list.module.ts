@@ -12,6 +12,8 @@ import { ShopListComponent } from './components/shop-list/shop-list.component';
 import { IngredientListComponent } from './components/ingredient-list/ingredient-list.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table';
+import { SharedModule } from '@shared/shared.module';
+import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 
 const routes: Routes = [{ path: '', component: ListComponent }];
 
@@ -32,6 +34,8 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     PaginatorModule,
     TranslateModule,
     TableModule,
+    SharedModule,
+    MultiLanguageFieldModule,
     RouterModule.forChild(routes)
   ]
 })

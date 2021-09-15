@@ -1,7 +1,10 @@
+import { ILanguage } from "./language";
+
 export interface Pizza {
   id?: string;
-  name: string;
+  name: ILanguage;
   category: string;
+  image: File | string | null;
   ingredients: [Ingredients];
   weight: {
     small: number;

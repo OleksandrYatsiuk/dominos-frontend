@@ -19,11 +19,23 @@
       <tr>
         <td *ngFor="let col of columns" [ngSwitch]="col.field">
           <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'image'">
+            <img
+              style="width: 100%; height: auto;"
+              [lazyLoad]="promotion[col.field]"
+              [alt]="promotion['name'] | lang"
+            />
+          </div>
+          <div
+            class="promotion__description"
+            *ngSwitchCase="'description'"
+            [innerHtml]="promotion[col.field] | lang"
+          ></div>
           <div *ngSwitchCase="'startedAt'">
-            {{ promotion[col.field] | date }}
+            {{ promotion[col.field] ? (promotion[col.field] | date) : "-" }}
           </div>
 
-          <div *ngSwitchDefault>{{ promotion[col.field] }}</div>
+          <div *ngSwitchDefault>{{ promotion[col.field] | lang }}</div>
         </td>
         <td class="cell-actions">
           <div class="cell-options-icons">

@@ -1,9 +1,15 @@
+import { ILanguage } from './language';
+
+export interface ICoords {
+    lat: number;
+    lng: number;
+}
+
 export interface IShop {
-    id: string,
-    address: string,
-    lat: number,
-    lng: number,
-    draggable: boolean,
-    createdAt: number,
-    updatedAt: number
+    id: string;
+    address: ILanguage;
+    coords: ICoords;
+    image: string;
+    createdAt: Date;
+    updatedAt: Date;
 }

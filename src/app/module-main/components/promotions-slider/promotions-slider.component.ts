@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { pluck } from 'rxjs';
 import { Observable } from 'rxjs';
-import { ModelPromotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
 import { PromotionDataService } from '@core/services/promotion-data.service';
+import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
 
 @Component({
   selector: 'app-promotions-slider',
@@ -14,7 +14,7 @@ import { PromotionDataService } from '@core/services/promotion-data.service';
 export class PromotionsSliderComponent implements OnInit {
 
   defaultImage = '/assets/img/stub-image.png';
-  promos$: Observable<ModelPromotion[]>;
+  promos$: Observable<ModelPromotionPublic[]>;
   config: SwiperConfigInterface = {
     slidesPerView: 1,
     observer: true
@@ -22,10 +22,7 @@ export class PromotionsSliderComponent implements OnInit {
   constructor(private _ps: PromotionDataService) { }
 
   ngOnInit(): void {
-    this.promos$ = this._queryPromotionList();
-  }
-  private _queryPromotionList(): Observable<ModelPromotion[]> {
-    return this._ps.getData().pipe(pluck('result'));
+    this.promos$ = this._ps.queryPromotionPublicList().pipe(pluck('result'));
   }
 
 }

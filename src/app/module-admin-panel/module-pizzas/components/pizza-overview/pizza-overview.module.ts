@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PizzaOverviewComponent } from './pizza-overview.component';
-import { PizzaEditComponent } from './pizza-edit/pizza-edit.component';
 import { PizzaOverviewRoutingModule } from './pizza-overview-routing.module';
 import { PizzaDataService } from '../../../../core/services/pizza-data.service';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -10,10 +9,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/module-shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 
 
 @NgModule({
-  declarations: [PizzaOverviewComponent, PizzaEditComponent],
+  declarations: [PizzaOverviewComponent],
   imports: [
     CommonModule,
     PizzaOverviewRoutingModule,
@@ -23,7 +23,8 @@ import { NgxPermissionsModule } from 'ngx-permissions';
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgxPermissionsModule
+    NgxPermissionsModule,
+    MultiLanguageFieldModule
   ],
   providers: [PizzaDataService]
 })

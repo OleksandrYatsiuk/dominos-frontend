@@ -1,0 +1,37 @@
+<div class="multi-language-field__container">
+  <app-lang-changer
+    [(key)]="key"
+    [keys]="value"
+    *ngIf="showLang"
+  ></app-lang-changer>
+  <app-mode-changer [(type)]="type" *ngIf="showMode"></app-mode-changer>
+  <div [ngSwitch]="type">
+    <div *ngSwitchCase="'input'">
+      <input
+        [class]="styleClass"
+        ngClass="input"
+        [ngModel]="value[key]"
+        (ngModelChange)="eventChange($event)"
+        [disabled]="disabled"
+        [placeholder]="placeholder || ''"
+      />
+    </div>
+    <div *ngSwitchCase="'textarea'">
+      <textarea
+        [class]="styleClass"
+        [ngModel]="value[key]"
+        (ngModelChange)="eventChange($event)"
+        [attr.disabled]="disabled"
+        [placeholder]="placeholder || ''"
+      ></textarea>
+    </div>
+
+    <div *ngSwitchCase="'vcvic'">
+      <angular-editor
+        #angularEditor
+        [ngModel]="value[key] || ''"
+        (ngModelChange)="eventChange($event)"
+      ></angular-editor>
+    </div>
+  </div>
+</div>

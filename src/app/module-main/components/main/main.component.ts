@@ -3,9 +3,10 @@ import { PizzaDataService } from '../../../core/services/pizza-data.service';
 import { pluck, tap } from 'rxjs/operators';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 import { Observable } from 'rxjs';
-import { ModelPromotion } from 'src/app/module-admin-panel/module-promotions/components/promotion-create/promotions.interface';
+import { ModelPromotion } from '@core/models/promotions/promotions.model';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Pizza } from '@core/models/pizza.interface';
+import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
 
 @Component({
   selector: 'app-main',
@@ -16,7 +17,7 @@ import { Pizza } from '@core/models/pizza.interface';
 export class MainComponent implements OnInit {
 
   defaultImage = '/assets/img/stub-image.png';
-  promos$: Observable<ModelPromotion[]>;
+  promos$: Observable<ModelPromotionPublic[]>;
   pizzas$: Observable<any[]>;
   categories: { category: string; items: any; }[];
 

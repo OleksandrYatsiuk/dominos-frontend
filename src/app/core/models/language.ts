@@ -3,3 +3,9 @@ export enum ELanguage {
     ru = 'ru',
     en = 'en'
 }
+
+export interface ILanguage {
+    uk: string;
+    ru: string;
+    en: string;
+}

@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
-import { Observable, pluck, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IShop } from '@core/models/shop.interface';
 
 @Component({
   selector: 'app-shop-list',
   templateUrl: './shop-list.component.html',
-  styleUrls: ['./shop-list.component.scss']
+  styleUrls: ['./shop-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShopListComponent implements OnInit {
   totalRecords: number;
@@ -16,20 +17,24 @@ export class ShopListComponent implements OnInit {
   rows = 10;
   shops$: Observable<IShop[]>;
   cols: { field: string; header: string; }[];
+  defaultImage = '/assets/img/stub-image.png';
+
   constructor(
     private _ss: ShopService,
     private _cs: ConfirmService,
-    private _cd: ChangeDetectorRef,
     private _ms: MessageService
+
   ) { }
 
   ngOnInit() {
     this.shops$ = this._queryShopList(this.currentPage);
 
     this.cols = [
-      { field: 'index', header: '#' },
-      { field: 'id', header: 'ID' },
-      { field: 'address', header: 'Address' }
+      // { field: 'index', header: '#' },
+      { field: 'image', header: 'image' },
+      { field: 'address', header: 'Address' },
+      { field: 'createdAt', header: 'createdAt' },
+      { field: 'updatedAt', header: 'updatedAt' }
     ];
   }
 
@@ -55,10 +60,11 @@ export class ShopListComponent implements OnInit {
 
   private _queryShopList(page: number): Observable<IShop[]> {
     return this._ss.queryShopsList({ page, limit: this.rows }).pipe(
-      tap(({ result, _meta }) => {
-        this.currentPage = _meta.pagination.page;
-        this.totalRecords = _meta.pagination.total;
-      }),
-      pluck('result'));
+      // tap(({ result, _meta }) => {
+      //   this.currentPage = _meta.pagination.page;
+      //   this.totalRecords = _meta.pagination.total;
+      // }),
+      // pluck('result')
+    );
   }
 }
