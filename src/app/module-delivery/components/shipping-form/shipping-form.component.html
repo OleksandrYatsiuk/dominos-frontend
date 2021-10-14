@@ -90,7 +90,7 @@
         </app-form-item>
 
         <app-form-item
-          [control]="formDelivery.get('address')['controls'].code"
+          [control]="formDelivery.get('address')['controls']?.code"
           [field]="'labels.code' | translate"
         >
           <input

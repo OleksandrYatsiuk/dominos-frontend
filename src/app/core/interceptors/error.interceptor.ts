@@ -17,10 +17,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError(({ error }: HttpErrorResponse) => {
-          if (error.code === HttpStatusCode.UnprocessableEntity) {
+          if (error?.code === HttpStatusCode.UnprocessableEntity) {
             this.handler.hasError(error.result);
           }
-          if (error.code === HttpStatusCode.Unauthorized) {
+          if (error?.code === HttpStatusCode.Unauthorized) {
             if (this.isBrowser) {
               localStorage.removeItem('auth');
               location.reload();

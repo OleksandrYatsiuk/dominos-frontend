@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   serverUrl: 'https://dominos-backend.herokuapp.com/api/v1/',
   nestServerUrl: 'https://api-dominos.herokuapp.com'
+  // nestServerUrl: 'http://localhost:3000'
 };
 
 /*
