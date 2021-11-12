@@ -1,4 +1,5 @@
 import { ILanguage } from "./language";
+import { Size } from "./size.interface";
 
 export interface Pizza {
   id?: string;
@@ -6,16 +7,8 @@ export interface Pizza {
   category: string;
   image: File | string | null;
   ingredients: [Ingredients];
-  weight: {
-    small: number;
-    middle: number;
-    big: number;
-  };
-  price: {
-    small: number;
-    middle: number;
-    big: number;
-  };
+  weight: Size;
+  price: Size;
 }
 
 export interface Ingredients {

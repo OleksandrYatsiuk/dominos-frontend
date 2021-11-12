@@ -4,6 +4,7 @@ import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
 import { Observable, pluck, tap } from 'rxjs';
+import { TableItem } from '@core/models/table.interface';
 
 @Component({
   selector: 'app-pizza-list',
@@ -16,7 +17,7 @@ export class PizzaListComponent implements OnInit {
   totalPages = 1;
   currentPage = 1;
   pizzas$: Observable<Pizza[]>;
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
   constructor(
     private _ps: PizzaDataService,
     private _cs: ConfirmService,

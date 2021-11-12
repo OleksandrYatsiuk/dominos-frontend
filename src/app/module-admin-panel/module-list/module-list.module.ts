@@ -14,6 +14,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from '@shared/shared.module';
 import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
+import { DrinksListComponent } from './components/drinks-list/drinks-list.component';
 
 const routes: Routes = [{ path: '', component: ListComponent }];
 
@@ -26,7 +27,8 @@ const routes: Routes = [{ path: '', component: ListComponent }];
     UsersListComponent,
     DeliveryListComponent,
     ShopListComponent,
-    IngredientListComponent
+    IngredientListComponent,
+    DrinksListComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,49 @@
+<div class="drinks-list">
+  <p-table [columns]="cols" [value]="drinks$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions">
+          <span class="action">Add New</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-drink
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'name'">{{ drink[col.field] | lang }}</div>
+          <div *ngSwitchCase="'price'">{{ drink[col.field] | json }}</div>
+          <div *ngSwitchCase="'size'">{{ drink[col.field] | json }}</div>
+          <div *ngSwitchCase="'category'">{{ drink[col.field] }}</div>
+
+          <div *ngSwitchDefault>{{ drink[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
+            <i class="icon icon--trash" (click)="onDelete(drink)"></i>
+            <i class="icon icon--edit"></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<div class="pagination">
+  <p-paginator
+    class="d-paginator"
+    [totalRecords]="totalPages"
+    [pageLinkSize]="5"
+    [rows]="rows"
+    [alwaysShow]="false"
+    (onPageChange)="onPageChange($event.page)"
+  ></p-paginator>
+</div>

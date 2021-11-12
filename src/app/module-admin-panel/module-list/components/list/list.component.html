@@ -1,22 +1,39 @@
 <section>
   <p-tabView>
-    <p-tabPanel [header]="'pageTitles.pizzas'|translate">
-      <app-pizza-list></app-pizza-list>
+    <p-tabPanel [header]="'pageTitles.pizzas' | translate">
+      <ng-template pTemplate="content">
+        <app-pizza-list></app-pizza-list>
+      </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.promotions'|translate">
-      <app-promotion-list></app-promotion-list>
+    <p-tabPanel [header]="'pageTitles.promotions' | translate">
+      <ng-template pTemplate="content">
+        <app-promotion-list></app-promotion-list>
+      </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.users'|translate">
-      <app-users-list></app-users-list>
+    <p-tabPanel [header]="'pageTitles.users' | translate">
+      <ng-template pTemplate="content">
+        <app-users-list></app-users-list>
+      </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.deliveries'|translate">
-      <app-delivery-list></app-delivery-list>
+    <p-tabPanel [header]="'pageTitles.deliveries' | translate">
+      <ng-template pTemplate="content">
+        <app-delivery-list></app-delivery-list>
+      </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.shops'|translate">
-      <app-shop-list></app-shop-list>
+    <p-tabPanel [header]="'pageTitles.shops' | translate">
+      <ng-template pTemplate="content">
+        <app-shop-list></app-shop-list>
+      </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.ingredients'|translate">
-      <app-ingredient-list></app-ingredient-list>
+    <p-tabPanel [header]="'pageTitles.ingredients' | translate">
+      <ng-template pTemplate="content">
+        <app-ingredient-list></app-ingredient-list>
+      </ng-template>
+    </p-tabPanel>
+    <p-tabPanel [header]="'pageTitles.drinks' | translate">
+      <ng-template pTemplate="content">
+        <app-drinks-list></app-drinks-list>
+      </ng-template>
     </p-tabPanel>
   </p-tabView>
 </section>

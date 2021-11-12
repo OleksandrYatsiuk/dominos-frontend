@@ -5,6 +5,7 @@ import { Promotion } from '@core/models/promotions/promotions.model';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { TableItem } from '@core/models/table.interface';
 
 @Component({
   selector: 'app-promotion-list',
@@ -17,7 +18,7 @@ export class PromotionListComponent implements OnInit {
   currentPage = 1;
   rows = 10;
   promotions$: Observable<Promotion[]>;
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
 
   constructor(
     private _ps: PromotionDataService,
