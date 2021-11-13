@@ -71,7 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.pagesItems = [
       { label: this._ts.instant('pageTitles.promotions'), routerLink: '/promotion' },
       { label: this._ts.instant('pageTitles.pizzas'), routerLink: '/pizza' },
-      { label: this._ts.instant('pageTitles.drinks'), routerLink: '/' },
+      { label: this._ts.instant('pageTitles.drinks'), routerLink: '/drinks' },
       { label: this._ts.instant('pageTitles.sides'), routerLink: '/' },
       { label: this._ts.instant('pageTitles.desserts'), routerLink: '/' }
     ];

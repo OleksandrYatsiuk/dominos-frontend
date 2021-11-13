@@ -33,6 +33,6 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes)
   ],
-  providers: [PromotionResolver],
+  providers: [],
 })
 export class PromotionsModule { }

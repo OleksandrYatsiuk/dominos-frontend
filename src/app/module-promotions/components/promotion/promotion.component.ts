@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { map, mergeMap, Observable, pluck, shareReplay, tap } from 'rxjs';
+import { mergeMap, Observable } from 'rxjs';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { PromotionDataService } from '@core/services/promotion-data.service';
-import { ModelPromotion } from '@core/models/promotions/promotions.model';
 import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions/promotions-public.model';
+import { Select, Store } from '@ngxs/store';
+import { PromotionsState } from '../../promotions/promotions.state';
+import { FetchAllPromotions, FetchSimplePromotion } from '../../promotions/promotions.actions';
 
 @Component({
   selector: 'app-promotion',
@@ -14,9 +15,16 @@ import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PromotionComponent implements OnInit {
-  promotion$: Observable<ModelPromotionPublic>;
+
+  @Select(PromotionsState.promotionsWithoutActive)
   promotions$: Observable<ModelPromotionPublic[]>;
+
+  @Select(PromotionsState.promotion)
+  promotion$: Observable<ModelPromotionPublic>;
+
+
   status = PromotionStatuses;
+
   config: SwiperConfigInterface = {
     observer: true,
     slidesPerView: 1,
@@ -35,22 +43,13 @@ export class PromotionComponent implements OnInit {
   }
   constructor(
     private route: ActivatedRoute,
-    private _ps: PromotionDataService,
-    private title: Title
+    private store: Store
   ) {
   }
 
   ngOnInit(): void {
-
-    this.promotion$ = this.route.params
-      .pipe(mergeMap(({ id }) => this._ps.getPublicItem(id)),
-        tap(promo => {
-          this.title.setTitle(`Акція - ${promo.name}`);
-          this.promotions$ = this._ps.queryPromotionPublicList()
-            .pipe(pluck('result'),
-              map(promos => promos.filter(p => p.id !== promo.id)), shareReplay(1));
-        })
-      );
+    this.store.dispatch(new FetchAllPromotions());
+    this.route.params.pipe(mergeMap(({ id }) => this.store.dispatch(new FetchSimplePromotion(id)))).subscribe();
   }
 
 }
