@@ -199,6 +199,6 @@
   "defaultProject": "dominos",
   "cli": {
     "analytics": "b72b2eca-c0f5-4a92-9e7f-254d83d42952",
-    "defaultCollection": "@angular-eslint/schematics"
+    "defaultCollection": "@ngxs/schematics"
   }
 }

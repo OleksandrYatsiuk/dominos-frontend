@@ -26,8 +26,13 @@ import uk from '@angular/common/locales/uk';
 import ru from '@angular/common/locales/ru';
 import en from '@angular/common/locales/en';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ELanguage } from '@core/models/language';
 import { LangService } from '@core/services/lang.service';
+import { NgxsModule } from '@ngxs/store';
+import { environment } from '@environments/environment';
+import { DrinksState } from './module-drinks/drinks.state';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { PromotionsState } from './module-promotions/promotions/promotions.state';
 
 
 registerLocaleData(uk);
@@ -52,6 +57,11 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     CalendarModule,
     ConfirmDialogModule,
+    NgxsModule.forRoot([DrinksState, PromotionsState], {
+      developmentMode: !environment.production
+    }),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
