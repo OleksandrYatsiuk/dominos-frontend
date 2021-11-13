@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PromotionDataService } from '../../../core/services/promotion-data.service';
-import { Promotion } from '../../../core/models/promotions/promotions.model';
-import { Observable, pluck } from 'rxjs';
-import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions/promotions-public.model';
+import { Observable } from 'rxjs';
+import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
+import { PromotionsState } from '../../promotions/promotions.state';
+import { Select, Store } from '@ngxs/store';
+import { FetchAllPromotions } from '../../promotions/promotions.actions';
 
 @Component({
   selector: 'app-promotions-list',
@@ -10,11 +11,13 @@ import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions
   styleUrls: ['./promotions-list.component.scss']
 })
 export class PromotionsListComponent implements OnInit {
-  promotions$: Observable<ModelPromotionPublic[]>;
-  constructor(private http: PromotionDataService) { }
 
+  @Select(PromotionsState.promotions)
+  promotions$: Observable<ModelPromotionPublic[]>;
+
+  constructor(private store: Store) { }
   ngOnInit(): void {
-    this.promotions$ = this.http.queryPromotionPublicList({ params: { isActive: true } }).pipe(pluck('result'));
+    this.store.dispatch(new FetchAllPromotions());
   }
 
 }
