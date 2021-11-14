@@ -1,31 +1,39 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { PizzaDataService } from '@core/services/pizza-data.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
-import { Observable, pluck, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
+import { DeletePizza, FetchAllPizzas } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.actions';
+import { IPaginationResponse } from '@core/models/response.interface';
+import { LangPipe } from '@shared/pipe/lang.pipe';
 
 @Component({
   selector: 'app-pizza-list',
   templateUrl: './pizza-list.component.html',
   styleUrls: ['./pizza-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LangPipe]
 })
 export class PizzaListComponent implements OnInit {
-  rows = 10;
-  totalPages = 1;
   currentPage = 1;
-  pizzas$: Observable<Pizza[]>;
   cols: { field: string; header: string; }[];
+
+  @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
+  @Select(PizzasState.pizzasWithPagination) pizzasWithPagination$: Observable<IPaginationResponse<Pizza[]>>
+
   constructor(
-    private _ps: PizzaDataService,
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
-    private _ms: MessageService
+    private _ms: MessageService,
+    private _langPipe: LangPipe,
+    private _store: Store
   ) { }
 
   ngOnInit(): void {
-    this.pizzas$ = this._queryPizzaList(this.currentPage);
+
+    this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
 
     this.cols = [
       { field: 'image', header: 'Image' },
@@ -37,29 +45,22 @@ export class PizzaListComponent implements OnInit {
 
   onPageChange(page: number): void {
     this.currentPage = page + 1;
-    this.pizzas$ = this._queryPizzaList(page + 1);
+    this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
+
   }
 
   onDelete(item: Pizza): void {
     this._cs.delete().subscribe(result => {
       if (result) {
-        this._ps.remove(item.id)
+
+        this._store.dispatch(new DeletePizza(item.id))
           .subscribe(() => {
-            this.pizzas$ = this._queryPizzaList(1);
-            this._ms.add({ severity: 'success', detail: `Піца "${item.name}" видалена успішно!` });
+            this.currentPage = 1;
+            // this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
+            this._ms.add({ severity: 'success', detail: `Піца "${this._langPipe.transform(item.name)}" видалена успішно!` });
             this._cd.detectChanges();
           })
       }
     });
-  }
-
-
-  private _queryPizzaList(page: number): Observable<Pizza[]> {
-    return this._ps.getPizzas({ page, limit: this.rows }).pipe(
-      tap(({ page, total }) => {
-        this.currentPage = page;
-        this.totalPages = total;
-      }),
-      pluck('result'));
   }
 }

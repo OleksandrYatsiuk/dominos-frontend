@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { PizzaDataService } from '../../../core/services/pizza-data.service';
-import { pluck } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Pizza } from 'src/app/core/models/pizza.interface';
+import { Select, Store } from '@ngxs/store';
+import { FetchAllPizzas } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.actions';
+import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
 
 @Component({
   selector: 'app-pizza',
@@ -12,12 +13,13 @@ import { Pizza } from 'src/app/core/models/pizza.interface';
 })
 export class PizzaComponent implements OnInit {
 
-  pizzas$: Observable<Pizza[]>;
 
-  constructor(private http: PizzaDataService) { }
+  @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
+
+  constructor(private _store: Store) { }
 
   ngOnInit(): void {
-    this.pizzas$ = this.http.getPizzas().pipe(pluck('result'))
+    this._store.dispatch(new FetchAllPizzas())
   }
 
 }

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PizzaCreateComponent } from './containers/pizza-create/pizza-create.component';
-import { CreatePizzaGuard } from 'src/app/module-shared/guards/createPizza.guard';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from '@shared/shared.module';
 import { MultiSelectModule } from 'primeng/multiselect';

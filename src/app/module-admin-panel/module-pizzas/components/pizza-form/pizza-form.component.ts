@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
 export class PizzaFormComponent implements OnInit {
   @Input() loading: boolean;
   @Input() pizza: Pizza;
-  @Output() save = new EventEmitter<any>();
+  @Output() save = new EventEmitter<Pizza>();
   form: FormGroup;
   ingredients$: Observable<SelectItem[]>;
   categories$: Observable<SelectItem[]>;
@@ -51,7 +51,7 @@ export class PizzaFormComponent implements OnInit {
       ingredients: [pizza?.ingredients || [], [Validators.required]],
       weight: [pizza?.weight || { small: '', middle: '', big: '' }, []],
       price: [pizza?.price || { small: '', middle: '', big: '' }, []],
-      image: [null, []]
+      image: [pizza.image || null, []]
     });
   }
 

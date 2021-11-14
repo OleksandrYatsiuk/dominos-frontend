@@ -49,9 +49,10 @@
 
 <p-paginator
   class="d-paginator"
-  [totalRecords]="totalPages"
+  *ngIf="pizzasWithPagination$ | async as pagination"
+  [totalRecords]="pagination.total"
   [pageLinkSize]="5"
   [alwaysShow]="false"
-  [rows]="rows"
+  [rows]="pagination.limit"
   (onPageChange)="onPageChange($event.page)"
 ></p-paginator>

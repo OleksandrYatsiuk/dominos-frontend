@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { PizzaDataService } from '../../../core/services/pizza-data.service';
 import { pluck, tap } from 'rxjs/operators';
-import { PromotionDataService } from '@core/services/promotion-data.service';
 import { Observable } from 'rxjs';
-import { ModelPromotion } from '@core/models/promotions/promotions.model';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 import { Pizza } from '@core/models/pizza.interface';
 import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
+import { Select, Store } from '@ngxs/store';
+import { FetchAllPizzas } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.actions';
+import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
 
 @Component({
   selector: 'app-main',
@@ -16,37 +15,11 @@ import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.
 })
 export class MainComponent implements OnInit {
 
-  defaultImage = '/assets/img/stub-image.png';
-  promos$: Observable<ModelPromotionPublic[]>;
-  pizzas$: Observable<any[]>;
-  categories: { category: string; items: any; }[];
+  @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>;
 
-  constructor(
-    private _ps: PizzaDataService) { }
+  constructor(private _store: Store) { }
 
   ngOnInit(): void {
-    this.pizzas$ = this.queryPizzaList();
-  }
-
-
-  private queryPizzaList(): Observable<Pizza[]> {
-    return this._ps.getPizzas({ page: 1, limit: 20 })
-      .pipe(pluck('result'),
-        tap((pizzas) => {
-          this.categories = [
-            {
-              category: 'Краща Ціна',
-              items: pizzas.filter(el => el.category === 'Краща Ціна')
-            },
-            {
-              category: 'Класичні',
-              items: pizzas.filter(el => el.category === 'Класичні')
-            },
-            {
-              category: 'Фірмові',
-              items: pizzas.filter(el => el.category === 'Фірмові')
-            },
-          ];
-        }));
+    this._store.dispatch(new FetchAllPizzas({ page: 1, limit: 20 }))
   }
 }
