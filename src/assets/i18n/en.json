@@ -48,7 +48,8 @@
     "category": "Category",
     "ingredients": "Ingredients",
     "weight": "Weight",
-    "price": "Price"
+    "price": "Price",
+    "size": "Size"
   },
   "validation": {
     "required": "Field \"{{field}}\" cannot be blank."
@@ -67,5 +68,12 @@
   "saveLabel": "Save",
   "cancelLabel": "Cancel",
   "deleteLabel": "Delete",
-  "confirmLabel": "Confirm"
+  "confirmLabel": "Confirm",
+  "categoriesLabels": {
+    "drinks": {
+      "1": "Beer",
+      "2": "Water",
+      "3": "Juice"
+    }
+  }
 }

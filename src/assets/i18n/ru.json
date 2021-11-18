@@ -48,7 +48,8 @@
     "category": "Категория",
     "ingredients": "Ингредиенты",
     "weight": "Вес",
-    "price": "Цена"
+    "price": "Цена",
+    "size": "Размер"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -136,5 +137,12 @@
   "saveLabel": "Сохранить",
   "cancelLabel": "Отменить",
   "deleteLabel": "Удалить",
-  "confirmLabel": "Подтвердить"
+  "confirmLabel": "Подтвердить",
+  "categoriesLabels": {
+    "drinks": {
+      "1": "Пиво",
+      "2": "Вода",
+      "3": "Сок"
+    }
+  }
 }

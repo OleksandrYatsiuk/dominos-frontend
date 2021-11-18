@@ -1,0 +1,37 @@
+<section class="drink">
+  <div class="drink__form" [formGroup]="form">
+    <div class="form-control">
+      <span class="form-control__label">{{ "labels.size" | translate }}</span>
+      <app-file-uploader formControlName="image"></app-file-uploader>
+    </div>
+    <div class="form-control">
+      <span class="form-control__label">{{ "labels.name" | translate }}</span>
+      <d-multi-language-field formControlName="name"></d-multi-language-field>
+
+      <span class="form-control__label">{{
+        "labels.category" | translate
+      }}</span>
+      <p-dropdown
+        class="d-dropdown"
+        formControlName="category"
+        [options]="categories$ | async"
+      >
+        <ng-template let-item pTemplate="selectedItem">
+          {{ "categoriesLabels.drinks." + item.value | translate }}
+        </ng-template>
+        <ng-template let-item pTemplate="item">
+          {{ "categoriesLabels.drinks." + item.value | translate }}
+        </ng-template>
+      </p-dropdown>
+
+      <span class="form-control__label">{{ "labels.price" | translate }}</span>
+      <d-multi-language-field formControlName="price"></d-multi-language-field>
+
+      <span class="form-control__label">{{ "labels.size" | translate }}</span>
+      <d-multi-language-field formControlName="size"></d-multi-language-field>
+    </div>
+  </div>
+  <div class="drink__buttons">
+    <button class="btn btn-primary" (click)="onSave()">Save</button>
+  </div>
+</section>

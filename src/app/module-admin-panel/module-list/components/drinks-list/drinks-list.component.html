@@ -6,7 +6,7 @@
           {{ col.header }}
         </th>
         <th class="cell-actions">
-          <span class="action">Add New</span>
+          <span class="action" (click)="onCreateDrink()">Add New</span>
         </th>
       </tr>
     </ng-template>
@@ -20,16 +20,27 @@
         <td *ngFor="let col of columns" [ngSwitch]="col.field">
           <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
           <div *ngSwitchCase="'name'">{{ drink[col.field] | lang }}</div>
-          <div *ngSwitchCase="'price'">{{ drink[col.field] | json }}</div>
-          <div *ngSwitchCase="'size'">{{ drink[col.field] | json }}</div>
-          <div *ngSwitchCase="'category'">{{ drink[col.field] }}</div>
+          <div *ngSwitchCase="'price'">{{ drink[col.field]["small"] }}</div>
+          <div *ngSwitchCase="'size'">{{ drink[col.field]["small"] }}</div>
+          <div *ngSwitchCase="'category'">
+            {{ "categoriesLabels.drinks." + drink[col.field] | translate }}
+          </div>
+          <div *ngSwitchCase="'image'">
+            <img
+              style="width:100%"
+              *ngIf="drink[col.field]; else empty"
+              [lazyLoad]="drink[col.field]"
+              [alt]="drink.name | lang"
+            />
+            <ng-template #empty>-</ng-template>
+          </div>
 
           <div *ngSwitchDefault>{{ drink[col.field] }}</div>
         </td>
         <td class="cell-actions">
           <div class="cell-options-icons">
             <i class="icon icon--trash" (click)="onDelete(drink)"></i>
-            <i class="icon icon--edit"></i>
+            <i class="icon icon--edit" (click)="onEditDrink(drink)"></i>
           </div>
         </td>
       </tr>

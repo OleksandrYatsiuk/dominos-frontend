@@ -1,0 +1,15 @@
+@import "../../../../../styles/helpers/index";
+.drink {
+  background-color: $c-white;
+  width: 60vw;
+  height: 70vh;
+  padding: 1rem;
+  &__form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  &__buttons {
+    text-align: center;
+    margin: 0.5rem;
+  }
+}

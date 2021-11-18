@@ -4,7 +4,7 @@ import { CreateDrinkBody, Drink, UpdateDrinkBody } from '@core/models/drinks/dri
 import { IQueryParams } from '@core/models/pagination-query';
 import { IPaginationResponse } from '@core/models/response.interface';
 import { environment } from '@environments/environment';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { transformToFormData } from 'src/utils/form-data';
 
 @Injectable({

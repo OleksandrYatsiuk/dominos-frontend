@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-drinks-list',
@@ -8,9 +9,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class DrinksListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private _dialogService: DialogService) { }
 
   ngOnInit(): void {
+  }
+
+  onCreateDrink(): void {
+
   }
 
 }
