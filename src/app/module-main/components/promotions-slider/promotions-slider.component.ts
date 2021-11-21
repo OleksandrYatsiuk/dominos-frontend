@@ -4,6 +4,9 @@ import { pluck } from 'rxjs';
 import { Observable } from 'rxjs';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
+import { Select, Store } from '@ngxs/store';
+import { PromotionsState } from 'src/app/module-promotions/promotions/promotions.state';
+import { FetchAllPromotions } from 'src/app/module-promotions/promotions/promotions.actions';
 
 @Component({
   selector: 'app-promotions-slider',
@@ -14,15 +17,15 @@ import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.
 export class PromotionsSliderComponent implements OnInit {
 
   defaultImage = '/assets/img/stub-image.png';
-  promos$: Observable<ModelPromotionPublic[]>;
+  @Select(PromotionsState.promotions) promos$: Observable<ModelPromotionPublic[]>;
   config: SwiperConfigInterface = {
     slidesPerView: 1,
     observer: true
   }
-  constructor(private _ps: PromotionDataService) { }
+  constructor(private _store: Store) { }
 
   ngOnInit(): void {
-    this.promos$ = this._ps.queryPromotionPublicList().pipe(pluck('result'));
+    this._store.dispatch(new FetchAllPromotions());
   }
 
 }

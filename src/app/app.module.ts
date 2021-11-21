@@ -33,6 +33,7 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { PromotionsState } from './module-promotions/promotions/promotions.state';
 import { BasketState } from '@core/basket/basket.state';
+import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 
 
 registerLocaleData(uk);
@@ -57,7 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     CalendarModule,
     ConfirmDialogModule,
-    NgxsModule.forRoot([DrinksState, PromotionsState, BasketState], {
+    NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

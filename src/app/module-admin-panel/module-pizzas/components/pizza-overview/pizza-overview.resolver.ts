@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { PizzaDataService } from '../../../../core/services/pizza-data.service';
 import { pluck } from 'rxjs/operators';
+import { Store } from '@ngxs/store';
+import { GetPizzaItem } from '../../pizzas/pizzas.actions';
 
 @Injectable()
 export class PizzaOverviewResolver implements Resolve<any> {
-  constructor(private http: PizzaDataService) { }
+  constructor(private _store: Store) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> {
-    return this.http.getPizza(route.params.id).pipe(pluck('result'));
+    route
+    return this._store.dispatch(new GetPizzaItem(route.params.id)).pipe(pluck('pizzas.pizza'));
   }
 }

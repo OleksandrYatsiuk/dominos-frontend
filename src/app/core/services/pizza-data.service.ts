@@ -10,11 +10,9 @@ import { transformToFormData } from 'src/utils/form-data';
 @Injectable({ providedIn: 'root' })
 
 export class PizzaDataService {
-  private _apiUrl = environment.serverUrl;
-  constructor(
-    private http: HttpClient,
-  ) { }
-  private path = `${this._apiUrl}/pizza`;
+
+  constructor(private http: HttpClient) { }
+
   private pathNest = `${environment.nestServerUrl}/pizzas`;
 
   getPizzas(options?: { page?: number, limit?: number, sort?: keyof Pizza }): Observable<IPaginationResponse<Pizza[]>> {
@@ -25,8 +23,8 @@ export class PizzaDataService {
     return this.http.get<Pizza>(`${this.pathNest}/${id}`);
   }
 
-  remove(id: string): Observable<null> {
-    return this.http.delete<null>(`${this.path}/${id}`);
+  remove(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.pathNest}/${id}`);
   }
 
   create(data: Pizza): Observable<Pizza> {
