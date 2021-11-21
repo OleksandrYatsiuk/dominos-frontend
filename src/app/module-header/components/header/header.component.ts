@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { BasketService } from '../../../core/services/basket.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
 import { CAN_MANAGE_PIZZA } from './header-permissions';
 import { UserDataService } from 'src/app/module-auth/user-data.service';
-import { isPlatformBrowser, registerLocaleData } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -13,6 +12,9 @@ import { LoginComponent } from 'src/app/module-shared/components/login/login.com
 import { ELanguage } from '@core/models/language';
 import { TranslateService } from '@ngx-translate/core';
 import { LangService } from '@core/services/lang.service';
+import { Select, Store } from '@ngxs/store';
+import { FetchBasketFromStorage } from '@core/basket/basket.actions';
+import { BasketState } from '@core/basket/basket.state';
 
 @Component({
   selector: 'app-header',
@@ -21,7 +23,10 @@ import { LangService } from '@core/services/lang.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  basket$: Observable<any>;
+
+  @Select(BasketState.generalSumma) summa$: Observable<string>;
+  @Select(BasketState.generalCount) count$: Observable<number>;
+  generalCount
   currentUser$: Observable<any>;
   canManagePizza = CAN_MANAGE_PIZZA;
   isBrowser: boolean;
@@ -36,13 +41,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ];
   constructor(
     @Inject(PLATFORM_ID) private _pid: any,
-    private basketService: BasketService,
     private geolocation: GeolocationService,
     private userService: UserService,
     private http: UserDataService,
     private router: Router,
     private _ds: DialogService,
     private _ts: TranslateService,
+    private _store: Store,
     private _ls: LangService
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
@@ -54,12 +59,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+
+    this._store.dispatch(new FetchBasketFromStorage());
+
     this.lang = this._ls.getLang();
     this._ts.setDefaultLang(this._ls.getLang());
     this.userService.setCurrentUser();
     this.currentUser$ = this.userService.currentUser;
-    this.basket$ = this.basketService.basket;
-    this.basketService.getStorage();
     this.geolocation.askGeoLocation();
 
     this.items = [

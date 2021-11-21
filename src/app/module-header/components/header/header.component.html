@@ -55,21 +55,20 @@
           "pageTitles.promotions" | translate
         }}</span>
         <span routerLink="/pizzas">{{ "pageTitles.pizzas" | translate }}</span>
-        <span routerLink="/">{{ "pageTitles.drinks" | translate }}</span>
+        <span routerLink="/drinks">{{ "pageTitles.drinks" | translate }}</span>
         <span routerLink="/">{{ "pageTitles.sides" | translate }}</span>
         <span routerLink="/">{{ "pageTitles.desserts" | translate }}</span>
       </div>
-      <div
-        class="market"
-        [ngClass]="{ disabled: basket.count === 0 }"
-        *ngIf="basket$ | async as basket"
-      >
-        <div class="count">{{ basket.count }}</div>
-        <div class="total-price" *ngIf="basket.amount > 0">
-          <span>{{ basket.amount }} {{ "uah" | translate | uppercase }} </span>
+
+      <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
+        <div class="count" *ngIf="count$ | async as count">{{ count }}</div>
+        <div class="total-price" *ngIf="summa$ | async as summa">
+          <span>{{ summa }} {{ "uah" | translate | uppercase }} </span>
         </div>
         <a routerLink="/delivery/shipping">
-          <button class="basket-button">{{ "orderLabel" | translate }}</button>
+          <button class="basket-button">
+            {{ "orderLabel" | translate }}
+          </button>
         </a>
       </div>
     </div>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { DrinksCategory } from '@core/enums/drinks-categories.enum';
-import { Drink } from '@core/models/drink/drink.interface';
+import { Drink } from '@core/models/drinks/drinks.model';
 import { DrinksService } from '@core/services/drinks/drinks.service';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { SelectItem } from 'primeng/api';
-import { pluck, tap } from 'rxjs';
+import { mergeMap, of, pluck, tap } from 'rxjs';
 import { AddDrink, DeleteDrink, EditDrink, FetchAllDrinks } from './drinks.actions';
 
 export interface DrinksStateModel {
@@ -41,26 +41,20 @@ export class DrinksState {
   getDrinks({ getState, setState }: StateContext<DrinksStateModel>, { payload }: FetchAllDrinks) {
     return this._drinksService.queryDrinkList(payload).pipe(pluck('result'), tap((drinks) => {
       const state = getState();
-      setState({
-        ...state,
-        drinks: drinks as Drink[],
-      });
+      setState({ ...state, drinks });
     }));
   }
 
   @Action(AddDrink)
   createDrink(ctx: StateContext<DrinksStateModel>, { payload }: AddDrink) {
-
-    return this._drinksService.queryDrinkCreate(payload).pipe(tap(drink => {
-      ctx.dispatch(new FetchAllDrinks());
-    }))
+    return this._drinksService.queryDrinkCreate(payload);
   }
 
   @Action(EditDrink)
   editDrink(ctx: StateContext<DrinksStateModel>, { payload }: EditDrink) {
-    return this._drinksService.queryDrinkUpdate(payload.id, payload).pipe(tap(drink => {
-      ctx.dispatch(new FetchAllDrinks());
-    }))
+    return this._drinksService.queryDrinkUpdate(payload.id, payload).pipe(
+      mergeMap(drink => payload.file instanceof File ?
+        this._drinksService.queryDrinkImageUpload(payload.id, payload.file) : of(drink)));
   }
 
   @Action(DeleteDrink)

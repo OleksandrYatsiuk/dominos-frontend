@@ -5,6 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DrinkCardComponent } from './components/drink-card/drink-card.component';
 import { SharedModule } from '@shared/shared.module';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { BasketInModule } from '@shared/components/basket-in/basket-in/basket-in.module';
 
 const routes: Routes = [{ path: '', component: DrinksComponent }];
 
@@ -15,7 +17,9 @@ const routes: Routes = [{ path: '', component: DrinksComponent }];
     CommonModule,
     FormsModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    SelectButtonModule,
+    BasketInModule
   ]
 })
 export class DrinksModule { }

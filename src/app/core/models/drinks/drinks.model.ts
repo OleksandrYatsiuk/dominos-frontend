@@ -24,8 +24,10 @@ export interface CreateDrinkBody extends Omit<Drink, 'id' | 'createdAt' | 'image
     image: File;
 }
 
-export interface UpdateDrinkBody extends Partial<CreateDrinkBody> {
+export interface UpdateDrinkBody extends Partial<Omit<CreateDrinkBody, 'image'>> {
     id: string;
+    image: string;
+    file: File;
 }
 
 export interface DrinksSearchQueryParams extends IQueryParams<Drink> { }

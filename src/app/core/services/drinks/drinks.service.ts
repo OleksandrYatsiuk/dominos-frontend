@@ -32,6 +32,11 @@ export class DrinksService {
     return this._http.post<Drink>(`${this._apiUrl}/drinks`, formData);
   }
 
+  queryDrinkImageUpload(id: Drink['id'], file: File): Observable<Drink> {
+    const formData = transformToFormData({ file });
+    return this._http.post<Drink>(`${this._apiUrl}/drinks/${id}/upload`, formData);
+  }
+
   queryDrinkUpdate(id: Drink['id'], data: UpdateDrinkBody): Observable<Drink> {
     return this._http.patch<Drink>(`${this._apiUrl}/drinks/${id}`, data);
   }

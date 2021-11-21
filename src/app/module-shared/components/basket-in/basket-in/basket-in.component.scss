@@ -1,0 +1,40 @@
+@import "../../../../../styles/helpers/index";
+
+.basket-in {
+  display: flex;
+  background-color: $c-red;
+  border-radius: 2rem;
+  transition: $transition;
+
+  &--filled {
+    transition: $transition;
+    background-color: $c-gray-1;
+
+    .button {
+      flex: 0.5;
+    }
+  }
+
+  .button {
+    padding: 0.75rem 0.5rem;
+    flex: 1;
+    border-radius: inherit;
+    background-color: $c-red;
+    border: 1px solid $c-red;
+
+    &__text {
+      @include genText(1rem, 1rem, 600, $c-white);
+      &--big {
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    @include genText(1rem, 1rem, 600);
+  }
+}

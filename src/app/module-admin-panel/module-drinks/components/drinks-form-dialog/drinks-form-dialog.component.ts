@@ -33,19 +33,21 @@ export class DrinksFormDialogComponent implements OnInit {
   onSave(): void {
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      const formValue = this.form.getRawValue();
+      const file = formValue.image;
       this._store.dispatch(this.drink ?
-        new EditDrink(this.form.getRawValue()) : new AddDrink(this.form.getRawValue()))
+        new EditDrink({ ...formValue, image: file instanceof File && this.drink.image ? this.drink.image : null, file }) : new AddDrink({ ...formValue }))
         .subscribe(() => this._ref.close(true));
     }
   }
 
   private _initForm(drink: Drink): void {
     this.form = this._formBuilder.group({
-      id: [drink.id],
+      id: [drink?.id],
       name: [drink?.name, []],
       category: [drink?.category || DrinksCategory.BEER, []],
-      price: [drink?.price, []],
-      size: [drink?.size, []],
+      price: [drink?.price || { small: null, middle: null, big: null }, []],
+      size: [drink?.size || { small: null, middle: null, big: null }, []],
       image: [drink?.image, []]
     })
   }

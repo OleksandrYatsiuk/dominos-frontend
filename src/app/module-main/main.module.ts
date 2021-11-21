@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { PromotionsSliderComponent } from './components/promotions-slider/promotions-slider.component';
 import { LangPipe } from '@shared/pipe/lang.pipe';
+import { BasketInModule } from '@shared/components/basket-in/basket-in/basket-in.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
     ReactiveFormsModule,
     LazyLoadImageModule,
     SwiperModule,
-    RouterModule
+    RouterModule,
+    BasketInModule
   ],
   exports: [
     MainComponent,

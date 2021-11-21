@@ -9,7 +9,6 @@ import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MapComponent } from '../map/map.component';
-import { BasketService } from '@core/services/basket.service';
 import { IShop } from '@core/models/shop.interface';
 import { ShopService } from '@core/services/shop.service';
 import { Observable, pluck } from 'rxjs';
@@ -38,7 +37,6 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private _ms: MessageService,
     private rest: DeliveryDataService,
-    private basketService: BasketService,
     private router: Router,
     private configService: ApiConfigService,
     private _ds: DialogService,
@@ -54,9 +52,6 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.shops$ = this._ss.queryShopsList();
-
-    this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
-    this.pizzasIds = this.basketService._storage.map(el => el.id)
 
     this.initForm();
     this.userService.currentUser.subscribe(user => {
@@ -114,7 +109,6 @@ export class CarryoutComponent implements OnInit, OnDestroy {
         .subscribe(res => {
           this.loading = !this.loading;
           this.router.navigate(['/']);
-          this.basketService.clear();
           this._ms.add({ severity: 'success', detail: 'Your order has been accepted!' });
         }, (e) => {
           this.loading = !this.loading;

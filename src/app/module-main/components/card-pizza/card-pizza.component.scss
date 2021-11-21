@@ -63,7 +63,7 @@
   }
 }
 .price {
-  width: 50%;
+  flex: 1;
   text-align: center;
   margin: auto;
 }
@@ -139,5 +139,37 @@
     margin-bottom: 0px;
     padding: 8px;
     font-size: 22px;
+  }
+}
+
+.sizes {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+
+  &__item {
+    background-color: $c-gray-1;
+    flex: 1;
+    text-align: center;
+    transition: $transition;
+    cursor: pointer;
+    padding: 0.2rem;
+
+    &:first-of-type {
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+    }
+    &:last-of-type {
+      border-top-right-radius: inherit;
+      border-bottom-right-radius: inherit;
+    }
+
+    &--selected {
+      transition: $transition;
+      background: $c-gray;
+      color: $c-white;
+    }
   }
 }

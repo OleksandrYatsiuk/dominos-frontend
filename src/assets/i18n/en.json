@@ -75,5 +75,10 @@
       "2": "Water",
       "3": "Juice"
     }
+  },
+  "sizesLabels": {
+    "small": "Small",
+    "middle": "Middle",
+    "big": "Big"
   }
 }
