@@ -1,8 +1,4 @@
 import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-<<<<<<< HEAD
-=======
-import { Drink } from '@core/models/drink/drink.interface';
->>>>>>> master
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AddDrink, DeleteDrink, FetchAllDrinks } from 'src/app/module-drinks/drinks.actions';
