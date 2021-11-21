@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
+import { TableItem } from '@core/models/table.interface';
 import { Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
@@ -18,7 +19,7 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
 })
 export class PizzaListComponent implements OnInit {
   currentPage = 1;
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
 
   @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
   @Select(PizzasState.pizzasWithPagination) pizzasWithPagination$: Observable<IPaginationResponse<Pizza[]>>

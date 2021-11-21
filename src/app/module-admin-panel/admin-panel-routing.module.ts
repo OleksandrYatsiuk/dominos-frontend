@@ -13,7 +13,11 @@ const routes: Routes = [
   {
     path: 'promotions',
     loadChildren: async () => ((await import('./module-promotions/promotions.module')).PromotionsModule)
-  }
+  },
+  {
+    path: 'drinks',
+    loadChildren: async () => ((await import('./module-drinks/drinks.module')).DrinksModule)
+  },
 ];
 
 @NgModule({

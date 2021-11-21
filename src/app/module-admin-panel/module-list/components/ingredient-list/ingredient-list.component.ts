@@ -4,6 +4,7 @@ import { ConfirmService } from '@core/services/confirm.service';
 import { IDictionary, IMultiLanguageDictionary } from '@core/models/dictionary';
 import { Observable, pluck, tap } from 'rxjs';
 import { IngredientsService } from '@core/services/ingredients.service';
+import { TableItem } from '@core/models/table.interface';
 
 @Component({
   selector: 'app-ingredient-list',
@@ -17,7 +18,7 @@ export class IngredientListComponent implements OnInit {
   totalRecords: number;
   rows = 10;
   pageSizeOptions: number[] = [5, 10, 20];
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
 
   constructor(
     private _is: IngredientsService,

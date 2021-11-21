@@ -4,6 +4,7 @@ import { ConfirmService } from '@core/services/confirm.service';
 import { Observable, pluck, tap } from 'rxjs';
 import { Delivery } from 'src/app/module-delivery/delivery.model';
 import { MessageService } from 'primeng/api';
+import { TableItem } from '@core/models/table.interface';
 
 @Component({
   selector: 'app-delivery-list',
@@ -16,7 +17,7 @@ export class DeliveryListComponent implements OnInit {
   currentPage = 1
   totalPages = 100;
   rows = 10;
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
 
   constructor(
     private _ds: DeliveryDataService,

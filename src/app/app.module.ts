@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { BasketService } from './core/services/basket.service';
 import { UserService } from './core/services/user.service';
 import { GeolocationService } from './core/services/geolocation.service';
 import { ApiConfigService } from './core/services/api-config.service';
@@ -33,6 +32,7 @@ import { DrinksState } from './module-drinks/drinks.state';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { PromotionsState } from './module-promotions/promotions/promotions.state';
+import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 
 
@@ -58,7 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     CalendarModule,
     ConfirmDialogModule,
-    NgxsModule.forRoot([DrinksState, PromotionsState, PizzasState], {
+    NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
@@ -71,7 +71,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [BasketService, UserService, GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
+  providers: [UserService, GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),

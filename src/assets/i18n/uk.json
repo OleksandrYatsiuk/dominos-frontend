@@ -48,7 +48,8 @@
     "category": "Категорія",
     "ingredients": "Інгредієнти",
     "weight": "Вага",
-    "price": "Ціна"
+    "price": "Ціна",
+    "size": "Розмір"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -136,5 +137,17 @@
   "saveLabel": "Зберегти",
   "cancelLabel": "Відмінити",
   "deleteLabel": "Видалити",
-  "confirmLabel": "Підтвердити"
+  "confirmLabel": "Підтвердити",
+  "categoriesLabels": {
+    "drinks": {
+      "1": "Пиво",
+      "2": "Вода",
+      "3": "Сік"
+    }
+  },
+  "sizesLabels": {
+    "small": "Маленька",
+    "middle": "Середня",
+    "big": "Велика"
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, Input, Output } from "@angular/core";
-import { BasketService, PizzaItem } from "../../../core/services/basket.service";
+import { Store } from "@ngxs/store";
 
 @Component({
   selector: "app-basket-card-item",
@@ -11,15 +11,15 @@ export class BasketCardItemComponent {
   @Output() count;
 
   constructor(
-    private basketService: BasketService,
+    private _store: Store,
   ) {
   }
 
-  addToCard(item: PizzaItem) {
-    this.basketService.add({ id: item.id, type: item.type, price: item.price });
+  addToCard(item: any) {
+    // this.basketService.add({ id: item.id, type: item.type, price: item.price });
   }
 
-  removeFromCard(item: PizzaItem) {
-    this.basketService.remove(item);
+  removeFromCard(item: any) {
+    // this.basketService.remove(item);
   }
 }

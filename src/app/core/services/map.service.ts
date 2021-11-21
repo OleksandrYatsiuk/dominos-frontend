@@ -1,6 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { ICoords } from '@core/models/shop.interface';
 // use only for interfaces
 import * as L from 'leaflet';
 import { LangService } from './lang.service';

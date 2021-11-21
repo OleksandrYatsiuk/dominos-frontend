@@ -1,14 +1,13 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { AddPizzaToBasket, DeletePizzaFromBasket } from '@core/basket/basket.actions';
+import { BasketItem, BasketState } from '@core/basket/basket.state';
 import { Pizza } from '@core/models/pizza.interface';
+import { Size } from '@core/models/size.interface';
+import { TranslateService } from '@ngx-translate/core';
+import { Store } from '@ngxs/store';
 import { SelectItem } from 'primeng/api';
-import { BasketService, PizzaItem } from '../../../core/services/basket.service';
+import { Observable } from 'rxjs';
 
-export enum EPizzaSizes {
-  SMALL = 1,
-  MEDIUM = 2,
-  BIG = 3
-}
 
 @Component({
   selector: 'app-card-pizza',
@@ -20,24 +19,23 @@ export enum EPizzaSizes {
 export class CardPizzaComponent implements OnInit {
 
   @Input() item: Pizza;
-
   public count = 0;
   public ingredientsList = [];
   public price: number;
   public size: number;
-  public pizzaForm: FormGroup;
-  sizesEnum = EPizzaSizes;
-  sizes: SelectItem<{ price: number; weight: number, type: EPizzaSizes }>[] = [];
   options: SelectItem[] = [];
   defaultImage = '/assets/img/stub-image.png';
+  pizzas$: Observable<BasketItem[]>;
+  selectedSize: string = 'small';
   constructor(
-    private fb: FormBuilder,
-    private basketService: BasketService,
+    private _store: Store,
+    private _translateService: TranslateService
   ) {
   }
 
   ngOnInit() {
 
+    this.pizzas$ = this._store.select<BasketItem[]>(BasketState.selectedPizza(this.item.id));
 
     this.options = [
       { label: 'Стандарт', value: 'Стандарт' },
@@ -46,75 +44,27 @@ export class CardPizzaComponent implements OnInit {
       { label: 'Борт Хот-Дог', value: 'Борт Хот-Дог' },
     ]
 
-    this.sizes = [
-      {
-        label: 'Маленька',
-        value: {
-          type: EPizzaSizes.SMALL,
-          price: this.item.price.small,
-          weight: this.item.weight.small
-        }
-      },
-      {
-        label: 'Середня',
-        value: {
-          type: EPizzaSizes.MEDIUM,
-          price: this.item.price.middle,
-          weight: this.item.weight.middle
-        }
-      },
-      {
-        label: 'Велика',
-        value: {
-          type: EPizzaSizes.BIG,
-          price: this.item.price.big,
-          weight: this.item.weight.big
 
-        }
-      },
-    ];
-
-    this.pizzaForm = this.fb.group({
-      options: ['Стандарт', []],
-      size: [this.sizes[0].value, []]
-    });
-
-
-    this.onChanges();
-
-    this.updatePizzaSizeCount(this.pizzaForm.controls.size?.value)
   }
 
-  private updatePizzaSizeCount({ type }: PizzaItem) {
-    const storage: PizzaItem[] = this.basketService.getStorage();
-    const result = storage.find(p => this.item.id === p.id && type === p?.type);
-    this.count = result?.count || 0;
+
+  convertToArray(size: Size): SelectItem[] {
+    const sizes = Object.entries(size)
+      .filter(([key, value]) => value)
+      .map(([key, value]) => ({ value: key, label: this._translateService.instant(`sizesLabels.${key}`) }));
+    if (!this.selectedSize && sizes.length > 0) {
+      this.selectedSize = sizes[0].value;
+    }
+    return sizes;
   }
 
-  onChanges() {
-    this.pizzaForm.valueChanges.subscribe(val => {
-      val.size === 'Маленька' ? this.price = this.item.price.small : false;
-      val.size === 'Середня' ? this.price = this.item.price.middle : false;
-      val.size === 'Велика' ? this.price = this.item.price.big : false;
-      this.updatePizzaSizeCount(val.size)
-    });
-  }
+  onManageBasket(direction: number): void {
+    if (direction === 1) {
+      this._store.dispatch(new AddPizzaToBasket(this.item, this.selectedSize));
+    } else {
+      this._store.dispatch(new DeletePizzaFromBasket(this.item, this.selectedSize));
+    }
 
-  addToCard(item: PizzaItem): void {
-    this.basketService.add(item);
-    this.updatePizzaSizeCount(this.sizeValue);
-  }
-
-  removeFromCard(item: PizzaItem): void {
-    this.basketService.remove(item);
-    const storage: PizzaItem[] = this.basketService.getStorage();
-    const result = storage.find(p => item.id === p.id && this.sizeValue.type === p.type);
-
-    result?.count > 0 ? this.updatePizzaSizeCount(this.sizeValue) : this.count = 0
-  }
-
-  get sizeValue(): PizzaItem {
-    return { ...this.pizzaForm.get('size').value, id: this.item.id };
   }
 }
 
