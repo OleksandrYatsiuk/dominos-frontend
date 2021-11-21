@@ -1,0 +1,53 @@
+<div class="promotion__container" *ngIf="promotion$ | async as promo">
+  <div class="promotion__content">
+    <img
+      class="promotion__image"
+      [src]="promo.image"
+      alt="noopener noreferrer"
+    />
+    <div class="promotion__details" [ngSwitch]="promo.status">
+      <span
+        class="promotion__date promotion__date--active"
+        *ngSwitchCase="status.Active"
+      >
+        <ng-container *ngIf="promo.endedAt; else activeFrom">
+          Активна до {{ promo.endedAt | date: "dd.MM.yyyy" }}
+        </ng-container>
+        <ng-template #activeFrom>
+          Активна з {{ promo.startedAt | date: "dd.MM.yyyy" }}
+        </ng-template>
+      </span>
+      <span
+        class="promotion__date promotion__date--finished"
+        *ngSwitchCase="status.Finished"
+        >{{ "Завершена" }}</span
+      >
+      <span class="promotion__date" *ngSwitchCase="status.New">
+        Незабаром {{ promo.startedAt | date: "dd.MM.yyyy" }}
+      </span>
+
+      <h1 class="promotion__title">{{ promo.title }}</h1>
+
+      <article
+        class="promotion__description"
+        [innerHTML]="promo.description"
+      ></article>
+    </div>
+  </div>
+
+  <div class="promotion__other" *ngIf="promotions$ | async as promos">
+    <div class="promotion__other-label" *ngIf="promos.length > 0">
+      Інші акції:
+    </div>
+
+    <div class="swiper-container" [swiper]="config">
+      <div class="swiper-wrapper">
+        <app-card-news
+          class="swiper-slide"
+          *ngFor="let promo of promos"
+          [news]="promo"
+        ></app-card-news>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+@import "./helpers/index";
+
+.d-dialog {
+  &.p-dialog {
+    max-height: 100%;
+  }
+}
+
+.d-confirm-dialog {
+  &.p-dialog {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    background: $c-white;
+    width: 400px;
+    @include mobile {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .p-dialog-header-icons {
+      display: none;
+    }
+  }
+
+  .p-dialog-content {
+    margin: 10px 20px;
+    min-height: 100px;
+    justify-content: center;
+    .p-confirm-dialog-message {
+      @include genText(16px, 18px, 600, $c-black);
+    }
+  }
+  .p-dialog-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+
+    .p-confirm-dialog-accept,
+    .p-confirm-dialog-reject {
+      @include mobile {
+        max-width: 115px;
+        width: 100%;
+        min-width: unset;
+      }
+    }
+  }
+}
+.d-confirm-dialog--warning {
+  &.p-dialog {
+    border: 1px solid $c-yellow;
+  }
+}
+.d-confirm-dialog--dangerous {
+  &.p-dialog {
+    border: 1px solid $c-red;
+  }
+}

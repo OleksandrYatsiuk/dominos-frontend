@@ -1,0 +1,63 @@
+<div class="product-block">
+  <div class="item">
+    <div class="product-row">
+      <div class="product_image">
+        <img
+          class="photo"
+          [lazyLoad]="item.image"
+          [defaultImage]="defaultImage"
+          alt="Замовити піцу"
+        />
+        <div class="product_weight">
+          <span
+            >{{ item.weight[selectedSize]?.toLocaleString("uk") }}
+            {{ "gram" | translate }}</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="product-row">
+      <a [routerLink]="['/pizza/', item.id]" class="product_name">
+        Піца {{ item.name | lang }}</a
+      >
+    </div>
+    <div class="product-row">
+      <div class="product_ingredients">
+        <!-- <span *ngFor="let ingredient of item.ingredients; let last = last">
+          {{ ingredient }}<ng-container *ngIf="!last">, </ng-container>
+        </span> -->
+      </div>
+    </div>
+    <div class="sizes">
+      <div
+        class="sizes__item"
+        *ngFor="let size of convertToArray(item.weight)"
+        [ngClass]="{ 'sizes__item--selected': size.value === selectedSize }"
+        (click)="selectedSize = size.value"
+      >
+        {{ size.label }}
+      </div>
+    </div>
+
+    <div class="product-row product-row--centered">
+      <p-selectButton
+        [options]="options"
+        class="d-select-button d-select-button--separated"
+      ></p-selectButton>
+    </div>
+    <div class="product-row">
+      <div class="price">
+        <span>{{ item.price[selectedSize].toLocaleString("uk") }} </span>
+        <span class="currency"> {{ "uah" | translate }}</span>
+      </div>
+
+      <app-basket-in
+        style="flex:1"
+        [size]="selectedSize"
+        [productId]="item.id"
+        [products]="pizzas$ | async"
+        (onChange)="onManageBasket($event)"
+      ></app-basket-in>
+    </div>
+  </div>
+</div>

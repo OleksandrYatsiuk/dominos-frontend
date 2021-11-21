@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { RootService } from './root.service';
 import { pluck } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 export interface ConfigModel {
   params: {
@@ -17,42 +18,43 @@ export interface ConfigModel {
 @Injectable({ providedIn: 'root' })
 export class ApiConfigService {
 
-  private config: ConfigModel;
+  private _config: ConfigModel;
+  private _apiUrl = environment.serverUrl;
 
-  constructor(private http: RootService) { }
+  constructor(private http: HttpClient) { }
 
-  public getConfig(): ConfigModel {
-    return this.config;
+  getConfig(): ConfigModel {
+    return this._config;
   }
 
-  public loadApiConfig(): Promise<any> {
-    return this.http.get('/config')
+  loadApiConfig(): Promise<any> {
+    return this.http.get<any>(`${this._apiUrl}/config`)
       .pipe(pluck('result'))
       .toPromise()
-      .then(data => this.config = data);
+      .then(data => this._config = data);
   }
 
-  public getError(code: number, attrs: string | { [key: string]: string | number }): string {
-    if (!this.config.errors[code]) {
+  getError(code: number, attrs: string | { [key: string]: string | number }): string {
+    if (!this._config.errors[code]) {
       return 'Unknown error';
     }
 
     if (typeof attrs === 'string') {
-      return this.config.errors[code].replace(`{attr}`, `${attrs}`);
+      return this._config.errors[code].replace(`{attr}`, `${attrs}`);
     }
 
     return Object.entries(attrs).reduce(
       (message: string, [key, value]) => message.replace(`{${key}}`, `${value}`),
-      this.config.errors[code]
+      this._config.errors[code]
     );
   }
 
-  public getParameter<T = number | string>(name: string): T {
-    return this.config.params[name] as T;
+  getParameter<T = number | string>(name: string): T {
+    return this._config.params[name] as T;
   }
 
-  public getStatuses<T = string>(name: string): T {
-    return this.config.lists[name] as T;
+  getStatuses<T = string>(name: string): T {
+    return this._config.lists[name] as T;
   }
 
 }

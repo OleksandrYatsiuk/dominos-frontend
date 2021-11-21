@@ -1,0 +1,12 @@
+@import "../variables/colors";
+
+@mixin genText($fs: 16px, $lh: normal, $fw: normal, $c: $c-black) {
+  font-size: $fs;
+  line-height: $lh;
+  font-weight: $fw;
+  color: $c;
+}
+
+@mixin shadow($transparency: 0.5, $c: $c-black) {
+  box-shadow: 0 0 15px rgba($c, $transparency);
+}

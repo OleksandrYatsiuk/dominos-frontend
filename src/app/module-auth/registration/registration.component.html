@@ -1,0 +1,73 @@
+<div class="form">
+  <form [formGroup]="registerForm" (ngSubmit)="register()">
+    <app-form-item
+      [control]="registerForm.controls.fullName"
+      [field]="'labels.fullName' | translate"
+    >
+      <input
+        type="text"
+        class="form-control"
+        formControlName="fullName"
+        placeholder="Enter Full Name"
+      />
+    </app-form-item>
+
+    <app-form-item
+      [control]="registerForm.controls.username"
+      [field]="'labels.username' | translate"
+    >
+      <input
+        type="text"
+        class="form-control"
+        formControlName="username"
+        placeholder="Enter Username"
+      />
+    </app-form-item>
+
+    <app-form-item
+      [control]="registerForm.controls.email"
+      [field]="'labels.email' | translate"
+    >
+      <input
+        type="text"
+        class="form-control"
+        formControlName="email"
+        placeholder="Enter Email"
+      />
+    </app-form-item>
+
+    <app-form-item
+      [control]="registerForm.controls.password"
+      [field]="'labels.password' | translate"
+    >
+      <input
+        type="password"
+        class="form-control"
+        formControlName="password"
+        placeholder="Enter Password"
+      />
+    </app-form-item>
+
+    <app-form-item
+      [control]="registerForm.controls.confirmPassword"
+      [field]="'labels.confirmPassword' | translate"
+      [otherField]="'labels.password'"
+    >
+      <input
+        type="password"
+        class="form-control"
+        formControlName="confirmPassword"
+        placeholder="Enter Confirm Password"
+      />
+    </app-form-item>
+
+    <div class="confirm">
+      <app-spin-button
+        [loading]="spinRegister"
+        name="Register"
+      ></app-spin-button>
+    </div>
+  </form>
+</div>
+
+<p>Have account? Click <span (click)="openAuthModal()">Login</span></p>

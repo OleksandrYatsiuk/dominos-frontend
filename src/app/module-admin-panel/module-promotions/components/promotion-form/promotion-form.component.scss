@@ -1,0 +1,14 @@
+.form-grid__container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 5%;
+  
+    .form__control {
+      margin-bottom: 10px;
+    }
+  }
+  .promotion__options {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  

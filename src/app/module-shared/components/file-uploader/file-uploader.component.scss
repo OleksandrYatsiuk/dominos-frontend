@@ -1,0 +1,36 @@
+@import "../../../../styles/helpers/index";
+
+.file-uploader {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.image-container {
+  position: relative;
+  //   background-color: white;
+  border-radius: 15px;
+  padding: 10px;
+
+  img {
+    border-radius: 30px;
+    width: 100%;
+    object-fit: cover;
+    // max-width: 400px;
+  }
+}
+.image__close {
+  position: absolute;
+  transition: all 0.5s;
+  background-image: url("../../../../assets/icons/close.svg");
+  top: 40px;
+  right: 40px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+}
+.file-uploader:hover {
+  .image__close {
+    background-color: $c-white;
+  }
+}

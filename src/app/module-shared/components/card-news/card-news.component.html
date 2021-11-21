@@ -1,0 +1,39 @@
+<div class="news__container">
+  <a class="news__card" [routerLink]="['/promotions/', news.id]">
+    <img
+      class="card-news__image"
+      [lazyLoad]="news.image"
+      defaultImage="/assets/img/stub-image.png"
+      alt="noopener noreferrer"
+    />
+    <div class="card-news__content">
+      <div class="card-news__date-wrapper" [ngSwitch]="news.status">
+        <span
+          class="card-news__date card-news__date--active"
+          *ngSwitchCase="status.Active"
+        >
+          <ng-container *ngIf="news.endedAt; else activeFrom">
+            Активна до {{ news.endedAt | date: "dd.MM.yyyy" }}
+          </ng-container>
+          <ng-template #activeFrom>
+            Активна з {{ news.startedAt | date: "dd.MM.yyyy" }}
+          </ng-template>
+        </span>
+        <span class="card-news__date" *ngSwitchCase="status.New">
+          {{
+            news.startedAt
+              ? ("Незабаром: " + news.startedAt | date: "dd.MM.yyy")
+              : "Незабаром"
+          }}
+        </span>
+        <span class="card-news__date" *ngSwitchCase="status.Finished"
+          >Завершено
+        </span>
+      </div>
+      <div class="card-news__title">{{ news.name }}</div>
+      <div class="card-news__description">
+        <span [innerHtml]="news.description"></span>
+      </div>
+    </div>
+  </a>
+</div>

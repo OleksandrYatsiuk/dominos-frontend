@@ -1,4 +1,4 @@
-export interface BaseResponse<T = {}> {
+export interface BaseResponse<T = any> {
     code: number;
     status: string;
     message: string;
@@ -17,6 +17,13 @@ export interface PaginationResponse<T = {}> extends BaseResponse<T> {
     _meta: {
         pagination: Pagination;
     };
+}
+
+export interface IPaginationResponse<T = any[]> {
+    total: number;
+    limit: number;
+    page: number;
+    result: T;
 }
 
 

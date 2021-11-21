@@ -1,0 +1,40 @@
+<div class="drink">
+  <div class="drink__wrapper">
+    <div class="drink__image">
+      <img
+        class="preview"
+        [defaultImage]="'assets/img/stub-image.png'"
+        [lazyLoad]="drink.image"
+        [alt]="drink.name | lang"
+      />
+    </div>
+
+    <div class="drink__description">
+      <span class="text">{{ drink.name | lang }}</span>
+
+      <div class="sizes">
+        <div
+          class="sizes__item"
+          *ngFor="let size of convertToArray(drink.size)"
+          [ngClass]="{ 'sizes__item--selected': size.value === selectedSize }"
+          (click)="selectedSize = size.value"
+        >
+          {{ size.label }} мл
+        </div>
+      </div>
+
+      <div class="drink__footer">
+        <div class="drink__price">
+          {{ drink.price[selectedSize] }} {{ "uah" | translate }}
+        </div>
+
+        <app-basket-in
+          [size]="selectedSize"
+          [products]="drinks$ | async"
+          [productId]="drink.id"
+          (onChange)="onManageBasket($event)"
+        ></app-basket-in>
+      </div>
+    </div>
+  </div>
+</div>

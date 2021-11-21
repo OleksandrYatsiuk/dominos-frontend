@@ -1,0 +1,16 @@
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  transition: all 0.3s;
+  cursor: pointer;
+
+  &--trash {
+    background: url(/assets/icons/trash.svg);
+    background-repeat: no-repeat;
+  }
+  &--edit {
+    background: url(/assets/icons/edit.svg);
+    background-repeat: no-repeat;
+  }
+}

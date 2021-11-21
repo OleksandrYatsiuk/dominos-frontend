@@ -1,0 +1,58 @@
+<div class="shop-list">
+  <p-table [columns]="cols" [value]="shops$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/admin/shop/create">
+          <span class="action">Add New</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-shop
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'address'">{{ shop[col.field] | lang }}</div>
+          <div *ngSwitchCase="'createdAt'">
+            {{ shop[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'updatedAt'">
+            {{ shop[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'image'">
+            <img
+              class="photo"
+              style="width: 100%; height: auto;"
+              [lazyLoad]="shop[col.field]"
+              [defaultImage]="defaultImage"
+              alt="Замовити піцу"
+            />
+          </div>
+          <div *ngSwitchDefault>{{ shop[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
+            <i class="icon icon--trash" (click)="onDelete(shop)"></i>
+            <i class="icon icon--edit"></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-paginator
+  class="d-paginator"
+  [totalRecords]="totalRecords"
+  [pageLinkSize]="5"
+  [rows]="rows"
+  [alwaysShow]="false"
+  (onPageChange)="onPageChange($event.page)"
+></p-paginator>

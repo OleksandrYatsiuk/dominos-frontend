@@ -1,6 +1,16 @@
-<app-header></app-header>
+<app-header *ngIf="isBrowser"></app-header>
 <div class="dashboard">
   <router-outlet></router-outlet>
-  <app-notification ></app-notification>
+  <p-toast></p-toast>
+  <ng-container *ngIf="isBrowser">
+    <p-confirmDialog
+      key="dangerous"
+      styleClass="d-confirm-dialog d-confirm-dialog--dangerous"
+    ></p-confirmDialog>
+    <p-confirmDialog
+      key="warning"
+      styleClass="d-confirm-dialog d-confirm-dialog--warning"
+    ></p-confirmDialog>
+  </ng-container>
 </div>
 <app-footer></app-footer>

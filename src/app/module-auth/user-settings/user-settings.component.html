@@ -1,0 +1,56 @@
+<div class="profile_settings">
+
+  <div class="portfolio">
+        <app-file-uploader [src]="currentUser?.image" (upload)=showFile($event)></app-file-uploader>
+  </div>
+
+
+  <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+
+    <app-form-item [control]="updateProfileForm.controls.fullName" [field]="'labels.fullName'|translate">
+      <input type="text" class="form-control" formControlName="fullName" placeholder="Enter Full Name">
+    </app-form-item>
+
+    <app-form-item [control]="updateProfileForm.controls.username" [field]="'labels.username'|translate">
+      <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
+    </app-form-item>
+
+    <app-form-item [control]="updateProfileForm.controls.email" [field]="'labels.email'|translate">
+      <input type="text" class="form-control" formControlName="email" placeholder="Enter Email">
+    </app-form-item>
+
+    <app-form-item [control]="updateProfileForm.controls.birthday" [field]="'labels.birthday'|translate">
+      <p-calendar
+      formControlName="birthday"
+      class="d-calendar"
+      [showIcon]="true"
+      [firstDayOfWeek]="1"
+      dateFormat="dd-mm-yy"
+    ></p-calendar>
+    </app-form-item>
+
+    <app-form-item [control]="updateProfileForm.controls.phone" [field]="'labels.phone'|translate">
+      <input class="form-control" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel">
+    </app-form-item>
+
+    <app-spin-button [name]="'saveLabel'|translate" [loading]="spinEditProfile"></app-spin-button>
+  </form>
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+
+    <app-form-item [control]="changePasswordForm.controls.currentPassword" [field]="'labels.currentPassword'|translate">
+      <input class="form-control" placeholder="Enter Current Password" formControlName="currentPassword"
+        type="password">
+    </app-form-item>
+
+    <app-form-item [control]="changePasswordForm.controls.newPassword" [field]="'labels.newPassword'|translate">
+      <input class="form-control" placeholder="Enter New Password" formControlName="newPassword" type="new-password">
+    </app-form-item>
+
+    <app-form-item [control]="changePasswordForm.controls.confirmPassword" [field]="'labels.confirmPassword'|translate"
+      [otherField]="'labels.newPassword'|translate">
+      <input class="form-control" placeholder="Enter Confirm Password" formControlName="confirmPassword"
+        type="new-password">
+    </app-form-item>
+    <app-spin-button name="Submit" [loading]="spinChangePassword"></app-spin-button>
+  </form>
+</div>

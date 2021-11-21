@@ -17,7 +17,7 @@ export class ErrorHandlerService {
     this.msg.next(error);
   }
   public validation(error: ValidationResponse, form: FormGroup): void {
-    if (error && error.code === HttpStatusCode.UnprocessableEntity && Array.isArray(error.result)) {
+    if (error && error?.code === HttpStatusCode.UnprocessableEntity && Array.isArray(error.result)) {
       error.result.forEach(({ field, message }: ValidationError) => {
         const control = form.get(field);
         if (control) {

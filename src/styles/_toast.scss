@@ -1,0 +1,26 @@
+@import "../styles/helpers/index";
+
+.p-toast {
+  .p-toast-message {
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    color: $c-white;
+  }
+  .p-toast-icon-close {
+    background-color: transparent;
+    border: 0;
+  }
+  .p-toast-icon-close-icon {
+    width: 15px;
+    height: 15px;
+    background: url("/assets/icons/cancel-white.svg");
+  }
+
+  .p-toast-message-success {
+    background-color: $c-green;
+  }
+  .p-toast-message-error {
+    background-color: $c-red;
+  }
+}

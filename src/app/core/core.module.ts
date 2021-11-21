@@ -1,8 +1,8 @@
 import { NgModule, SkipSelf, Optional } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RootService } from './services/root.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
+import { LangInterceptor } from './interceptors/lang.interceptor';
 
 
 
@@ -10,7 +10,6 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
   declarations: [],
   imports: [CommonModule],
   providers: [
-    RootService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ParamInterceptor,
@@ -18,6 +17,11 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
     }, {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LangInterceptor,
       multi: true
     }
   ],

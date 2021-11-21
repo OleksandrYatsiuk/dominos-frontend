@@ -1,0 +1,50 @@
+@import "../../../../styles/helpers/index";
+
+.promotion {
+  &__container {
+    @include mobile-up {
+      padding: 20px;
+    }
+  }
+  &__content {
+    display: grid;
+    grid-template-columns: 100%;
+
+    @include mobile-up {
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 5%;
+    }
+  }
+  &__image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  &__details {
+    margin-top: 5px;
+  }
+  &__date {
+    border-radius: 7px;
+    padding: 3px;
+    @include genText(12px, 14px, normal);
+
+    &--active {
+      background-color: $c-yellow;
+    }
+  }
+  &__title {
+    @include genText(1.5rem, 1, bold);
+    margin: 1.5rem 0;
+  }
+  &__description {
+    line-height: 1.42;
+  }
+}
+
+.promotion__other {
+  margin-top: 50px;
+  &-label {
+    @include genText(2rem, 1, bold);
+    margin-bottom: 30px;
+  }
+}

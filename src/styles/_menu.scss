@@ -1,0 +1,14 @@
+@import "./helpers/index";
+
+.p-menu {
+  margin: 5px 5px 0 0;
+  background: $c-white;
+  padding: 5px;
+  .p-menuitem-link {
+    margin: 5px;
+  }
+  .p-menuitem-text {
+    @include genText(14px, 16px, normal, $c-black);
+    padding: 5px;
+  }
+}

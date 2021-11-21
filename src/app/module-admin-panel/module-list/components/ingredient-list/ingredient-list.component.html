@@ -1,0 +1,50 @@
+<div class="ingredients-list">
+  <p-table [columns]="cols" [value]="ingredients$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/ingredient/create">
+          <span class="action">Add New</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-ingredient
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'name'">{{ ingredient[col.field] | lang }}</div>
+
+          <div *ngSwitchCase="'createdAt'">
+            {{ ingredient[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchCase="'updatedAt'">
+            {{ ingredient[col.field] | date: "medium" }}
+          </div>
+          <div *ngSwitchDefault>{{ ingredient[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
+            <i class="icon icon--trash" (click)="onDelete(ingredient)"></i>
+            <i class="icon icon--edit"></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-paginator
+  class="d-paginator"
+  [totalRecords]="totalRecords"
+  [pageLinkSize]="3"
+  [alwaysShow]="false"
+  [rows]="rows"
+  (onPageChange)="onPageChange($event.page)"
+></p-paginator>

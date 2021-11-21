@@ -1,0 +1,223 @@
+<div class="content">
+  <form [formGroup]="formDelivery" (ngSubmit)="createDelivery()">
+    <h3>{{ "contactsLabel" | translate }}</h3>
+    <div class="row-item">
+      <app-form-item
+        [control]="formDelivery.controls.firstName"
+        [field]="'labels.firstName' | translate"
+      >
+        <input
+          class="form-control"
+          placeholder="Enter First Name"
+          formControlName="firstName"
+          type="text"
+        />
+      </app-form-item>
+
+      <app-form-item
+        [control]="formDelivery.controls.phone"
+        [field]="'labels.phone' | translate"
+      >
+        <input
+          class="form-control"
+          placeholder="Enter Phone"
+          formControlName="phone"
+          type="text"
+        />
+      </app-form-item>
+
+      <app-form-item
+        [control]="formDelivery.controls.email"
+        [field]="'labels.email' | translate"
+      >
+        <input
+          class="form-control"
+          placeholder="Enter Email"
+          formControlName="email"
+          type="email"
+        />
+      </app-form-item>
+    </div>
+    <h3>Address</h3>
+    <div formGroupName="address">
+      <div class="row-item">
+        <app-form-item
+          [control]="formDelivery.get('address')['controls'].street"
+          [field]="'labels.street' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter Street"
+            formControlName="street"
+            type="text"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('address')['controls'].house"
+          [field]="'labels.house' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter House"
+            formControlName="house"
+            type="text"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('address')['controls'].flat"
+          [field]="'labels.flat' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter Flat"
+            formControlName="flat"
+            type="text"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('address')['controls'].entrance"
+          [field]="'labels.entrance' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter Entrance"
+            formControlName="entrance"
+            type="text"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('address')['controls']?.code"
+          [field]="'labels.code' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter Code"
+            formControlName="code"
+            inputmode="numeric"
+            type="number"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('address')['controls'].floor"
+          [field]="'labels.floor' | translate"
+        >
+          <input
+            class="form-control"
+            placeholder="Enter Floor"
+            formControlName="floor"
+            inputmode="numeric"
+            type="number"
+          />
+        </app-form-item>
+      </div>
+    </div>
+
+    <div class="row-item">
+      <app-form-item
+        [control]="formDelivery.controls.comment"
+        [field]="'labels.comment' | translate"
+      >
+        <textarea
+          class="form-control"
+          formControlName="comment"
+          placeholder="Enter Comment"
+        ></textarea>
+      </app-form-item>
+    </div>
+
+    <h3>{{ "labels.date" | translate }}</h3>
+
+    <div formGroupName="date">
+      <div class="row-item">
+        <app-form-item
+          [control]="formDelivery.get('date')['controls'].date"
+          [field]="'labels.date' | translate"
+        >
+          <p-calendar
+            formControlName="date"
+            class="d-calendar"
+            [showIcon]="true"
+            [minDate]="minDate"
+            [firstDayOfWeek]="1"
+            dateFormat="dd-mm-yy"
+          ></p-calendar>
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('date')['controls'].time"
+          [field]="'labels.time' | translate"
+        >
+          <p-calendar
+            formControlName="time"
+            class="d-calendar"
+            [showIcon]="true"
+            [firstDayOfWeek]="1"
+            [minDate]="minDate"
+            [timeOnly]="true"
+            dateFormat="dd-mm-yy"
+          ></p-calendar>
+        </app-form-item>
+      </div>
+    </div>
+
+    <h3>{{ "paymentLabel" | translate }}</h3>
+
+    <div formGroupName="payment">
+      <div class="row-item">
+        <app-form-item
+          [control]="formDelivery.get('payment')['controls'].coupon"
+          [field]="'labels.coupon' | translate"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter Coupon"
+            formControlName="coupon"
+          />
+        </app-form-item>
+
+        <app-form-item
+          [control]="formDelivery.get('payment')['controls'].remainder"
+          [field]="'labels.remainder' | translate"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter Remainder"
+            formControlName="remainder"
+          />
+        </app-form-item>
+      </div>
+
+      <div class="row-item">
+        <app-form-item
+          [control]="formDelivery.get('payment')['controls'].type"
+          [field]="'labels.paymentType' | translate"
+        >
+          <p-dropdown
+            class="d-dropdown"
+            formControlName="type"
+            placeholder="Select Payment Type"
+            [options]="paymentTypes"
+          >
+          </p-dropdown>
+        </app-form-item>
+      </div>
+    </div>
+
+    <div class="result">
+      <h2>Total</h2>
+      <h2>{{ totalAmount }} {{ "uah" | translate }}</h2>
+      <app-spin-button
+        type="submit"
+        [loading]="spinShipping"
+        [name]="'orderLabel' | translate"
+      ></app-spin-button>
+    </div>
+  </form>
+</div>

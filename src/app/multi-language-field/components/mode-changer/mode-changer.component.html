@@ -1,0 +1,10 @@
+<div class="mode-changer__wrapper">
+  <span
+    class="mode-changer__item"
+    *ngFor="let option of options"
+    (click)="onSelect(option.type)"
+    [ngClass]="{ 'mode-changer__item--active': option.type === type }"
+  >
+    {{ option.type }}
+  </span>
+</div>

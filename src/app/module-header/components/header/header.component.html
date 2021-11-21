@@ -1,0 +1,76 @@
+<header class="dp-header-desktop">
+  <div class="fake-header" *ngIf="currentUser$ | async as user; else login">
+    <button
+      class="nav"
+      *ngxPermissionsOnly="canManagePizza"
+      routerLink="/admin"
+    >
+      {{ "adminPanelLabel" | translate }}
+    </button>
+    <button class="nav" (click)="userMenu.toggle($event)">
+      {{ user?.fullName }}
+    </button>
+    <p-menu
+      #userMenu
+      [popup]="true"
+      [model]="items | translateOptions"
+    ></p-menu>
+    <p-dropdown
+      [options]="languagesOpt"
+      [ngModel]="lang"
+      class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)"
+    ></p-dropdown>
+  </div>
+  <ng-template #login>
+    <div class="fake-header">
+      <button class="nav" (click)="openModal()">
+        {{ "loginLabel" | translate }}
+      </button>
+      <p-dropdown
+        [options]="languagesOpt"
+        [ngModel]="lang"
+        class="d-dropdown d-language-dropdown"
+        (onChange)="onChangeLang($event.value)"
+      ></p-dropdown>
+    </div>
+  </ng-template>
+  <div class="main-header">
+    <div class="navigation">
+      <h2 class="logo" routerLink="/">{{ "dominosLabel" | translate }}</h2>
+
+      <div class="nav-menu">
+        <button class="nav" (click)="mainMenu.toggle($event)">
+          Menu
+        </button>
+        <p-menu
+          #mainMenu
+          [popup]="true"
+          [model]="pagesItems | translateOptions"
+        ></p-menu>
+      </div>
+
+      <div class="nav menu">
+        <span routerLink="/promotions">{{
+          "pageTitles.promotions" | translate
+        }}</span>
+        <span routerLink="/pizzas">{{ "pageTitles.pizzas" | translate }}</span>
+        <span routerLink="/drinks">{{ "pageTitles.drinks" | translate }}</span>
+        <span routerLink="/">{{ "pageTitles.sides" | translate }}</span>
+        <span routerLink="/">{{ "pageTitles.desserts" | translate }}</span>
+      </div>
+
+      <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
+        <div class="count" *ngIf="count$ | async as count">{{ count }}</div>
+        <div class="total-price" *ngIf="summa$ | async as summa">
+          <span>{{ summa }} {{ "uah" | translate | uppercase }} </span>
+        </div>
+        <a routerLink="/delivery/shipping">
+          <button class="basket-button">
+            {{ "orderLabel" | translate }}
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

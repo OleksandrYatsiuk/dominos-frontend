@@ -1,9 +1,0 @@
-<div ngbDropdown class="nav">
-    <button *ngIf="user" class="btn" id="dropdownBasic1" ngbDropdownToggle>{{ user?.fullName }}</button>
-    <button *ngIf="!user" class="btn" id="dropdownBasic1" ngbDropdownToggle>
-        <span class="material-icons"> menu_open </span>
-    </button>
-    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-        <ng-content></ng-content>
-    </div>
-</div>

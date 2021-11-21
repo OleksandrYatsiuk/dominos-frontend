@@ -1,0 +1,9 @@
+<div>
+  <div style="display: flex; flex-wrap: wrap;">
+    <app-drink-card
+      *ngFor="let drink of drinks$ | async as drinks"
+      [drink]="drink"
+    >
+    </app-drink-card>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{'loginLabel'|translate}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="close()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<form [formGroup]="authForm" (ngSubmit)="login()">
+  <div class="modal-content">
+    <app-form-item [control]="authForm.controls.username" [field]="'labels.username'|translate">
+      <input type="text" class="form-control" formControlName="username" placeholder="Enter Username">
+    </app-form-item>
+    <app-form-item [control]="authForm.controls.password" [field]="'labels.password'|translate">
+      <input type="password" class="form-control" formControlName="password" placeholder="Enter Password">
+    </app-form-item>
+  </div>
+
+  <div class="modal-footer">
+    <app-spin-button type="submit" [name]="'loginLabel'|translate" class="btn btn-primary" [loading]="spinLogIn" ngbAutofocus> </app-spin-button>
+    <p>
+      Have not account yet? Please,
+      <a routerLink="/auth/registration" (click)="close()">register</a>
+      your`s profile
+    </p>
+  </div>
+</form>

@@ -1,0 +1,24 @@
+<div class="file-uploader">
+  <div class="image-container">
+    <img
+      [lazyLoad]="src"
+      [defaultImage]="imagePath"
+      (click)="input.click()"
+      [ngStyle]="imageStyle"
+      [style.width]="width ? width : '100%'"
+    />
+    <div
+      class="image__close"
+      *ngIf="(src && src !== imagePath) || value"
+      (click)="onDeleteFile()"
+    ></div>
+  </div>
+  <div hidden>
+    <input
+      type="file"
+      style="display:none"
+      (change)="onFileSelected($event)"
+      #input
+    />
+  </div>
+</div>

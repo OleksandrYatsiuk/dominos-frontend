@@ -1,0 +1,58 @@
+<div class="pizzas-list">
+  <p-table [columns]="cols" [value]="pizzas$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/admin/pizzas/create">
+          <span class="action">Add New</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-pizza
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'image'">
+            <img
+              class="photo"
+              [lazyLoad]="pizza.image"
+              [alt]="pizza.name | lang"
+            />
+          </div>
+          <div *ngSwitchCase="'name'">{{ pizza[col.field] | lang }}</div>
+          <div *ngSwitchCase="'startedAt'">
+            {{ pizza[col.field] | date }}
+          </div>
+
+          <div *ngSwitchDefault>{{ pizza[col.field] }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
+            <i class="icon icon--trash" (click)="onDelete(pizza)"></i>
+            <i
+              class="icon icon--edit"
+              [routerLink]="['/admin/pizzas/', pizza.id]"
+            ></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-paginator
+  class="d-paginator"
+  *ngIf="pizzasWithPagination$ | async as pagination"
+  [totalRecords]="pagination.total"
+  [pageLinkSize]="5"
+  [alwaysShow]="false"
+  [rows]="pagination.limit"
+  (onPageChange)="onPageChange($event.page)"
+></p-paginator>

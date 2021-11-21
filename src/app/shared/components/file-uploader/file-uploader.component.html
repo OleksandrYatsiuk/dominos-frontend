@@ -1,8 +1,0 @@
-<div class="file-uploader">
-    <div class="image-container">
-        <img [src]="src||imagePath" (click)="input.click()" />
-    </div>
-    <div hidden>
-        <input type="file" style="display:none" (change)="onFileSelected($event)" #input />
-    </div>
-</div>

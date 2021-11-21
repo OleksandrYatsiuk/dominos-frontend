@@ -1,0 +1,61 @@
+<div class="promotions-list">
+  <p-table [columns]="cols" [value]="promotions$ | async" class="d-table">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.header }}
+        </th>
+        <th class="cell-actions" routerLink="/admin/promotions/create">
+          <span class="action">Add New</span>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template
+      pTemplate="body"
+      let-promotion
+      let-columns="columns"
+      let-rowIndex="rowIndex"
+    >
+      <tr>
+        <td *ngFor="let col of columns" [ngSwitch]="col.field">
+          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
+          <div *ngSwitchCase="'image'">
+            <img
+              style="width: 100%; height: auto;"
+              [lazyLoad]="promotion[col.field]"
+              [alt]="promotion['name'] | lang"
+            />
+          </div>
+          <div
+            class="promotion__description"
+            *ngSwitchCase="'description'"
+            [innerHtml]="promotion[col.field] | lang"
+          ></div>
+          <div *ngSwitchCase="'startedAt'">
+            {{ promotion[col.field] ? (promotion[col.field] | date) : "-" }}
+          </div>
+
+          <div *ngSwitchDefault>{{ promotion[col.field] | lang }}</div>
+        </td>
+        <td class="cell-actions">
+          <div class="cell-options-icons">
+            <i class="icon icon--trash" (click)="onDelete(promotion)"></i>
+            <i
+              class="icon icon--edit"
+              routerLink="/admin/promotions/{{ promotion.id }}/edit"
+            ></i>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-paginator
+  class="d-paginator"
+  [totalRecords]="totalPages"
+  [pageLinkSize]="5"
+  [rows]="rows"
+  [alwaysShow]="false"
+  (onPageChange)="onPageChange($event.page)"
+></p-paginator>

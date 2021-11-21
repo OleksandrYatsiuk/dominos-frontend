@@ -1,0 +1,34 @@
+<div class="delivery_page">
+  <div class="order">
+    <h3 class="title">{{ "pageTitles.order" | translate }}</h3>
+    <div class="navigator">
+      <div
+        class="navigator-bar"
+        routerLink="shipping"
+        routerLinkActive="active"
+      >
+        {{ "deliveryLabel" | translate }}
+      </div>
+      <div
+        class="navigator-bar"
+        routerLink="carryout"
+        routerLinkActive="active"
+      >
+        {{ "selfPickupLabel" | translate }}
+      </div>
+    </div>
+    <div class="form">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <div class="order">
+    <h3>{{ "yourOrderLabel" | translate }}</h3>
+    <!-- <div *ngFor="let item of items">
+      <app-basket-card-item [item]="item"></app-basket-card-item>
+    </div> -->
+    <div class="amount">
+      {{ totalAmount }} {{ "uah" | translate | uppercase }}
+    </div>
+  </div>
+</div>

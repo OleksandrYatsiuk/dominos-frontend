@@ -1,0 +1,84 @@
+{
+  "pageTitles": {
+    "promotions": "Promotions",
+    "pizzas": "Pizzas",
+    "drinks": "Drinks",
+    "sides": "Sides",
+    "desserts": "Desserts",
+    "order": "Order",
+    "users": "Users",
+    "deliveries": "Deliveries",
+    "shops": "Shops",
+    "ingredients": "Ingredients"
+  },
+  "orderLabel": "Order",
+  "mainLabel": "Main",
+  "dominosLabel": "Domino's Pizza",
+  "loginLabel": "Log In",
+  "adminPanelLabel": "Admin Panel",
+  "logoutLabel": "Log Out",
+  "settingsLabel": "Settings",
+  "swaggerLabel": "Swagger",
+  "detailsLabel": "Details",
+  "labels": {
+    "fullName": "Full Name",
+    "firstName": "First Name",
+    "username": "Username",
+    "email": "Email",
+    "birthday": "Birthday",
+    "phone": "Phone",
+    "password": "Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm Password",
+    "street": "Street",
+    "house": "House",
+    "flat": "Flat",
+    "entrance": "Entrance",
+    "code": "Code",
+    "floor": "Floor",
+    "comment": "Сomment",
+    "date": "Date",
+    "time": "Time",
+    "coupon": "Coupon",
+    "remainder": "Remainder",
+    "shop": "Shop",
+    "paymentType": "Payment Type",
+    "name": "Name",
+    "category": "Category",
+    "ingredients": "Ingredients",
+    "weight": "Weight",
+    "price": "Price",
+    "size": "Size"
+  },
+  "validation": {
+    "required": "Field \"{{field}}\" cannot be blank."
+  },
+  "messages": {
+    "delete": "Please, confirm you deleting!"
+  },
+  "inBasket": "In Basket",
+  "uah": "uah",
+  "gram": "g",
+  "deliveryLabel": "Delivery",
+  "selfPickupLabel": "Self-Pickup",
+  "yourOrderLabel": "Your Order",
+  "paymentLabel": "Payment",
+  "contactsLabel": "Contacts",
+  "saveLabel": "Save",
+  "cancelLabel": "Cancel",
+  "deleteLabel": "Delete",
+  "confirmLabel": "Confirm",
+  "categoriesLabels": {
+    "drinks": {
+      "1": "Beer",
+      "2": "Water",
+      "3": "Juice"
+    }
+  },
+  "sizesLabels": {
+    "small": "Small",
+    "middle": "Middle",
+    "big": "Big"
+  }
+}

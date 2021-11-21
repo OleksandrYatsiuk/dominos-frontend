@@ -1,14 +1,24 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { UserService } from './user.service';
-import { UserDataService } from 'src/app/auth/user-data.service';
+import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { BehaviorSubject } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
+  isBrowser: boolean;
 
-  constructor(private userService: UserService, private authService: UserDataService) { }
+
+  constructor(
+    @Inject(PLATFORM_ID) private _pid: any,
+    private userService: UserService,
+    private authService: UserDataService
+  ) {
+    this.isBrowser = isPlatformBrowser(_pid);
+  }
+
   private userLocation = new BehaviorSubject<any>(null);
   location = this.userLocation.asObservable();
 
@@ -17,21 +27,24 @@ export class GeolocationService {
   }
 
   public askGeoLocation() {
-    navigator.geolocation.watchPosition(({ coords }) => {
-      if (this.userService.isAuthorized()) {
-        this.userService.currentUser.subscribe(user => {
-          if (user) {
-            if (Math.abs(user.location.lat - coords.latitude) > 1) {
-              this.updateUserLocation(coords);
+    if (this.isBrowser) {
+      navigator.geolocation.watchPosition(({ coords }) => {
+        if (this.userService.isAuthorized()) {
+          this.userService.currentUser.subscribe(user => {
+            if (user) {
+              if (Math.abs(user.location.lat - coords.latitude) > 1) {
+                this.updateUserLocation(coords);
+              }
+            } else {
+              this.saveGeoPosition(coords);
             }
-          } else {
-            this.saveGeoPosition(coords);
-          }
-        });
-      } else {
-        this.saveGeoPosition(coords);
-      }
-    });
+          });
+        } else {
+          this.saveGeoPosition(coords);
+        }
+      });
+    }
+
   }
 
 
