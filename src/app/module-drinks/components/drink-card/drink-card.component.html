@@ -19,7 +19,7 @@
           [ngClass]="{ 'sizes__item--selected': size.value === selectedSize }"
           (click)="selectedSize = size.value"
         >
-          {{ size.label }} мл
+          {{ size.label }} {{ "ml" | translate }}
         </div>
       </div>
 

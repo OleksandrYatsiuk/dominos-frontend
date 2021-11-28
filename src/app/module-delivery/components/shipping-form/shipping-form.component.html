@@ -212,7 +212,7 @@
 
     <div class="result">
       <h2>Total</h2>
-      <h2>{{ totalAmount }} {{ "uah" | translate }}</h2>
+      <h2>{{ (totalAmount$|async).toLocaleString() }} {{ "uah" | translate }}</h2>
       <app-spin-button
         type="submit"
         [loading]="spinShipping"

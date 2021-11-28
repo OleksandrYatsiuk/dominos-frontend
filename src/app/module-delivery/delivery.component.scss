@@ -1,8 +1,12 @@
+@import "../../styles/helpers/index";
+
 .delivery_page {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+
+  @include mobile {
+    grid-template-columns: 1fr;
+  }
 }
 .order {
   display: flex;
@@ -10,7 +14,19 @@
   flex-direction: column;
   flex-wrap: wrap;
   max-width: 700px;
+
+  &__container {
+    background-color: $c-white;
+    border-radius: 1rem 0 0 1rem;
+  }
+  &__list {
+    overflow-y: scroll;
+    min-height: 10rem;
+    max-height: 59vh;
+    @include scroll;
+  }
 }
+
 h3 {
   padding: 10px;
 }

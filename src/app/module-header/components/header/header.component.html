@@ -63,7 +63,7 @@
       <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
         <div class="count" *ngIf="count$ | async as count">{{ count }}</div>
         <div class="total-price" *ngIf="summa$ | async as summa">
-          <span>{{ summa }} {{ "uah" | translate | uppercase }} </span>
+          <span>{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }} </span>
         </div>
         <a routerLink="/delivery/shipping">
           <button class="basket-button">

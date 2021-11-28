@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { Payments } from './payments.model';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { isPlatformBrowser } from '@angular/common';
+import { Observable } from 'rxjs';
+import { BasketState } from '@core/basket/basket.state';
+import { Select } from '@ngxs/store';
 
 @Component({
 	selector: 'app-shipping-form',
@@ -15,6 +18,9 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class ShippingFormComponent implements OnInit {
 	isBrowser: boolean;
+
+	@Select(BasketState.generalSumma) totalAmount$: Observable<string>;
+
 
 	constructor(
 		@Inject(PLATFORM_ID) private _pid: any,
@@ -35,8 +41,6 @@ export class ShippingFormComponent implements OnInit {
 	public pizzasIds: string[] = [];
 
 	ngOnInit(): void {
-		// this.basketService.basket.subscribe(data => this.totalAmount = data.amount)
-		// this.pizzasIds = this.basketService._storage.map(el => el.id)
 		this.initForm();
 		this.updateForm();
 	}
@@ -77,7 +81,7 @@ export class ShippingFormComponent implements OnInit {
 				type: [this.paymentTypes[0].value, [Validators.required]]
 			}),
 			pizzaIds: [this.pizzasIds, [Validators.required]],
-			amount: [this.totalAmount, [Validators.required]]
+			amount: ['', [Validators.required]]
 		});
 	}
 
