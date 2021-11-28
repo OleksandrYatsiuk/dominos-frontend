@@ -10,3 +10,20 @@
 @mixin shadow($transparency: 0.5, $c: $c-black) {
   box-shadow: 0 0 15px rgba($c, $transparency);
 }
+
+@mixin scroll($c: $c-gray) {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    width: 20px;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-color: $c;
+  }
+}

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
-import { PizzaDataService } from '../../../../core/services/pizza-data.service';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { Pizza } from 'src/app/core/models/pizza.interface';
 import { EMPTY, Observable } from 'rxjs';

@@ -22,6 +22,7 @@ import { MainModule } from '../module-main/main.module';
 import { TranslateOptionsPipe } from './pipe/translate-options.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastModule } from 'primeng/toast';
+import { BasketInModule } from './components/basket-in/basket-in/basket-in.module';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ToastModule } from 'primeng/toast';
     SelectButtonModule,
     MainModule,
     TranslateModule,
-    ToastModule
+    ToastModule,
+    BasketInModule
   ],
   exports: [
     //components

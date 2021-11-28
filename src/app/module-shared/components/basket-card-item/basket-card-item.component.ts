@@ -1,25 +1,23 @@
-import { Component, Input, Output } from "@angular/core";
-import { Store } from "@ngxs/store";
+import { Component, Input, Output } from '@angular/core';
+import { AddBasketItem } from '@core/basket/basket.actions';
+import { BasketProductTypes } from '@core/basket/basket.interface';
+import { BasketProductItem } from '@core/basket/basket.state';
+import { Store } from '@ngxs/store';
 
 @Component({
-  selector: "app-basket-card-item",
-  templateUrl: "./basket-card-item.component.html",
-  styleUrls: ["./basket-card-item.component.scss"]
+  selector: 'app-basket-card-item',
+  templateUrl: './basket-card-item.component.html',
+  styleUrls: ['./basket-card-item.component.scss']
 })
 export class BasketCardItemComponent {
-  @Input() item;
-  @Output() count;
+  @Input() item: BasketProductItem;
 
   constructor(
     private _store: Store,
   ) {
   }
 
-  addToCard(item: any) {
-    // this.basketService.add({ id: item.id, type: item.type, price: item.price });
-  }
-
-  removeFromCard(item: any) {
-    // this.basketService.remove(item);
+  onManageBasket(direction: number): void {
+    this._store.dispatch(new AddBasketItem(this.item, direction));
   }
 }

@@ -22,3 +22,8 @@ export interface Delivery {
     };
     comment?: string;
 }
+export interface Payment{
+    amount:number;
+    description:string;
+    order_id:string;
+}

@@ -24,11 +24,18 @@
 
   <div class="order">
     <h3>{{ "yourOrderLabel" | translate }}</h3>
-    <!-- <div *ngFor="let item of items">
-      <app-basket-card-item [item]="item"></app-basket-card-item>
-    </div> -->
-    <div class="amount">
-      {{ totalAmount }} {{ "uah" | translate | uppercase }}
+    <div class="order__container">
+      <div class="order__list">
+        <ng-container *ngFor="let product of (products$ | async).pizzas">
+          <app-basket-card-item [item]="product"></app-basket-card-item>
+        </ng-container>
+        <ng-container *ngFor="let product of (products$ | async).drinks">
+          <app-basket-card-item [item]="product"></app-basket-card-item>
+        </ng-container>
+      </div>
+      <div class="amount">
+        {{ (totalAmount$ | async).toLocaleString() }} {{ "uah" | translate | uppercase }}
+      </div>
     </div>
   </div>
 </div>

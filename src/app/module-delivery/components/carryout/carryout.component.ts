@@ -12,6 +12,8 @@ import { MapComponent } from '../map/map.component';
 import { IShop } from '@core/models/shop.interface';
 import { ShopService } from '@core/services/shop.service';
 import { Observable, pluck } from 'rxjs';
+import { BasketState } from '@core/basket/basket.state';
+import { Select } from '@ngxs/store';
 
 
 @Component({
@@ -24,12 +26,14 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   public carryOut: FormGroup;
   public loading = false;
   public shopId = false;
-  public totalAmount: string;
   public pizzasIds: string[] = [];
   public paymentTypes: Payments[] = this.configService.getStatuses('payment');
   shops$: Observable<IShop[]>;
 
   private _ref: DynamicDialogRef;
+
+  @Select(BasketState.generalSumma) totalAmount$: Observable<string>;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,6 +69,17 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     });
   }
 
+  sendPayment(amount: string) {
+    this.rest.createPayment({
+      amount: +amount,
+      order_id: Date.now().toString(),
+      description: 'Order #' + Date.now().toString()
+    }).subscribe(response => {
+      let link = `https://www.liqpay.ua/api/3/checkout?data=${response.data}&signature=${response.signature}`
+      window.open(link, '_blank');
+    })
+  }
+
   initForm(): void {
     this.carryOut = this.formBuilder.group({
       firstName: ['', [Validators.required]],
@@ -82,7 +97,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
         type: [this.paymentTypes[0].value, [Validators.required]],
       }),
       pizzaIds: [this.pizzasIds, [Validators.required]],
-      amount: [this.totalAmount, [Validators.required]],
+      amount: ['', [Validators.required]],
     });
   }
 

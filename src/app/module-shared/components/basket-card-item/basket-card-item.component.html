@@ -1,15 +1,34 @@
-<div class="product">
-  <img src={{item.image}} alt="pizza" />
+<div class="product" *ngIf="item">
+  <img
+    class="product__image"
+    [src]="item.product?.image || '/assets/img/stub-image.png'"
+    alt="product"
+  />
   <div class="product-description">
-    <h4>Піца {{ item.name }}</h4>
-    <h6>{{ item.size }}</h6>
+    <h4>{{ item.product?.name | lang }}</h4>
+
+    <ng-container [ngSwitch]="item.type">
+      <ng-container *ngSwitchCase="'pizzas'">
+        <h6>{{ "sizesLabels." + [item.size] | translate }}</h6>
+        <h6>{{ (item.product?.size)[item.size] }} {{ "gram" | translate }}</h6>
+      </ng-container>
+      <ng-container *ngSwitchCase="'drinks'">
+        <h6>{{ (item.product?.size)[item.size] }} {{ "ml" | translate }}</h6>
+      </ng-container>
+    </ng-container>
+
     <div class="product-options">
-      <div class="product_price">{{ item.price }} UAH</div>
-      <div class="quantity_control">
-        <button (click)="removeFromCard(item)">-</button>
-        <p>{{ item?.count }}</p>
-        <button (click)="addToCard(item)">+</button>
-    </div>
-    </div>
+      <div class="product_price">
+        {{ item.price }}
+        {{ "uah" | translate }}
       </div>
+
+      <app-basket-in
+        [productId]="item.id"
+        [size]="item.size"
+        [products]="[item]"
+        (onChange)="onManageBasket($event)"
+      ></app-basket-in>
+    </div>
+  </div>
 </div>

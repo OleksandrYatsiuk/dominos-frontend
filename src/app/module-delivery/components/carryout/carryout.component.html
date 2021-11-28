@@ -1,8 +1,11 @@
 <div class="content">
   <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
-    <h3>{{'contactsLabel'|translate}}</h3>
+    <h3>{{ "contactsLabel" | translate }}</h3>
     <div class="row-item">
-      <app-form-item [control]="carryOut.controls.firstName" [field]="'labels.firstName'|translate">
+      <app-form-item
+        [control]="carryOut.controls.firstName"
+        [field]="'labels.firstName' | translate"
+      >
         <input
           class="form-control"
           placeholder="Enter First Name"
@@ -11,7 +14,10 @@
         />
       </app-form-item>
 
-      <app-form-item [control]="carryOut.controls.phone" [field]="'labels.phone'|translate">
+      <app-form-item
+        [control]="carryOut.controls.phone"
+        [field]="'labels.phone' | translate"
+      >
         <input
           class="form-control"
           placeholder="Enter Phone"
@@ -20,7 +26,10 @@
         />
       </app-form-item>
 
-      <app-form-item [control]="carryOut.controls.email" [field]="'labels.email'|translate">
+      <app-form-item
+        [control]="carryOut.controls.email"
+        [field]="'labels.email' | translate"
+      >
         <input
           class="form-control"
           placeholder="Enter Email"
@@ -35,7 +44,7 @@
     <div class="row-item">
       <app-form-item
         [control]="carryOut.controls.shopId"
-        [field]="'labels.shop'|translate"
+        [field]="'labels.shop' | translate"
         *ngIf="shops$ | async as shops"
       >
         <div class="input-group">
@@ -53,7 +62,10 @@
     </div>
 
     <div class="row-item">
-      <app-form-item [control]="carryOut.controls.comment" [field]="'labels.comment'|translate">
+      <app-form-item
+        [control]="carryOut.controls.comment"
+        [field]="'labels.comment' | translate"
+      >
         <textarea
           class="form-control"
           formControlName="comment"
@@ -62,12 +74,12 @@
       </app-form-item>
     </div>
 
-    <h3>{{'labels.date'|translate}}</h3>
+    <h3>{{ "labels.date" | translate }}</h3>
     <div formGroupName="date">
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('date')['controls'].date"
-          [field]="'labels.date'|translate"
+          [field]="'labels.date' | translate"
         >
           <p-calendar
             formControlName="date"
@@ -81,7 +93,7 @@
 
         <app-form-item
           [control]="carryOut.get('date')['controls'].time"
-          [field]="'labels.time'|translate"
+          [field]="'labels.time' | translate"
         >
           <p-calendar
             formControlName="time"
@@ -96,12 +108,12 @@
       </div>
     </div>
 
-    <h3>{{'paymenyLabel'|translate}}</h3>
+    <h3>{{ "paymenyLabel" | translate }}</h3>
     <div formGroupName="payment">
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('payment')['controls'].coupon"
-          [field]="'labels.coupon'|translate"
+          [field]="'labels.coupon' | translate"
         >
           <input
             type="text"
@@ -113,7 +125,7 @@
 
         <app-form-item
           [control]="carryOut.get('payment')['controls'].remainder"
-          [field]="'labels.remainder'|translate"
+          [field]="'labels.remainder' | translate"
         >
           <input
             type="text"
@@ -127,7 +139,7 @@
       <div class="row-item">
         <app-form-item
           [control]="carryOut.get('payment')['controls'].type"
-          [field]="'labels.paymentType'|translate"
+          [field]="'labels.paymentType' | translate"
         >
           <p-dropdown
             class="d-dropdown"
@@ -141,7 +153,9 @@
     </div>
     <div class="result">
       <h2>Total</h2>
-      <h2>{{ totalAmount }} {{'uah'|translate}}</h2>
+      <h2>
+        {{ (totalAmount$ | async).toLocaleString() }} {{ "uah" | translate }}
+      </h2>
       <app-spin-button
         type="submit"
         [loading]="loading"

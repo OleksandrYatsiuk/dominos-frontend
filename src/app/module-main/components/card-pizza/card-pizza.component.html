@@ -10,7 +10,7 @@
         />
         <div class="product_weight">
           <span
-            >{{ item.weight[selectedSize]?.toLocaleString("uk") }}
+            >{{ item.size[selectedSize]?.toLocaleString("uk") }}
             {{ "gram" | translate }}</span
           >
         </div>
@@ -18,7 +18,7 @@
     </div>
     <div class="product-row">
       <a [routerLink]="['/pizza/', item.id]" class="product_name">
-        Піца {{ item.name | lang }}</a
+        {{ item.name | lang }}</a
       >
     </div>
     <div class="product-row">
@@ -31,7 +31,7 @@
     <div class="sizes">
       <div
         class="sizes__item"
-        *ngFor="let size of convertToArray(item.weight)"
+        *ngFor="let size of convertToArray(item.size)"
         [ngClass]="{ 'sizes__item--selected': size.value === selectedSize }"
         (click)="selectedSize = size.value"
       >

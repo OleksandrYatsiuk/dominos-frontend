@@ -1,17 +1,19 @@
-.product {
-  background-color: snow;
-  max-width: 700px;
-  display: flex;
-  border-radius: 20px;
-  margin-left: 10px;
-  flex-wrap: wrap;
-  justify-content: space-around;
+@import "../../../../styles/helpers/index";
 
-  img {
-    padding: 20px;
-    border-radius: 30px;
-    max-width: 300px;
-    width: 100%;
+.product {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  border-bottom: 1px solid $c-gray-1;
+  align-items: center;
+  @include mobile {
+    grid-template-columns: 100%;
+  }
+
+  &__image {
+    padding: 0.5rem;
+    object-fit: contain;
+    height: 120px;
+    width: 193px;
   }
 
   &-description {
@@ -20,9 +22,9 @@
     margin: 10px;
   }
   &-options {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
   }
 }
 
@@ -40,23 +42,6 @@
   width: 90px;
   height: 30px;
   text-align: center;
-  button {
-    height: 100%;
-    width: 35%;
-    color: snow;
-    background-color: #e31837;
-    border: 0px;
-    border-radius: 15px;
-    outline: none;
-    cursor: pointer;
-    &:hover {
-      background-color: rgb(148, 13, 13);
-    }
-    &:active {
-      background-color: black;
-    }
-  }
-
 }
 p {
   margin: 4px;
