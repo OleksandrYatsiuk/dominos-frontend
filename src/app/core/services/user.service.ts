@@ -1,13 +1,11 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { UserDataService } from 'src/app/module-auth/user-data.service';
-import { inject } from '@angular/core/testing';
 import { isPlatformBrowser } from '@angular/common';
+import { User } from 'src/app/module-auth/auth.model';
 
 export interface Credentials {
-  // Customize received credentials here
   token: string;
   expiredAt: number;
 }
@@ -43,8 +41,8 @@ export class UserService {
     }
   }
 
-  public sendCurrentRequest(): Observable<object> {
-    return this.http.current().pipe(pluck('result'));
+  public sendCurrentRequest(): Observable<User> {
+    return this.http.current();
   }
 
   public setCurrentUserData(user: any): void {

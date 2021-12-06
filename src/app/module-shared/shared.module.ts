@@ -23,6 +23,8 @@ import { TranslateOptionsPipe } from './pipe/translate-options.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastModule } from 'primeng/toast';
 import { BasketInModule } from './components/basket-in/basket-in/basket-in.module';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from '../module-auth/state/auth.state';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,7 @@ import { BasketInModule } from './components/basket-in/basket-in/basket-in.modul
     NgbModule,
     RouterModule,
     NgxPermissionsModule.forRoot(),
+    NgxsModule.forFeature([AuthState]),
     DropdownModule,
     SelectButtonModule,
     MainModule,

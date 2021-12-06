@@ -1,57 +1,67 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserService } from 'src/app/core/services/user.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
-import { pluck } from 'rxjs/operators';
-import { UserDataService } from '../../../module-auth/user-data.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Store } from '@ngxs/store';
+import { CurrentUserAction, LoginAction } from 'src/app/module-auth/state/auth.actions';
+import { catchError, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
 
   constructor(
-    private http: UserDataService,
     private _ref: DynamicDialogRef,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private userService: UserService,
+    private _formBuilder: FormBuilder,
+    private _store: Store,
     private handler: ErrorHandlerService,
+    private _cd: ChangeDetectorRef
   ) { }
 
-  public authForm: FormGroup;
+  public form: FormGroup;
   public spinLogIn = false;
-  get username() { return this.authForm.get('username'); }
-  get password() { return this.authForm.get('password'); }
 
   ngOnInit(): void {
-    this.authForm = this.formBuilder.group({
+    this.form = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
 
-  public close(): void {
+  close(): void {
     this._ref.close();
   }
 
-  public login(): void {
-    this.authForm.markAllAsTouched();
-    if (this.authForm.valid) {
-      this.spinLogIn = !this.spinLogIn;
-      this.http.login(this.authForm.value)
-        .pipe(pluck('result'))
-        .subscribe(({ token }) => {
-          this.userService.setCredentials(token)
-          this.router.navigate(['/'], { replaceUrl: true }).then(() => location.reload())
-        }, (error) => {
-          this.spinLogIn = !this.spinLogIn;
-          this.handler.validation(error, this.authForm);
+  login(): void {
+    this.form.markAllAsTouched();
+
+    if (this.form.valid) {
+      this.spinLogIn = true;
+
+      this._store.dispatch(new LoginAction(this.form.getRawValue()))
+        .pipe(catchError(e => {
+          this.spinLogIn = false;
+          this.handler.validation(e, this.form);
+          return EMPTY;
+        }))
+        .subscribe((data) => {
+          this.spinLogIn = false;
+          this._store.dispatch(new CurrentUserAction());
+          this._ref.destroy();
+          this._cd.detectChanges();
         });
     }
   }
+
+  get username(): AbstractControl {
+    return this.form.get('username');
+  }
+  get password(): AbstractControl {
+    return this.form.get('password');
+  }
 }
+

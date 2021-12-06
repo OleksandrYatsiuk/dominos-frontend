@@ -1,5 +1,4 @@
 export enum UserRoles {
-    Administrator = 'administrator',
-    ProjectManager = 'projectManager',
-    Public = 'public'
+    Administrator = 'Administrator',
+    Buyer = 'Buyer'
 }

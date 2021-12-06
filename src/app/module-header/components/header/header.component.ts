@@ -1,9 +1,6 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
-import { UserService } from 'src/app/core/services/user.service';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
-import { CAN_MANAGE_PIZZA } from './header-permissions';
-import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { isPlatformBrowser } from '@angular/common';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
@@ -15,6 +12,10 @@ import { LangService } from '@core/services/lang.service';
 import { Select, Store } from '@ngxs/store';
 import { FetchBasketFromStorage } from '@core/basket/basket.actions';
 import { BasketState } from '@core/basket/basket.state';
+import { CheckAccessTokenAction, CurrentUserAction, LogoutAction } from 'src/app/module-auth/state/auth.actions';
+import { AuthResponse, User } from 'src/app/module-auth/auth.model';
+import { AuthState } from 'src/app/module-auth/state/auth.state';
+import { UserRoles } from '@core/models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -26,9 +27,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @Select(BasketState.generalSumma) summa$: Observable<string>;
   @Select(BasketState.generalCount) count$: Observable<number>;
-  generalCount
-  currentUser$: Observable<any>;
-  canManagePizza = CAN_MANAGE_PIZZA;
+  @Select(AuthState.current) user$: Observable<User>;
+  @Select(AuthState.credentials) credentials$: Observable<AuthResponse>;
+
+  userRoles = UserRoles;
   isBrowser: boolean;
   items: MenuItem[] = [];
   pagesItems: MenuItem[];
@@ -42,13 +44,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private _pid: any,
     private geolocation: GeolocationService,
-    private userService: UserService,
-    private http: UserDataService,
-    private router: Router,
+    private _router: Router,
     private _ds: DialogService,
     private _ts: TranslateService,
     private _store: Store,
-    private _ls: LangService
+    private _ls: LangService,
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
   }
@@ -60,13 +60,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-
-    this._store.dispatch(new FetchBasketFromStorage());
+    this._store.dispatch([new CheckAccessTokenAction(), new FetchBasketFromStorage(), new CurrentUserAction()]);
 
     this.lang = this._ls.getLang();
     this._ts.setDefaultLang(this._ls.getLang());
-    this.userService.setCurrentUser();
-    this.currentUser$ = this.userService.currentUser;
     this.geolocation.askGeoLocation();
 
     this.items = [
@@ -82,8 +79,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: this._ts.instant('pageTitles.sides'), routerLink: '/' },
       { label: this._ts.instant('pageTitles.desserts'), routerLink: '/' }
     ];
-
-
   }
 
   openModal(): void {
@@ -97,18 +92,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout(): void {
-    this.http.logout().subscribe(req => {
-      if (!req) {
-        this.userService.removeCredentials()
-        this.userService.setCurrentUserData(null)
-        this.router.navigateByUrl('/').then(() => location.reload());
-      }
-    });
-  }
-
-  get token(): string {
-    if (this.isBrowser) {
-      return localStorage.getItem('auth');
-    }
+    this._store.dispatch(new LogoutAction())
+      .subscribe(() => {
+        this._router.navigate(['/']);
+      })
   }
 }

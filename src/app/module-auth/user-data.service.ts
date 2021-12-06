@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserLogin, User } from './auth.model';
+import { UserLogin, User, AuthResponse } from './auth.model';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -10,10 +10,11 @@ import { environment } from '@environments/environment';
 })
 export class UserDataService {
   private _apiUrl = environment.serverUrl;
+  private _nestUrl = environment.nestServerUrl;
   constructor(private _http: HttpClient) { }
 
-  public login(userLogin: UserLogin): Observable<any> {
-    return this._http.post(`${this._apiUrl}/auth/login`, userLogin);
+  login(data: UserLogin): Observable<AuthResponse> {
+    return this._http.post<AuthResponse>(`${this._nestUrl}/auth/login`, data);
   }
 
   public changePassword(data: any): Observable<any> {
@@ -30,8 +31,8 @@ export class UserDataService {
   public logout(): Observable<any> {
     return this._http.post(`${this._apiUrl}/user/logout`, {});
   }
-  public current(): Observable<any> {
-    return this._http.get(`${this._apiUrl}/user/current`);
+  public current(): Observable<User> {
+    return this._http.get<User>(`${this._nestUrl}/users/current`);
   }
 
   public updateLocation(location: object): Observable<any> {

@@ -24,6 +24,8 @@
 @import "./styles/switch";
 @import "../node_modules/leaflet/dist/leaflet.css";
 
+@import "./styles/base/index";
+
 .marker-popup {
   .leaflet-popup-content-wrapper {
     .leaflet-popup-content {
@@ -36,9 +38,12 @@
   }
 }
 
+* {
+  font-family: "Roboto", sans-serif;
+}
+
 html,
 body {
-  font-family: Muli, sans-serif;
   margin: 0px;
   background: #f0e8e8;
   height: 100%;

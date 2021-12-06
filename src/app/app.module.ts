@@ -35,7 +35,6 @@ import { PromotionsState } from './module-promotions/promotions/promotions.state
 import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 
-
 registerLocaleData(uk);
 registerLocaleData(ru);
 registerLocaleData(en);

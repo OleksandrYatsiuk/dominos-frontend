@@ -13,7 +13,6 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 
 export class AppComponent implements OnInit {
-  title = 'Dominos';
   isBrowser: boolean;
   language: ELanguage = ELanguage.uk;
   constructor(

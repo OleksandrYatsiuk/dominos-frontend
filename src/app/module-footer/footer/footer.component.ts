@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { environment } from '@environments/environment';
-import { IS_MANAGEMENT } from '../../module-header/components/header/header-permissions';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UserRoles } from '@core/models/user.model';
+import { Select } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/module-auth/auth.model';
+import { AuthState } from 'src/app/module-auth/state/auth.state';
+
 @Component({
 	selector: 'app-footer',
 	templateUrl: './footer.component.html',
-	styleUrls: ['./footer.component.scss']
+	styleUrls: ['./footer.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
+	roles = UserRoles;
+	@Select(AuthState.current) user$: Observable<User>;
+
 	constructor() { }
-	public isManagement = IS_MANAGEMENT;
-	public swaggerUILink = environment.serverUrl.split('/api/v1', 1);
 }

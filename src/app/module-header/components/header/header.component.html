@@ -1,14 +1,14 @@
 <header class="dp-header-desktop">
-  <div class="fake-header" *ngIf="currentUser$ | async as user; else login">
+  <div class="fake-header" *ngIf="user$ | async as user; else login">
     <button
       class="nav"
-      *ngxPermissionsOnly="canManagePizza"
       routerLink="/admin"
+      *ngIf="user.role === userRoles.Administrator"
     >
       {{ "adminPanelLabel" | translate }}
     </button>
     <button class="nav" (click)="userMenu.toggle($event)">
-      {{ user?.fullName }}
+      {{ user?.firstName }} {{ user?.lastName }}
     </button>
     <p-menu
       #userMenu
@@ -63,7 +63,9 @@
       <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
         <div class="count" *ngIf="count$ | async as count">{{ count }}</div>
         <div class="total-price" *ngIf="summa$ | async as summa">
-          <span>{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }} </span>
+          <span
+            >{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }}
+          </span>
         </div>
         <a routerLink="/delivery/shipping">
           <button class="basket-button">
