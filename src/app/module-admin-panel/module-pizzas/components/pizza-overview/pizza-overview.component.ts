@@ -4,7 +4,6 @@ import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CAN_EDIT_PIZZA } from '../../../../module-pizzas/components/pizza/pizza-permissions';
 import { NgxPermissionsService } from 'ngx-permissions';
-import { UserService } from 'src/app/core/services/user.service';
 
 
 @Component({
@@ -27,8 +26,7 @@ export class PizzaOverviewComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private title: Title,
-    private permissionsService: NgxPermissionsService,
-    private user: UserService
+    private permissionsService: NgxPermissionsService
   ) {
 
     this.pizza = this.route.snapshot.data.pizza;
@@ -37,7 +35,6 @@ export class PizzaOverviewComponent implements OnInit {
 
 
   ngOnInit() {
-    this.user.currentUser.subscribe(user => user ? this.permissionsService.loadPermissions([user['role']]) : false);
     this.title.setTitle(`Піца - ${this.pizza.name}`);
   }
 }

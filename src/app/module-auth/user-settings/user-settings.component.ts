@@ -70,7 +70,6 @@ export class UserSettingsComponent implements OnInit {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = !this.spinEditProfile;
-      console.log(this.image);
       this._store.dispatch(new UpdateUserProfileAction(this.updateProfileForm.getRawValue(), this.image))
         .pipe(
           catchError((e) => {

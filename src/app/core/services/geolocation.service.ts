@@ -1,9 +1,10 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { UserService } from './user.service';
 import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { GeoLocation } from 'src/app/module-auth/auth.model';
+import { Store } from '@ngxs/store';
+import { UpdateGeoLocationAction } from 'src/app/module-auth/state/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class GeolocationService {
 
   constructor(
     @Inject(PLATFORM_ID) private _pid: any,
-    private userService: UserService,
-    private authService: UserDataService
+    private authService: UserDataService,
+    private _store: Store
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
   }
@@ -24,37 +25,34 @@ export class GeolocationService {
   location = this.userLocation.asObservable();
 
   public updateUserLocation(coords: GeoLocation) {
-    this.authService.updateLocation(coords).subscribe(res => this.userService.setCurrentUserData(res));
+    this._store.dispatch(new UpdateGeoLocationAction(coords));
   }
 
   public askGeoLocation() {
     if (this.isBrowser) {
       navigator.geolocation.watchPosition(({ coords }) => {
-        if (this.userService.isAuthorized()) {
-          this.userService.currentUser.subscribe(user => {
-            if (user) {
-              if (Math.abs(user.location.lat - coords.latitude) > 1) {
-                this.updateUserLocation(coords);
-              }
-            } else {
-              this.saveGeoPosition(coords);
-            }
-          });
-        } else {
-          this.saveGeoPosition(coords);
-        }
+        // if (this.userService.isAuthorized()) {
+        // this.userService.currentUser.subscribe(user => {
+        //   if (user) {
+        //     if (Math.abs(user.location.lat - coords.latitude) > 1) {
+        //       this.updateUserLocation(coords);
+        //     }
+        //   } else {
+        //     this.saveGeoPosition(coords);
+        //   }
+        // });
+        // } else {
+        this.saveGeoPosition(coords);
+        // }
       });
     }
 
   }
 
 
-  public saveGeoPosition(coords) {
+  saveGeoPosition({ latitude, longitude }: GeoLocation): void {
     this.userLocation.next({
-      position: {
-        lat: coords.latitude,
-        lng: coords.longitude
-      }
+      position: { lat: latitude, lng: longitude }
     });
   }
 }

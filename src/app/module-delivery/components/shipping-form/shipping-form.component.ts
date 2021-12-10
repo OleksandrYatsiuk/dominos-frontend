@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { UserService } from 'src/app/core/services/user.service';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
 import { Payments } from './payments.model';
@@ -10,6 +9,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { BasketState } from '@core/basket/basket.state';
 import { Select } from '@ngxs/store';
+import { AuthState } from 'src/app/module-auth/state/auth.state';
+import { User } from 'src/app/module-auth/auth.model';
 
 @Component({
 	selector: 'app-shipping-form',
@@ -20,13 +21,13 @@ export class ShippingFormComponent implements OnInit {
 	isBrowser: boolean;
 
 	@Select(BasketState.generalSumma) totalAmount$: Observable<string>;
+	@Select(AuthState.current) user$: Observable<User>;
 
 
 	constructor(
 		@Inject(PLATFORM_ID) private _pid: any,
 		private formBuilder: FormBuilder,
 		private _ms: MessageService,
-		private user: UserService,
 		private http: DeliveryDataService,
 		private router: Router,
 		private configService: ApiConfigService
@@ -46,10 +47,10 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	private updateForm(): void {
-		this.user.currentUser.subscribe((user) => {
+		this.user$.subscribe((user) => {
 			if (user) {
 				this.formDelivery.patchValue({
-					firstName: user.fullName,
+					firstName: `${user.firstName} ${user.lastName}`.trim(),
 					email: user.email,
 					phone: user.phone
 				});

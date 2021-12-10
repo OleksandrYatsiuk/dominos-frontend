@@ -93,8 +93,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this._store.dispatch(new LogoutAction())
-      .subscribe(() => {
-        this._router.navigate(['/']);
-      })
+      .subscribe(() => this._router.navigate(['/']));
   }
 }

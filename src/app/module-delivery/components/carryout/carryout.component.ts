@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { UserService } from 'src/app/core/services/user.service';
 import { MessageService } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
@@ -11,9 +10,11 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MapComponent } from '../map/map.component';
 import { IShop } from '@core/models/shop.interface';
 import { ShopService } from '@core/services/shop.service';
-import { Observable, pluck } from 'rxjs';
+import { Observable } from 'rxjs';
 import { BasketState } from '@core/basket/basket.state';
 import { Select } from '@ngxs/store';
+import { AuthState } from 'src/app/module-auth/state/auth.state';
+import { User } from 'src/app/module-auth/auth.model';
 
 
 @Component({
@@ -33,12 +34,11 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   private _ref: DynamicDialogRef;
 
   @Select(BasketState.generalSumma) totalAmount$: Observable<string>;
-
+  @Select(AuthState.current) user$: Observable<User>;
 
   constructor(
     private formBuilder: FormBuilder,
     private handler: ErrorHandlerService,
-    private userService: UserService,
     private _ms: MessageService,
     private rest: DeliveryDataService,
     private router: Router,
@@ -58,14 +58,13 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     this.shops$ = this._ss.queryShopsList();
 
     this.initForm();
-    this.userService.currentUser.subscribe(user => {
-      if (user) {
-        this.carryOut.patchValue({
-          firstName: user.fullName,
-          email: user.email,
-          phone: user.phone,
-        });
-      }
+
+    this.user$.subscribe(user => {
+      this.carryOut.patchValue({
+        firstName: `${user.firstName} ${user.lastName}`.trim(),
+        email: user.email,
+        phone: user.phone,
+      });
     });
   }
 

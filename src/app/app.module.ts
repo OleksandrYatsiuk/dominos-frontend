@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
-import { UserService } from './core/services/user.service';
 import { GeolocationService } from './core/services/geolocation.service';
 import { ApiConfigService } from './core/services/api-config.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -70,7 +69,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [UserService, GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
+  providers: [GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
     {
       provide: APP_INITIALIZER,
       useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
