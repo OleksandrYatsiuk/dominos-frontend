@@ -1,123 +1,94 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { passwordValidator } from '../../core/validators/password-validator';
-import { UserService } from '../../core/services/user.service';
-import { UserDataService } from '../user-data.service';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { pluck } from 'rxjs/operators';
-import { ReplaySubject } from 'rxjs';
+import { catchError, EMPTY, filter, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
+import { Select, Store } from '@ngxs/store';
+import { ChangePasswordAction, UpdateUserProfileAction } from '../state/auth.actions';
+import { AuthState } from '../state/auth.state';
+import { User } from '../auth.model';
+import { FileOptions } from '@shared/components/file-uploader/file-uploader.component';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+
+@UntilDestroy()
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
-  styleUrls: ['./user-settings.component.scss']
+  styleUrls: ['./user-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UserSettingsComponent implements OnInit, OnDestroy {
+export class UserSettingsComponent implements OnInit {
   message: { type: string; message: string; };
+
+  @Select(AuthState.current) user$: Observable<User>
 
   currentUser: any;
   public date: string;
   constructor(
-    private http: UserDataService,
     private handler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
     private configService: ApiConfigService,
-    private userService: UserService,
     private _ms: MessageService,
+    private _store: Store,
+    private _cd: ChangeDetectorRef,
     public formatter: NgbDateParserFormatter) { }
 
-  public image: File;
-  public updateProfileForm: FormGroup;
-  public changePasswordForm: FormGroup;
-  public imgForm: FormGroup;
-  public spinEditProfile = false;
-  public spinChangePassword = false;
-  private destroy$ = new ReplaySubject<void>(1);
-
-  get currentPassword() { return this.changePasswordForm.get('currentPassword'); }
-  get newPassword() { return this.changePasswordForm.get('newPassword'); }
-  get confirmPassword() { return this.changePasswordForm.get('confirmPassword'); }
-
-  get fullName() { return this.updateProfileForm.get('fullName'); }
-  get username() { return this.updateProfileForm.get('username'); }
-  get email() { return this.updateProfileForm.get('email'); }
-  get birthday() { return this.updateProfileForm.get('birthday'); }
-  get phone() { return this.updateProfileForm.get('phone'); }
+  image: File;
+  updateProfileForm: FormGroup;
+  changePasswordForm: FormGroup;
+  imgForm: FormGroup;
+  spinEditProfile = false;
+  spinChangePassword = false;
 
   ngOnInit(): void {
-    this.initForm();
-    this.initUpdateProfile();
     this.title.setTitle('User Settings');
-    this.userService.currentUser.subscribe(user => {
-      if (user) {
-        this.currentUser = user;
-        this.updateProfileForm.patchValue({
-          fullName: user.fullName,
-          username: user.username,
-          email: user.email,
-          birthday: new Date(user.birthday),
-          phone: user.phone,
-        });
-        if (user.image !== null) {
-          this.image = user.image;
-        }
-      }
-    });
+
+    this.user$.pipe(filter(result => result ? true : false), untilDestroyed(this))
+      .subscribe(user => {
+        this.initUpdateProfile(user);
+        this.initForm();
+        this._cd.detectChanges()
+      });
+
   }
 
-  showFile(event) {
-    this.image = event.file;
+  onUpload(event: FileOptions): void {
+    if (event.isDelete) {
+      this.updateProfileForm.controls.image.setValue(null);
+    }
+    this.image = event.value;
   }
 
-  ngOnDestroy(): void {
-    this.destroy$.next(null);
-    this.destroy$.complete();
-  }
-
-  onSubmit() {
+  onSubmit(): void {
     this.updateProfileForm.markAllAsTouched();
     if (this.updateProfileForm.valid) {
       this.spinEditProfile = !this.spinEditProfile;
-      this.http.updateProfile(this.updateProfileForm.value)
-        .pipe(pluck('result'))
-        .subscribe(result => {
-          if (this.image instanceof File) {
-            this.http.updateImage(this.image)
-              .subscribe(result => {
-                this.onSuccess(result)
-              }, (e) => {
-                this.onFail(e)
-              })
-          } else {
-            this.onSuccess(result);
-          }
-        }, (e) => {
-          this.onFail(e)
-        });
+      console.log(this.image);
+      this._store.dispatch(new UpdateUserProfileAction(this.updateProfileForm.getRawValue(), this.image))
+        .pipe(
+          catchError((e) => {
+            this.handler.validation(e, this.updateProfileForm);
+            this.spinEditProfile = false;
+            this._cd.detectChanges();
+            return EMPTY;
+          }))
+        .subscribe(user => {
+          this.spinEditProfile = false;
+          this._ms.add({ severity: 'success', detail: 'User profile has been successfully updated!' });
+          this._cd.detectChanges();
+        })
     }
   }
 
-  private onSuccess(result: object): void {
-    this.spinEditProfile = !this.spinEditProfile;
-    this._ms.add({ severity: 'success', detail: 'User profile has been successfully updated!' });
-    // this._ms.add({ severity: 'success', detail: 'User profile has been successfully updated!');
-    this.userService.setCurrentUserData(result)
-  }
-
-  private onFail(e: any): void {
-    this.spinEditProfile = !this.spinEditProfile;
-    this.handler.validation(e, this.updateProfileForm);
-  }
-
-  initForm() {
+  initForm(): void {
     this.changePasswordForm = this.formBuilder.group({
-      currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, passwordValidator(this.configService.getParameter('passwordRegexExp'))]],
       confirmPassword: ['', [Validators.required]],
     }, {
@@ -125,35 +96,47 @@ export class UserSettingsComponent implements OnInit, OnDestroy {
     })
   }
 
-  initUpdateProfile() {
+  initUpdateProfile(user: User): void {
     this.updateProfileForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      firstName: [user.firstName, [Validators.required,
+      Validators.minLength(this.configService.getParameter('fullNameMinLength')),
       Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
-      )
-      ]],
-      username: ['', [Validators.required,
+      )]
+      ],
+      lastName: [user.lastName, [Validators.required,
+      Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
+      )]
+      ],
+      username: [{ value: user.username, disabled: true }, [Validators.required,
       Validators.minLength(this.configService.getParameter('usernameMinLength')),
       Validators.maxLength(this.configService.getParameter('usernameMaxLength'))
       ]],
-      email: ['', [Validators.required, Validators.email]],
-      birthday: [null, []],
-      phone: ['', [phoneValidator(this.configService.getParameter('phoneRegexExp'))]],
+      image: [user.image, []],
+      email: [{ value: user.email, disabled: true }, [Validators.required, Validators.email]],
+      birthday: [user.birthday ? new Date(user.birthday) : null, []],
+      phone: [user.phone, [phoneValidator(this.configService.getParameter('phoneRegexExp'))]],
     });
   }
 
-  changePassword() {
+  changePassword(): void {
     this.changePasswordForm.markAllAsTouched();
     if (this.changePasswordForm.valid) {
       this.spinChangePassword = true;
-      this.http.changePassword(this.changePasswordForm.value).subscribe(() => {
-        this.spinChangePassword = false;
-        this._ms.add({ severity: 'success', detail: 'Password has been successfully changed!'})
-        this.changePasswordForm.reset();
-      }, (error) => {
-        this.spinChangePassword = false;
-        this.handler.validation(error, this.changePasswordForm);
-      });
+      this._store.dispatch(new ChangePasswordAction(this.changePasswordForm.getRawValue()))
+        .pipe(catchError(e => {
+          this.spinChangePassword = false;
+          this.handler.validation(e, this.changePasswordForm);
+          return EMPTY;
+        }),
+          untilDestroyed(this)
+        )
+        .subscribe(() => {
+          this.spinChangePassword = false;
+          this._ms.add({ severity: 'success', detail: 'Password has been successfully changed!' })
+          this.changePasswordForm.reset();
+          this._cd.detectChanges();
+        });
     }
-
   }
 }

@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { UserDataService } from 'src/app/module-auth/user-data.service';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { GeoLocation } from 'src/app/module-auth/auth.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,8 @@ export class GeolocationService {
   private userLocation = new BehaviorSubject<any>(null);
   location = this.userLocation.asObservable();
 
-  public updateUserLocation(coords) {
-    this.authService.updateLocation({ lat: coords.latitude, lng: coords.longitude }).subscribe(res => this.userService.setCurrentUserData(res));
+  public updateUserLocation(coords: GeoLocation) {
+    this.authService.updateLocation(coords).subscribe(res => this.userService.setCurrentUserData(res));
   }
 
   public askGeoLocation() {

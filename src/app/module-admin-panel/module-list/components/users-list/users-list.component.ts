@@ -63,9 +63,9 @@ export class UsersListComponent implements OnInit {
 
   private _queryUserList(page: number): Observable<User[]> {
     return this._us.getUsers({ page, limit: this.rows, sort: 'email' }).pipe(
-      tap(({ result, _meta }) => {
-        this.currentPage = _meta.pagination.page;
-        this.totalPages = _meta.pagination.total;
+      tap(response => {
+        this.currentPage = response.page;
+        this.totalPages = response.total;
       }),
       pluck('result'));
   }

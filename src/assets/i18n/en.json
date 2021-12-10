@@ -23,6 +23,7 @@
   "labels": {
     "fullName": "Full Name",
     "firstName": "First Name",
+    "lastName": "Last Name",
     "username": "Username",
     "email": "Email",
     "birthday": "Birthday",

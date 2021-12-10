@@ -44,7 +44,7 @@ export class MapService {
 
     }
 
-    addMarker(item: any, options?: L.MarkerOptions, popupOptions?: L.Popup): L.Marker {
+    addMarker(item: any, options: L.MarkerOptions = {}, popupOptions?: L.Popup): L.Marker {
         const marker = this.marker(item.coords, {
             icon: this._getIcon(item?.icon || 'marker.svg'),
             draggable: false,

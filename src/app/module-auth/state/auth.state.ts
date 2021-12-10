@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from '@core/services/storage.service';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { tap } from 'rxjs';
+import { mergeMap, of, tap } from 'rxjs';
 import { AuthResponse, User } from '../auth.model';
 import { UserDataService } from '../user-data.service';
-import { CheckAccessTokenAction, CurrentUserAction, LoginAction, LogoutAction } from './auth.actions';
+import { ChangePasswordAction, CheckAccessTokenAction, CurrentUserAction, LoginAction, LogoutAction, UpdateGeoLocationAction, UpdateUserProfileAction } from './auth.actions';
 
 export interface AuthStateModel {
   credentials: AuthResponse;
@@ -58,8 +58,10 @@ export class AuthState {
   @Action(LogoutAction)
   logout(ctx: StateContext<AuthStateModel>) {
     const state = ctx.getState();
-    this._storageService.removeItem(this._key);
-    ctx.setState({ ...state, credentials: { token: null, expiredAt: null }, user: null });
+    return this._userDataService.logout().pipe(tap(() => {
+      this._storageService.removeItem(this._key);
+      ctx.setState({ ...state, credentials: { token: null, expiredAt: null }, user: null });
+    }));
   }
 
   @Action(CurrentUserAction)
@@ -83,5 +85,27 @@ export class AuthState {
     if (credentials) {
       ctx.setState({ ...state, credentials: credentials });
     }
+  }
+
+  @Action(ChangePasswordAction)
+  changePassword(ctx: StateContext<AuthStateModel>, { payload }: ChangePasswordAction) {
+    return this._userDataService.changePassword(payload)
+  }
+
+  @Action(UpdateGeoLocationAction)
+  updateGeoLocation(ctx: StateContext<AuthStateModel>, { payload }: UpdateGeoLocationAction) {
+    return this._userDataService.updateLocation(payload).pipe(tap((user) => {
+      const state = ctx.getState();
+      ctx.setState({ ...state, user });
+    }))
+  }
+  @Action(UpdateUserProfileAction)
+  updateProfile(ctx: StateContext<AuthStateModel>, { payload, file }: UpdateUserProfileAction) {
+    const state = ctx.getState();
+    return this._userDataService.updateProfile(payload)
+      .pipe(mergeMap(user => file ? this._userDataService.updateImage(file) : of(user)),
+        tap(user => {
+          ctx.setState({ ...state, user });
+        }))
   }
 }

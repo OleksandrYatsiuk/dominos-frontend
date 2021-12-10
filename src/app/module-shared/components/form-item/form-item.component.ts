@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class FormItemComponent {
 
   constructor() { }
-  @Input() control: FormControl;
+  @Input() control: FormControl | null;
   @Input() field = 'Field';
   @Input() otherField = "Other Field";
 }

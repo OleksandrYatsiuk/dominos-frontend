@@ -42,7 +42,7 @@ export class MapComponent implements OnInit, OnDestroy {
     this._gs.location
       .pipe(pluck('position'))
       .subscribe(loc => {
-        this._ms.addMarker({ ...loc, icon: 'map-blue-small.svg', address: 'You are here!' });
+        this._ms.addMarker({ ...loc, icon: 'map-blue-small.svg', address: 'You are here!', coords: loc });
         this._cd.detectChanges();
       });
 

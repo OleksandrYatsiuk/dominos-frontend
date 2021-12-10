@@ -1,7 +1,5 @@
-<h2>Pizza: {{pizza.name}}</h2>
-<div class="action" *ngxPermissionsOnly="canEditPizza">
-  <mat-icon routerLink="edit" aria-hidden="false">edit</mat-icon>
-</div>
+<h2>Pizza: {{ pizza.name }}</h2>
+<div class="action" *ngxPermissionsOnly="canEditPizza"></div>
 <div class="product">
   <div class="options">
     <div class="pizza-image">
@@ -9,21 +7,28 @@
     </div>
     <div class="params">
       <h3>Category:</h3>
-      {{pizza.category}}
+      {{ pizza.category }}
     </div>
     <div class="params">
       <h3>Price - Weight</h3>
-      <p>{{pizza.price.small |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.small}} g</p>
-      <p>{{pizza.price.middle |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.middle}} g</p>
-      <p>{{pizza.price.big |currency:'UAH':'symbol-narrow'}} - {{pizza.weight.big}} g</p>
+      <p>
+        {{ pizza.price.small | currency: "UAH":"symbol-narrow" }} -
+        {{ pizza.weight.small }} g
+      </p>
+      <p>
+        {{ pizza.price.middle | currency: "UAH":"symbol-narrow" }} -
+        {{ pizza.weight.middle }} g
+      </p>
+      <p>
+        {{ pizza.price.big | currency: "UAH":"symbol-narrow" }} -
+        {{ pizza.weight.big }} g
+      </p>
     </div>
     <div class="params">
       <h3>Ingredients:</h3>
       <div *ngFor="let ingredient of pizza.ingredients">
-        <li>{{ingredient.name}}</li>
+        <li>{{ ingredient.name }}</li>
       </div>
     </div>
-
   </div>
-
 </div>

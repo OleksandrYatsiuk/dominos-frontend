@@ -22,11 +22,10 @@ export class ParamInterceptor implements HttpInterceptor {
     return this.credentials$.pipe(
       take(1),
       concatMap(({ token }) => {
-        console.log(token);
         if (token) {
           request = request.clone({
             setHeaders: {
-              authorization: `Bearer ${token}`
+              authorization: `Bearer ${token}`,
             }
           });
         }

@@ -23,6 +23,7 @@
   "labels": {
     "fullName": "Повне ім'я",
     "firstName": "Ім'я",
+    "lastName": "Прізвище",
     "username": "Ім'я користувача",
     "email": "Електронна пошта",
     "birthday": "Дата народження",

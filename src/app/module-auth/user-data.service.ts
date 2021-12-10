@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserLogin, User, AuthResponse } from './auth.model';
+import { UserLogin, User, AuthResponse, ChangePassword, GeoLocation, UpdateUserProfile } from './auth.model';
 import { Observable } from 'rxjs';
 import { pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
@@ -17,31 +17,31 @@ export class UserDataService {
     return this._http.post<AuthResponse>(`${this._nestUrl}/auth/login`, data);
   }
 
-  public changePassword(data: any): Observable<any> {
-    return this._http.post(`${this._apiUrl}/user/change-password`, data);
+  changePassword(data: ChangePassword): Observable<boolean> {
+    return this._http.put<boolean>(`${this._nestUrl}/user/change-password`, data);
   }
-  public updateProfile(data: any): Observable<any> {
-    return this._http.put(`${this._apiUrl}/user/profile`, data)
-  }
-
-  public register(user: User): Observable<any> {
-    return this._http.post(`${this._apiUrl}/auth/register`, user);
+  updateProfile(data: Partial<UpdateUserProfile>): Observable<User> {
+    return this._http.patch<User>(`${this._nestUrl}/user/profile`, data)
   }
 
-  public logout(): Observable<any> {
-    return this._http.post(`${this._apiUrl}/user/logout`, {});
-  }
-  public current(): Observable<User> {
-    return this._http.get<User>(`${this._nestUrl}/users/current`);
+  register(user: Partial<User>): Observable<User> {
+    return this._http.post<User>(`${this._nestUrl}/auth/register`, user);
   }
 
-  public updateLocation(location: object): Observable<any> {
-    return this._http.put(`${this._apiUrl}/user/location`, location);
+  logout(): Observable<void> {
+    return this._http.post<void>(`${this._nestUrl}/user/logout`, {});
   }
-  public updateImage(file: File): Observable<any> {
+  current(): Observable<User> {
+    return this._http.get<User>(`${this._nestUrl}/user/current`);
+  }
+
+  updateLocation(data: GeoLocation): Observable<User> {
+    return this._http.put<User>(`${this._nestUrl}/user/geolocation`, data);
+  }
+  updateImage(file: File): Observable<User> {
     const data = new FormData();
     data.append('file', file);
-    return this._http.post(`${this._apiUrl}/user/upload`, data).pipe(pluck('result'))
+    return this._http.post<User>(`${this._nestUrl}/user/profile-image`, data)
   }
 
   public confirm(hash: string): Observable<any> {
