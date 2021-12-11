@@ -49,9 +49,9 @@ export class PizzaFormComponent implements OnInit {
       name: [pizza?.name, []],
       category: [pizza?.category, [Validators.required]],
       ingredients: [pizza?.ingredients || [], [Validators.required]],
-      weight: [pizza?.size || { small: '', middle: '', big: '' }, []],
+      size: [pizza?.size || { small: '', middle: '', big: '' }, []],
       price: [pizza?.price || { small: '', middle: '', big: '' }, []],
-      image: [pizza.image || null, []]
+      image: [pizza?.image || null, []]
     });
   }
 

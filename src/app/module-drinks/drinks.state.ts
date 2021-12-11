@@ -47,6 +47,9 @@ export class DrinksState {
 
   @Action(AddDrink)
   createDrink(ctx: StateContext<DrinksStateModel>, { payload }: AddDrink) {
+    payload.price = Object.entries(payload.price).filter(([key, value]) => value).map(([key, value]) => ({ [key]: value }))[0]
+    payload.size = Object.entries(payload.size).filter(([key, value]) => value).map(([key, value]) => ({ [key]: value }))[0]
+
     return this._drinksService.queryDrinkCreate(payload);
   }
 

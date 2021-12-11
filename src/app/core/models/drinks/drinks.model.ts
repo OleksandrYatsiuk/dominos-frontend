@@ -11,8 +11,8 @@ export enum DrinksCategories {
 export interface Drink {
     id: string;
     name: ILanguage;
-    price: Size;
-    size: Size;
+    price: Partial<Size>;
+    size: Partial<Size>;
     image: string;
     category: DrinksCategories;
     createdAt: Date;

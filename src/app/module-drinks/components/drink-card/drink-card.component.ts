@@ -24,10 +24,10 @@ export class DrinkCardComponent implements OnInit {
   }
 
 
-  convertToArray(size: Size): SelectItem[] {
+  convertToArray(size: Partial<Size>): SelectItem[] {
     const sizes = Object.entries(size)
       .filter(([key, value]) => value)
-      .map(([key, value]) => ({ value: key, label: value }));
+      .map(([key, value]) => ({ value: key, label: `${value}` }));
     if (!this.selectedSize && sizes.length > 0) {
       this.selectedSize = sizes[0].value;
     }

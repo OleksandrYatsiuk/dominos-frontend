@@ -37,7 +37,7 @@
         <p-multiSelect
           [showToggleAll]="false"
           class="d-multi-select"
-          [filter]="false"
+          [filter]="true"
           display="chip"
           placeholder="Select Ingredients"
           formControlName="ingredients"
@@ -47,7 +47,7 @@
 
       <div class="form__control">
         <span>{{ "labels.weight" | translate }}</span>
-        <d-multi-language-field formControlName="weight">
+        <d-multi-language-field formControlName="size">
         </d-multi-language-field>
       </div>
 
