@@ -1,0 +1,12 @@
+@import "../../../../styles/helpers/index";
+
+.drinks {
+  .category {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__label {
+    text-align: center;
+    @include genText(2rem, 1, 600);
+  }
+}

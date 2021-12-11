@@ -34,9 +34,9 @@ export class DrinksFormDialogComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       const formValue = this.form.getRawValue();
-      const file = formValue.image;
+      const file = formValue.image instanceof File ? formValue.image : undefined;
       this._store.dispatch(this.drink ?
-        new EditDrink({ ...formValue, image: file instanceof File && this.drink.image ? this.drink.image : null, file }) : new AddDrink({ ...formValue }))
+        new EditDrink(formValue, file) : new AddDrink({ ...formValue }))
         .subscribe(() => this._ref.close(true));
     }
   }

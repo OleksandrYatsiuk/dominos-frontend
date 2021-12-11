@@ -25,7 +25,7 @@ export class PromotionsSliderComponent implements OnInit {
   constructor(private _store: Store) { }
 
   ngOnInit(): void {
-    this._store.dispatch(new FetchAllPromotions());
+    this._store.dispatch(new FetchAllPromotions({ limit: 10, sort: '-startedAt' }));
   }
 
 }

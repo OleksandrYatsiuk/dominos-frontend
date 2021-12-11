@@ -1,4 +1,4 @@
-<section class="drink">
+<section class="drink__wrapper">
   <div class="drink__form" [formGroup]="form">
     <div class="form-control">
       <span class="form-control__label">{{ "labels.size" | translate }}</span>
@@ -31,7 +31,8 @@
       <d-multi-language-field formControlName="size"></d-multi-language-field>
     </div>
   </div>
-  <div class="drink__buttons">
-    <button class="btn btn-primary" (click)="onSave()">Save</button>
-  </div>
 </section>
+
+<div class="d-dialog__buttons">
+  <button class="button button--blue" (click)="onSave()">Save</button>
+</div>

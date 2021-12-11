@@ -4,18 +4,21 @@ import { Drink } from '@core/models/drinks/drinks.model';
 import { DrinksService } from '@core/services/drinks/drinks.service';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { SelectItem } from 'primeng/api';
-import { mergeMap, of, pluck, tap } from 'rxjs';
+import { mergeMap, of, tap } from 'rxjs';
 import { AddDrink, DeleteDrink, EditDrink, FetchAllDrinks } from './drinks.actions';
+import { IPaginationResponse } from '@core/models/response.interface';
 
 export interface DrinksStateModel {
   drinks: Drink[];
-  categories: SelectItem[]
+  categories: SelectItem[],
+  paginatedDrinks: IPaginationResponse<Drink[]>
 }
 
 @State<DrinksStateModel>({
   name: 'drinks',
   defaults: {
     drinks: [],
+    paginatedDrinks: { page: 0, total: 0, result: [], limit: 0 },
     categories: Object.values(DrinksCategory)
       .filter(c => Number.isInteger(c))
       .map(c => ({ value: c, label: String(c) }))
@@ -28,7 +31,7 @@ export class DrinksState {
   constructor(private _drinksService: DrinksService) { }
 
   @Selector()
-  static drinks(state: DrinksStateModel) {
+  static drinks(state: DrinksStateModel): Drink[] {
     return state.drinks;
   }
 
@@ -39,10 +42,11 @@ export class DrinksState {
 
   @Action(FetchAllDrinks)
   getDrinks({ getState, setState }: StateContext<DrinksStateModel>, { payload }: FetchAllDrinks) {
-    return this._drinksService.queryDrinkList(payload).pipe(pluck('result'), tap((drinks) => {
-      const state = getState();
-      setState({ ...state, drinks });
-    }));
+    return this._drinksService.queryDrinkList(payload).pipe(
+      tap((drinks) => {
+        const state = getState();
+        setState({ ...state, drinks: drinks.result, paginatedDrinks: drinks });
+      }));
   }
 
   @Action(AddDrink)
@@ -54,10 +58,9 @@ export class DrinksState {
   }
 
   @Action(EditDrink)
-  editDrink(ctx: StateContext<DrinksStateModel>, { payload }: EditDrink) {
+  editDrink(ctx: StateContext<DrinksStateModel>, { payload, file }: EditDrink) {
     return this._drinksService.queryDrinkUpdate(payload.id, payload).pipe(
-      mergeMap(drink => payload.file instanceof File ?
-        this._drinksService.queryDrinkImageUpload(payload.id, payload.file) : of(drink)));
+      mergeMap(drink => file ? this._drinksService.queryDrinkImageUpload(payload.id, file) : of(drink)));
   }
 
   @Action(DeleteDrink)

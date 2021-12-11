@@ -1,8 +1,81 @@
 @import "./helpers/index";
 
+.p-dialog-mask.p-component-overlay-enter {
+  background-color: $bg-gray-transparent;
+  pointer-events: auto;
+}
 .d-dialog {
   &.p-dialog {
-    max-height: 100%;
+    background-color: $c-white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    max-width: 95%;
+    @include mobile {
+      width: 90%;
+    }
+    .p-dialog-header {
+      display: flex;
+      height: $dialog-footer-height;
+      border-bottom: 1px solid $c-gray;
+      padding: 20px;
+
+      &-icons {
+        .p-dialog-header-icon {
+          cursor: pointer;
+          border: 0;
+          outline: none;
+          background-color: transparent;
+          border-radius: 50%;
+          padding: 6px;
+          transition: all 0.3s;
+          &:hover {
+            background-color: $c-gray-2;
+          }
+        }
+        .p-dialog-header-close-icon {
+          width: 20px;
+          height: 20px;
+          background-repeat: no-repeat;
+          background-image: url("/assets/icons/close.svg");
+        }
+      }
+    }
+    .p-dialog-content {
+      position: relative;
+    }
+    .p-dialog-title {
+      @include genText(1.2rem, 1.2rem, bold);
+    }
+  }
+
+  &__buttons {
+    height: $dialog-footer-height;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    .button {
+      margin: 0 5px;
+      max-width: 10rem;
+      min-height: 2.5rem;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    @include mobile {
+      height: auto;
+      flex-wrap: wrap;
+      margin: 5px 0;
+      .button {
+        margin: 5px;
+        max-width: 90%;
+      }
+    }
+  }
+
+  &--warn {
+    &.p-dialog {
+      border: 1px solid $c-orange;
+    }
   }
 }
 

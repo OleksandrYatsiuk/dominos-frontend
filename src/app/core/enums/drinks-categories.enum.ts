@@ -1,5 +1,5 @@
 export enum DrinksCategory {
-    BEER = 1,
+    JUICE = 3,
     WATER = 2,
-    JUICE = 3
+    BEER = 1
 }

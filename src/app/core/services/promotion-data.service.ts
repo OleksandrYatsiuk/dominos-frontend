@@ -19,15 +19,15 @@ export class PromotionDataService {
   private _public_path = `${this._apiUrl}/public/promotions`;
   constructor(private http: HttpClient) {
   }
-  getData(options?: object): Observable<IPaginationResponse<ModelPromotion[]>> {
-    return this.http.get(this._path, options)
+  getData(params?: Partial<IQueryParams<ModelPromotion>>): Observable<IPaginationResponse<ModelPromotion[]>> {
+    return this.http.get(this._path, { params })
       .pipe(
         map((response: IPaginationResponse<Promotion[]>) => {
           return { ...response, result: response.result.map(p => new ModelPromotion(p)) };
         }));
   }
-  queryPromotionPublicList(params?: object): Observable<IPaginationResponse<ModelPromotionPublic[]>> {
-    return this.http.get(this._public_path, params).pipe(
+  queryPromotionPublicList(params?: Partial<IQueryParams<ModelPromotionPublic>>): Observable<IPaginationResponse<ModelPromotionPublic[]>> {
+    return this.http.get(this._public_path, { params }).pipe(
       map((response: IPaginationResponse<IPromotionPublic[]>) => ({ ...response, result: response.result.map(p => new ModelPromotionPublic(p)) }))
     );
   }

@@ -1,3 +1,5 @@
+@import "./helpers/index";
+
 .icon {
   display: inline-block;
   width: 16px;
@@ -12,5 +14,33 @@
   &--edit {
     background: url(/assets/icons/edit.svg);
     background-repeat: no-repeat;
+  }
+}
+
+.icon {
+  cursor: pointer;
+  margin: 5px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+
+    path {
+      fill: $c-black;
+    }
+  }
+  &--big {
+    svg {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &--white {
+    svg {
+      path {
+        fill: white;
+      }
+    }
   }
 }

@@ -7,7 +7,7 @@ export class AddDrink {
 
 export class EditDrink {
   static readonly type = '[Drinks] Edit';
-  constructor(public payload: UpdateDrinkBody) { }
+  constructor(public payload: UpdateDrinkBody, public file?: File) { }
 }
 
 export class FetchAllDrinks {

@@ -22,6 +22,8 @@
   "detailsLabel": "Детальніше",
   "labels": {
     "fullName": "Повне ім'я",
+    "search": "Пошук",
+    "add": "Додати",
     "firstName": "Ім'я",
     "lastName": "Прізвище",
     "username": "Ім'я користувача",
@@ -50,7 +52,8 @@
     "ingredients": "Інгредієнти",
     "weight": "Вага",
     "price": "Ціна",
-    "size": "Розмір"
+    "size": "Розмір",
+    "options": "Опції"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -125,12 +128,14 @@
     "required": "Поле \"{{field}}\" обов'язкове для заповнення."
   },
   "messages": {
-    "delete": "Будь-ласка, підтвердіть видалення!"
+    "delete": "Будь-ласка, підтвердіть видалення!",
+    "noRecords": "Записів не знайдено."
   },
   "inBasket": "В кошик",
   "uah": "грн",
   "gram": "г",
   "ml": "мл",
+  "from": "від {{count}} {{label}}",
   "deliveryLabel": "Доставка",
   "selfPickupLabel": "Cамовивіз",
   "yourOrderLabel": "Ваше замовлення",

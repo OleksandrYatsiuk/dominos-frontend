@@ -53,3 +53,60 @@ input.ngb-tp-input.form-control {
     @include genText(13px, 13px);
   }
 }
+
+.input {
+  width: 100%;
+  height: 40px;
+  border-radius: 6px;
+  padding: 2px 10px;
+  outline: none;
+  border: 1px solid transparent;
+  background-color: rgba(68, 72, 109, 0.07);
+  @include genText(1rem, 100%, 300, $c-font);
+  transition: all 0.3s;
+  &:focus {
+    border: 1px solid $c-gray;
+  }
+
+  &.ng-invalid.ng-touched {
+    border: 1px solid $c-red;
+  }
+}
+
+.icon-input {
+  display: flex;
+  position: relative;
+
+  .input {
+    padding: 2px 30px 2px 8px;
+    padding-left: 2.142rem;
+    width: 100%;
+  }
+  .icon {
+    position: absolute;
+    top: 3px;
+    left: 0;
+  }
+}
+input:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.d-input-number {
+  .p-inputnumber {
+    height: 40px;
+    width: 100%;
+
+    .p-inputnumber-input {
+      border-radius: 5px;
+      padding: 2px 10px;
+      border: 1px solid $c-gray-2;
+      outline: none;
+      transition: all 0.3s;
+      &:focus {
+        border: 1px solid $c-gray;
+      }
+    }
+  }
+}

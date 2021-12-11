@@ -1,9 +1,14 @@
-<div>
-  <div style="display: flex; flex-wrap: wrap;">
-    <app-drink-card
-      *ngFor="let drink of drinks$ | async as drinks"
-      [drink]="drink"
-    >
-    </app-drink-card>
+<div *ngIf="drinks$ | async as drinks" class="drinks">
+  <div *ngFor="let category of categories">
+    <h2 class="drinks__label" *ngIf="drinks.length">{{ category.label | translate }}</h2>
+    <div class="category">
+      <ng-container *ngFor="let drink of drinks">
+        <app-drink-card
+          [drink]="drink"
+          *ngIf="drink.category === category.value"
+        >
+        </app-drink-card>
+      </ng-container>
+    </div>
   </div>
 </div>

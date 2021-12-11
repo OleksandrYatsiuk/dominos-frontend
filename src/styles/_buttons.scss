@@ -1,3 +1,5 @@
+@import "./helpers/index";
+
 .btn-promo {
   outline: none;
   background-color: white;
@@ -51,13 +53,103 @@
     background-color: $c-red;
   }
   &--gray {
-    background-color: $c-light-gray;
+    background-color: $c-gray-2;
   }
-  &--yellow{
+  &--yellow {
     background-color: $c-yellow;
-
   }
 }
 .btn:focus {
   box-shadow: none;
+}
+
+
+
+.button {
+  outline: none;
+  border-radius: 5px;
+  padding: 0.3rem 0.5rem;
+  border-width: 1px;
+  border-color: transparent;
+  transition: $transition;
+  cursor: pointer;
+  background-color: transparent;
+  @include genText(1rem, 1rem, 600);
+  &:hover:not(:disabled) {
+    opacity: 1;
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(2px);
+  }
+
+  &--blue {
+    background-color: $c-blue;
+    color: $c-white;
+  }
+  &--orange {
+    background-color: $c-orange;
+    color: $c-white;
+  }
+  &--white {
+    border: 1px solid rgba($c-gray, 0.5);
+  }
+
+  &--maximize {
+    width: 100%;
+  }
+
+  &--big {
+    padding: 0.5rem 1rem;
+  }
+
+  &--medium {
+    padding: 0.5rem 0.5rem;
+  }
+
+  &--small {
+    padding: unset;
+    min-height: auto;
+  }
+
+  &__link {
+    background-color: transparent;
+    border-color: transparent;
+    text-decoration: underline;
+    &.button--blue {
+      color: $c-blue;
+      &:hover {
+        background-color: rgba($c-blue, 0.04);
+      }
+    }
+  }
+}
+
+.button-text {
+  @include genText(0.8rem, 1rem);
+  margin: 0 5px;
+
+  &--blue {
+    color: $c-blue;
+  }
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+  transition: $transition;
+  &:hover:not(:disabled) {
+    border-width: 1px;
+    border-style: solid;
+    background-color: rgba($c-gray, 0.1);
+  }
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+
+  .icon {
+    cursor: not-allowed;
+  }
 }

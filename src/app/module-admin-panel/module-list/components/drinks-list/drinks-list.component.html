@@ -1,60 +1,117 @@
-<div class="drinks-list">
-  <p-table [columns]="cols" [value]="drinks$ | async" class="d-table">
+<section class="d-table__wrapper">
+  <p-table
+    #dt
+    *ngIf="list$ | async as drinks"
+    [value]="drinks"
+    [columns]="cols"
+    responsiveLayout="stack"
+    [rowHover]="true"
+    [rows]="100"
+    scrollHeight="65vh"
+    [virtualScroll]="true"
+    [virtualRowHeight]="20"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-table__caption pt-table__caption--external">
+        <div class="caption-actions">
+          <button class="button button-icon" (click)="onCreateDrink()">
+            <em [inlineSVG]="'add.svg'"></em>
+            <span class="button-text"> {{ "labels.add" | translate }}</span>
+          </button>
+        </div>
+        <div class="global-search icon-input">
+          <em class="icon" [inlineSVG]="'search.svg'"></em>
+          <input
+            pInputText
+            type="text"
+            class="input"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate"
+          />
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
-        </th>
-        <th class="cell-actions">
-          <span class="action" (click)="onCreateDrink()">Add New</span>
+      <tr class="d-table__header">
+        <th
+          *ngFor="let col of columns"
+          scope="col"
+          class="d-table__title"
+          [ngStyle]="{ width: col?.width ? col.width : 'auto' }"
+          [pSortableColumn]="col.field"
+        >
+          <span>{{ col.header | translate }}</span>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-drink
+      let-rowData
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
-      <tr>
-        <td *ngFor="let col of columns" [ngSwitch]="col.field">
-          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
-          <div *ngSwitchCase="'name'">{{ drink[col.field] | lang }}</div>
-          <div *ngSwitchCase="'price'">{{ drink[col.field]["small"] }}</div>
-          <div *ngSwitchCase="'size'">{{ drink[col.field]["small"] }}</div>
-          <div *ngSwitchCase="'category'">
-            {{ "categoriesLabels.drinks." + drink[col.field] | translate }}
-          </div>
-          <div *ngSwitchCase="'image'">
-            <img
-              style="width:100%"
-              *ngIf="drink[col.field]; else empty"
-              [lazyLoad]="drink[col.field]"
-              [alt]="drink.name | lang"
-            />
-            <ng-template #empty>-</ng-template>
-          </div>
+      <tr class="d-table__row">
+        <ng-container *ngFor="let col of columns">
+          <td [ngSwitch]="col.field" class="d-table__cell">
+            <span class="p-column-title">{{ col.header | translate }}</span>
+            <ng-container *ngSwitchCase="'minSize'">
+              {{
+                "from"
+                  | translate
+                    : {
+                        count: rowData[col.field],
+                        label: "ml" | translate
+                      }
+              }}
+            </ng-container>
 
-          <div *ngSwitchDefault>{{ drink[col.field] }}</div>
-        </td>
-        <td class="cell-actions">
-          <div class="cell-options-icons">
-            <i class="icon icon--trash" (click)="onDelete(drink)"></i>
-            <i class="icon icon--edit" (click)="onEditDrink(drink)"></i>
-          </div>
+            <ng-container *ngSwitchCase="'minPrice'">
+              {{
+                "from"
+                  | translate
+                    : {
+                        count: rowData[col.field],
+                        label: "uah" | translate
+                      }
+              }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'image'">
+              <img
+                [src]="rowData[col.field]"
+                [alt]="rowData['name'] | lang"
+                style="width:100%"
+              />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'options'">
+              <div class="d-table-options">
+                <em
+                  class="icon"
+                  [inlineSVG]="'edit.svg'"
+                  (click)="onEditDrink(rowData)"
+                ></em>
+                <em
+                  class="icon"
+                  [inlineSVG]="'trash.svg'"
+                  (click)="onDelete(rowData)"
+                ></em>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]
+            }}</ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length" class="d-table__empty-message">
+          {{ "messages.noRecords" | translate }}
         </td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<div class="pagination">
-  <p-paginator
-    class="d-paginator"
-    [totalRecords]="totalPages"
-    [pageLinkSize]="5"
-    [rows]="rows"
-    [alwaysShow]="false"
-    (onPageChange)="onPageChange($event.page)"
-  ></p-paginator>
-</div>
+</section>

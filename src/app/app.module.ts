@@ -33,6 +33,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { PromotionsState } from './module-promotions/promotions/promotions.state';
 import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 registerLocaleData(uk);
 registerLocaleData(ru);
@@ -61,6 +62,11 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
+    InlineSVGModule.forRoot({
+      baseUrl: '/assets/icons/',
+      bypassHttpClientInterceptorChain: true,
+      clientOnly: true,
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

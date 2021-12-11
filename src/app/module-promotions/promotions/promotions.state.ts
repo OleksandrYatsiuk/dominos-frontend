@@ -41,11 +41,11 @@ export class PromotionsState {
   }
 
   @Action(FetchAllPromotions)
-  getPromotions({ getState, setState }: StateContext<PromotionsStateModel>) {
+  getPromotions({ getState, setState }: StateContext<PromotionsStateModel>, { payload }: FetchAllPromotions) {
     const state = getState();
     return state.promotions.length > 0 ?
       of(state.promotions).pipe(tap(promotions => setState({ ...getState(), promotions })))
-      : this._promotionsService.queryPromotionPublicList().pipe(pluck('result'), tap((promotions: ModelPromotionPublic[]) => {
+      : this._promotionsService.queryPromotionPublicList(payload).pipe(pluck('result'), tap((promotions: ModelPromotionPublic[]) => {
         setState({ ...getState(), promotions });
       }));
   }

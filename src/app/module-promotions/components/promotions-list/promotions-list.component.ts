@@ -17,7 +17,7 @@ export class PromotionsListComponent implements OnInit {
 
   constructor(private store: Store) { }
   ngOnInit(): void {
-    this.store.dispatch(new FetchAllPromotions());
+    this.store.dispatch(new FetchAllPromotions({ sort: '-startedAt' }));
   }
 
 }
