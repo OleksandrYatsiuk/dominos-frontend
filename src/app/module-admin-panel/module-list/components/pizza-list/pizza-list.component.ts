@@ -3,44 +3,65 @@ import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
 import { TableItem } from '@core/models/table.interface';
-import { Observable } from 'rxjs';
+import { filter, map, mergeMap, Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
 import { DeletePizza, FetchAllPizzas } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.actions';
 import { IPaginationResponse } from '@core/models/response.interface';
 import { LangPipe } from '@shared/pipe/lang.pipe';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { DatePipe } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
 
+type PizzaTable = Pizza & {
+
+}
+
+@UntilDestroy()
 @Component({
   selector: 'app-pizza-list',
   templateUrl: './pizza-list.component.html',
   styleUrls: ['./pizza-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe]
+  providers: [LangPipe, DatePipe]
 })
 export class PizzaListComponent implements OnInit {
   currentPage = 1;
   cols: TableItem[];
+  tablePizza$: Observable<PizzaTable[]>;
 
   @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
-  @Select(PizzasState.pizzasWithPagination) pizzasWithPagination$: Observable<IPaginationResponse<Pizza[]>>
 
   constructor(
     private _cs: ConfirmService,
     private _cd: ChangeDetectorRef,
     private _ms: MessageService,
     private _langPipe: LangPipe,
+    private _translateService: TranslateService,
     private _store: Store
   ) { }
 
   ngOnInit(): void {
 
+    this.tablePizza$ = this.pizzas$.pipe(map(pizzas => pizzas.map((pizza, i) => ({
+      ...pizza,
+      index: i + 1,
+      shortName: this._langPipe.transform(pizza.name),
+      category: this._translateService.instant(`categoriesLabels.pizzas.${pizza.category}`),
+      minPrice: pizza.price.small,
+      minSize: pizza.size.small
+    }))))
+
     this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
 
     this.cols = [
+      { field: 'index', header: '#', sortable: true, style: { width: '100px' } },
       { field: 'image', header: 'Image' },
-      { field: 'id', header: 'ID' },
-      { field: 'name', header: 'Name' },
-      { field: 'category', header: 'Category' }
+      { field: 'shortName', header: 'Name', sortable: true },
+      { field: 'minPrice', header: 'Price', sortable: true },
+      { field: 'minSize', header: 'Size', sortable: true },
+      { field: 'category', header: 'Category', sortable: true },
+      { field: 'options', header: 'labels.options', style: { width: '100px' } }
     ];
   }
 
@@ -51,17 +72,14 @@ export class PizzaListComponent implements OnInit {
   }
 
   onDelete(item: Pizza): void {
-    this._cs.delete().subscribe(result => {
-      if (result) {
-
-        this._store.dispatch(new DeletePizza(item.id))
-          .subscribe(() => {
-            this.currentPage = 1;
-            // this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
-            this._ms.add({ severity: 'success', detail: `Піца "${this._langPipe.transform(item.name)}" видалена успішно!` });
-            this._cd.detectChanges();
-          })
-      }
-    });
+    this._cs.delete().pipe(
+      filter(result => result),
+      mergeMap(() => this._store.dispatch(new DeletePizza(item.id))),
+      untilDestroyed(this))
+      .subscribe(result => {
+        this.currentPage = 1;
+        this._ms.add({ severity: 'success', detail: `Піца "${this._langPipe.transform(item.name)}" видалена успішно!` });
+        this._cd.detectChanges();
+      });
   }
 }

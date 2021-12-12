@@ -1,7 +1,7 @@
 import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { GeolocationService } from './core/services/geolocation.service';
@@ -34,6 +34,7 @@ import { PromotionsState } from './module-promotions/promotions/promotions.state
 import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { LangPipe } from '@shared/pipe/lang.pipe';
 
 registerLocaleData(uk);
 registerLocaleData(ru);
@@ -86,7 +87,8 @@ export function createTranslateLoader(http: HttpClient) {
       provide: LOCALE_ID,
       deps: [LangService],      //some service handling global settings
       useFactory: (langService: LangService) => langService.getLang()  //returns locale string
-    }
+    },
+    LangPipe, DatePipe
   ],
   bootstrap: [AppComponent],
 })

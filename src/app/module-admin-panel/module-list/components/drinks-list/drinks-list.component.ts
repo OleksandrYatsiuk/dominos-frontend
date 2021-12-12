@@ -61,13 +61,13 @@ export class DrinksListComponent implements OnInit, OnDestroy {
     this._queryDrinksList();
 
     this.cols = [
-      { field: 'index', header: '#' },
+      { field: 'index', header: '#', style: { width: '100px' } },
       { field: 'shortName', header: 'Name', sortable: true },
       { field: 'image', header: 'Image', sortable: true },
       { field: 'minPrice', header: 'Price', sortable: true },
       { field: 'minSize', header: 'Size', sortable: true },
       { field: 'category', header: 'Categories', sortable: true },
-      { field: 'options', header: 'labels.options' }
+      { field: 'options', header: 'labels.options', style: { width: '100px' } }
     ];
   }
 

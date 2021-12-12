@@ -37,8 +37,8 @@
           *ngFor="let col of columns"
           scope="col"
           class="d-table__title"
-          [ngStyle]="{ width: col?.width ? col.width : 'auto' }"
-          [pSortableColumn]="col.field"
+          [ngStyle]="col?.style || {}"
+          [pSortableColumn]="col.sortable ? col.field : ''"
         >
           <span>{{ col.header | translate }}</span>
           <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
@@ -79,9 +79,9 @@
 
             <ng-container *ngSwitchCase="'image'">
               <img
-                [src]="rowData[col.field]"
+                [lazyLoad]="rowData[col.field]"
                 [alt]="rowData['name'] | lang"
-                style="width:100%"
+                style="width:50px;height:50px"
               />
             </ng-container>
 

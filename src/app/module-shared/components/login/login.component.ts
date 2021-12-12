@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, AbstractControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Store } from '@ngxs/store';
@@ -18,8 +18,7 @@ export class LoginComponent implements OnInit {
     private _ref: DynamicDialogRef,
     private _formBuilder: FormBuilder,
     private _store: Store,
-    private handler: ErrorHandlerService,
-    private _cd: ChangeDetectorRef
+    private handler: ErrorHandlerService
   ) { }
 
   public form: FormGroup;
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
-
       this._store.dispatch(new LoginAction(this.form.getRawValue()))
         .pipe(catchError(e => {
           this.handler.validation(e, this.form);
@@ -48,7 +46,6 @@ export class LoginComponent implements OnInit {
         .subscribe(data => {
           this._store.dispatch(new CurrentUserAction());
           this._ref.destroy();
-          this._cd.detectChanges();
         });
     }
   }

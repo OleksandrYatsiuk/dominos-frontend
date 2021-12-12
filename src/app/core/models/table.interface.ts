@@ -1,6 +1,6 @@
 export interface TableItem {
     header: string;
     field: string;
-    style?: string;
+    style?: any;
     sortable?: boolean
 }

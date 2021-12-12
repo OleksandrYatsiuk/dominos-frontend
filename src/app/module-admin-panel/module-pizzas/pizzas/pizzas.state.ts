@@ -1,16 +1,16 @@
+import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Pizza } from '@core/models/pizza.interface';
-import { QuerySearchPizzas } from '@core/models/pizza/pizza.interface';
-import { IPaginationResponse } from '@core/models/response.interface';
 import { PizzaDataService } from '@core/services/pizza-data.service';
+import { TranslateService } from '@ngx-translate/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { of, pluck, tap } from 'rxjs';
+import { LangPipe } from '@shared/pipe/lang.pipe';
+import { of, tap } from 'rxjs';
 import { CreateNewPizza, DeletePizza, FetchAllPizzas, GetPizzaItem, UpdatePizza } from './pizzas.actions';
 
 export interface PizzasStateModel {
   pizzas: Pizza[];
-  pizzasWithPagination: IPaginationResponse<Pizza[]> | null;
-  pizza: Pizza | null,
+  pizza: Pizza | null;
 }
 
 @State<PizzasStateModel>({
@@ -18,17 +18,18 @@ export interface PizzasStateModel {
   defaults: {
     pizzas: [],
     pizza: null,
-    pizzasWithPagination: null
   }
 })
 
 @Injectable()
 export class PizzasState {
-  constructor(private _pizzaDataService: PizzaDataService) { }
+  constructor(
+    private _pizzaDataService: PizzaDataService,
+  ) { }
 
   @Selector()
   static pizzas(state: PizzasStateModel): Pizza[] {
-    return state.pizzasWithPagination.result;
+    return state.pizzas
   }
 
   @Selector()
@@ -36,11 +37,6 @@ export class PizzasState {
     return state.pizza;
   }
 
-
-  @Selector()
-  static pizzasWithPagination(state: PizzasStateModel): Partial<IPaginationResponse<Pizza[]>> | null {
-    return state.pizzasWithPagination;
-  }
 
   @Action(GetPizzaItem)
   getPizza(ctx: StateContext<PizzasStateModel>, { payload }: GetPizzaItem) {
@@ -56,7 +52,10 @@ export class PizzasState {
   @Action(FetchAllPizzas)
   getAllPizzas({ getState, setState }: StateContext<PizzasStateModel>, { payload }: FetchAllPizzas) {
     return this._pizzaDataService.getPizzas(payload).pipe(tap(pizzas => {
-      setState({ ...getState(), pizzas: pizzas.result, pizzasWithPagination: pizzas });
+      setState({
+        ...getState(),
+        pizzas: pizzas.result
+      });
     }))
   }
 
@@ -89,10 +88,7 @@ export class PizzasState {
     return this._pizzaDataService.remove(payload).pipe(tap(() => {
       const stateModel = getState();
       setState({
-        ...stateModel, pizzasWithPagination: {
-          ...stateModel.pizzasWithPagination,
-          result: stateModel.pizzas.filter(p => p.id !== payload)
-        }
+        ...stateModel, pizzas: stateModel.pizzas.filter(p => p.id !== payload)
       })
     }));
   }

@@ -58,9 +58,9 @@
 
             <ng-container *ngSwitchCase="'image'">
               <img
-                [src]="rowData[col.field]"
+                [lazyLoad]="rowData[col.field]"
                 [alt]="rowData['name'] | lang"
-                style="width:100%"
+                style="width:75px;height:50px"
               />
             </ng-container>
 
@@ -79,7 +79,7 @@
               </div>
             </ng-container>
             <ng-container *ngSwitchDefault>{{
-              rowData[col.field]|translate
+              rowData[col.field] | translate
             }}</ng-container>
           </td>
         </ng-container>

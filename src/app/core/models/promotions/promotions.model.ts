@@ -8,8 +8,8 @@ export interface Promotion {
     readonly isActive: boolean;
     readonly startedAt: Date;
     readonly endedAt: Date;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+    readonly createdAt: Date | string;
+    readonly updatedAt: Date | string;
 }
 
 export class ModelPromotion implements Promotion {
@@ -20,8 +20,8 @@ export class ModelPromotion implements Promotion {
     readonly isActive: boolean;
     readonly startedAt: Date;
     readonly endedAt: Date;
-    readonly createdAt: Date;
-    readonly updatedAt: Date;
+    readonly createdAt: Date | string;
+    readonly updatedAt: Date | string;
     constructor({
         id = null,
         name = null,

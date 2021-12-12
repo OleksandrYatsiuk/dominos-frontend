@@ -1,58 +1,125 @@
-<div class="pizzas-list">
-  <p-table [columns]="cols" [value]="pizzas$ | async" class="d-table">
+<section class="d-table__wrapper">
+  <p-table
+    #dt
+    *ngIf="tablePizza$ | async as pizzas"
+    [value]="pizzas"
+    [columns]="cols"
+    responsiveLayout="stack"
+    [rowHover]="true"
+    [rows]="100"
+    scrollHeight="65vh"
+    [virtualScroll]="true"
+    [virtualRowHeight]="20"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-table__caption pt-table__caption--external">
+        <div class="caption-actions">
+          <button
+            class="button button-icon"
+            [routerLink]="['/admin/pizzas/create']"
+          >
+            <em [inlineSVG]="'add.svg'"></em>
+            <span class="button-text"> {{ "labels.add" | translate }}</span>
+          </button>
+        </div>
+        <div class="global-search icon-input">
+          <em class="icon" [inlineSVG]="'search.svg'"></em>
+          <input
+            pInputText
+            type="text"
+            class="input"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate"
+          />
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
-        </th>
-        <th class="cell-actions" routerLink="/admin/pizzas/create">
-          <span class="action">Add New</span>
+      <tr class="d-table__header">
+        <th
+          *ngFor="let col of columns"
+          scope="col"
+          class="d-table__title"
+          [ngStyle]="col?.style || {}"
+          [pSortableColumn]="col.sortable ? col.field : ''"
+        >
+          <span>{{ col.header | translate }}</span>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-pizza
+      let-rowData
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
-      <tr>
-        <td *ngFor="let col of columns" [ngSwitch]="col.field">
-          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
-          <div *ngSwitchCase="'image'">
-            <img
-              class="photo"
-              [lazyLoad]="pizza.image"
-              [alt]="pizza.name | lang"
-            />
-          </div>
-          <div *ngSwitchCase="'name'">{{ pizza[col.field] | lang }}</div>
-          <div *ngSwitchCase="'startedAt'">
-            {{ pizza[col.field] | date }}
-          </div>
+      <tr class="d-table__row">
+        <ng-container *ngFor="let col of columns">
+          <td [ngSwitch]="col.field" class="d-table__cell">
+            <span class="p-column-title">{{ col.header | translate }}</span>
+            <ng-container *ngSwitchCase="'image'">
+              <img
+                style="width:75px;height:50px"
+                [lazyLoad]="rowData.image"
+                [alt]="rowData.name | lang"
+              />
+            </ng-container>
 
-          <div *ngSwitchDefault>{{ pizza[col.field] }}</div>
-        </td>
-        <td class="cell-actions">
-          <div class="cell-options-icons">
-            <i class="icon icon--trash" (click)="onDelete(pizza)"></i>
-            <i
-              class="icon icon--edit"
-              [routerLink]="['/admin/pizzas/', pizza.id]"
-            ></i>
-          </div>
+            <ng-container *ngSwitchCase="'shortDescription'">
+              <div
+                class="promotion__description"
+                [innerHTML]="rowData[col.field]"
+              ></div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'minSize'">
+              {{
+                "from"
+                  | translate
+                    : {
+                        count: rowData[col.field],
+                        label: "gram" | translate
+                      }
+              }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'minPrice'">
+              {{
+                "from"
+                  | translate
+                    : {
+                        count: rowData[col.field],
+                        label: "uah" | translate
+                      }
+              }}
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'options'">
+              <div class="d-table-options">
+                <a [routerLink]="['/admin/pizzas/', rowData.id]">
+                  <em class="icon" [inlineSVG]="'edit.svg'"></em
+                ></a>
+                <em
+                  class="icon"
+                  [inlineSVG]="'trash.svg'"
+                  (click)="onDelete(rowData)"
+                ></em>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]
+            }}</ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length" class="d-table__empty-message">
+          {{ "messages.noRecords" | translate }}
         </td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<p-paginator
-  class="d-paginator"
-  *ngIf="pizzasWithPagination$ | async as pagination"
-  [totalRecords]="pagination.total"
-  [pageLinkSize]="5"
-  [alwaysShow]="false"
-  [rows]="pagination.limit"
-  (onPageChange)="onPageChange($event.page)"
-></p-paginator>
+</section>

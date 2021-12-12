@@ -1,40 +1,78 @@
-<div class="user-list">
-  <p-table [columns]="cols" [value]="users$ | async" class="d-table">
+<section class="d-table__wrapper">
+  <p-table
+    #dt
+    *ngIf="users$ | async as users"
+    [value]="users"
+    [columns]="cols"
+    responsiveLayout="stack"
+    [rowHover]="true"
+    [rows]="100"
+    scrollHeight="65vh"
+    [virtualScroll]="true"
+    [virtualRowHeight]="20"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-table__caption pt-table__caption--external">
+        <div class="caption-actions"></div>
+        <div class="global-search icon-input">
+          <em class="icon" [inlineSVG]="'search.svg'"></em>
+          <input
+            pInputText
+            type="text"
+            class="input"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate"
+          />
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
+      <tr class="d-table__header">
+        <th
+          *ngFor="let col of columns"
+          scope="col"
+          class="d-table__title"
+          [ngStyle]="{ width: col?.width ? col.width : 'auto' }"
+          [pSortableColumn]="col.field"
+        >
+          <span>{{ col.header | translate }}</span>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
-        <th class="cell-actions"></th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-user
+      let-rowData
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
+      <tr class="d-table__row">
+        <ng-container *ngFor="let col of columns">
+          <td [ngSwitch]="col.field" class="d-table__cell">
+            <span class="p-column-title">{{ col.header | translate }}</span>
+
+            <ng-container *ngSwitchCase="'options'">
+              <div class="d-table-options">
+                <em
+                  class="icon"
+                  [inlineSVG]="'trash.svg'"
+                  (click)="onDelete(rowData)"
+                ></em>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]
+            }}</ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
       <tr>
-        <td *ngFor="let col of columns" [ngSwitch]="col.field">
-          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
-          <div *ngSwitchDefault>{{ user[col.field] }}</div>
-        </td>
-        <td class="cell-actions">
-          <div class="cell-options-icons">
-            <i class="icon icon--trash" (click)="onDelete(user)"></i>
-            <i class="icon icon--edit"></i>
-          </div>
+        <td [attr.colspan]="columns.length" class="d-table__empty-message">
+          {{ "messages.noRecords" | translate }}
         </td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<p-paginator
-  class="d-paginator"
-  [totalRecords]="totalPages"
-  [pageLinkSize]="5"
-  [alwaysShow]="false"
-  [rows]="rows"
-  (onPageChange)="onPageChange($event.page)"
-></p-paginator>
+</section>

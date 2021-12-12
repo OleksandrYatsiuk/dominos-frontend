@@ -1,61 +1,100 @@
-<div class="promotions-list">
-  <p-table [columns]="cols" [value]="promotions$ | async" class="d-table">
+<section class="d-table__wrapper">
+  <p-table
+    #dt
+    *ngIf="promotions$ | async as promotions"
+    [value]="promotions"
+    [columns]="cols"
+    responsiveLayout="stack"
+    [rowHover]="true"
+    [rows]="100"
+    scrollHeight="65vh"
+    [virtualScroll]="true"
+    [virtualRowHeight]="20"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-table__caption">
+        <div class="caption-actions">
+          <button
+            class="button button-icon"
+            [routerLink]="['/admin/promotions/create']"
+          >
+            <em [inlineSVG]="'add.svg'"></em>
+            <span class="button-text"> {{ "labels.add" | translate }}</span>
+          </button>
+        </div>
+        <div class="global-search icon-input">
+          <em class="icon" [inlineSVG]="'search.svg'"></em>
+          <input
+            pInputText
+            type="text"
+            class="input"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate"
+          />
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
-        </th>
-        <th class="cell-actions" routerLink="/admin/promotions/create">
-          <span class="action">Add New</span>
+      <tr class="d-table__header">
+        <th
+          *ngFor="let col of columns"
+          scope="col"
+          class="d-table__title"
+          [ngStyle]="col?.style || {}"
+          [pSortableColumn]="col.field"
+        >
+          <span>{{ col.header | translate }}</span>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-promotion
+      let-rowData
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
-      <tr>
-        <td *ngFor="let col of columns" [ngSwitch]="col.field">
-          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
-          <div *ngSwitchCase="'image'">
-            <img
-              style="width: 100%; height: auto;"
-              [lazyLoad]="promotion[col.field]"
-              [alt]="promotion['name'] | lang"
-            />
-          </div>
-          <div
-            class="promotion__description"
-            *ngSwitchCase="'description'"
-            [innerHtml]="promotion[col.field] | lang"
-          ></div>
-          <div *ngSwitchCase="'startedAt'">
-            {{ promotion[col.field] ? (promotion[col.field] | date) : "-" }}
-          </div>
+      <tr class="d-table__row">
+        <ng-container *ngFor="let col of columns">
+          <td [ngSwitch]="col.field" class="d-table__cell">
+            <span class="p-column-title">{{ col.header | translate }}</span>
+            <ng-container *ngSwitchCase="'image'">
+              <img
+                style="width:75px;height:50px"
+                [lazyLoad]="rowData.image"
+                [alt]="rowData.name | lang"
+              />
+            </ng-container>
 
-          <div *ngSwitchDefault>{{ promotion[col.field] | lang }}</div>
-        </td>
-        <td class="cell-actions">
-          <div class="cell-options-icons">
-            <i class="icon icon--trash" (click)="onDelete(promotion)"></i>
-            <i
-              class="icon icon--edit"
-              routerLink="/admin/promotions/{{ promotion.id }}/edit"
-            ></i>
-          </div>
+            <ng-container *ngSwitchCase="'shortDescription'">
+              <div
+                class="promotion__description"
+                [innerHTML]="rowData[col.field]"
+              ></div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'options'">
+              <div class="d-table-options">
+                <em
+                  class="icon"
+                  [inlineSVG]="'trash.svg'"
+                  (click)="onDelete(rowData)"
+                ></em>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]
+            }}</ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td [attr.colspan]="columns.length" class="d-table__empty-message">
+          {{ "messages.noRecords" | translate }}
         </td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<p-paginator
-  class="d-paginator"
-  [totalRecords]="totalPages"
-  [pageLinkSize]="5"
-  [rows]="rows"
-  [alwaysShow]="false"
-  (onPageChange)="onPageChange($event.page)"
-></p-paginator>
+</section>

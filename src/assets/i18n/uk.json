@@ -53,7 +53,8 @@
     "weight": "Вага",
     "price": "Ціна",
     "size": "Розмір",
-    "options": "Опції"
+    "options": "Опції",
+    "role": "Роль"
   },
   "primeng": {
     "startsWith": "Starts with",
@@ -145,11 +146,23 @@
   "cancelLabel": "Відмінити",
   "deleteLabel": "Видалити",
   "confirmLabel": "Підтвердити",
+  "userRoles": {
+    "Administrator": "Адміністратор",
+    "Buyer": "Покупець"
+  },
   "categoriesLabels": {
     "drinks": {
       "1": "Пиво",
       "2": "Вода",
       "3": "Сік"
+    },
+    "pizzas": {
+      "1": "Краща ціна",
+      "2": "Новинка",
+      "3": "Класичні",
+      "4": "Фірмові",
+      "5": "Преміум",
+      "6": "Легендарні"
     }
   },
   "sizesLabels": {
