@@ -2,27 +2,33 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
-import { Observable } from 'rxjs';
+import { map, Observable, pluck } from 'rxjs';
 import { IShop } from '@core/models/shop.interface';
+import { LangPipe } from '@shared/pipe/lang.pipe';
+import { DatePipe } from '@angular/common';
+import { TableItem } from '@core/models/table.interface';
 
 @Component({
   selector: 'app-shop-list',
   templateUrl: './shop-list.component.html',
   styleUrls: ['./shop-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LangPipe, DatePipe]
 })
 export class ShopListComponent implements OnInit {
   totalRecords: number;
   currentPage = 1;
   rows = 10;
   shops$: Observable<IShop[]>;
-  cols: { field: string; header: string; }[];
+  cols: TableItem[];
   defaultImage = '/assets/img/stub-image.png';
 
   constructor(
     private _ss: ShopService,
     private _cs: ConfirmService,
-    private _ms: MessageService
+    private _ms: MessageService,
+    private _datePipe: DatePipe,
+    private _langPipe: LangPipe
 
   ) { }
 
@@ -30,11 +36,11 @@ export class ShopListComponent implements OnInit {
     this.shops$ = this._queryShopList(this.currentPage);
 
     this.cols = [
-      // { field: 'index', header: '#' },
-      { field: 'image', header: 'image' },
-      { field: 'address', header: 'Address' },
-      { field: 'createdAt', header: 'createdAt' },
-      { field: 'updatedAt', header: 'updatedAt' }
+      { field: 'index', header: '#', sortable: true },
+      { field: 'image', header: 'Image', },
+      { field: 'addressShop', header: 'Address', sortable: true },
+      { field: 'createdAt', header: 'Created', sortable: true },
+      { field: 'updatedAt', header: 'Last Updated', sortable: true }
     ];
   }
 
@@ -60,6 +66,14 @@ export class ShopListComponent implements OnInit {
 
   private _queryShopList(page: number): Observable<IShop[]> {
     return this._ss.queryShopsList({ page, limit: this.rows }).pipe(
+      pluck('result'),
+      map((shops: IShop[]) => shops.map((shop, i) => ({
+        ...shop,
+        index: i + 1,
+        addressShop: this._langPipe.transform(shop.address),
+        updatedAt: this._datePipe.transform(shop.updatedAt),
+        createdAt: this._datePipe.transform(shop.createdAt)
+      })))
       // tap(({ result, _meta }) => {
       //   this.currentPage = _meta.pagination.page;
       //   this.totalRecords = _meta.pagination.total;

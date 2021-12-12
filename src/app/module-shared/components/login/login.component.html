@@ -1,45 +1,45 @@
-<div class="modal-header">
-  <h4 class="modal-title" id="modal-basic-title">
-    {{ "loginLabel" | translate }}
-  </h4>
-  <button type="button" class="close" aria-label="Close" (click)="close()">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-
-<form [formGroup]="form" (ngSubmit)="login()">
-  <div class="modal-content">
-    <app-form-item [control]="username" [field]="'labels.username' | translate">
+<div class="login__wrapper">
+  <form [formGroup]="form" (ngSubmit)="login()" class="login__form">
+    <div class="form-control">
+      <span class="form-control__label">{{
+        "labels.username" | translate
+      }}</span>
       <input
         type="text"
-        class="form-control"
+        class="input"
         formControlName="username"
         placeholder="Enter Username"
       />
-    </app-form-item>
-    <app-form-item [control]="password" [field]="'labels.password' | translate">
+      <validation-error
+        [control]="form.controls.username"
+        [field]="'labels.username' | translate"
+      ></validation-error>
+    </div>
+
+    <div class="form-control">
+      <span class="form-control__label">{{
+        "labels.password" | translate
+      }}</span>
       <input
         type="password"
-        class="form-control"
+        class="input"
         formControlName="password"
         placeholder="Enter Password"
       />
-    </app-form-item>
-  </div>
+      <validation-error
+        [control]="form.controls.password"
+        [field]="'labels.password' | translate"
+      ></validation-error>
+    </div>
 
-  <div class="modal-footer">
-    <app-spin-button
-      type="submit"
-      [name]="'loginLabel' | translate"
-      class="btn btn-primary"
-      [loading]="spinLogIn"
-      ngbAutofocus
-    >
-    </app-spin-button>
-    <p>
+    <button type="submit" class="button button--blue">
+      {{ "loginLabel" | translate }}
+    </button>
+
+    <span class="login__message">
       Have not account yet? Please,
       <a routerLink="/auth/registration" (click)="close()">register</a>
       your`s profile
-    </p>
-  </div>
-</form>
+    </span>
+  </form>
+</div>

@@ -80,9 +80,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: this._ts.instant('pageTitles.desserts'), routerLink: '/' }
     ];
   }
-
   openModal(): void {
-    this.ref = this._ds.open(LoginComponent, {});
+    this.ref = this._ds.open(LoginComponent, { styleClass: 'd-dialog', header: this._ts.instant('loginLabel') });
   }
 
   onChangeLang(lang: ELanguage): void {

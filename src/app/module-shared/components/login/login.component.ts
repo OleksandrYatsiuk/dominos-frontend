@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   ) { }
 
   public form: FormGroup;
-  public spinLogIn = false;
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({
@@ -40,28 +39,18 @@ export class LoginComponent implements OnInit {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
-      this.spinLogIn = true;
 
       this._store.dispatch(new LoginAction(this.form.getRawValue()))
         .pipe(catchError(e => {
-          this.spinLogIn = false;
           this.handler.validation(e, this.form);
           return EMPTY;
         }))
-        .subscribe((data) => {
-          this.spinLogIn = false;
+        .subscribe(data => {
           this._store.dispatch(new CurrentUserAction());
           this._ref.destroy();
           this._cd.detectChanges();
         });
     }
-  }
-
-  get username(): AbstractControl {
-    return this.form.get('username');
-  }
-  get password(): AbstractControl {
-    return this.form.get('password');
   }
 }
 

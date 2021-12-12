@@ -1,58 +1,96 @@
-<div class="shop-list">
-  <p-table [columns]="cols" [value]="shops$ | async" class="d-table">
+<section class="d-table__wrapper">
+  <p-table
+    #dt
+    *ngIf="shops$ | async as shops"
+    [value]="shops"
+    [columns]="cols"
+    responsiveLayout="stack"
+    [rowHover]="true"
+    [rows]="100"
+    scrollHeight="65vh"
+    [virtualScroll]="true"
+    [virtualRowHeight]="20"
+  >
+    <ng-template pTemplate="caption">
+      <div class="d-table__caption pt-table__caption--external">
+        <div class="caption-actions">
+          <button class="button button-icon" [disabled]="true">
+            <em [inlineSVG]="'add.svg'"></em>
+            <span class="button-text"> {{ "labels.add" | translate }}</span>
+          </button>
+        </div>
+        <div class="global-search icon-input">
+          <em class="icon" [inlineSVG]="'search.svg'"></em>
+          <input
+            pInputText
+            type="text"
+            class="input"
+            (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate"
+          />
+        </div>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header" let-columns>
-      <tr>
-        <th *ngFor="let col of columns">
-          {{ col.header }}
-        </th>
-        <th class="cell-actions" routerLink="/admin/shop/create">
-          <span class="action">Add New</span>
+      <tr class="d-table__header">
+        <th
+          *ngFor="let col of columns"
+          scope="col"
+          class="d-table__title"
+          [ngStyle]="{ width: col?.width ? col.width : 'auto' }"
+          [pSortableColumn]="col.field"
+        >
+          <span>{{ col.header | translate }}</span>
+          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
     <ng-template
       pTemplate="body"
-      let-shop
+      let-rowData
       let-columns="columns"
       let-rowIndex="rowIndex"
     >
+      <tr class="d-table__row">
+        <ng-container *ngFor="let col of columns">
+          <td [ngSwitch]="col.field" class="d-table__cell">
+            <span class="p-column-title">{{ col.header | translate }}</span>
+
+            <ng-container *ngSwitchCase="'image'">
+              <img
+                [src]="rowData[col.field]"
+                [alt]="rowData['name'] | lang"
+                style="width:100%"
+              />
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'options'">
+              <div class="d-table-options">
+                <!-- <em
+                  class="icon"
+                  [inlineSVG]="'edit.svg'"
+                  (click)="onEditShop(rowData)"
+                ></em> -->
+                <em
+                  class="icon"
+                  [inlineSVG]="'trash.svg'"
+                  (click)="onDelete(rowData)"
+                ></em>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchDefault>{{
+              rowData[col.field]|translate
+            }}</ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
       <tr>
-        <td *ngFor="let col of columns" [ngSwitch]="col.field">
-          <div *ngSwitchCase="'index'">{{ rowIndex + 1 }}</div>
-          <div *ngSwitchCase="'address'">{{ shop[col.field] | lang }}</div>
-          <div *ngSwitchCase="'createdAt'">
-            {{ shop[col.field] | date: "medium" }}
-          </div>
-          <div *ngSwitchCase="'updatedAt'">
-            {{ shop[col.field] | date: "medium" }}
-          </div>
-          <div *ngSwitchCase="'image'">
-            <img
-              class="photo"
-              style="width: 100%; height: auto;"
-              [lazyLoad]="shop[col.field]"
-              [defaultImage]="defaultImage"
-              alt="Замовити піцу"
-            />
-          </div>
-          <div *ngSwitchDefault>{{ shop[col.field] }}</div>
-        </td>
-        <td class="cell-actions">
-          <div class="cell-options-icons">
-            <i class="icon icon--trash" (click)="onDelete(shop)"></i>
-            <i class="icon icon--edit"></i>
-          </div>
+        <td [attr.colspan]="columns.length" class="d-table__empty-message">
+          {{ "messages.noRecords" | translate }}
         </td>
       </tr>
     </ng-template>
   </p-table>
-</div>
-
-<p-paginator
-  class="d-paginator"
-  [totalRecords]="totalRecords"
-  [pageLinkSize]="5"
-  [rows]="rows"
-  [alwaysShow]="false"
-  (onPageChange)="onPageChange($event.page)"
-></p-paginator>
+</section>

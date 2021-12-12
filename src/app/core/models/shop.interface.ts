@@ -10,6 +10,6 @@ export interface IShop {
     address: ILanguage;
     coords: ICoords;
     image: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt: Date | string;
+    updatedAt: Date | string;
 }

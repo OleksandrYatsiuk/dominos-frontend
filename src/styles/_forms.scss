@@ -1,0 +1,11 @@
+@import "./helpers/index";
+
+.form-control {
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    @include genText(1rem, 1);
+    margin-bottom: 3px;
+  }
+}

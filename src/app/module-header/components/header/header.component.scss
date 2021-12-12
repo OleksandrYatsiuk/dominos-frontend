@@ -76,7 +76,7 @@ h2 {
 }
 
 .main-header {
-  min-height: 70px;
+  height: 70px;
   width: 100%;
   display: flex;
   background: #222;
@@ -84,11 +84,9 @@ h2 {
 }
 
 .navigation {
-  width: 90%;
-  max-width: 1280px;
-  color: white;
+  width: 100%;
+  color: $c-white;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
 }

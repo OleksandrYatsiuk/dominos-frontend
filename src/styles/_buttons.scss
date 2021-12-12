@@ -63,8 +63,6 @@
   box-shadow: none;
 }
 
-
-
 .button {
   outline: none;
   border-radius: 5px;
@@ -101,6 +99,10 @@
 
   &--big {
     padding: 0.5rem 1rem;
+  }
+
+  &--maximize {
+    width: 100%;
   }
 
   &--medium {

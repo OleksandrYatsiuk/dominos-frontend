@@ -9,6 +9,9 @@ import { passwordValidator } from 'src/app/core/validators/password-validator';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginComponent } from 'src/app/module-shared/components/login/login.component';
 import { ChangeDetectorRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { catchError, EMPTY, filter } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -27,6 +30,8 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private handler: ErrorHandlerService,
     private _ds: DialogService,
     private configService: ApiConfigService,
+    private _translateService: TranslateService,
+    private _router: Router,
     private _cd: ChangeDetectorRef
   ) { }
 
@@ -45,13 +50,14 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     this.registerForm.markAllAsTouched();
     if (this.registerForm.valid) {
       this.spinRegister = true;
-      this.http.register(this.registerForm.value)
+      this.http.register(this.registerForm.value).pipe(catchError(e => {
+        this.handler.validation(e, this.registerForm);
+        this.spinRegister = false;
+        this._cd.detectChanges();
+        return EMPTY;
+      }))
         .subscribe(() => {
           this._ms.add({ severity: 'success', detail: 'We have sent a confirmation email to your email address. Please follow instructions in the email to continue.' })
-          this.spinRegister = false;
-          this._cd.detectChanges();
-        }, (error) => {
-          this.handler.validation(error, this.registerForm);
           this.spinRegister = false;
           this._cd.detectChanges();
         });
@@ -61,13 +67,16 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private initForm(): void {
 
     this.registerForm = this.formBuilder.group({
-      fullName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      firstName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
+      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
+      )]],
+      lastName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
       Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
       )]],
       username: ['', [Validators.required, Validators.minLength(this.configService.getParameter('usernameMinLength')),
       Validators.maxLength(this.configService.getParameter('usernameMaxLength'))]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, passwordValidator(this.configService.getParameter('passwordRegexExp'))]],
+      password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
     },
       {
@@ -76,10 +85,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   }
 
   openAuthModal(): void {
-    this._ref = this._ds.open(LoginComponent, {});
+    this._ref = this._ds.open(LoginComponent, { styleClass: 'd-dialog', header: this._translateService.instant('loginLabel') });
+
+    this._ref.onClose.pipe(filter(result => result))
+      .subscribe(() => {
+        this._router.navigate(['/']);
+        this._cd.detectChanges();
+      })
   }
 
-  get fullName() { return this.registerForm.get('fullName'); }
   get username() { return this.registerForm.get('username'); }
   get email() { return this.registerForm.get('email'); }
   get password() { return this.registerForm.get('password'); }

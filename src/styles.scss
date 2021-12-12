@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css";
 @import "./styles/promotion.scss";
 @import "./styles/inputs";
 @import "./styles/table";
@@ -22,6 +21,7 @@
 @import "./styles/icons";
 @import "./styles/toast";
 @import "./styles/switch";
+@import "./styles/forms";
 @import "../node_modules/leaflet/dist/leaflet.css";
 
 @import "./styles/base/index";
@@ -40,101 +40,13 @@
 
 * {
   font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
 }
 
 html,
 body {
   margin: 0px;
-  background: #f0e8e8;
   height: 100%;
   padding: 0;
   font-size: 15px;
-}
-h2,
-span,
-button,
-input {
-  outline: none;
-}
-
-.page {
-  display: flex;
-  flex-wrap: wrap;
-  width: 100%;
-}
-
-app-root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-.error {
-  width: 100%;
-  color: #f44336;
-  font-size: 13px;
-  ul.form-control,
-  input {
-    border: 1px solid #f44336;
-  }
-  .dropdown-btn {
-    border: 1px solid #f44336 !important;
-    color: #495057;
-  }
-  .form-control {
-    border: 1px solid #f44336 !important;
-  }
-}
-
-.modal-dialog-scrollable .modal-body {
-  overflow-x: hidden;
-}
-
-.modal-content {
-  border: 0px;
-}
-
-.row-item {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 5px;
-  justify-content: space-between;
-}
-textarea {
-  width: 100%;
-  background: transparent;
-  outline: none;
-  border: 0px;
-  resize: vertical;
-  min-height: 50px;
-  max-height: 200px;
-}
-
-.field {
-  width: 100%;
-}
-.date,
-.payment {
-  display: flex;
-  width: 48%;
-}
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.example-additional-selection {
-  opacity: 0.75;
-  font-size: 16px;
 }

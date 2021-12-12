@@ -8,21 +8,26 @@
 }
 .image-container {
   position: relative;
-  //   background-color: white;
   border-radius: 15px;
   padding: 10px;
+  margin: 1rem;
+  border: 1px dashed transparent;
+  transition: $transition;
+
+  &:hover {
+    border-color: $c-black;
+  }
 
   img {
-    border-radius: 30px;
+    border-radius: 20px;
     width: 100%;
     object-fit: cover;
-    // max-width: 400px;
   }
 }
 .image__close {
   position: absolute;
-  transition: all 0.5s;
-  background-image: url("../../../../assets/icons/close.svg");
+  transition: $transition;
+  background-image: url("/assets/icons/close.svg");
   top: 40px;
   right: 40px;
   border-radius: 50%;

@@ -1,14 +1,26 @@
 <div class="form">
   <form [formGroup]="registerForm" (ngSubmit)="register()">
     <app-form-item
-      [control]="registerForm.controls.fullName"
-      [field]="'labels.fullName' | translate"
+      [control]="registerForm.controls.firstName"
+      [field]="'labels.firstName' | translate"
     >
       <input
         type="text"
-        class="form-control"
-        formControlName="fullName"
-        placeholder="Enter Full Name"
+        class="input"
+        formControlName="firstName"
+        placeholder="Enter First Name"
+      />
+    </app-form-item>
+
+    <app-form-item
+      [control]="registerForm.controls.lastName"
+      [field]="'labels.lastName' | translate"
+    >
+      <input
+        type="text"
+        class="input"
+        formControlName="lastName"
+        placeholder="Enter Last Name"
       />
     </app-form-item>
 
@@ -18,7 +30,7 @@
     >
       <input
         type="text"
-        class="form-control"
+        class="input"
         formControlName="username"
         placeholder="Enter Username"
       />
@@ -30,7 +42,7 @@
     >
       <input
         type="text"
-        class="form-control"
+        class="input"
         formControlName="email"
         placeholder="Enter Email"
       />
@@ -42,7 +54,7 @@
     >
       <input
         type="password"
-        class="form-control"
+        class="input"
         formControlName="password"
         placeholder="Enter Password"
       />
@@ -55,19 +67,14 @@
     >
       <input
         type="password"
-        class="form-control"
+        class="input"
         formControlName="confirmPassword"
         placeholder="Enter Confirm Password"
       />
     </app-form-item>
-
-    <div class="confirm">
-      <app-spin-button
-        [loading]="spinRegister"
-        name="Register"
-      ></app-spin-button>
-    </div>
+    <button class="button button--blue button--big field" type="submit">
+      Register
+    </button>
   </form>
+  <span>Have account? Click <span (click)="openAuthModal()">Login</span></span>
 </div>
-
-<p>Have account? Click <span (click)="openAuthModal()">Login</span></p>
