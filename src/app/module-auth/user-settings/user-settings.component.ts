@@ -6,7 +6,6 @@ import { confirmPasswordValidator } from '../../core/validators/confirm-password
 import { passwordValidator } from '../../core/validators/password-validator';
 import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { phoneValidator } from 'src/app/core/validators/phone-validator';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, EMPTY, filter, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Select, Store } from '@ngxs/store';
@@ -37,8 +36,7 @@ export class UserSettingsComponent implements OnInit {
     private configService: ApiConfigService,
     private _ms: MessageService,
     private _store: Store,
-    private _cd: ChangeDetectorRef,
-    public formatter: NgbDateParserFormatter) { }
+    private _cd: ChangeDetectorRef) { }
 
   image: File;
   updateProfileForm: FormGroup;

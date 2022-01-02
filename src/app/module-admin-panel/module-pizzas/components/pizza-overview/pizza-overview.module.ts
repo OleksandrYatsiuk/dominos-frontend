@@ -8,7 +8,6 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/module-shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
-import { NgxPermissionsModule } from 'ngx-permissions';
 import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 
 
@@ -23,7 +22,6 @@ import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-lan
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    NgxPermissionsModule,
     MultiLanguageFieldModule
   ],
   providers: [PizzaDataService]

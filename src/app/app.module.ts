@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CommonModule, DatePipe } from '@angular/common';
@@ -76,13 +76,13 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [GeolocationService, ApiConfigService, DialogService, MessageService, ConfirmService, ConfirmationService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
-      deps: [ApiConfigService],
-      multi: true
-    },
+  providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
+    // {
+    //   provide: APP_INITIALIZER,
+    //   useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
+    //   deps: [ApiConfigService],
+    //   multi: true
+    // },
     {
       provide: LOCALE_ID,
       deps: [LangService],      //some service handling global settings

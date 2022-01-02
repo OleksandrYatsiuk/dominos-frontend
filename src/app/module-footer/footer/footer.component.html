@@ -14,15 +14,11 @@
       *ngIf="user?.role && user.role !== roles.Buyer"
     >
       <span>{{ "settingsLabel" | translate }}</span>
+
       <nav>
-        <a [href]="'https://dominos-backend.herokuapp.com/'">{{
+        <a [href]="'https://api-dominos.herokuapp.com/'">{{
           "swaggerLabel" | translate
         }}</a>
-      </nav>
-      <nav>
-        <a [href]="'https://api-dominos.herokuapp.com/'"
-          >{{ "swaggerLabel" | translate }} (Nest JS)</a
-        >
       </nav>
     </div></ng-container
   >

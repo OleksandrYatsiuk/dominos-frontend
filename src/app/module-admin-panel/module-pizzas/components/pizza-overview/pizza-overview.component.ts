@@ -3,7 +3,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CAN_EDIT_PIZZA } from '../../../../module-pizzas/components/pizza/pizza-permissions';
-import { NgxPermissionsService } from 'ngx-permissions';
 
 
 @Component({
@@ -25,8 +24,7 @@ export class PizzaOverviewComponent implements OnInit {
   canEditPizza = CAN_EDIT_PIZZA;
   constructor(
     private route: ActivatedRoute,
-    private title: Title,
-    private permissionsService: NgxPermissionsService
+    private title: Title
   ) {
 
     this.pizza = this.route.snapshot.data.pizza;

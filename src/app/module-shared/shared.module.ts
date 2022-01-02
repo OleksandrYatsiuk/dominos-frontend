@@ -3,11 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { HttpClientModule, } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
-import { NgxPermissionsModule } from 'ngx-permissions';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
 import { FormItemComponent } from './components/form-item/form-item.component';
 import { ExtractPipe } from './pipe/extract.pipe';
@@ -50,12 +48,10 @@ import { AuthState } from '../module-auth/state/auth.state';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgbModule,
-    RouterModule,
-    NgxPermissionsModule.forRoot(),
     NgxsModule.forFeature([AuthState]),
     DropdownModule,
     SelectButtonModule,
+    RouterModule,
     MainModule,
     TranslateModule,
     ToastModule,
@@ -72,13 +68,10 @@ import { AuthState } from '../module-auth/state/auth.state';
     //modules
     FormsModule,
     DropdownModule,
-    NgbModule,
     ReactiveFormsModule,
     RouterModule,
     TranslateModule,
     ToastModule,
-    // AgmCoreModule,
-    NgxPermissionsModule,
     MainModule,
     //pipes
     PizzaFilterPipe,

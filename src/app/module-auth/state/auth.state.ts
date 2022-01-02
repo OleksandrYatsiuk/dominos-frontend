@@ -68,7 +68,6 @@ export class AuthState {
   current(ctx: StateContext<AuthStateModel>) {
 
     const state = ctx.getState();
-
     if (state.credentials.token) {
       return this._userDataService.current().pipe(tap(user => {
         ctx.setState({ ...state, user });

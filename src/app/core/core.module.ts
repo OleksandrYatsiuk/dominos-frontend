@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 import { LangInterceptor } from './interceptors/lang.interceptor';
+import { NgxsModule } from '@ngxs/store';
+import { AuthState } from '../module-auth/state/auth.state';
 
 
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [CommonModule, NgxsModule.forFeature([AuthState])],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

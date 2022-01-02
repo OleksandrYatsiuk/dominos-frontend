@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
-import { NgxPermissionsModule } from 'ngx-permissions';
 import { MenuModule } from 'primeng/menu';
 import { TranslateModule } from '@ngx-translate/core';
 import { DropdownModule } from 'primeng/dropdown';
@@ -17,7 +16,6 @@ import { AuthState } from '../module-auth/state/auth.state';
   imports: [
     CommonModule,
     RouterModule,
-    NgxPermissionsModule,
     MenuModule,
     SharedModule,
     TranslateModule,
