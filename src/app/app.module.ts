@@ -5,7 +5,6 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { GeolocationService } from './core/services/geolocation.service';
-import { ApiConfigService } from './core/services/api-config.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
@@ -77,12 +76,6 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (configService: ApiConfigService) => () => configService.loadApiConfig(),
-    //   deps: [ApiConfigService],
-    //   multi: true
-    // },
     {
       provide: LOCALE_ID,
       deps: [LangService],      //some service handling global settings

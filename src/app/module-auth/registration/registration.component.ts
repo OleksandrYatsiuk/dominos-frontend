@@ -4,8 +4,6 @@ import { MessageService } from 'primeng/api';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { UserDataService } from '../user-data.service';
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
-import { passwordValidator } from 'src/app/core/validators/password-validator';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginComponent } from 'src/app/module-shared/components/login/login.component';
 import { ChangeDetectorRef } from '@angular/core';
@@ -29,7 +27,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
     private _ms: MessageService,
     private handler: ErrorHandlerService,
     private _ds: DialogService,
-    private configService: ApiConfigService,
     private _translateService: TranslateService,
     private _router: Router,
     private _cd: ChangeDetectorRef
@@ -67,14 +64,9 @@ export class RegistrationComponent implements OnInit, OnDestroy {
   private initForm(): void {
 
     this.registerForm = this.formBuilder.group({
-      firstName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
-      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
-      )]],
-      lastName: ['', [Validators.required, Validators.minLength(this.configService.getParameter('fullNameMinLength')),
-      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
-      )]],
-      username: ['', [Validators.required, Validators.minLength(this.configService.getParameter('usernameMinLength')),
-      Validators.maxLength(this.configService.getParameter('usernameMaxLength'))]],
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      username: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]

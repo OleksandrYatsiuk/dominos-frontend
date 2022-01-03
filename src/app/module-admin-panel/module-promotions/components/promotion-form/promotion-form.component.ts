@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModelPromotion } from '@core/models/promotions/promotions.model';
-import { ApiConfigService } from '@core/services/api-config.service';
 
 @Component({
   selector: 'app-promotion-form',
@@ -14,7 +13,7 @@ export class PromotionFormComponent implements OnInit {
   @Input() promotion: ModelPromotion;
   @Output() save = new EventEmitter<ModelPromotion>();
   form: FormGroup;
-  constructor(private _fb: FormBuilder, private _config: ApiConfigService) { }
+  constructor(private _fb: FormBuilder) { }
 
   ngOnInit(): void {
     this._initForm(this.promotion);
@@ -23,9 +22,8 @@ export class PromotionFormComponent implements OnInit {
   private _initForm(promotion: ModelPromotion): void {
     this.form = this._fb.group({
       id: [promotion?.id, []],
-      name: [promotion?.name, [Validators.required, Validators.maxLength(this._config.getParameter('promoTitleMaxLength'))]],
-      description: [promotion?.description, [Validators.required,
-      Validators.maxLength(this._config.getParameter('promoDescriptionMaxLength'))]],
+      name: [promotion?.name, [Validators.required]],
+      description: [promotion?.description, [Validators.required]],
       isActive: [promotion?.isActive || false, [Validators.required]],
       image: [promotion?.image, []],
       endedAt: [promotion?.endedAt ? new Date(promotion.endedAt) : null, []],

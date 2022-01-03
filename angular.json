@@ -8,30 +8,23 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss",
-          "skipTests": true,
           "changeDetection": "OnPush"
         },
         "@schematics/angular:class": {
-          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "skipTests": true
         },
         "@schematics/angular:interceptor": {
-          "skipTests": true
         },
         "@schematics/angular:module": {
           "flat": false
         },
         "@schematics/angular:pipe": {
-          "skipTests": true,
           "flat": false
         },
         "@schematics/angular:service": {
-          "skipTests": true,
           "flat": false
         }
       },

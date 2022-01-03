@@ -76,6 +76,10 @@
       "1": "Beer",
       "2": "Water",
       "3": "Juice"
+    },
+    "paymentType": {
+      "1": "Cash",
+      "2": "Card"
     }
   },
   "sizesLabels": {

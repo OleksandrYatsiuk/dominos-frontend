@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
 import { PromotionDataService } from '../../../../core/services/promotion-data.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MessageService } from 'primeng/api';
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModelPromotion } from '../../../../core/models/promotions/promotions.model';
 import { catchError, concatMap, switchMap, tap } from 'rxjs/operators';
@@ -22,13 +21,12 @@ export class PromotionEditComponent implements OnInit {
   image = new FormControl();
   loading = false;
   promotion$: Observable<ModelPromotion>;
-  promoStatuses = this.config.getStatuses('promotionStatuses')
+  promoStatuses = [];
   constructor(
     private http: PromotionDataService,
     private _ar: ActivatedRoute,
     private _router: Router,
     private _ms: MessageService,
-    private config: ApiConfigService,
     private _handler: ErrorHandlerService,
     private _cd: ChangeDetectorRef,
     private _lang: LangPipe

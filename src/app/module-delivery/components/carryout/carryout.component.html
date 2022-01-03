@@ -1,154 +1,113 @@
 <div class="content">
-  <form [formGroup]="carryOut" (ngSubmit)="onSubmit()">
+  <form [formGroup]="carryOut" (ngSubmit)="onSubmit()" class="form">
     <h3>{{ "contactsLabel" | translate }}</h3>
-    <div class="row-item">
-      <app-form-item
-        [control]="carryOut.controls.firstName"
-        [field]="'labels.firstName' | translate"
-      >
+    <div class="form__user">
+      <div class="form-control">
         <input
-          class="form-control"
+          class="input"
           placeholder="Enter First Name"
           formControlName="firstName"
           type="text"
         />
-      </app-form-item>
-
-      <app-form-item
-        [control]="carryOut.controls.phone"
-        [field]="'labels.phone' | translate"
-      >
+      </div>
+      <div class="form-control">
         <input
-          class="form-control"
+          class="input"
           placeholder="Enter Phone"
           formControlName="phone"
           type="text"
         />
-      </app-form-item>
-
-      <app-form-item
-        [control]="carryOut.controls.email"
-        [field]="'labels.email' | translate"
-      >
+      </div>
+      <div class="form-control">
         <input
-          class="form-control"
+          class="input"
           placeholder="Enter Email"
           formControlName="email"
           type="email"
         />
-      </app-form-item>
+      </div>
     </div>
 
     <h3>Self-Pickup Point</h3>
 
-    <div class="row-item">
-      <app-form-item
-        [control]="carryOut.controls.shopId"
-        [field]="'labels.shop' | translate"
-        *ngIf="shops$ | async as shops"
-      >
-        <div class="input-group">
-          <p-dropdown
-            [options]="shops"
-            class="d-dropdown"
-            optionLabel="address"
-            optionValue="id"
-            formControlName="shopId"
-            placeholder="Select Shop"
-          ></p-dropdown>
-          <span class="material-icons" (click)="openMap(shops)"> map </span>
-        </div>
-      </app-form-item>
+    <div class="form__user" *ngIf="shops$ | async as shops">
+      <div class="form-control">
+        <p-dropdown
+          [options]="shops"
+          class="d-dropdown"
+          optionLabel="address.uk"
+          optionValue="id"
+          formControlName="shopId"
+          placeholder="Select Shop"
+        ></p-dropdown>
+      </div>
+      <div class="form-control">
+        <span class="material-icons" (click)="openMap(shops)"> map </span>
+      </div>
     </div>
 
-    <div class="row-item">
-      <app-form-item
-        [control]="carryOut.controls.comment"
-        [field]="'labels.comment' | translate"
-      >
-        <textarea
-          class="form-control"
-          formControlName="comment"
-          placeholder="Enter Comment"
-        ></textarea>
-      </app-form-item>
+    <div class="form-control">
+      <textarea
+        class="input"
+        formControlName="comment"
+        placeholder="Enter Comment"
+      ></textarea>
     </div>
 
     <h3>{{ "labels.date" | translate }}</h3>
-    <div formGroupName="date">
-      <div class="row-item">
-        <app-form-item
-          [control]="carryOut.get('date')['controls'].date"
-          [field]="'labels.date' | translate"
-        >
-          <p-calendar
-            formControlName="date"
-            class="d-calendar"
-            [showIcon]="true"
-            [minDate]="minDate"
-            [firstDayOfWeek]="1"
-            dateFormat="dd-mm-yy"
-          ></p-calendar>
-        </app-form-item>
+    <div formGroupName="date" class="form__user">
+      <div class="form-control">
+        <p-calendar
+          formControlName="date"
+          class="d-calendar"
+          [showIcon]="true"
+          [minDate]="minDate"
+          [firstDayOfWeek]="1"
+          dateFormat="dd-mm-yy"
+        ></p-calendar>
+      </div>
 
-        <app-form-item
-          [control]="carryOut.get('date')['controls'].time"
-          [field]="'labels.time' | translate"
-        >
-          <p-calendar
-            formControlName="time"
-            class="d-calendar"
-            [showIcon]="true"
-            [firstDayOfWeek]="1"
-            [minDate]="minDate"
-            [timeOnly]="true"
-            dateFormat="dd-mm-yy"
-          ></p-calendar>
-        </app-form-item>
+      <div class="form-control">
+        <p-calendar
+          formControlName="time"
+          class="d-calendar"
+          [showIcon]="true"
+          [firstDayOfWeek]="1"
+          [minDate]="minDate"
+          [timeOnly]="true"
+          dateFormat="dd-mm-yy"
+        ></p-calendar>
       </div>
     </div>
 
-    <h3>{{ "paymenyLabel" | translate }}</h3>
-    <div formGroupName="payment">
-      <div class="row-item">
-        <app-form-item
-          [control]="carryOut.get('payment')['controls'].coupon"
-          [field]="'labels.coupon' | translate"
-        >
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter Coupon"
-            formControlName="coupon"
-          />
-        </app-form-item>
-
-        <app-form-item
-          [control]="carryOut.get('payment')['controls'].remainder"
-          [field]="'labels.remainder' | translate"
-        >
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter Remainder"
-            formControlName="remainder"
-          />
-        </app-form-item>
+    <h3>{{ "paymentLabel" | translate }}</h3>
+    <div formGroupName="payment" class="form__user">
+      <div class="form-control">
+        <input
+          type="text"
+          class="input"
+          placeholder="Enter Coupon"
+          formControlName="coupon"
+        />
       </div>
 
-      <div class="row-item">
-        <app-form-item
-          [control]="carryOut.get('payment')['controls'].type"
-          [field]="'labels.paymentType' | translate"
+      <div class="form-control">
+        <input
+          type="text"
+          class="input"
+          placeholder="Enter Remainder"
+          formControlName="remainder"
+        />
+      </div>
+
+      <div class="form-control">
+        <p-dropdown
+          class="d-dropdown"
+          formControlName="type"
+          placeholder="Select Payment Type"
+          [options]="paymentTypes | translateOptions"
         >
-          <p-dropdown
-            class="d-dropdown"
-            formControlName="type"
-            placeholder="Select Payment Type"
-            [options]="paymentTypes"
-          >
-          </p-dropdown>
-        </app-form-item>
+        </p-dropdown>
       </div>
     </div>
     <div class="result">
@@ -156,11 +115,9 @@
       <h2>
         {{ (totalAmount$ | async).toLocaleString() }} {{ "uah" | translate }}
       </h2>
-      <app-spin-button
-        type="submit"
-        [loading]="loading"
-        name="Order"
-      ></app-spin-button>
+      <button class="button button--blue" type="submit" [disabled]="true">
+        {{ "orderLabel" | translate }}
+      </button>
     </div>
   </form>
 </div>

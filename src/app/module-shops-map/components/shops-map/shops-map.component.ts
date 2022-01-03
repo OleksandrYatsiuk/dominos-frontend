@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestro
 import { IShop } from '@core/models/shop.interface';
 import { MapService } from '@core/services/map.service';
 import { ShopService } from '@core/services/shop.service';
-import { Observable } from 'rxjs';
+import { Observable, pluck } from 'rxjs';
 
 @Component({
   selector: 'app-shops-map',
@@ -24,7 +24,7 @@ export class ShopsMapComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._ms.initMap('shops', {});
-    this._ss.queryShopsList().subscribe(shops => {
+    this._ss.queryShopsList().pipe(pluck('result')).subscribe(shops => {
       this._initMarkers(shops);
       this._cd.detectChanges();
     })

@@ -1,16 +1,17 @@
-.material-icons {
-    position: absolute;
-    right: 0;
-    padding: 10px;
-    top: 6%;
-    cursor: pointer;
-    &:hover {
-        color: #33b2da;
-    }
-}
+@import "../../../../styles/helpers/index";
 
-.input-group > .form-control:not(:last-child) {
-    border-radius: 6px;
-    padding-right: 32px;
-    text-overflow: ellipsis;
+.form {
+  &__user {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+   
+    @include mobile {
+      grid-template-columns: 1fr;
+    }
+  }
+  .form-control {
+    margin: 0.5rem;
+  }
+
 }

@@ -1,10 +1,9 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
-import { Payments } from './payments.model';
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { Payments, paymentsMap } from './payments.model';
 import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { BasketState } from '@core/basket/basket.state';
@@ -29,13 +28,12 @@ export class ShippingFormComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private _ms: MessageService,
 		private http: DeliveryDataService,
-		private router: Router,
-		private configService: ApiConfigService
+		private router: Router
 	) {
 		this.isBrowser = isPlatformBrowser(_pid);
 	}
 
-	public paymentTypes: Payments[] = this.configService.getStatuses('payment');
+	public paymentTypes: SelectItem[] = paymentsMap;
 	public formDelivery: FormGroup;
 	public spinShipping = false;
 	public totalAmount: string;

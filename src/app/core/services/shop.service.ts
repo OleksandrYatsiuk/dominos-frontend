@@ -18,8 +18,8 @@ export class ShopService {
   public path = `${this._apiUrl}/shops`;
 
 
-  queryShopsList(params?: any): Observable<IShop[]> {
-    return this._http.get<IShop[]>(this._apiGetList, { params });
+  queryShopsList(params?: any): Observable<PaginationResponse<IShop[]>> {
+    return this._http.get<PaginationResponse<IShop[]>>(this._apiGetList, { params });
   }
 
   public remove(id: string): Observable<null> {

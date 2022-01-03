@@ -1,16 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MessageService } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
-import { Payments } from '../shipping-form/payments.model';
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
+import { Payments, paymentsMap } from '../shipping-form/payments.model';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MapComponent } from '../map/map.component';
 import { IShop } from '@core/models/shop.interface';
 import { ShopService } from '@core/services/shop.service';
-import { Observable } from 'rxjs';
+import { filter, Observable, pluck } from 'rxjs';
 import { BasketState } from '@core/basket/basket.state';
 import { Select } from '@ngxs/store';
 import { AuthState } from 'src/app/module-auth/state/auth.state';
@@ -28,7 +27,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   public loading = false;
   public shopId = false;
   public pizzasIds: string[] = [];
-  public paymentTypes: Payments[] = this.configService.getStatuses('payment');
+  paymentTypes: SelectItem[] = paymentsMap;
   shops$: Observable<IShop[]>;
 
   private _ref: DynamicDialogRef;
@@ -42,7 +41,6 @@ export class CarryoutComponent implements OnInit, OnDestroy {
     private _ms: MessageService,
     private rest: DeliveryDataService,
     private router: Router,
-    private configService: ApiConfigService,
     private _ds: DialogService,
     private _ss: ShopService
   ) {
@@ -55,13 +53,13 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
 
-    this.shops$ = this._ss.queryShopsList();
+    this.shops$ = this._ss.queryShopsList().pipe(pluck('result'));
 
     this.initForm();
 
-    this.user$.subscribe(user => {
+    this.user$.pipe(filter(user => user ? true : false)).subscribe(user => {
       this.carryOut.patchValue({
-        firstName: `${user.firstName} ${user.lastName}`.trim(),
+        firstName: `${user?.firstName || ''} ${user?.lastName || ''}`.trim(),
         email: user.email,
         phone: user.phone,
       });
@@ -93,7 +91,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
       payment: this.formBuilder.group({
         coupon: ['', []],
         remainder: ['', []],
-        type: [this.paymentTypes[0].value, [Validators.required]],
+        type: [paymentsMap[0].label, [Validators.required]],
       }),
       pizzaIds: [this.pizzasIds, [Validators.required]],
       amount: ['', [Validators.required]],

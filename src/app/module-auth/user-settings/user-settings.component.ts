@@ -3,9 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
-import { passwordValidator } from '../../core/validators/password-validator';
-import { ApiConfigService } from 'src/app/core/services/api-config.service';
-import { phoneValidator } from 'src/app/core/validators/phone-validator';
 import { catchError, EMPTY, filter, Observable } from 'rxjs';
 import { MessageService } from 'primeng/api';
 import { Select, Store } from '@ngxs/store';
@@ -33,7 +30,6 @@ export class UserSettingsComponent implements OnInit {
     private handler: ErrorHandlerService,
     private title: Title,
     private formBuilder: FormBuilder,
-    private configService: ApiConfigService,
     private _ms: MessageService,
     private _store: Store,
     private _cd: ChangeDetectorRef) { }
@@ -86,7 +82,7 @@ export class UserSettingsComponent implements OnInit {
 
   initForm(): void {
     this.changePasswordForm = this.formBuilder.group({
-      newPassword: ['', [Validators.required, passwordValidator(this.configService.getParameter('passwordRegexExp'))]],
+      newPassword: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
     }, {
       validators: confirmPasswordValidator('confirmPassword', 'newPassword')
@@ -95,24 +91,15 @@ export class UserSettingsComponent implements OnInit {
 
   initUpdateProfile(user: User): void {
     this.updateProfileForm = this.formBuilder.group({
-      firstName: [user.firstName, [Validators.required,
-      Validators.minLength(this.configService.getParameter('fullNameMinLength')),
-      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
-      )]
+      firstName: [user.firstName, [Validators.required]
       ],
-      lastName: [user.lastName, [Validators.required,
-      Validators.minLength(this.configService.getParameter('fullNameMinLength')),
-      Validators.maxLength(this.configService.getParameter('fullNameMaxLength')
-      )]
+      lastName: [user.lastName, [Validators.required]
       ],
-      username: [{ value: user.username, disabled: true }, [Validators.required,
-      Validators.minLength(this.configService.getParameter('usernameMinLength')),
-      Validators.maxLength(this.configService.getParameter('usernameMaxLength'))
-      ]],
+      username: [{ value: user.username, disabled: true }, [Validators.required]],
       image: [user.image, []],
       email: [{ value: user.email, disabled: true }, [Validators.required, Validators.email]],
       birthday: [user.birthday ? new Date(user.birthday) : null, []],
-      phone: [user.phone, [phoneValidator(this.configService.getParameter('phoneRegexExp'))]],
+      phone: [user.phone],
     });
   }
 
