@@ -15,7 +15,7 @@ import { TableModule } from 'primeng/table';
 import { SharedModule } from '@shared/shared.module';
 import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 import { DrinksListComponent } from './components/drinks-list/drinks-list.component';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { ImageModule } from 'primeng/image';
 const routes: Routes = [{ path: '', component: ListComponent }];
 

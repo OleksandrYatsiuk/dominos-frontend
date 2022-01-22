@@ -32,7 +32,7 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { PromotionsState } from './module-promotions/promotions/promotions.state';
 import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
-import { InlineSVGModule } from 'ng-inline-svg';
+import { InlineSVGModule } from 'ng-inline-svg-2';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 
 registerLocaleData(uk);
