@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { stubImage } from 'src/utils/stubs';
 
 export interface FileOptions {
   src?: string | ArrayBuffer;
@@ -24,7 +25,7 @@ type Files = File | File[];
 })
 
 export class FileUploaderComponent implements ControlValueAccessor {
-  imagePath = '/assets/img/stub-image.png';
+  imagePath = stubImage;
   value: Files
   onChanged = (v: Files | null): void => { };
   onTouch: any = () => { };

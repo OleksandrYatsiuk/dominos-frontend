@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
+import { stubImage } from 'src/utils/stubs';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class CardPizzaComponent implements OnInit {
   public price: number;
   public size: number;
   options: SelectItem[] = [];
-  defaultImage = '/assets/img/stub-image.png';
+  defaultImage = stubImage;
   pizzas$: Observable<BasketItem[]>;
   selectedSize: string = 'small';
   constructor(

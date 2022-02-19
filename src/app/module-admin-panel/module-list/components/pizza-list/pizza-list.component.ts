@@ -7,13 +7,12 @@ import { filter, map, mergeMap, Observable } from 'rxjs';
 import { Select, Store } from '@ngxs/store';
 import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.state';
 import { DeletePizza, FetchAllPizzas } from 'src/app/module-admin-panel/module-pizzas/pizzas/pizzas.actions';
-import { IPaginationResponse } from '@core/models/response.interface';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DatePipe } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PizzasFormDialogComponent } from 'src/app/module-admin-panel/module-pizzas/components/pizzas-form-dialog/pizzas-form-dialog.component';
+import { stubImage } from 'src/utils/stubs';
 
 type PizzaTable = Pizza & {
 
@@ -31,7 +30,7 @@ export class PizzaListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   cols: TableItem[];
   tablePizza$: Observable<PizzaTable[]>;
-
+  stubImage = stubImage;
   @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
   ref: DynamicDialogRef;
 
@@ -40,7 +39,6 @@ export class PizzaListComponent implements OnInit, OnDestroy {
     private _cd: ChangeDetectorRef,
     private _ms: MessageService,
     private _langPipe: LangPipe,
-    private _translateService: TranslateService,
     private _dialogService: DialogService,
     private _store: Store
   ) { }

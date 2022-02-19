@@ -57,8 +57,9 @@
             <span class="p-column-title">{{ col.header | translate }}</span>
             <ng-container *ngSwitchCase="'image'">
               <img
-                style="width:75px;height:50px"
+                style="width:75px;height:50px; object-fit: cover;"
                 [lazyLoad]="rowData.image"
+                [defaultImage]="stubImage"
                 [alt]="rowData.name | lang"
               />
             </ng-container>

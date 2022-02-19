@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { CAN_EDIT_PIZZA } from '../../../../module-pizzas/components/pizza/pizza-permissions';
+import { stubImage } from 'src/utils/stubs';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class PizzaOverviewComponent implements OnInit {
   pizzaForm: FormGroup;
   categories = [{ value: 'Краща Ціна' }, { value: 'Класичні' }, { value: 'Фірмові' }];
   ingredients;
-  url: string | ArrayBuffer = '/assets/img/stub-image.png';
+  url: string | ArrayBuffer = stubImage;
   selectedFile: any;
   imagePath: any;
   spinUpload = false;

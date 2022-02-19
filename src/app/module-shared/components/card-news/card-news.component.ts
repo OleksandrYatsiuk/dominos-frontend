@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions/promotions-public.model';
+import { stubImage } from 'src/utils/stubs';
 
 @Component({
   selector: 'app-card-news',
@@ -9,7 +10,7 @@ import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions
 })
 export class CardNewsComponent {
   @Input() news: ModelPromotionPublic;
-  defaultImage = '/assets/img/stub-image.png';
+  defaultImage = stubImage;
   status = PromotionStatuses;
   constructor() { }
 

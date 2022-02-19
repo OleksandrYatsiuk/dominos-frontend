@@ -7,6 +7,7 @@ import { IShop } from '@core/models/shop.interface';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { DatePipe } from '@angular/common';
 import { TableItem } from '@core/models/table.interface';
+import { stubImage } from 'src/utils/stubs';
 
 @Component({
   selector: 'app-shop-list',
@@ -21,7 +22,7 @@ export class ShopListComponent implements OnInit {
   rows = 10;
   shops$: Observable<IShop[]>;
   cols: TableItem[];
-  defaultImage = '/assets/img/stub-image.png';
+  defaultImage = stubImage;
 
   constructor(
     private _ss: ShopService,

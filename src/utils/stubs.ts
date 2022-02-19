@@ -1,0 +1,1 @@
+export const stubImage = '/assets/img/stub-image.png';

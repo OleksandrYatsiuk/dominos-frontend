@@ -1,7 +1,7 @@
 <div class="product" *ngIf="item">
   <img
     class="product__image"
-    [src]="item.product?.image || '/assets/img/stub-image.png'"
+    [src]="item.product?.image || stubImage"
     alt="product"
   />
   <div class="product-description">

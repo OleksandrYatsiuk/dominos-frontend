@@ -7,6 +7,7 @@ import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.
 import { Select, Store } from '@ngxs/store';
 import { PromotionsState } from 'src/app/module-promotions/promotions/promotions.state';
 import { FetchAllPromotions } from 'src/app/module-promotions/promotions/promotions.actions';
+import { stubImage } from 'src/utils/stubs';
 
 @Component({
   selector: 'app-promotions-slider',
@@ -16,7 +17,7 @@ import { FetchAllPromotions } from 'src/app/module-promotions/promotions/promoti
 })
 export class PromotionsSliderComponent implements OnInit {
 
-  defaultImage = '/assets/img/stub-image.png';
+  defaultImage = stubImage;
   @Select(PromotionsState.promotions) promos$: Observable<ModelPromotionPublic[]>;
   config: SwiperConfigInterface = {
     slidesPerView: 1,

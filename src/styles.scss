@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@use "styles/base";
+
 @import "./styles/promotion.scss";
 @import "./styles/inputs";
 @import "./styles/table";
@@ -24,7 +26,6 @@
 @import "./styles/forms";
 @import "../node_modules/leaflet/dist/leaflet.css";
 
-@import "./styles/base/index";
 
 .marker-popup {
   .leaflet-popup-content-wrapper {
