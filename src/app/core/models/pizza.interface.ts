@@ -7,6 +7,7 @@ export interface Pizza {
   category: string;
   image: File | string | null;
   ingredients: [Ingredients];
+  categoryId: string;
   size: Size;
   price: Size;
 }

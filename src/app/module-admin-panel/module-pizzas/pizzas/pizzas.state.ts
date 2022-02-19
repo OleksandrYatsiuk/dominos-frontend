@@ -1,10 +1,7 @@
-import { DatePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { Pizza } from '@core/models/pizza.interface';
 import { PizzaDataService } from '@core/services/pizza-data.service';
-import { TranslateService } from '@ngx-translate/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { LangPipe } from '@shared/pipe/lang.pipe';
 import { of, tap } from 'rxjs';
 import { CreateNewPizza, DeletePizza, FetchAllPizzas, GetPizzaItem, UpdatePizza } from './pizzas.actions';
 

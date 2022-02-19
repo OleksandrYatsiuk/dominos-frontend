@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 import { PizzaFormComponent } from './components/pizza-form/pizza-form.component';
 import { PizzaEditComponent } from './containers/pizza-edit/pizza-edit.component';
+import { PizzasFormDialogComponent } from './components/pizzas-form-dialog/pizzas-form-dialog.component';
 
 const routes: Routes = [
   { path: 'create', component: PizzaCreateComponent },
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PizzaCreateComponent, PizzaFormComponent, PizzaEditComponent],
+  declarations: [PizzaCreateComponent, PizzaFormComponent, PizzaEditComponent, PizzasFormDialogComponent],
   imports: [
     CommonModule,
     TableModule,

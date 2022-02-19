@@ -9,7 +9,7 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class DeliveryDataService {
-  private _apiUrl = environment.serverUrl;
+  private _apiUrl = environment.nestServerUrl;
   constructor(private http: HttpClient) { }
 
   public create(delivery: Delivery): Observable<Delivery> {

@@ -14,10 +14,7 @@
     <ng-template pTemplate="caption">
       <div class="d-table__caption pt-table__caption--external">
         <div class="caption-actions">
-          <button
-            class="button button-icon"
-            [routerLink]="['/admin/pizzas/create']"
-          >
+          <button class="button button-icon" (click)="onManagePizza()">
             <em [inlineSVG]="'add.svg'"></em>
             <span class="button-text"> {{ "labels.add" | translate }}</span>
           </button>
@@ -95,16 +92,22 @@
               }}
             </ng-container>
 
+            <ng-container *ngSwitchCase="'category'">
+              {{ rowData[col.field].name | lang }}
+            </ng-container>
+
             <ng-container *ngSwitchCase="'options'">
               <div class="d-table-options">
-                <a [routerLink]="['/admin/pizzas/', rowData.id]">
-                  <em class="icon" [inlineSVG]="'edit.svg'"></em
-                ></a>
-                <em
-                  class="icon"
-                  [inlineSVG]="'trash.svg'"
-                  (click)="onDelete(rowData)"
-                ></em>
+                <button class="button" (click)="onManagePizza(rowData)">
+                  <em class="icon" [inlineSVG]="'edit.svg'"></em>
+                </button>
+                <button class="button">
+                  <em
+                    class="icon"
+                    [inlineSVG]="'trash.svg'"
+                    (click)="onDelete(rowData)"
+                  ></em>
+                </button>
               </div>
             </ng-container>
             <ng-container *ngSwitchDefault>{{

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserLogin, User, AuthResponse, ChangePassword, GeoLocation, UpdateUserProfile } from './auth.model';
 import { Observable } from 'rxjs';
-import { pluck } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 
@@ -9,7 +8,6 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class UserDataService {
-  private _apiUrl = environment.serverUrl;
   private _nestUrl = environment.nestServerUrl;
   constructor(private _http: HttpClient) { }
 
@@ -44,7 +42,7 @@ export class UserDataService {
     return this._http.post<User>(`${this._nestUrl}/user/profile-image`, data)
   }
 
-  public confirm(hash: string): Observable<any> {
-    return this._http.get(`${this._apiUrl}/auth/confirm/${hash}`);
-  }
+  // public confirm(hash: string): Observable<any> {
+  //   return this._http.get(`${this._apiUrl}/auth/confirm/${hash}`);
+  // }
 }

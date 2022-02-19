@@ -1,0 +1,82 @@
+<div [formGroup]="form">
+  <div class="grid-row__container">
+    <div class="grid-column__container">
+      <app-file-uploader
+        formControlName="image"
+        [imageStyle]="{ height: '20rem' }"
+      ></app-file-uploader>
+      <validation-error
+        [control]="form.controls.image"
+        [field]="'labels.image' | translate"
+      ></validation-error>
+
+      <button class="button button--blue" (click)="onSubmit()">
+        {{ "confirmLabel" | translate }}
+      </button>
+    </div>
+    <div class="grid-column__container">
+      <div class="form__control">
+        <span>{{ "labels.name" | translate }}</span>
+        <d-multi-language-field formControlName="name">
+        </d-multi-language-field>
+        <validation-error
+          [control]="form.controls.name"
+          [field]="'labels.name' | translate"
+        ></validation-error>
+      </div>
+
+      <div class="form__control" *ngIf="categories$ | async as categories">
+        <span>{{ "labels.category" | translate }}</span>
+        <p-dropdown
+          class="d-dropdown"
+          placeholder="Select Categories"
+          formControlName="category"
+          [options]="categories"
+        ></p-dropdown>
+        <validation-error
+          [control]="form.controls.category"
+          [field]="'labels.category' | translate"
+        ></validation-error>
+      </div>
+
+      <div class="form__control">
+        <span>{{ "labels.ingredients" | translate }}</span>
+
+        <p-multiSelect
+          [showToggleAll]="false"
+          class="d-multi-select"
+          [filter]="true"
+          display="chip"
+          placeholder="Select Ingredients"
+          formControlName="ingredients"
+          [options]="(ingredients$ | async) || []"
+        ></p-multiSelect>
+        <validation-error
+          [control]="form.controls.ingredients"
+          [field]="'labels.ingredients' | translate"
+        ></validation-error>
+      </div>
+
+      <div class="form__control">
+        <span>{{ "labels.weight" | translate }}</span>
+        <d-multi-language-field formControlName="size">
+        </d-multi-language-field>
+        <validation-error
+          [control]="form.controls.size"
+          [field]="'labels.weight' | translate"
+        ></validation-error>
+      </div>
+
+      <div class="form__control">
+        <span>{{ "labels.price" | translate }}</span>
+
+        <d-multi-language-field formControlName="price">
+        </d-multi-language-field>
+        <validation-error
+          [control]="form.controls.price"
+          [field]="'labels.price' | translate"
+        ></validation-error>
+      </div>
+    </div>
+  </div>
+</div>

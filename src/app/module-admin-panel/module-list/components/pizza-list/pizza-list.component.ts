@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
 import { Pizza } from '@core/models/pizza.interface';
@@ -12,6 +12,8 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { DatePipe } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { PizzasFormDialogComponent } from 'src/app/module-admin-panel/module-pizzas/components/pizzas-form-dialog/pizzas-form-dialog.component';
 
 type PizzaTable = Pizza & {
 
@@ -25,12 +27,13 @@ type PizzaTable = Pizza & {
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [LangPipe, DatePipe]
 })
-export class PizzaListComponent implements OnInit {
+export class PizzaListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   cols: TableItem[];
   tablePizza$: Observable<PizzaTable[]>;
 
   @Select(PizzasState.pizzas) pizzas$: Observable<Pizza[]>
+  ref: DynamicDialogRef;
 
   constructor(
     private _cs: ConfirmService,
@@ -38,8 +41,14 @@ export class PizzaListComponent implements OnInit {
     private _ms: MessageService,
     private _langPipe: LangPipe,
     private _translateService: TranslateService,
+    private _dialogService: DialogService,
     private _store: Store
   ) { }
+  ngOnDestroy(): void {
+    if (this.ref) {
+      this.ref.destroy();
+    }
+  }
 
   ngOnInit(): void {
 
@@ -47,7 +56,6 @@ export class PizzaListComponent implements OnInit {
       ...pizza,
       index: i + 1,
       shortName: this._langPipe.transform(pizza.name),
-      category: this._translateService.instant(`categoriesLabels.pizzas.${pizza.category}`),
       minPrice: pizza.price.small,
       minSize: pizza.size.small
     }))))
@@ -69,6 +77,14 @@ export class PizzaListComponent implements OnInit {
     this.currentPage = page + 1;
     this._store.dispatch(new FetchAllPizzas({ page: this.currentPage }));
 
+  }
+
+  onManagePizza(pizza?: Pizza): void {
+    this.ref = this._dialogService.open(PizzasFormDialogComponent, {
+      styleClass: 'd-dialog',
+      data: { pizza }
+    })
+    this.ref.onClose.pipe(filter(result => result)).subscribe();
   }
 
   onDelete(item: Pizza): void {
