@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { BaseResponse, IPaginationResponse, PaginationResponse } from '../models/response.interface';
+import { IPaginationResponse } from '../models/response.interface';
 import { ModelPromotion, Promotion } from '../models/promotions/promotions.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@environments/environment';
 import { IPromotionPublic, ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
 import { IQueryParams } from '@core/models/pagination-query';
 import { transformToFormData } from 'src/utils/form-data';
@@ -13,10 +12,8 @@ import { transformToFormData } from 'src/utils/form-data';
 })
 export class PromotionDataService {
 
-  private _apiUrl = environment.nestServerUrl;
-
-  private _path = `${this._apiUrl}/promotions`;
-  private _public_path = `${this._apiUrl}/public/promotions`;
+  private _path = '/promotions';
+  private _public_path = '/public/promotions';
   constructor(private http: HttpClient) {
   }
   getData(params?: Partial<IQueryParams<ModelPromotion>>): Observable<IPaginationResponse<ModelPromotion[]>> {

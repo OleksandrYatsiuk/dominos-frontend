@@ -1,14 +1,15 @@
-@import "../../../../../styles/helpers/index";
+@use 'variables' as v;
+@use 'mixins' as m;
 
 .basket-in {
   display: flex;
-  background-color: $c-red;
+  background-color: v.$c-red;
   border-radius: 2rem;
-  transition: $transition;
+  transition: v.$transition;
 
   &--filled {
-    transition: $transition;
-    background-color: $c-gray-1;
+    transition: v.$transition;
+    background-color: v.$c-gray-1;
 
     .button {
       flex: 0.5;
@@ -19,11 +20,11 @@
     padding: 0.75rem 0.5rem;
     flex: 1;
     border-radius: inherit;
-    background-color: $c-red;
-    border: 1px solid $c-red;
+    background-color: v.$c-red;
+    border: 1px solid v.$c-red;
 
     &__text {
-      @include genText(1rem, 1rem, 600, $c-white);
+      @include m.genText(1rem, 1rem, 600, v.$c-white);
       &--big {
         font-size: 1.5rem;
       }
@@ -35,6 +36,6 @@
     align-items: center;
     justify-content: center;
     flex: 1;
-    @include genText(1rem, 1rem, 600);
+    @include m.genText(1rem, 1rem, 600);
   }
 }

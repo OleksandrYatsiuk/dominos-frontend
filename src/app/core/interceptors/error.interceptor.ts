@@ -10,12 +10,11 @@ import { LogoutAction } from 'src/app/module-auth/state/auth.actions';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  isBrowser: boolean;
-
   constructor(
-    private handler: ErrorHandlerService, @Inject(PLATFORM_ID) private _pid: any, private store: Store) {
-    this.isBrowser = isPlatformBrowser(_pid);
-  }
+    private handler: ErrorHandlerService,
+    private store: Store
+  ) { }
+
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(
@@ -25,7 +24,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.handler.hasError(error.result);
           }
           if (error?.statusCode === HttpStatusCode.Unauthorized) {
-            // this.store.dispatch(new LogoutAction());
+            this.store.dispatch(new LogoutAction());
           }
           return throwError(error);
         })

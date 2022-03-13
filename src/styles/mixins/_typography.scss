@@ -1,0 +1,8 @@
+@use 'variables' as v;
+
+@mixin genText($fs: 16px, $lh: normal, $fw: normal, $c: v.$c-black) {
+  font-size: $fs;
+  line-height: $lh;
+  font-weight: $fw;
+  color: $c;
+}

@@ -5,11 +5,11 @@ import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 import { LangInterceptor } from './interceptors/lang.interceptor';
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from '../module-auth/state/auth.state';
+import { ApiUrlInterceptor } from './interceptors/api-url/api-url.interceptor';
 
 
 
 @NgModule({
-  declarations: [],
   imports: [CommonModule, NgxsModule.forFeature([AuthState])],
   providers: [
     {
@@ -24,6 +24,11 @@ import { AuthState } from '../module-auth/state/auth.state';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LangInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiUrlInterceptor,
       multi: true
     }
   ],

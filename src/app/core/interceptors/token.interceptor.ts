@@ -8,13 +8,10 @@ import { AuthResponse } from 'src/app/module-auth/auth.model';
 
 @Injectable()
 export class ParamInterceptor implements HttpInterceptor {
-  isBrowser: boolean;
 
   @Select(AuthState.credentials) credentials$: Observable<AuthResponse>;
 
-  constructor(@Inject(PLATFORM_ID) private _pid: any) {
-    this.isBrowser = isPlatformBrowser(_pid);
-  }
+  constructor() { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

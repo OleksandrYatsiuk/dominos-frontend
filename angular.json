@@ -10,14 +10,10 @@
           "style": "scss",
           "changeDetection": "OnPush"
         },
-        "@schematics/angular:class": {
-        },
-        "@schematics/angular:directive": {
-        },
-        "@schematics/angular:guard": {
-        },
-        "@schematics/angular:interceptor": {
-        },
+        "@schematics/angular:class": {},
+        "@schematics/angular:directive": {},
+        "@schematics/angular:guard": {},
+        "@schematics/angular:interceptor": {},
         "@schematics/angular:module": {
           "flat": false
         },
@@ -35,6 +31,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles/"]
+            },
             "allowedCommonJsDependencies": ["@core/services/map.service"],
             "outputPath": "dist/dominos/browser",
             "index": "src/index.html",

@@ -7,17 +7,13 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: '', component: PizzaComponent,
-  },
+  { path: '', component: PizzaComponent },
   { path: ':id', loadChildren: () => import('../module-admin-panel/module-pizzas/components/pizza-overview/pizza-overview.module').then(m => m.PizzaOverviewModule) },
 ];
 
 
 @NgModule({
-  declarations: [
-    PizzaComponent,
-  ],
+  declarations: [PizzaComponent],
   imports: [
     CommonModule,
     SharedModule,
