@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class ShippingFormComponent implements OnInit {
 
 	constructor(
 		@Inject(PLATFORM_ID) private _pid: any,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private _ms: MessageService,
 		private http: DeliveryDataService,
 		private router: Router
@@ -34,7 +34,7 @@ export class ShippingFormComponent implements OnInit {
 	}
 
 	public paymentTypes: SelectItem[] = paymentsMap;
-	public formDelivery: FormGroup;
+	public formDelivery: UntypedFormGroup;
 	public spinShipping = false;
 	public totalAmount: string;
 	public pizzasIds: string[] = [];

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pizza } from '@core/models/pizza.interface';
 import { CategoriesService } from '@core/services/categories/categories/categories.service';
 import { IngredientsService } from '@core/services/ingredients.service';
@@ -19,14 +19,14 @@ import { CreateNewPizza, UpdatePizza } from '../../pizzas/pizzas.actions';
 export class PizzasFormDialogComponent implements OnInit {
   ingredients$: Observable<SelectItem[]>;
   categories$: Observable<SelectItem[]>;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     private _ingredientsService: IngredientsService,
     private _categoriesService: CategoriesService,
     private _messageService: MessageService,
     private _lang: LangPipe,
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _store: Store,
     private _cd: ChangeDetectorRef,
     private _config: DynamicDialogConfig,

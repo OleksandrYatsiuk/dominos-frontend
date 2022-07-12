@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
@@ -18,12 +18,12 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
-  registerForm: FormGroup;
+  registerForm: UntypedFormGroup;
   spinRegister = false;
   private _ref: DynamicDialogRef;
   constructor(
     private http: UserDataService,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private _ms: MessageService,
     private handler: ErrorHandlerService,
     private _ds: DialogService,

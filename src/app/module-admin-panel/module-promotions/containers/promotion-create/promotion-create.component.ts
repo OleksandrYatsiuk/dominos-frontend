@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { PromotionDataService } from '../../../../core/services/promotion-data.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MessageService } from 'primeng/api';
@@ -15,7 +15,7 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
   providers: [LangPipe]
 })
 export class PromotionCreateComponent {
-  public form: FormGroup;
+  public form: UntypedFormGroup;
   public loading = false;
   selectedFile: any;
   public file: File;

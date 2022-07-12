@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-item',
@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class FormItemComponent {
 
   constructor() { }
-  @Input() control: FormControl | null;
+  @Input() control: UntypedFormControl | null;
   @Input() field = 'Field';
   @Input() otherField = "Other Field";
 }

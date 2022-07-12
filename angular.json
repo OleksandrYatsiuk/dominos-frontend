@@ -32,16 +32,25 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "stylePreprocessorOptions": {
-              "includePaths": ["src/styles/"]
+              "includePaths": [
+                "src/styles/"
+              ]
             },
-            "allowedCommonJsDependencies": ["@core/services/map.service"],
+            "allowedCommonJsDependencies": [
+              "@core/services/map.service"
+            ],
             "outputPath": "dist/dominos/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "inlineStyleLanguage": "scss",
             "scripts": [],
             "vendorChunk": true,
@@ -106,15 +115,23 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "e2e": {
@@ -172,7 +189,9 @@
         "prerender": {
           "builder": "@nguniversal/builders:prerender",
           "options": {
-            "routes": ["/"]
+            "routes": [
+              "/"
+            ]
           },
           "configurations": {
             "production": {
@@ -189,9 +208,10 @@
       }
     }
   },
-  "defaultProject": "dominos",
   "cli": {
     "analytics": "b72b2eca-c0f5-4a92-9e7f-254d83d42952",
-    "defaultCollection": "@ngxs/schematics"
+    "schematicCollections": [
+      "@ngxs/schematics"
+    ]
   }
 }

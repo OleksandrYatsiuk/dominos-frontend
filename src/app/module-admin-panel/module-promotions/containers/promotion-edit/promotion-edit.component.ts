@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { PromotionDataService } from '../../../../core/services/promotion-data.service';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { MessageService } from 'primeng/api';
@@ -17,8 +17,8 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
   providers: [LangPipe]
 })
 export class PromotionEditComponent implements OnInit {
-  form: FormGroup;
-  image = new FormControl();
+  form: UntypedFormGroup;
+  image = new UntypedFormControl();
   loading = false;
   promotion$: Observable<ModelPromotion>;
   promoStatuses = [];

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Store } from '@ngxs/store';
@@ -16,12 +16,12 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _ref: DynamicDialogRef,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private _store: Store,
     private handler: ErrorHandlerService
   ) { }
 
-  public form: FormGroup;
+  public form: UntypedFormGroup;
 
   ngOnInit(): void {
     this.form = this._formBuilder.group({

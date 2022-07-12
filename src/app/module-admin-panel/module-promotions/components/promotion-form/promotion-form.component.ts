@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { ModelPromotion } from '@core/models/promotions/promotions.model';
 
 @Component({
@@ -12,8 +12,8 @@ export class PromotionFormComponent implements OnInit {
   @Input() loading: boolean;
   @Input() promotion: ModelPromotion;
   @Output() save = new EventEmitter<ModelPromotion>();
-  form: FormGroup;
-  constructor(private _fb: FormBuilder) { }
+  form: UntypedFormGroup;
+  constructor(private _fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this._initForm(this.promotion);

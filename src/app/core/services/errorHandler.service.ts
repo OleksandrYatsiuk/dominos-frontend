@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { ValidationResponse, ValidationError } from '../models/response.interface';
 import { HttpStatusCode } from '../models/http-status-code';
@@ -16,7 +16,7 @@ export class ErrorHandlerService {
   public hasError(error: object) {
     this.msg.next(error);
   }
-  public validation(error: ValidationResponse, form: FormGroup): void {
+  public validation(error: ValidationResponse, form: UntypedFormGroup): void {
     if (error && error?.code === HttpStatusCode.UnprocessableEntity && Array.isArray(error.result)) {
       error.result.forEach(({ field, message }: ValidationError) => {
         const control = form.get(field);

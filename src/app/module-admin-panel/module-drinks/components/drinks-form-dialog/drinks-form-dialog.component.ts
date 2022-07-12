@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { DrinksCategory } from '@core/enums/drinks-categories.enum';
 import { Drink } from '@core/models/drinks/drinks.model';
 import { Select, Store } from '@ngxs/store';
@@ -16,12 +16,12 @@ import { DrinksState } from 'src/app/module-drinks/drinks.state';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DrinksFormDialogComponent implements OnInit {
-  form: FormGroup;
+  form: UntypedFormGroup;
   @Select(DrinksState.drinkCategories) categories$: Observable<SelectItem[]>
 
   constructor(
     private _ref: DynamicDialogRef,
-    private _formBuilder: FormBuilder,
+    private _formBuilder: UntypedFormBuilder,
     private _store: Store,
     private _config: DynamicDialogConfig
   ) { }

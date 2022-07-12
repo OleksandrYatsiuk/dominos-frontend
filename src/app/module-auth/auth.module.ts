@@ -9,19 +9,18 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  declarations: [
-    RegistrationComponent,
-    UserSettingsComponent,
-    ConfirmComponent
-  ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    SharedModule,
-    CalendarModule
-  ],
-  entryComponents: [],
-  providers: [ConfirmEmailResolver]
+    declarations: [
+        RegistrationComponent,
+        UserSettingsComponent,
+        ConfirmComponent
+    ],
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        SharedModule,
+        CalendarModule
+    ],
+    providers: [ConfirmEmailResolver]
 })
 
 export class AuthModule { }

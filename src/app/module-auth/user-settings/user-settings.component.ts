@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
@@ -29,15 +29,15 @@ export class UserSettingsComponent implements OnInit {
   constructor(
     private handler: ErrorHandlerService,
     private title: Title,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private _ms: MessageService,
     private _store: Store,
     private _cd: ChangeDetectorRef) { }
 
   image: File;
-  updateProfileForm: FormGroup;
-  changePasswordForm: FormGroup;
-  imgForm: FormGroup;
+  updateProfileForm: UntypedFormGroup;
+  changePasswordForm: UntypedFormGroup;
+  imgForm: UntypedFormGroup;
   spinEditProfile = false;
   spinChangePassword = false;
 

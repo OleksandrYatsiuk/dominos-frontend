@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pizza } from '@core/models/pizza.interface';
 import { CategoriesService } from '@core/services/categories/categories/categories.service';
 import { IngredientsService } from '@core/services/ingredients.service';
@@ -19,11 +19,11 @@ export class PizzaFormComponent implements OnInit {
   @Input() loading: boolean;
   @Input() pizza: Pizza;
   @Output() save = new EventEmitter<Pizza>();
-  form: FormGroup;
+  form: UntypedFormGroup;
   ingredients$: Observable<SelectItem[]>;
   categories$: Observable<SelectItem[]>;
   constructor(
-    private _fb: FormBuilder,
+    private _fb: UntypedFormBuilder,
     private _ingredientsService: IngredientsService,
     private _categoriesService: CategoriesService,
     private _lang: LangPipe,

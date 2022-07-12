@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { DeliveryDataService } from '../../delivery-data.service';
 import { Router } from '@angular/router';
@@ -23,7 +23,7 @@ import { User } from 'src/app/module-auth/auth.model';
 })
 
 export class CarryoutComponent implements OnInit, OnDestroy {
-  public carryOut: FormGroup;
+  public carryOut: UntypedFormGroup;
   public loading = false;
   public shopId = false;
   public pizzasIds: string[] = [];
@@ -36,7 +36,7 @@ export class CarryoutComponent implements OnInit, OnDestroy {
   @Select(AuthState.current) user$: Observable<User>;
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private handler: ErrorHandlerService,
     private _ms: MessageService,
     private rest: DeliveryDataService,
