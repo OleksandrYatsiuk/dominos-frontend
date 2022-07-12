@@ -17,7 +17,8 @@
     "prerender": "ng run dominos:prerender"
   },
   "engines": {
-    "npm": "6.x"
+    "npm": "6.x",
+    "node": "16.x"
   },
   "private": true,
   "dependencies": {
