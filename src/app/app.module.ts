@@ -17,10 +17,7 @@ import { registerLocaleData } from '@angular/common';
 import { ConfirmService } from '@core/services/confirm.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
-
 import uk from '@angular/common/locales/uk';
-import ru from '@angular/common/locales/ru';
 import en from '@angular/common/locales/en';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { LangService } from '@core/services/lang.service';
@@ -36,7 +33,6 @@ import { InlineSVGModule } from 'ng-inline-svg-2';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 
 registerLocaleData(uk);
-registerLocaleData(ru);
 registerLocaleData(en);
 
 export function createTranslateLoader(http: HttpClient) {

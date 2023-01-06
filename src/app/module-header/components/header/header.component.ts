@@ -38,7 +38,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   lang: ELanguage = ELanguage.uk;
   languagesOpt: SelectItem[] = [
     { label: 'UK', value: ELanguage.uk },
-    { label: 'RU', value: ELanguage.ru },
     { label: 'EN', value: ELanguage.en },
   ];
   constructor(

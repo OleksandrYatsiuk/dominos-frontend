@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, Input, forwardRef, ViewEncapsulation, ChangeDetectorRef, ViewChild, TemplateRef, Renderer2, AfterContentInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, forwardRef, ViewEncapsulation, ChangeDetectorRef, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ELanguage, ILanguage } from '@core/models/language';
+import { ELanguage } from '@core/models/language';
 import { AngularEditorComponent } from '@kolkov/angular-editor';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 
@@ -34,7 +34,7 @@ export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterC
   @Input() showMode = false;
   @Input() styleClass: string;
   @ViewChild('angularEditor') angularEditor: AngularEditorComponent;
-  private _value: object = { uk: '', ru: '', en: '', };
+  private _value: object = { uk: '', en: '' };
   private _type: EWidgetMode = 'input';
   editorConfig: AngularEditorConfig = {
     editable: true,
@@ -80,7 +80,7 @@ export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterC
   }
 
   get value(): object {
-    return this._value ? this._value : { uk: '', ru: '', en: '' }
+    return this._value ? this._value : { uk: '', en: '' }
   }
 
   set value(v: object) {

@@ -1,8 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
-import { pluck } from 'rxjs';
 import { Observable } from 'rxjs';
-import { PromotionDataService } from '@core/services/promotion-data.service';
 import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
 import { Select, Store } from '@ngxs/store';
 import { PromotionsState } from 'src/app/module-promotions/promotions/promotions.state';
@@ -19,10 +16,6 @@ export class PromotionsSliderComponent implements OnInit {
 
   defaultImage = stubImage;
   @Select(PromotionsState.promotions) promos$: Observable<ModelPromotionPublic[]>;
-  config: SwiperConfigInterface = {
-    slidesPerView: 1,
-    observer: true
-  }
   constructor(private _store: Store) { }
 
   ngOnInit(): void {
