@@ -2,8 +2,7 @@
 {
   "extends": "./tsconfig.app.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/server",
-    "target": "es2019"
+    "outDir": "./out-tsc/server"
   },
   "files": [
     "src/main.server.ts",
