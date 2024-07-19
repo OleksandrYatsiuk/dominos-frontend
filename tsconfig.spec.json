@@ -1,18 +1,18 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "types": [
-      "jasmine",
-      "node"
-    ]
+    "outDir": "./dist/out-tsc/spec",
+    "baseUrl": "./",
+    "module": "commonjs",
+    "types": ["jasmine", "node"],
   },
-  "files": [
-    "src/test.ts",
-    "src/polyfills.ts"
-  ],
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts"
+  "files": ["test.js"],
+  "include": ["**/*.ts"],
+  "exclude": [
+    "**/e2e/*.ts",
+    "**/*.e2e-spec.ts",
+    "**/*.po.ts",
+    "node_modules",
+    "tmp"
   ]
 }

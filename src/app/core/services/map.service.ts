@@ -1,7 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
-// use only for interfaces
-import * as L from 'leaflet';
 import { LangService } from './lang.service';
 
 @Injectable({ providedIn: 'root' })
@@ -26,8 +24,7 @@ export class MapService {
     ) {
         this.isBrowser = isPlatformBrowser(_pid);
         if (this.isBrowser) {
-            // leaflet is JS library and don't work with angular-universal in usually way
-            this._lf = require('leaflet');
+            this._lf = window.L;
         }
     }
 
