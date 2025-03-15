@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
-import { HttpClientModule, } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
@@ -24,62 +24,54 @@ import { BasketInModule } from './components/basket-in/basket-in/basket-in.modul
 import { NgxsModule } from '@ngxs/store';
 import { AuthState } from '../module-auth/state/auth.state';
 
-@NgModule({
-  declarations: [
-    // components
-    LoginComponent,
-    FileUploaderComponent,
-    BasketCardItemComponent,
-    SpinButtonComponent,
-    FormItemComponent,
-    ValidationErrorComponent,
-    // pipes
-    PizzaFilterPipe,
-    CustomLabelPipe,
-    ExtractPipe,
-    TranslateOptionsPipe,
-    // directives
-    MobilePhoneDirective,
-    CardNewsComponent,
-
-  ],
-  imports: [
-    FormsModule,
-    CommonModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    NgxsModule.forFeature([AuthState]),
-    DropdownModule,
-    SelectButtonModule,
-    RouterModule,
-    MainModule,
-    TranslateModule,
-    ToastModule,
-    BasketInModule
-  ],
-  exports: [
-    //components
-    BasketCardItemComponent,
-    SpinButtonComponent,
-    FormItemComponent,
-    ValidationErrorComponent,
-    FileUploaderComponent,
-    CardNewsComponent,
-    //modules
-    FormsModule,
-    DropdownModule,
-    ReactiveFormsModule,
-    RouterModule,
-    TranslateModule,
-    ToastModule,
-    MainModule,
-    //pipes
-    PizzaFilterPipe,
-    ExtractPipe,
-    TranslateOptionsPipe,
-    //directives
-    MobilePhoneDirective,
-  ]
-
-})
+@NgModule({ declarations: [
+        // components
+        LoginComponent,
+        FileUploaderComponent,
+        BasketCardItemComponent,
+        SpinButtonComponent,
+        FormItemComponent,
+        ValidationErrorComponent,
+        // pipes
+        PizzaFilterPipe,
+        CustomLabelPipe,
+        ExtractPipe,
+        TranslateOptionsPipe,
+        // directives
+        MobilePhoneDirective,
+        CardNewsComponent,
+    ],
+    exports: [
+        //components
+        BasketCardItemComponent,
+        SpinButtonComponent,
+        FormItemComponent,
+        ValidationErrorComponent,
+        FileUploaderComponent,
+        CardNewsComponent,
+        //modules
+        FormsModule,
+        DropdownModule,
+        ReactiveFormsModule,
+        RouterModule,
+        TranslateModule,
+        ToastModule,
+        MainModule,
+        //pipes
+        PizzaFilterPipe,
+        ExtractPipe,
+        TranslateOptionsPipe,
+        //directives
+        MobilePhoneDirective,
+    ], imports: [FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        NgxsModule.forFeature([AuthState]),
+        DropdownModule,
+        SelectButtonModule,
+        RouterModule,
+        MainModule,
+        TranslateModule,
+        ToastModule,
+        BasketInModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class SharedModule { }

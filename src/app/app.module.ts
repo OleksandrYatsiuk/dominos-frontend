@@ -5,7 +5,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { GeolocationService } from './core/services/geolocation.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
 import { HeaderModule } from './module-header/module-header.module';
@@ -39,46 +39,38 @@ export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    CommonModule,
-    SharedModule,
-    FooterModule,
-    HeaderModule,
-    BrowserAnimationsModule,
-    CoreModule,
-    HttpClientModule,
-    CalendarModule,
-    ConfirmDialogModule,
-    NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState], {
-      developmentMode: !environment.production
-    }),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
-    InlineSVGModule.forRoot({
-      baseUrl: '/assets/icons/',
-      bypassHttpClientInterceptorChain: true,
-      clientOnly: true,
-    }),
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (createTranslateLoader),
-        deps: [HttpClient]
-      }
-    })
-  ],
-  providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
-    {
-      provide: LOCALE_ID,
-      deps: [LangService],      //some service handling global settings
-      useFactory: (langService: LangService) => langService.getLang()  //returns locale string
-    },
-    LangPipe, DatePipe
-  ],
-  bootstrap: [AppComponent],
-})
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [AppRoutingModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        CommonModule,
+        SharedModule,
+        FooterModule,
+        HeaderModule,
+        BrowserAnimationsModule,
+        CoreModule,
+        CalendarModule,
+        ConfirmDialogModule,
+        NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState], {
+            developmentMode: !environment.production
+        }),
+        NgxsReduxDevtoolsPluginModule.forRoot(),
+        NgxsLoggerPluginModule.forRoot(),
+        InlineSVGModule.forRoot({
+            baseUrl: '/assets/icons/',
+            bypassHttpClientInterceptorChain: true,
+            clientOnly: true,
+        }),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        })], providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
+        {
+            provide: LOCALE_ID,
+            deps: [LangService], //some service handling global settings
+            useFactory: (langService: LangService) => langService.getLang() //returns locale string
+        },
+        LangPipe, DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
