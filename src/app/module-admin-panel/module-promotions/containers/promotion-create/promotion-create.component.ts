@@ -8,11 +8,12 @@ import { ModelPromotion } from '@core/models/promotions/promotions.model';
 import { catchError, EMPTY } from 'rxjs';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 @Component({
-  selector: 'app-promotion-create',
-  templateUrl: './promotion-create.component.html',
-  styleUrls: ['./promotion-create.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe]
+    selector: 'app-promotion-create',
+    templateUrl: './promotion-create.component.html',
+    styleUrls: ['./promotion-create.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe],
+    standalone: false
 })
 export class PromotionCreateComponent {
   public form: UntypedFormGroup;

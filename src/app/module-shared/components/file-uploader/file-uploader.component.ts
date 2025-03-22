@@ -1,5 +1,7 @@
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Component, Input, Output, EventEmitter, forwardRef, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { stubImage } from 'src/utils/stubs';
 
 export interface FileOptions {
@@ -21,7 +23,9 @@ type Files = File | File[];
     multi: true
   }],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgStyle, NgIf, LazyLoadImageModule]
 })
 
 export class FileUploaderComponent implements ControlValueAccessor {

@@ -10,10 +10,11 @@ import { AddDrink, EditDrink } from 'src/app/module-drinks/drinks.actions';
 import { DrinksState } from 'src/app/module-drinks/drinks.state';
 
 @Component({
-  selector: 'app-drinks-form-dialog',
-  templateUrl: './drinks-form-dialog.component.html',
-  styleUrls: ['./drinks-form-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-drinks-form-dialog',
+    templateUrl: './drinks-form-dialog.component.html',
+    styleUrls: ['./drinks-form-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DrinksFormDialogComponent implements OnInit {
   form: UntypedFormGroup;

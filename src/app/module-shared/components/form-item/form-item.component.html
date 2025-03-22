@@ -1,11 +1,9 @@
-<div class="form-group" *ngIf="control">
-  <span>{{ field }}</span>
-  <div [class.error]="control.invalid && (control.dirty || control.touched)">
+@if (control()) {
+<div class="form-group">
+  <span>{{ field() }}</span>
+  <div [ngClass]="{'error': withError()}">
     <ng-content></ng-content>
   </div>
-  <validation-error
-    [control]="control"
-    [field]="field"
-    [otherField]="otherField"
-  ></validation-error>
+  <validation-error [control]="control()" [field]="field()" [otherField]="otherField()"/>
 </div>
+}

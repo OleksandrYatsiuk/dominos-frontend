@@ -7,11 +7,12 @@ import { Store } from '@ngxs/store';
 import { CreateNewPizza } from '../../pizzas/pizzas.actions';
 
 @Component({
-  selector: 'app-pizza-create',
-  templateUrl: './pizza-create.component.html',
-  styleUrls: ['./pizza-create.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe]
+    selector: 'app-pizza-create',
+    templateUrl: './pizza-create.component.html',
+    styleUrls: ['./pizza-create.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe],
+    standalone: false
 })
 export class PizzaCreateComponent {
 

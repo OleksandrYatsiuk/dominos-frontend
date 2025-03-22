@@ -12,11 +12,12 @@ import { DatePipe } from '@angular/common';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-promotion-list',
-  templateUrl: './promotion-list.component.html',
-  styleUrls: ['./promotion-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe, DatePipe]
+    selector: 'app-promotion-list',
+    templateUrl: './promotion-list.component.html',
+    styleUrls: ['./promotion-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe, DatePipe],
+    standalone: false
 })
 export class PromotionListComponent implements OnInit {
   currentPage = 1;

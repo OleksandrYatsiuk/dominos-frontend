@@ -1,25 +1,27 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { AddBasketItem } from '@core/basket/basket.actions';
-import { BasketProductTypes } from '@core/basket/basket.interface';
 import { BasketProductItem } from '@core/basket/basket.state';
+import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
+import { LangPipe } from '@shared/pipe/lang.pipe';
 import { stubImage } from 'src/utils/stubs';
+import { BasketInModule } from '../basket-in/basket-in/basket-in.module';
 
 @Component({
   selector: 'app-basket-card-item',
   templateUrl: './basket-card-item.component.html',
-  styleUrls: ['./basket-card-item.component.scss']
+  styleUrls: ['./basket-card-item.component.scss'],
+  standalone: true,
+  imports: [LangPipe, TranslateModule, BasketInModule]
 })
 export class BasketCardItemComponent {
-  @Input() item: BasketProductItem;
+  item = input.required<BasketProductItem>();
+
   stubImage = stubImage;
 
-  constructor(
-    private _store: Store,
-  ) {
-  }
+  constructor(private store: Store) { }
 
   onManageBasket(direction: number): void {
-    this._store.dispatch(new AddBasketItem(this.item, direction));
+    this.store.dispatch(new AddBasketItem(this.item(), direction));
   }
 }

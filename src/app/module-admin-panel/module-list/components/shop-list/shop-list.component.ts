@@ -10,11 +10,12 @@ import { TableItem } from '@core/models/table.interface';
 import { stubImage } from 'src/utils/stubs';
 
 @Component({
-  selector: 'app-shop-list',
-  templateUrl: './shop-list.component.html',
-  styleUrls: ['./shop-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe, DatePipe]
+    selector: 'app-shop-list',
+    templateUrl: './shop-list.component.html',
+    styleUrls: ['./shop-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe, DatePipe],
+    standalone: false
 })
 export class ShopListComponent implements OnInit {
   totalRecords: number;

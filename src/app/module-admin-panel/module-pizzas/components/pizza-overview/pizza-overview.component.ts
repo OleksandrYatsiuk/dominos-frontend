@@ -7,9 +7,10 @@ import { stubImage } from 'src/utils/stubs';
 
 
 @Component({
-  selector: 'app-pizza-overview',
-  templateUrl: './pizza-overview.component.html',
-  styleUrls: ['./pizza-overview.component.scss']
+    selector: 'app-pizza-overview',
+    templateUrl: './pizza-overview.component.html',
+    styleUrls: ['./pizza-overview.component.scss'],
+    standalone: false
 })
 
 export class PizzaOverviewComponent implements OnInit {

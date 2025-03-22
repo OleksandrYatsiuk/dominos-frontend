@@ -3,7 +3,8 @@ import { ILanguage } from '@core/models/language';
 import { LangService } from '@core/services/lang.service';
 
 @Pipe({
-  name: 'lang'
+  name: 'lang',
+  standalone: true
 })
 export class LangPipe implements PipeTransform {
   constructor(private _ls: LangService) { }

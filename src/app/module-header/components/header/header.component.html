@@ -1,40 +1,26 @@
 <header class="dp-header-desktop">
-  <div class="fake-header" *ngIf="user$ | async as user; else login">
-    <button
-      class="nav"
-      routerLink="/admin"
-      *ngIf="user.role === userRoles.Administrator"
-    >
-      {{ "adminPanelLabel" | translate }}
-    </button>
+  @if (user$|async; as user) {
+  <div class="fake-header">
+    @if (user.role === userRoles.Administrator ) {
+    <button class="nav" routerLink="/admin"> {{ "adminPanelLabel" | translate }} </button>
+    }
     <button class="nav" (click)="userMenu.toggle($event)">
-      {{ user?.firstName }} {{ user?.lastName }}
+      {{ user.firstName }} {{ user.lastName }}
     </button>
-    <p-menu
-      #userMenu
-      [popup]="true"
-      [model]="items | translateOptions"
-    ></p-menu>
-    <p-dropdown
-      [options]="languagesOpt"
-      [ngModel]="lang"
-      class="d-dropdown d-language-dropdown"
-      (onChange)="onChangeLang($event.value)"
-    ></p-dropdown>
+    <p-menu #userMenu [popup]="true" [model]="items | translateOptions" />
+    <p-dropdown [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)"></p-dropdown>
   </div>
-  <ng-template #login>
-    <div class="fake-header">
-      <button class="nav" (click)="openModal()">
-        {{ "loginLabel" | translate }}
-      </button>
-      <p-dropdown
-        [options]="languagesOpt"
-        [ngModel]="lang"
-        class="d-dropdown d-language-dropdown"
-        (onChange)="onChangeLang($event.value)"
-      ></p-dropdown>
-    </div>
-  </ng-template>
+  } @else {
+  <div class="fake-header">
+    <button class="nav" (click)="openModal()">
+      {{ "loginLabel" | translate }}
+    </button>
+    <p-dropdown [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)"></p-dropdown>
+  </div>
+  }
+
   <div class="main-header">
     <div class="navigation">
       <h2 class="logo" routerLink="/">{{ "dominosLabel" | translate }}</h2>
@@ -43,17 +29,11 @@
         <button class="nav" (click)="mainMenu.toggle($event)">
           Menu
         </button>
-        <p-menu
-          #mainMenu
-          [popup]="true"
-          [model]="pagesItems | translateOptions"
-        ></p-menu>
+        <p-menu #mainMenu [popup]="true" [model]="pagesItems | translateOptions"></p-menu>
       </div>
 
       <div class="nav menu">
-        <span routerLink="/promotions">{{
-          "pageTitles.promotions" | translate
-        }}</span>
+        <span routerLink="/promotions">{{ "pageTitles.promotions" | translate }}</span>
         <span routerLink="/pizzas">{{ "pageTitles.pizzas" | translate }}</span>
         <span routerLink="/drinks">{{ "pageTitles.drinks" | translate }}</span>
         <span routerLink="/">{{ "pageTitles.sides" | translate }}</span>
@@ -61,12 +41,17 @@
       </div>
 
       <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
-        <div class="count" *ngIf="count$ | async as count">{{ count }}</div>
-        <div class="total-price" *ngIf="summa$ | async as summa">
-          <span
-            >{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }}
+
+        @if (count$|async;as count) {
+        <div class="count">{{ count }}</div>
+        }
+
+        @if (summa$|async; as summa) {
+        <div class="total-price">
+          <span>{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }}
           </span>
         </div>
+        }
         <a routerLink="/delivery/shipping">
           <button class="basket-button">
             {{ "orderLabel" | translate }}

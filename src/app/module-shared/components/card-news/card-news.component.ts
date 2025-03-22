@@ -3,10 +3,11 @@ import { ModelPromotionPublic, PromotionStatuses } from '@core/models/promotions
 import { stubImage } from 'src/utils/stubs';
 
 @Component({
-  selector: 'app-card-news',
-  templateUrl: './card-news.component.html',
-  styleUrls: ['./card-news.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-card-news',
+    templateUrl: './card-news.component.html',
+    styleUrls: ['./card-news.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardNewsComponent {
   @Input() news: ModelPromotionPublic;

@@ -6,9 +6,10 @@ import { Select, Store } from '@ngxs/store';
 import { FetchAllPromotions } from '../../promotions/promotions.actions';
 
 @Component({
-  selector: 'app-promotions-list',
-  templateUrl: './promotions-list.component.html',
-  styleUrls: ['./promotions-list.component.scss']
+    selector: 'app-promotions-list',
+    templateUrl: './promotions-list.component.html',
+    styleUrls: ['./promotions-list.component.scss'],
+    standalone: false
 })
 export class PromotionsListComponent implements OnInit {
 

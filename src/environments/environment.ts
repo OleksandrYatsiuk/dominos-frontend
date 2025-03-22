@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serverUrl: 'https://api-dominos.herokuapp.com'
+  serverUrl: 'https://dominos-lije.onrender.com',
   // serverUrl: 'http://localhost:3000'
 };
 

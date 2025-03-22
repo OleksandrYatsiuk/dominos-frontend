@@ -10,11 +10,12 @@ import { GetPizzaItem, UpdatePizza } from '../../pizzas/pizzas.actions';
 import { PizzasState } from '../../pizzas/pizzas.state';
 
 @Component({
-	selector: 'app-pizza-edit',
-	templateUrl: './pizza-edit.component.html',
-	styleUrls: ['./pizza-edit.component.scss'],
-	providers: [LangPipe],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-pizza-edit',
+    templateUrl: './pizza-edit.component.html',
+    styleUrls: ['./pizza-edit.component.scss'],
+    providers: [LangPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PizzaEditComponent implements OnInit {
 	@Select(PizzasState.pizza) pizza$: Observable<Pizza>;

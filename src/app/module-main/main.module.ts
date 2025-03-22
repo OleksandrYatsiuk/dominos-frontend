@@ -12,14 +12,11 @@ import { LangPipe } from '@shared/pipe/lang.pipe';
 import { BasketInModule } from '@shared/components/basket-in/basket-in/basket-in.module';
 
 @NgModule({
-  declarations: [
-    MainComponent,
-    CardPizzaComponent,
-    PromotionsSliderComponent,
-    LangPipe
-  ],
+  declarations: [],
   imports: [
     CommonModule,
+    CardPizzaComponent,
+    LangPipe,
     TranslateModule,
     SelectButtonModule,
     ReactiveFormsModule,
@@ -28,11 +25,8 @@ import { BasketInModule } from '@shared/components/basket-in/basket-in/basket-in
     BasketInModule
   ],
   exports: [
-    MainComponent,
     TranslateModule,
     LazyLoadImageModule,
-    CardPizzaComponent,
-    LangPipe
   ]
 })
 export class MainModule { }

@@ -12,9 +12,10 @@ import { AuthState } from 'src/app/module-auth/state/auth.state';
 import { User } from 'src/app/module-auth/auth.model';
 
 @Component({
-	selector: 'app-shipping-form',
-	templateUrl: './shipping-form.component.html',
-	styleUrls: ['./shipping-form.component.scss']
+    selector: 'app-shipping-form',
+    templateUrl: './shipping-form.component.html',
+    styleUrls: ['./shipping-form.component.scss'],
+    standalone: false
 })
 export class ShippingFormComponent implements OnInit {
 	isBrowser: boolean;

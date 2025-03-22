@@ -1,28 +1,33 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
 import { catchError, EMPTY, filter, Observable } from 'rxjs';
-import { MessageService } from 'primeng/api';
+import { MessageService, SharedModule } from 'primeng/api';
 import { Select, Store } from '@ngxs/store';
 import { ChangePasswordAction, UpdateUserProfileAction } from '../state/auth.actions';
 import { AuthState } from '../state/auth.state';
 import { User } from '../auth.model';
-import { FileOptions } from '@shared/components/file-uploader/file-uploader.component';
+import { FileOptions, FileUploaderComponent } from '@shared/components/file-uploader/file-uploader.component';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { TranslateModule } from '@ngx-translate/core';
+import { FormItemComponent } from '@shared/components/form-item/form-item.component';
+import { CalendarModule } from 'primeng/calendar';
 
 @UntilDestroy()
 @Component({
   selector: 'app-user-settings',
   templateUrl: './user-settings.component.html',
   styleUrls: ['./user-settings.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [TranslateModule, ReactiveFormsModule, FormItemComponent, SharedModule, FileUploaderComponent, CalendarModule,]
 })
 export class UserSettingsComponent implements OnInit {
   message: { type: string; message: string; };
 
-  @Select(AuthState.current) user$: Observable<User>
+  user$ = this._store.select(AuthState.current);
 
   currentUser: any;
   public date: string;

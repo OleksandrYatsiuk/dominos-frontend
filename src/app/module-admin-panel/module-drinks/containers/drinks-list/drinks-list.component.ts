@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({
-  selector: 'app-drinks-list',
-  templateUrl: './drinks-list.component.html',
-  styleUrls: ['./drinks-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-drinks-list',
+    templateUrl: './drinks-list.component.html',
+    styleUrls: ['./drinks-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DrinksListComponent implements OnInit {
 

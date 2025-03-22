@@ -2,10 +2,11 @@ import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from 
 import { ELanguage } from '@core/models/language';
 
 @Component({
-  selector: 'app-lang-changer',
-  templateUrl: './lang-changer.component.html',
-  styleUrls: ['./lang-changer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-lang-changer',
+    templateUrl: './lang-changer.component.html',
+    styleUrls: ['./lang-changer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class LangChangerComponent {
   @Input() set keys(keys: object) {

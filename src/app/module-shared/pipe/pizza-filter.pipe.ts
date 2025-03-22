@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pizzaFilter'
+    name: 'pizzaFilter',
+    standalone: false
 })
 export class PizzaFilterPipe implements PipeTransform {
   transform(root: any[], search = ''): any[] {

@@ -8,10 +8,11 @@ import { AddDrink, DeleteDrink, FetchAllDrinks } from 'src/app/module-drinks/dri
 import { DrinksState } from '../../drinks.state';
 
 @Component({
-  selector: 'app-drinks',
-  templateUrl: './drinks.component.html',
-  styleUrls: ['./drinks.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-drinks',
+    templateUrl: './drinks.component.html',
+    styleUrls: ['./drinks.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DrinksComponent implements OnInit {
 

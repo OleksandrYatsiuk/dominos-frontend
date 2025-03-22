@@ -17,9 +17,10 @@ import { User } from 'src/app/module-auth/auth.model';
 
 
 @Component({
-  selector: 'app-carryout',
-  templateUrl: './carryout.component.html',
-  styleUrls: ['./carryout.component.scss']
+    selector: 'app-carryout',
+    templateUrl: './carryout.component.html',
+    styleUrls: ['./carryout.component.scss'],
+    standalone: false
 })
 
 export class CarryoutComponent implements OnInit, OnDestroy {

@@ -2,10 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter
 
 
 @Component({
-  selector: 'app-mode-changer',
-  templateUrl: './mode-changer.component.html',
-  styleUrls: ['./mode-changer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-mode-changer',
+    templateUrl: './mode-changer.component.html',
+    styleUrls: ['./mode-changer.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ModeChangerComponent implements OnInit {
   @Input() type: string;

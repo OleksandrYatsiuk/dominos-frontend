@@ -7,10 +7,11 @@ import { IngredientsService } from '@core/services/ingredients.service';
 import { TableItem } from '@core/models/table.interface';
 
 @Component({
-  selector: 'app-ingredient-list',
-  templateUrl: './ingredient-list.component.html',
-  styleUrls: ['./ingredient-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-ingredient-list',
+    templateUrl: './ingredient-list.component.html',
+    styleUrls: ['./ingredient-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class IngredientListComponent implements OnInit {
   ingredients$: Observable<IMultiLanguageDictionary[]>;

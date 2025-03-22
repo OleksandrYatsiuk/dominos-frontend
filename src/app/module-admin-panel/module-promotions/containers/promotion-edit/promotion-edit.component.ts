@@ -10,11 +10,12 @@ import { EMPTY, Observable, of } from 'rxjs';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 
 @Component({
-  selector: 'app-promotion-edit',
-  templateUrl: './promotion-edit.component.html',
-  styleUrls: ['./promotion-edit.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe]
+    selector: 'app-promotion-edit',
+    templateUrl: './promotion-edit.component.html',
+    styleUrls: ['./promotion-edit.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe],
+    standalone: false
 })
 export class PromotionEditComponent implements OnInit {
   form: UntypedFormGroup;

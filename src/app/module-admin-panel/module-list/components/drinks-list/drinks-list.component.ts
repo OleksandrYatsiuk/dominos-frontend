@@ -16,11 +16,12 @@ import { DrinksState } from 'src/app/module-drinks/drinks.state';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-drinks-list',
-  templateUrl: './drinks-list.component.html',
-  styleUrls: ['./drinks-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe]
+    selector: 'app-drinks-list',
+    templateUrl: './drinks-list.component.html',
+    styleUrls: ['./drinks-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe],
+    standalone: false
 })
 export class DrinksListComponent implements OnInit, OnDestroy {
   @Select(DrinksState.drinks) drinks$: Observable<Drink[]>;

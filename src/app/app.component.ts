@@ -3,13 +3,14 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, 
 import { ELanguage } from '@core/models/language';
 import { LangService } from '@core/services/lang.service';
 import { TranslateService } from '@ngx-translate/core';
-import { PrimeNGConfig } from 'primeng/api';
+import { PrimeNG } from 'primeng/config';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 
 export class AppComponent implements OnInit {
@@ -20,11 +21,9 @@ export class AppComponent implements OnInit {
     private _ts: TranslateService,
     private _cd: ChangeDetectorRef,
     private _ls: LangService,
-    private _config: PrimeNGConfig
+    private config: PrimeNG,
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
-
-
   }
 
   ngOnInit(): void {
@@ -40,7 +39,7 @@ export class AppComponent implements OnInit {
 
     this._ts.get('primeng')
       .subscribe(res => {
-        this._config.setTranslation(res);
+        this.config.setTranslation(res);
         this._cd.detectChanges();
       });
 

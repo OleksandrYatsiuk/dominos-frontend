@@ -1,13 +1,11 @@
-@import "../../../../styles/helpers/index";
-
 .product {
   display: grid;
   grid-template-columns: 2fr 3fr;
-  border-bottom: 1px solid $c-gray-1;
+  border-bottom: 1px solid #ced4da;
   align-items: center;
-  @include mobile {
-    grid-template-columns: 100%;
-  }
+  // @include mobile {
+  //   grid-template-columns: 100%;
+  // }
 
   &__image {
     padding: 0.5rem;

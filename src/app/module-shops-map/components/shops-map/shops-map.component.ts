@@ -5,10 +5,11 @@ import { ShopService } from '@core/services/shop.service';
 import { Observable, pluck } from 'rxjs';
 
 @Component({
-  selector: 'app-shops-map',
-  templateUrl: './shops-map.component.html',
-  styleUrls: ['./shops-map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-shops-map',
+    templateUrl: './shops-map.component.html',
+    styleUrls: ['./shops-map.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ShopsMapComponent implements OnInit, OnDestroy {
   shops$: Observable<IShop[]>;

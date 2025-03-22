@@ -7,10 +7,11 @@ import { PromotionsState } from '../../promotions/promotions.state';
 import { FetchAllPromotions, FetchSimplePromotion } from '../../promotions/promotions.actions';
 
 @Component({
-  selector: 'app-promotion',
-  templateUrl: './promotion.component.html',
-  styleUrls: ['./promotion.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-promotion',
+    templateUrl: './promotion.component.html',
+    styleUrls: ['./promotion.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PromotionComponent implements OnInit {
 

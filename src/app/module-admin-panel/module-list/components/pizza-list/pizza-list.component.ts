@@ -20,11 +20,12 @@ type PizzaTable = Pizza & {
 
 @UntilDestroy()
 @Component({
-  selector: 'app-pizza-list',
-  templateUrl: './pizza-list.component.html',
-  styleUrls: ['./pizza-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [LangPipe, DatePipe]
+    selector: 'app-pizza-list',
+    templateUrl: './pizza-list.component.html',
+    styleUrls: ['./pizza-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [LangPipe, DatePipe],
+    standalone: false
 })
 export class PizzaListComponent implements OnInit, OnDestroy {
   currentPage = 1;

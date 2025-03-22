@@ -1,54 +1,54 @@
-@import "../variables/breakpoints";
+@use "../variables/breakpoints" as b;
 
 @mixin fourK {
-  @media only screen and (min-width: $fourK) {
+  @media only screen and (min-width: b.$fourK) {
     @content;
   }
 }
 
 @mixin desktop-up {
-  @media only screen and (min-width: $desktop) {
+  @media only screen and (min-width: b.$desktop) {
     @content;
   }
 }
 
 @mixin desktop {
-  @media only screen and (max-width: $fourK - 1) {
+  @media only screen and (max-width: b.$fourK - 1) {
     @content;
   }
 }
 
 @mixin laptop-up {
-  @media only screen and (min-width: $laptop) {
+  @media only screen and (min-width: b.$laptop) {
     @content;
   }
 }
 
 @mixin laptop {
-  @media only screen and (max-width: $desktop) {
+  @media only screen and (max-width: b.$desktop) {
     @content;
   }
 }
 
 @mixin tablet-up {
-  @media only screen and (min-width: $tablet) {
+  @media only screen and (min-width: b.$tablet) {
     @content;
   }
 }
 
 @mixin tablet {
-  @media only screen and (max-width: $laptop - 1) {
+  @media only screen and (max-width: b.$laptop - 1) {
     @content;
   }
 }
 
 @mixin mobile {
-  @media only screen and (max-width: $tablet - 1) {
+  @media only screen and (max-width: b.$tablet - 1) {
     @content;
   }
 }
 @mixin mobile-up {
-  @media only screen and (min-width: $tablet - 1) {
+  @media only screen and (min-width: b.$tablet - 1) {
     @content;
   }
 }

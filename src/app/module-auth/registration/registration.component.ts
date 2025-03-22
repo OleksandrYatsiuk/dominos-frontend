@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { confirmPasswordValidator } from 'src/app/core/validators/confirm-password-validator';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
@@ -7,15 +7,18 @@ import { UserDataService } from '../user-data.service';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginComponent } from 'src/app/module-shared/components/login/login.component';
 import { ChangeDetectorRef } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { catchError, EMPTY, filter } from 'rxjs';
 import { Router } from '@angular/router';
+import { FormItemComponent } from '@shared/components/form-item/form-item.component';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [ReactiveFormsModule, FormItemComponent, TranslateModule]
 })
 export class RegistrationComponent implements OnInit, OnDestroy {
   registerForm: UntypedFormGroup;
@@ -70,10 +73,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]]
-    },
-      {
-        validators: confirmPasswordValidator('confirmPassword', 'password'),
-      });
+    }, { validators: confirmPasswordValidator('confirmPassword', 'password') });
   }
 
   openAuthModal(): void {

@@ -7,9 +7,10 @@ import { MessageService } from 'primeng/api';
 import { TableItem } from '@core/models/table.interface';
 
 @Component({
-  selector: 'app-delivery-list',
-  templateUrl: './delivery-list.component.html',
-  styleUrls: ['./delivery-list.component.scss']
+    selector: 'app-delivery-list',
+    templateUrl: './delivery-list.component.html',
+    styleUrls: ['./delivery-list.component.scss'],
+    standalone: false
 })
 export class DeliveryListComponent implements OnInit {
 

@@ -1,36 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
-@use "styles/base";
-@use "variables";
-@use "mixins";
+@forward "styles/base";
 
-@import "./styles/promotion.scss";
-@import "./styles/inputs";
-@import "./styles/table";
-@import "./styles/delivery.scss";
-@import "./styles/pagination.scss";
-@import "./styles/select.scss";
-@import "./styles/scroll.scss";
-@import "./styles/texts.scss";
-@import "./styles/products/index.scss";
-@import "./styles/dropdown";
-@import "./styles/multi-select";
-@import "./styles/checkbox";
-@import "./styles/menu";
-@import "./styles/dialog";
-@import "./styles/select-button";
-@import "./styles/calendar";
-@import "./styles/buttons";
-@import "./styles/tab-view";
-@import "./styles/icons";
-@import "./styles/toast";
-@import "./styles/switch";
-@import "./styles/forms";
-@import "../node_modules/leaflet/dist/leaflet.css";
+@forward "./styles/promotion.scss";
+// @import "./styles/inputs";
+// @import "./styles/table";
+// @import "./styles/delivery.scss";
+// @import "./styles/pagination.scss";
+// @import "./styles/select.scss";
+// @import "./styles/scroll.scss";
+// @import "./styles/texts.scss";
+// @import "./styles/products/index.scss";
+// @import "./styles/dropdown";
+// @import "./styles/multi-select";
+// @import "./styles/checkbox";
+// @import "./styles/menu";
+// @import "./styles/dialog";
+// @import "./styles/select-button";
+// @import "./styles/calendar";
+// @import "./styles/buttons";
+// @import "./styles/tab-view";
+// @import "./styles/icons";
+// @import "./styles/toast";
+// @import "./styles/switch";
+// @import "./styles/forms";
+@forward "../node_modules/leaflet/dist/leaflet.css";
 
 .marker-popup {
   .leaflet-popup-content-wrapper {
     .leaflet-popup-content {
-      @include genText(13px, 18px, 500, gray);
+      // @include genText(13px, 18px, 500, gray);
     }
   }
   .leaflet-popup-tip {

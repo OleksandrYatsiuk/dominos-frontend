@@ -2,10 +2,11 @@ import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from 
 import { BasketItem } from '@core/basket/basket.state';
 
 @Component({
-  selector: 'app-basket-in',
-  templateUrl: './basket-in.component.html',
-  styleUrls: ['./basket-in.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-basket-in',
+    templateUrl: './basket-in.component.html',
+    styleUrls: ['./basket-in.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class BasketInComponent {
   @Input() size: string;

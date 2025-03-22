@@ -4,9 +4,10 @@ import { UserDataService } from '../user-data.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
-	selector: 'app-confirm',
-	templateUrl: './confirm.component.html',
-	styleUrls: ['./confirm.component.scss']
+    selector: 'app-confirm',
+    templateUrl: './confirm.component.html',
+    styleUrls: ['./confirm.component.scss'],
+    standalone: false
 })
 export class ConfirmComponent  {
 	hash: any;

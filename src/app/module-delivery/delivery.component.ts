@@ -7,10 +7,11 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 @Component({
-	selector: 'app-delivery',
-	templateUrl: './delivery.component.html',
-	styleUrls: ['./delivery.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-delivery',
+    templateUrl: './delivery.component.html',
+    styleUrls: ['./delivery.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DeliveryComponent implements OnInit {
 

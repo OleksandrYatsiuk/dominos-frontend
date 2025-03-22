@@ -8,7 +8,6 @@ import { GeolocationService } from './core/services/geolocation.service';
 import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { CalendarModule } from 'primeng/calendar';
-import { HeaderModule } from './module-header/module-header.module';
 import { FooterModule } from './module-footer/module-footer.module';
 import { SharedModule } from 'src/app/module-shared/shared.module';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -31,28 +30,34 @@ import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 import { InlineSVGModule } from 'ng-inline-svg-2';
 import { LangPipe } from '@shared/pipe/lang.pipe';
+import { AuthState } from './module-auth/state/auth.state';
+import { HeaderComponent } from './module-header/components/header/header.component';
 
 registerLocaleData(uk);
 registerLocaleData(en);
 
 export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
-@NgModule({ declarations: [AppComponent],
-    bootstrap: [AppComponent], imports: [AppRoutingModule,
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
+@NgModule({
+    declarations: [AppComponent],
+    bootstrap: [AppComponent],
+    imports: [
+        AppRoutingModule,
+        // BrowserModule.withServerTransition({ appId: 'serverApp' }),
+        BrowserModule,
         CommonModule,
         SharedModule,
         FooterModule,
-        HeaderModule,
+        HeaderComponent,
         BrowserAnimationsModule,
-        CoreModule,
         CalendarModule,
         ConfirmDialogModule,
-        NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState], {
+        NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState, AuthState], {
             developmentMode: !environment.production
         }),
+        CoreModule,
         NgxsReduxDevtoolsPluginModule.forRoot(),
         NgxsLoggerPluginModule.forRoot(),
         InlineSVGModule.forRoot({
@@ -66,11 +71,14 @@ export function createTranslateLoader(http: HttpClient) {
                 useFactory: (createTranslateLoader),
                 deps: [HttpClient]
             }
-        })], providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
+        })
+    ],
+    providers: [GeolocationService, DialogService, MessageService, ConfirmService, ConfirmationService,
         {
             provide: LOCALE_ID,
             deps: [LangService], //some service handling global settings
             useFactory: (langService: LangService) => langService.getLang() //returns locale string
         },
-        LangPipe, DatePipe, provideHttpClient(withInterceptorsFromDi())] })
+        LangPipe, DatePipe, provideHttpClient(withInterceptorsFromDi())]
+})
 export class AppModule { }

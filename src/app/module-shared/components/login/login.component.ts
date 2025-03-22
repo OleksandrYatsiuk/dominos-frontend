@@ -1,16 +1,20 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntypedFormGroup, Validators, UntypedFormBuilder } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ErrorHandlerService } from 'src/app/core/services/errorHandler.service';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Store } from '@ngxs/store';
 import { CurrentUserAction, LoginAction } from 'src/app/module-auth/state/auth.actions';
 import { catchError, EMPTY } from 'rxjs';
+import { ValidationErrorComponent } from '../validation-error/validation-error.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [ValidationErrorComponent, ReactiveFormsModule, TranslateModule]
 })
 export class LoginComponent implements OnInit {
 

@@ -9,11 +9,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-pizza-form',
-  templateUrl: './pizza-form.component.html',
-  styleUrls: ['./pizza-form.component.scss'],
-  providers: [LangPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-pizza-form',
+    templateUrl: './pizza-form.component.html',
+    styleUrls: ['./pizza-form.component.scss'],
+    providers: [LangPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PizzaFormComponent implements OnInit {
   @Input() loading: boolean;

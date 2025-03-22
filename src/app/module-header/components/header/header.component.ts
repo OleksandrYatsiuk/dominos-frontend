@@ -1,34 +1,40 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
+import { AsyncPipe, isPlatformBrowser, NgClass, UpperCasePipe } from '@angular/common';
 import { MenuItem, SelectItem } from 'primeng/api';
-import { Observable } from 'rxjs';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { LoginComponent } from 'src/app/module-shared/components/login/login.component';
 import { ELanguage } from '@core/models/language';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LangService } from '@core/services/lang.service';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { FetchBasketFromStorage } from '@core/basket/basket.actions';
 import { BasketState } from '@core/basket/basket.state';
 import { CheckAccessTokenAction, CurrentUserAction, LogoutAction } from 'src/app/module-auth/state/auth.actions';
-import { AuthResponse, User } from 'src/app/module-auth/auth.model';
 import { AuthState } from 'src/app/module-auth/state/auth.state';
 import { UserRoles } from '@core/models/user.model';
+import { MenuModule } from 'primeng/menu';
+import { DropdownModule } from 'primeng/dropdown';
+import { TranslateOptionsPipe } from '@shared/pipe/translate-options.pipe';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    TranslateModule, MenuModule, DropdownModule, TranslateOptionsPipe,
+    NgClass, UpperCasePipe, AsyncPipe, FormsModule],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  @Select(BasketState.generalSumma) summa$: Observable<string>;
-  @Select(BasketState.generalCount) count$: Observable<number>;
-  @Select(AuthState.current) user$: Observable<User>;
-  @Select(AuthState.credentials) credentials$: Observable<AuthResponse>;
+  summa$ = this._store.select(BasketState.generalSumma);
+  count$ = this._store.select(BasketState.generalCount);
+  user$ = this._store.select(AuthState.current);
+  credentials$ = this._store.select(AuthState.credentials);
 
   userRoles = UserRoles;
   isBrowser: boolean;

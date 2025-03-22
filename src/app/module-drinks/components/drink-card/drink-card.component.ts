@@ -8,10 +8,11 @@ import { SelectItem } from 'primeng/api';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-drink-card',
-  templateUrl: './drink-card.component.html',
-  styleUrls: ['./drink-card.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-drink-card',
+    templateUrl: './drink-card.component.html',
+    styleUrls: ['./drink-card.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class DrinkCardComponent implements OnInit {
   @Input() drink: Drink;

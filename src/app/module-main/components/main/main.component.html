@@ -1,10 +1,12 @@
 <div class="main">
-  <app-promotions-slider></app-promotions-slider>
+  <app-promotions-slider />
   <div class="pizza-list">
     <div class="product-block">
-      <div *ngFor="let pizza of pizzas$ | async" class="child">
-        <app-card-pizza [item]="pizza"></app-card-pizza>
+      @for (pizza of pizzas(); track pizza) {
+      <div class="child">
+        <app-card-pizza [item]="pizza" />
       </div>
+      }
     </div>
   </div>
 </div>

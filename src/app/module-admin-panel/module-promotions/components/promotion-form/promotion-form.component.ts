@@ -3,10 +3,11 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 import { ModelPromotion } from '@core/models/promotions/promotions.model';
 
 @Component({
-  selector: 'app-promotion-form',
-  templateUrl: './promotion-form.component.html',
-  styleUrls: ['./promotion-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-promotion-form',
+    templateUrl: './promotion-form.component.html',
+    styleUrls: ['./promotion-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PromotionFormComponent implements OnInit {
   @Input() loading: boolean;

@@ -1,8 +1,9 @@
 import { Directive, ElementRef, HostListener, HostBinding, Inject, PLATFORM_ID } from '@angular/core';
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: '[mobilePhone]'
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: '[mobilePhone]',
+    standalone: false
 })
 export class MobilePhoneDirective {
 

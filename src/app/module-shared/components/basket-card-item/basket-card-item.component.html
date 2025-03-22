@@ -1,21 +1,23 @@
-<div class="product" *ngIf="item">
-  <img
-    class="product__image"
-    [src]="item.product?.image || stubImage"
-    alt="product"
-  />
+<div class="product">
+  @if (item(); as item) {
+  <img class="product__image" [src]="item.product?.image || stubImage" alt="product" />
   <div class="product-description">
     <h4>{{ item.product?.name | lang }}</h4>
 
-    <ng-container [ngSwitch]="item.type">
-      <ng-container *ngSwitchCase="'pizzas'">
-        <h6>{{ "sizesLabels." + [item.size] | translate }}</h6>
-        <h6>{{ (item.product?.size)[item.size] }} {{ "gram" | translate }}</h6>
-      </ng-container>
-      <ng-container *ngSwitchCase="'drinks'">
-        <h6>{{ (item.product?.size)[item.size] }} {{ "ml" | translate }}</h6>
-      </ng-container>
+    @switch (item.type) {
+    @case ('pizzas') {
+    <ng-container *ngSwitchCase="'pizzas'">
+      <h6>{{ "sizesLabels." + [item.size] | translate }}</h6>
+      <h6>{{ (item.product?.size)[item.size] }} {{ "gram" | translate }}</h6>
     </ng-container>
+    }
+    @case ('drinks') {
+    <ng-container *ngSwitchCase="'drinks'">
+      <h6>{{ (item.product?.size)[item.size] }} {{ "ml" | translate }}</h6>
+    </ng-container>
+    }
+
+    }
 
     <div class="product-options">
       <div class="product_price">
@@ -23,12 +25,9 @@
         {{ "uah" | translate }}
       </div>
 
-      <app-basket-in
-        [productId]="item.id"
-        [size]="item.size"
-        [products]="[item]"
-        (onChange)="onManageBasket($event)"
-      ></app-basket-in>
+      <app-basket-in [productId]="item.id" [size]="item.size" [products]="[item]" (onChange)="onManageBasket($event)" />
     </div>
   </div>
+
+  }
 </div>

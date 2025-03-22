@@ -17,36 +17,25 @@ import { DropdownModule } from 'primeng/dropdown';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CardNewsComponent } from './components/card-news/card-news.component';
 import { MainModule } from '../module-main/main.module';
-import { TranslateOptionsPipe } from './pipe/translate-options.pipe';
 import { TranslateModule } from '@ngx-translate/core';
 import { ToastModule } from 'primeng/toast';
 import { BasketInModule } from './components/basket-in/basket-in/basket-in.module';
-import { NgxsModule } from '@ngxs/store';
-import { AuthState } from '../module-auth/state/auth.state';
 
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         // components
-        LoginComponent,
-        FileUploaderComponent,
-        BasketCardItemComponent,
         SpinButtonComponent,
-        FormItemComponent,
-        ValidationErrorComponent,
         // pipes
         PizzaFilterPipe,
         CustomLabelPipe,
         ExtractPipe,
-        TranslateOptionsPipe,
         // directives
         MobilePhoneDirective,
         CardNewsComponent,
     ],
     exports: [
-        //components
-        BasketCardItemComponent,
+        //component
         SpinButtonComponent,
-        FormItemComponent,
-        ValidationErrorComponent,
         FileUploaderComponent,
         CardNewsComponent,
         //modules
@@ -60,18 +49,24 @@ import { AuthState } from '../module-auth/state/auth.state';
         //pipes
         PizzaFilterPipe,
         ExtractPipe,
-        TranslateOptionsPipe,
         //directives
         MobilePhoneDirective,
-    ], imports: [FormsModule,
+    ],
+    imports: [
+        FormsModule,
         CommonModule,
+        ValidationErrorComponent,
+        FormItemComponent,
+        FileUploaderComponent,
         ReactiveFormsModule,
-        NgxsModule.forFeature([AuthState]),
         DropdownModule,
         SelectButtonModule,
         RouterModule,
         MainModule,
         TranslateModule,
         ToastModule,
-        BasketInModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        BasketInModule,
+        BasketCardItemComponent,
+    ], providers: [provideHttpClient(withInterceptorsFromDi())]
+})
 export class SharedModule { }

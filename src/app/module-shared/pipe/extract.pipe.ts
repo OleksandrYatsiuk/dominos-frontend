@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Ingredients } from '../../core/models/pizza.interface';
 
 @Pipe({
-	name: 'extract'
+    name: 'extract',
+    standalone: false
 })
 export class ExtractPipe implements PipeTransform {
 	transform(value: string[], arr: Ingredients[]): string {

@@ -7,17 +7,17 @@ import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
 export type EWidgetMode = 'input' | 'textarea' | 'vcvic';
 
 @Component({
-  selector: 'd-multi-language-field',
-  templateUrl: './multi-language-field.component.html',
-  styleUrls: ['./multi-language-field.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => MultiLanguageFieldComponent),
-    multi: true
-  }],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-
+    selector: 'd-multi-language-field',
+    templateUrl: './multi-language-field.component.html',
+    styleUrls: ['./multi-language-field.component.scss'],
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => MultiLanguageFieldComponent),
+            multi: true
+        }],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
   @Input() set type(t: EWidgetMode) {

@@ -11,10 +11,11 @@ import { EMPTY, map, Observable } from 'rxjs';
 import { CreateNewPizza, UpdatePizza } from '../../pizzas/pizzas.actions';
 
 @Component({
-  selector: 'app-pizzas-form-dialog',
-  templateUrl: './pizzas-form-dialog.component.html',
-  styleUrls: ['./pizzas-form-dialog.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-pizzas-form-dialog',
+    templateUrl: './pizzas-form-dialog.component.html',
+    styleUrls: ['./pizzas-form-dialog.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PizzasFormDialogComponent implements OnInit {
   ingredients$: Observable<SelectItem[]>;
