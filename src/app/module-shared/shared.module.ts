@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { SpinButtonComponent } from './components/spin-button/spin-button.component';
@@ -67,6 +66,6 @@ import { BasketInModule } from './components/basket-in/basket-in/basket-in.modul
         ToastModule,
         BasketInModule,
         BasketCardItemComponent,
-    ], providers: [provideHttpClient(withInterceptorsFromDi())]
+    ],
 })
 export class SharedModule { }

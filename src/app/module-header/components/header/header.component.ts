@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, importProvidersFrom, Inject, Injector, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
 import { Router } from '@angular/router';
 import { AsyncPipe, isPlatformBrowser, NgClass, UpperCasePipe } from '@angular/common';
@@ -14,10 +14,10 @@ import { BasketState } from '@core/basket/basket.state';
 import { CheckAccessTokenAction, CurrentUserAction, LogoutAction } from 'src/app/module-auth/state/auth.actions';
 import { AuthState } from 'src/app/module-auth/state/auth.state';
 import { UserRoles } from '@core/models/user.model';
-import { MenuModule } from 'primeng/menu';
-import { DropdownModule } from 'primeng/dropdown';
 import { TranslateOptionsPipe } from '@shared/pipe/translate-options.pipe';
+import { Menu } from 'primeng/menu';
 import { FormsModule } from '@angular/forms';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-header',
@@ -26,14 +26,16 @@ import { FormsModule } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    TranslateModule, MenuModule, DropdownModule, TranslateOptionsPipe,
-    NgClass, UpperCasePipe, AsyncPipe, FormsModule],
+    NgClass, UpperCasePipe, AsyncPipe,
+    FormsModule, TranslateModule,
+    TranslateOptionsPipe, SelectModule, Menu,
+  ],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
   summa$ = this._store.select(BasketState.generalSumma);
   count$ = this._store.select(BasketState.generalCount);
-  user$ = this._store.select(AuthState.current);
+  user = this._store.selectSignal(AuthState.current);
   credentials$ = this._store.select(AuthState.credentials);
 
   userRoles = UserRoles;
@@ -50,13 +52,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(PLATFORM_ID) private _pid: any,
     private geolocation: GeolocationService,
     private _router: Router,
-    private _ds: DialogService,
+    private injector: Injector,
     private _ts: TranslateService,
     private _store: Store,
     private _ls: LangService,
   ) {
     this.isBrowser = isPlatformBrowser(_pid);
   }
+
+  isAdministrator = computed(() => this.user().role === UserRoles.Administrator);
+
   ngOnDestroy(): void {
     if (this.ref) {
       this.ref.destroy();
@@ -86,7 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ];
   }
   openModal(): void {
-    this.ref = this._ds.open(LoginComponent, { styleClass: 'd-dialog', header: this._ts.instant('loginLabel') });
+    this.ref = this.injector.get(DialogService).open(LoginComponent, { styleClass: 'd-dialog', header: this._ts.instant('loginLabel') });
   }
 
   onChangeLang(lang: ELanguage): void {

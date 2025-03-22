@@ -1,132 +1,60 @@
-<div class="profile_settings" *ngIf="user$ | async as user">
+@if (user$|async; as user) {
+<div class="profile_settings">
   <div class="portfolio">
-    <app-file-uploader
-      [src]="user.image"
-      (onChange)="onUpload($event)"
-    ></app-file-uploader>
+    <app-file-uploader [src]="user.image" (onChange)="onUpload($event)"></app-file-uploader>
   </div>
 
-  <form
-    [formGroup]="updateProfileForm"
-    (ngSubmit)="onSubmit()"
-    *ngIf="updateProfileForm"
-  >
-    <app-form-item
-      [control]="updateProfileForm?.controls?.firstName"
-      [field]="'labels.firstName' | translate"
-    >
-      <input
-        type="text"
-        class="input"
-        formControlName="firstName"
-        placeholder="Enter First Name"
-      />
+
+  @if (updateProfileForm) {
+  <form [formGroup]="updateProfileForm" (ngSubmit)="onSubmit()">
+    <app-form-item [control]="updateProfileForm?.controls?.firstName" [field]="'labels.firstName' | translate">
+      <input type="text" class="input" formControlName="firstName" placeholder="Enter First Name" />
     </app-form-item>
 
-    <app-form-item
-      [control]="updateProfileForm?.controls?.lastName"
-      [field]="'labels.lastName' | translate"
-    >
-      <input
-        type="text"
-        class="input"
-        formControlName="lastName"
-        placeholder="Enter Last Name"
-      />
+    <app-form-item [control]="updateProfileForm?.controls?.lastName" [field]="'labels.lastName' | translate">
+      <input type="text" class="input" formControlName="lastName" placeholder="Enter Last Name" />
     </app-form-item>
 
-    <app-form-item
-      [control]="updateProfileForm?.controls?.username"
-      [field]="'labels.username' | translate"
-    >
-      <input
-        type="text"
-        class="input"
-        formControlName="username"
-        placeholder="Enter Username"
-      />
+    <app-form-item [control]="updateProfileForm?.controls?.username" [field]="'labels.username' | translate">
+      <input type="text" class="input" formControlName="username" placeholder="Enter Username" />
     </app-form-item>
 
-    <app-form-item
-      [control]="updateProfileForm?.controls?.email"
-      [field]="'labels.email' | translate"
-    >
-      <input
-        type="text"
-        class="input"
-        formControlName="email"
-        placeholder="Enter Email"
-      />
+    <app-form-item [control]="updateProfileForm?.controls?.email" [field]="'labels.email' | translate">
+      <input type="text" class="input" formControlName="email" placeholder="Enter Email" />
     </app-form-item>
 
-    <app-form-item
-      [control]="updateProfileForm?.controls?.birthday"
-      [field]="'labels.birthday' | translate"
-    >
-      <p-calendar
-        formControlName="birthday"
-        class="d-calendar"
-        [showIcon]="true"
-        [firstDayOfWeek]="1"
-        dateFormat="dd-mm-yy"
-      ></p-calendar>
+    <app-form-item [control]="updateProfileForm?.controls?.birthday" [field]="'labels.birthday' | translate">
+      <p-date-picker formControlName="birthday" class="d-calendar" [showIcon]="true" [firstDayOfWeek]="1"
+        dateFormat="dd-mm-yy" />
     </app-form-item>
 
-    <app-form-item
-      [control]="updateProfileForm?.controls?.phone"
-      [field]="'labels.phone' | translate"
-    >
-      <input
-        class="input"
-        formControlName="phone"
-        placeholder="Enter Phone"
-        type="tel"
-        autocomplete="tel"
-      />
+    <app-form-item [control]="updateProfileForm?.controls?.phone" [field]="'labels.phone' | translate">
+      <input class="input" formControlName="phone" placeholder="Enter Phone" type="tel" autocomplete="tel" />
     </app-form-item>
 
-    <button
-      type="submit"
-      class="button button--blue button--big button--maximize"
-    >
+    <button type="submit" class="button button--blue button--big button--maximize">
       {{ "saveLabel" | translate }}
     </button>
   </form>
-  <form
-    [formGroup]="changePasswordForm"
-    (ngSubmit)="changePassword()"
-    *ngIf="changePasswordForm"
-  >
-    <app-form-item
-      [control]="changePasswordForm?.controls?.newPassword"
-      [field]="'labels.newPassword' | translate"
-    >
-      <input
-        class="input"
-        placeholder="Enter New Password"
-        formControlName="newPassword"
-        type="new-password"
-      />
+  }
+
+  @if (changePasswordForm) {
+  <form [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+    <app-form-item [control]="changePasswordForm?.controls?.newPassword" [field]="'labels.newPassword' | translate">
+      <input class="input" placeholder="Enter New Password" formControlName="newPassword" type="new-password" />
     </app-form-item>
 
-    <app-form-item
-      [control]="changePasswordForm?.controls?.confirmPassword"
-      [field]="'labels.confirmPassword' | translate"
-      [otherField]="'labels.newPassword' | translate"
-    >
-      <input
-        class="input"
-        placeholder="Enter Confirm Password"
-        formControlName="confirmPassword"
-        type="new-password"
-      />
+    <app-form-item [control]="changePasswordForm?.controls?.confirmPassword"
+      [field]="'labels.confirmPassword' | translate" [otherField]="'labels.newPassword' | translate">
+      <input class="input" placeholder="Enter Confirm Password" formControlName="confirmPassword" type="new-password" />
     </app-form-item>
 
-    <button
-      type="submit"
-      class="button button--blue button--big button--maximize"
-    >
+    <button type="submit" class="button button--blue button--big button--maximize">
       {{ "saveLabel" | translate }}
     </button>
   </form>
+
+  }
 </div>
+
+}

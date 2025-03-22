@@ -1,23 +1,23 @@
 <header class="dp-header-desktop">
-  @if (user$|async; as user) {
+  @if (user(); as user) {
   <div class="fake-header">
-    @if (user.role === userRoles.Administrator ) {
+    @if (isAdministrator()) {
     <button class="nav" routerLink="/admin"> {{ "adminPanelLabel" | translate }} </button>
     }
     <button class="nav" (click)="userMenu.toggle($event)">
       {{ user.firstName }} {{ user.lastName }}
     </button>
     <p-menu #userMenu [popup]="true" [model]="items | translateOptions" />
-    <p-dropdown [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
-      (onChange)="onChangeLang($event.value)"></p-dropdown>
+    <p-select [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)" />
   </div>
   } @else {
   <div class="fake-header">
     <button class="nav" (click)="openModal()">
       {{ "loginLabel" | translate }}
     </button>
-    <p-dropdown [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
-      (onChange)="onChangeLang($event.value)"></p-dropdown>
+    <p-select [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
+      (onChange)="onChangeLang($event.value)" />
   </div>
   }
 

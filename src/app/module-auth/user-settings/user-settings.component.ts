@@ -3,9 +3,9 @@ import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators }
 import { Title } from '@angular/platform-browser';
 import { ErrorHandlerService } from '../../core/services/errorHandler.service';
 import { confirmPasswordValidator } from '../../core/validators/confirm-password-validator';
-import { catchError, EMPTY, filter, Observable } from 'rxjs';
+import { catchError, EMPTY, filter } from 'rxjs';
 import { MessageService, SharedModule } from 'primeng/api';
-import { Select, Store } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 import { ChangePasswordAction, UpdateUserProfileAction } from '../state/auth.actions';
 import { AuthState } from '../state/auth.state';
 import { User } from '../auth.model';
@@ -13,7 +13,8 @@ import { FileOptions, FileUploaderComponent } from '@shared/components/file-uplo
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormItemComponent } from '@shared/components/form-item/form-item.component';
-import { CalendarModule } from 'primeng/calendar';
+import { DatePicker, DatePickerModule } from 'primeng/datepicker';
+import { AsyncPipe } from '@angular/common';
 
 @UntilDestroy()
 @Component({
@@ -22,7 +23,7 @@ import { CalendarModule } from 'primeng/calendar';
   styleUrls: ['./user-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [TranslateModule, ReactiveFormsModule, FormItemComponent, SharedModule, FileUploaderComponent, CalendarModule,]
+  imports: [AsyncPipe, TranslateModule, ReactiveFormsModule, FormItemComponent, SharedModule, FileUploaderComponent, DatePickerModule]
 })
 export class UserSettingsComponent implements OnInit {
   message: { type: string; message: string; };
@@ -37,7 +38,8 @@ export class UserSettingsComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private _ms: MessageService,
     private _store: Store,
-    private _cd: ChangeDetectorRef) { }
+    private _cd: ChangeDetectorRef,
+  ) { }
 
   image: File;
   updateProfileForm: UntypedFormGroup;

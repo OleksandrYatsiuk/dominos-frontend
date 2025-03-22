@@ -5,16 +5,18 @@ import { ModeChangerComponent } from './components/mode-changer/mode-changer.com
 import { LangChangerComponent } from './components/lang-changer/lang-changer.component';
 import { FormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
-
-
-@NgModule({ declarations: [
+@NgModule({
+    declarations: [
         MultiLanguageFieldComponent,
         ModeChangerComponent,
         LangChangerComponent
     ],
-    exports: [MultiLanguageFieldComponent], imports: [CommonModule,
+    exports: [MultiLanguageFieldComponent],
+    imports: [
+        CommonModule,
         FormsModule,
-        AngularEditorModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        AngularEditorModule,
+    ],
+})
 export class MultiLanguageFieldModule { }

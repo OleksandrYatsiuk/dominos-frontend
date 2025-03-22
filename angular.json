@@ -62,10 +62,10 @@
             "namedChunks": true,
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
-            "prerender": true,
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "outputMode": "server"
           },
           "configurations": {
             "production": {
