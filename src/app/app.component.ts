@@ -2,10 +2,10 @@ import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ELanguage } from '@core/models/language';
 import { LangService } from '@core/services/lang.service';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PrimeNG } from 'primeng/config';
 import { HeaderComponent } from './module-header/components/header/header.component';
-import { RouterModule } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 import { FooterComponent } from './module-footer/footer/footer.component';
@@ -16,7 +16,7 @@ import { FooterComponent } from './module-footer/footer/footer.component';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [HeaderComponent, RouterModule, ConfirmDialogModule, ToastModule, FooterComponent]
+  imports: [HeaderComponent, RouterModule, RouterOutlet, ConfirmDialogModule, ToastModule, FooterComponent]
 })
 
 export class AppComponent implements OnInit {

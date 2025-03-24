@@ -1,38 +1,36 @@
 <div class="news__container">
-  <a class="news__card" [routerLink]="['/promotions/', news.id]">
-    <img
-      class="card-news__image"
-      [lazyLoad]="news.image"
-      [defaultImage]="defaultImage"
-      alt="noopener noreferrer"
-    />
+  <a class="news__card" [routerLink]="['/promotions', promo().id]">
+    <img class="card-news__image" [lazyLoad]="promo().image" [defaultImage]="defaultImage" alt="noopener noreferrer" />
     <div class="card-news__content">
-      <div class="card-news__date-wrapper" [ngSwitch]="news.status">
-        <span
-          class="card-news__date card-news__date--active"
-          *ngSwitchCase="status.Active"
-        >
-          <ng-container *ngIf="news.endedAt; else activeFrom">
-            Активна до {{ news.endedAt | date: "dd.MM.yyyy" }}
-          </ng-container>
-          <ng-template #activeFrom>
-            Активна з {{ news.startedAt | date: "dd.MM.yyyy" }}
-          </ng-template>
+      <div class="card-news__date-wrapper">
+        @switch (promo().status) {
+        @case (status.Active) {
+        <span class="card-news__date card-news__date--active">
+          @if (promo().endedAt) {
+          Активна до {{ promo().endedAt | date: "dd.MM.yyyy" }}
+          } @else {
+          Активна з {{ promo().startedAt | date: "dd.MM.yyyy" }}
+          }
         </span>
-        <span class="card-news__date" *ngSwitchCase="status.New">
+        }
+        @case (status.New) {
+        <span class="card-news__date">
           {{
-            news.startedAt
-              ? ("Незабаром: " + news.startedAt | date: "dd.MM.yyy")
-              : "Незабаром"
+          promo().startedAt
+          ? ("Незабаром: " + promo().startedAt | date: "dd.MM.yyy")
+          : "Незабаром"
           }}
         </span>
-        <span class="card-news__date" *ngSwitchCase="status.Finished"
-          >Завершено
-        </span>
+        }
+
+        @default {
+        <span class="card-news__date">Завершено </span>
+        }
+        }
       </div>
-      <div class="card-news__title">{{ news.name }}</div>
+      <div class="card-news__title">{{ promo().name }}</div>
       <div class="card-news__description">
-        <span [innerHtml]="news.description"></span>
+        <span [innerHtml]="promo().description"></span>
       </div>
     </div>
   </a>

@@ -1,16 +1,9 @@
 <div [formGroup]="form">
   <div class="grid-row__container">
     <div class="grid-column__container">
-      <app-file-uploader
-        formControlName="image"
-        [imageStyle]="{ height: '320px' }"
-      ></app-file-uploader>
+      <app-file-uploader formControlName="image" [imageStyle]="{ height: '320px' }"></app-file-uploader>
 
-      <app-spin-button
-        [name]="'confirmLabel' | translate"
-        [loading]="loading"
-        (click)="onSubmit()"
-      >
+      <app-spin-button [name]="'confirmLabel' | translate" [loading]="loading" (click)="onSubmit()">
       </app-spin-button>
     </div>
     <div class="grid-column__container">
@@ -23,26 +16,16 @@
       <div class="form__control">
         <span>{{ "labels.category" | translate }}</span>
 
-        <p-dropdown
-          class="d-dropdown"
-          placeholder="Select Categories"
-          formControlName="category"
-          [options]="categories$ | async"
-        ></p-dropdown>
+        <p-select class="d-dropdown" placeholder="Select Categories" formControlName="category"
+          [options]="categories$ | async" />
       </div>
 
       <div class="form__control">
         <span>{{ "labels.ingredients" | translate }}</span>
 
-        <p-multiSelect
-          [showToggleAll]="false"
-          class="d-multi-select"
-          [filter]="true"
-          display="chip"
-          placeholder="Select Ingredients"
-          formControlName="ingredients"
-          [options]="(ingredients$ | async) || []"
-        ></p-multiSelect>
+        <p-multiSelect [showToggleAll]="false" class="d-multi-select" [filter]="true" display="chip"
+          placeholder="Select Ingredients" formControlName="ingredients"
+          [options]="(ingredients$ | async) || []"></p-multiSelect>
       </div>
 
       <div class="form__control">

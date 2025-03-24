@@ -1,9 +1,6 @@
 <section>
   <h4 class="title">Edit Pizza</h4>
-  <app-pizza-form
-    *ngIf="pizza$ | async as pizza"
-    [loading]="loading"
-    [pizza]="pizza"
-    (save)="onSubmit($event)"
-  ></app-pizza-form>
+  @if (pizza$|async; as pizza) {
+  <app-pizza-form [loading]="loading" [pizza]="pizza" (save)="onSubmit($event)" />
+  }
 </section>

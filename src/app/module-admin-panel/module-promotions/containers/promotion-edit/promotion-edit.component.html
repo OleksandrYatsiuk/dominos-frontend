@@ -1,9 +1,4 @@
-<section *ngIf="promotion$ | async as promotion">
-  <h1>Редагування акції</h1>
-
-  <app-promotion-form
-    [loading]="loading"
-    [promotion]="promotion"
-    (save)="update($event)"
-  ></app-promotion-form>
-</section>
+<h1>Редагування акції</h1>
+@if (promotion$|async; as promotion) {
+<app-promotion-form [loading]="loading()" [promo]="promotion" (save)="update($event)" />
+}

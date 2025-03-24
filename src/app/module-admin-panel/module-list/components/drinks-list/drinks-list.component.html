@@ -1,16 +1,6 @@
 <section class="d-table__wrapper">
-  <p-table
-    #dt
-    *ngIf="list$ | async as drinks"
-    [value]="drinks"
-    [columns]="cols"
-    responsiveLayout="stack"
-    [rowHover]="true"
-    [rows]="100"
-    scrollHeight="65vh"
-    [virtualScroll]="true"
-    [virtualRowHeight]="20"
-  >
+  <p-table #dt *ngIf="list$ | async as drinks" [value]="drinks" [columns]="cols" responsiveLayout="stack"
+    [rowHover]="true" [rows]="100" scrollHeight="65vh" [virtualScroll]="true">
     <ng-template pTemplate="caption">
       <div class="d-table__caption pt-table__caption--external">
         <div class="caption-actions">
@@ -21,87 +11,60 @@
         </div>
         <div class="global-search icon-input">
           <em class="icon" [inlineSVG]="'search.svg'"></em>
-          <input
-            pInputText
-            type="text"
-            class="input"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
-            [placeholder]="'labels.search' | translate"
-          />
+          <input pInputText type="text" class="input" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate" />
         </div>
       </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr class="d-table__header">
-        <th
-          *ngFor="let col of columns"
-          scope="col"
-          class="d-table__title"
-          [ngStyle]="col?.style || {}"
-          [pSortableColumn]="col.sortable ? col.field : ''"
-        >
+        <th *ngFor="let col of columns" scope="col" class="d-table__title" [ngStyle]="col?.style || {}"
+          [pSortableColumn]="col.sortable ? col.field : ''">
           <span>{{ col.header | translate }}</span>
           <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-rowData
-      let-columns="columns"
-      let-rowIndex="rowIndex"
-    >
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr class="d-table__row">
         <ng-container *ngFor="let col of columns">
           <td [ngSwitch]="col.field" class="d-table__cell">
             <span class="p-column-title">{{ col.header | translate }}</span>
             <ng-container *ngSwitchCase="'minSize'">
               {{
-                "from"
-                  | translate
-                    : {
-                        count: rowData[col.field],
-                        label: "ml" | translate
-                      }
+              "from"
+              | translate
+              : {
+              count: rowData[col.field],
+              label: "ml" | translate
+              }
               }}
             </ng-container>
 
             <ng-container *ngSwitchCase="'minPrice'">
               {{
-                "from"
-                  | translate
-                    : {
-                        count: rowData[col.field],
-                        label: "uah" | translate
-                      }
+              "from"
+              | translate
+              : {
+              count: rowData[col.field],
+              label: "uah" | translate
+              }
               }}
             </ng-container>
 
             <ng-container *ngSwitchCase="'image'">
-              <img
-                [lazyLoad]="rowData[col.field]"
-                [alt]="rowData['name'] | lang"
-                style="width:50px;height:50px"
-              />
+              <img [lazyLoad]="rowData[col.field]" [alt]="rowData['name'] | lang" style="width:50px;height:50px" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'options'">
               <div class="d-table-options">
-                <em
-                  class="icon"
-                  [inlineSVG]="'edit.svg'"
-                  (click)="onEditDrink(rowData)"
-                ></em>
-                <em
-                  class="icon"
-                  [inlineSVG]="'trash.svg'"
-                  (click)="onDelete(rowData)"
-                ></em>
+                <em class="icon" [inlineSVG]="'edit.svg'" (click)="onEditDrink(rowData)"></em>
+                <em class="icon" [inlineSVG]="'trash.svg'" (click)="onDelete(rowData)"></em>
               </div>
             </ng-container>
             <ng-container *ngSwitchDefault>{{
               rowData[col.field]
-            }}</ng-container>
+              }}</ng-container>
           </td>
         </ng-container>
       </tr>

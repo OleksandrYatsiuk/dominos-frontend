@@ -3,33 +3,17 @@
     <div class="form-control">
       <span class="form-control__label">{{
         "labels.username" | translate
-      }}</span>
-      <input
-        type="text"
-        class="input"
-        formControlName="username"
-        placeholder="Enter Username"
-      />
-      <validation-error
-        [control]="form.controls.username"
-        [field]="'labels.username' | translate"
-      ></validation-error>
+        }}</span>
+      <input type="text" class="input" formControlName="username" placeholder="Enter Username" />
+      <validation-error [control]="form.controls.username" [field]="'labels.username' | translate"></validation-error>
     </div>
 
     <div class="form-control">
       <span class="form-control__label">{{
         "labels.password" | translate
-      }}</span>
-      <input
-        type="password"
-        class="input"
-        formControlName="password"
-        placeholder="Enter Password"
-      />
-      <validation-error
-        [control]="form.controls.password"
-        [field]="'labels.password' | translate"
-      ></validation-error>
+        }}</span>
+      <input type="password" class="input" formControlName="password" placeholder="Enter Password" />
+      <validation-error [control]="form.controls.password" [field]="'labels.password' | translate"></validation-error>
     </div>
 
     <button type="submit" class="button button--blue button--maximize">

@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pizza } from '@core/models/pizza.interface';
 import { CategoriesService } from '@core/services/categories/categories/categories.service';
 import { IngredientsService } from '@core/services/ingredients.service';
@@ -7,15 +7,23 @@ import { Store } from '@ngxs/store';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { MessageService, SelectItem } from 'primeng/api';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { EMPTY, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { CreateNewPizza, UpdatePizza } from '../../pizzas/pizzas.actions';
+import { MultiLanguageFieldComponent } from 'src/app/multi-language-field/components/multi-language-field/multi-language-field.component';
+import { ValidationErrorComponent } from '@shared/components/validation-error/validation-error.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { SelectModule } from 'primeng/select';
+import { AsyncPipe } from '@angular/common';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { FileUploaderComponent } from '@shared/components/file-uploader/file-uploader.component';
 
 @Component({
-    selector: 'app-pizzas-form-dialog',
-    templateUrl: './pizzas-form-dialog.component.html',
-    styleUrls: ['./pizzas-form-dialog.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-pizzas-form-dialog',
+  templateUrl: './pizzas-form-dialog.component.html',
+  styleUrls: ['./pizzas-form-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [AsyncPipe, FileUploaderComponent, MultiLanguageFieldComponent, ValidationErrorComponent, TranslateModule, SelectModule, ReactiveFormsModule, MultiSelectModule],
 })
 export class PizzasFormDialogComponent implements OnInit {
   ingredients$: Observable<SelectItem[]>;
@@ -58,15 +66,15 @@ export class PizzasFormDialogComponent implements OnInit {
     if (this.form.valid) {
       const pizza = this.form.getRawValue();
       if (this.pizza) {
-        this._store.dispatch(new UpdatePizza(pizza))
+        this._store.dispatch(new UpdatePizza({ ...pizza, categoryId: pizza.category }))
           .subscribe(() => {
             this._ref.close(true)
             this._messageService.add({ severity: 'success', detail: `Pizza '${this._lang.transform(pizza.name)}' has been successfully updated!` });
             this._cd.detectChanges();
           });
       } else {
-        this._store.dispatch(new CreateNewPizza(pizza))
-          .subscribe(result => {
+        this._store.dispatch(new CreateNewPizza({ ...pizza, categoryId: pizza.category }))
+          .subscribe((result) => {
             this._ref.close(true)
             this._messageService.add({ severity: 'success', detail: `Pizza '${this._lang.transform(pizza.name)}' has been successfully created!` });
             this._cd.detectChanges();

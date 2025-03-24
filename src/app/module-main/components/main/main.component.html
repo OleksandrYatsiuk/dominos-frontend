@@ -2,7 +2,7 @@
   <app-promotions-slider />
   <div class="pizza-list">
     <div class="product-block">
-      @for (pizza of pizzas(); track pizza) {
+      @for (pizza of pizzas(); track pizza.id) {
       <div class="child">
         <app-card-pizza [item]="pizza" />
       </div>

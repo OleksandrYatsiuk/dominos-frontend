@@ -1,6 +1,5 @@
 <div class="news-list">
-  <app-card-news
-    *ngFor="let promotion of promotions$ | async"
-    [news]="promotion"
-  ></app-card-news>
+  @for (promotion of promotions(); track promotion.id) {
+  <app-card-news [promo]="promotion" />
+  }
 </div>

@@ -1,22 +1,18 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UserDataService } from '../user-data.service';
-import { MessageService } from 'primeng/api';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
-    selector: 'app-confirm',
-    templateUrl: './confirm.component.html',
-    styleUrls: ['./confirm.component.scss'],
-    standalone: false
+	selector: 'app-confirm',
+	templateUrl: './confirm.component.html',
+	styleUrls: ['./confirm.component.scss'],
+	standalone: true,
+	imports: [],
 })
-export class ConfirmComponent  {
+export class ConfirmComponent {
 	hash: any;
 	public progress = 'Verifying email...';
-	constructor(
-		private route: ActivatedRoute,
-	) {
-		this.hash = this.route.snapshot.data.hash;
-	}
+	constructor(private route: ActivatedRoute) { }
 
-	
+	hash$ = this.route.params.pipe(map((params) => params.hash));
 }

@@ -1,21 +1,17 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { GeolocationService } from './core/services/geolocation.service';
-import { HttpClient } from '@angular/common/http';
 import { DialogService } from 'primeng/dynamicdialog';
 import { registerLocaleData } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import uk from '@angular/common/locales/uk';
 import en from '@angular/common/locales/en';
 import { LangService } from '@core/services/lang.service';
 import { LangPipe } from '@shared/pipe/lang.pipe';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxsModule } from '@ngxs/store';
 import { DrinksState } from './module-drinks/drinks.state';
-import { PromotionsState } from './module-promotions/promotions/promotions.state';
+import { PromotionsState } from './module-promotions/state/promotions.state';
 import { BasketState } from '@core/basket/basket.state';
 import { PizzasState } from './module-admin-panel/module-pizzas/pizzas/pizzas.state';
 import { AuthState } from './module-auth/state/auth.state';
@@ -28,20 +24,6 @@ registerLocaleData(en);
 
 @NgModule({
     bootstrap: [],
-    imports: [
-        CoreModule,
-        AppRoutingModule,
-        BrowserModule,
-        CommonModule,
-        NgxsModule.forRoot([DrinksState, PromotionsState, BasketState, PizzasState, AuthState], {
-            developmentMode: !environment.production
-        }),
-        // InlineSVGModule.forRoot({
-        //     baseUrl: '/assets/icons/',
-        //     bypassHttpClientInterceptorChain: true,
-        //     clientOnly: true,
-        // }),
-    ],
     providers: [
         GeolocationService, DialogService, MessageService, ConfirmationService,
         {

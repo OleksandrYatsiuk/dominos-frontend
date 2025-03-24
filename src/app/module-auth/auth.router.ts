@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { RegistrationComponent } from './registration/registration.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 export default [
     {
@@ -9,7 +8,10 @@ export default [
     },
     {
         path: 'user-settings',
-        component: UserSettingsComponent,
+        loadComponent: () => import('./user-settings/user-settings.component'),
     },
-
+    {
+        path: 'confirm/:hash',
+        loadComponent: () => import('./confirm/confirm.component'),
+    },
 ] as Routes;

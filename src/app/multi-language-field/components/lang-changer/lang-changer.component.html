@@ -1,10 +1,7 @@
 <div class="lang-changer__wrapper">
-  <span
-    *ngFor="let item of keys"
-    class="lang-changer__option"
-    (click)="onSelect(item)"
-    [ngClass]="{ 'lang-changer__option--active': key === item }"
-  >
-    {{ item?.toUpperCase() }}</span
-  >
+  @for (item of keys(); track item) {
+  <span class="lang-changer__option" (click)="onSelect(item)"
+    [ngClass]="{ 'lang-changer__option--active': key() === item }">
+    {{ item.toUpperCase() }}</span>
+  }
 </div>

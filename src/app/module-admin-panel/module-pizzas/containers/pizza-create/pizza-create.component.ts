@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, } from '@angular/core';
 import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { Pizza } from '@core/models/pizza.interface';
 import { Store } from '@ngxs/store';
 import { CreateNewPizza } from '../../pizzas/pizzas.actions';
+import { PizzaFormComponent } from '../../components/pizza-form/pizza-form.component';
 
 @Component({
-    selector: 'app-pizza-create',
-    templateUrl: './pizza-create.component.html',
-    styleUrls: ['./pizza-create.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [LangPipe],
-    standalone: false
+  selector: 'app-pizza-create',
+  templateUrl: './pizza-create.component.html',
+  styleUrls: ['./pizza-create.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [LangPipe],
+  standalone: true,
+  imports: [PizzaFormComponent],
 })
 export class PizzaCreateComponent {
 
@@ -30,7 +31,7 @@ export class PizzaCreateComponent {
     this.loading = !this.loading;
 
     this._store.dispatch(new CreateNewPizza(pizza))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.loading = !this.loading;
         this._ms.add({ severity: 'success', detail: `Pizza '${this._langPipe.transform(pizza.name)}' has been successfully created!` });
         this._cd.detectChanges();

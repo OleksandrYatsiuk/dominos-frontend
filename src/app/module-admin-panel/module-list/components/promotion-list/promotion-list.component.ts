@@ -1,29 +1,46 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, signal } from '@angular/core';
 import { PromotionDataService } from '@core/services/promotion-data.service';
 import { MessageService } from 'primeng/api';
 import { Promotion } from '@core/models/promotions/promotions.model';
 import { ConfirmService } from '@core/services/confirm.service';
-import { EMPTY, Observable, pluck } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { catchError, filter, map, mergeMap } from 'rxjs/operators';
 import { TableItem } from '@core/models/table.interface';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LangPipe } from '@shared/pipe/lang.pipe';
-import { DatePipe } from '@angular/common';
+import { DatePipe, NgStyle } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { InputTextModule } from 'primeng/inputtext';
+import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
+interface PromotionRecord {
+  original: Promotion;
+  started: string;
+  ended: string;
+  name: string;
+  description: string;
+}
 
 @UntilDestroy()
 @Component({
-    selector: 'app-promotion-list',
-    templateUrl: './promotion-list.component.html',
-    styleUrls: ['./promotion-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [LangPipe, DatePipe],
-    standalone: false
+  selector: 'app-promotion-list',
+  templateUrl: './promotion-list.component.html',
+  styleUrls: ['./promotion-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [DatePipe, LangPipe],
+  standalone: true,
+  imports: [NgStyle, LangPipe, TableModule, LazyLoadImageModule, InputTextModule, RouterModule, TranslateModule]
 })
 export class PromotionListComponent implements OnInit {
-  currentPage = 1;
-  rows = 10;
   promotions$: Observable<Promotion[]>;
   cols: TableItem[];
+
+  page = signal(1);
+
+  rows = signal(10);
 
   constructor(
     private _ps: PromotionDataService,
@@ -36,13 +53,9 @@ export class PromotionListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.promotions$ = this._queryPromotionList(this.currentPage);
-
     this.cols = [
-      { field: 'index', header: '#', sortable: true, style: { width: '100px' } },
-      { field: 'image', header: 'Image' },
-      { field: 'shortName', header: 'Name', sortable: true },
-      { field: 'shortDescription', header: 'Description', sortable: true },
+      { field: 'name', header: 'Name', sortable: true },
+      { field: 'description', header: 'Description', sortable: true },
       { field: 'started', header: 'Start Date', sortable: true },
       { field: 'ended', header: 'End Date', sortable: true },
       { field: 'options', header: 'labels.options', style: { width: '100px' } }
@@ -50,8 +63,7 @@ export class PromotionListComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    this.currentPage = page + 1;
-    this.promotions$ = this._queryPromotionList(page + 1);
+    this.page.update(() => page + 1);
   }
 
 
@@ -65,22 +77,28 @@ export class PromotionListComponent implements OnInit {
       }),
       untilDestroyed(this)
     )
-      .subscribe(res => {
-        this.promotions$ = this._queryPromotionList(this.currentPage);
+      .subscribe(() => {
+        this.promotions.reload();
         this._ms.add({ severity: 'success', detail: `Акція "${item.name}" видалена успішно!` });
         this._cd.detectChanges();
       });
   }
 
-  private _queryPromotionList(page: number): Observable<Promotion[]> {
-    return this._ps.getData({ page, limit: this.rows }).pipe(
-      pluck('result'), map(promotions => promotions.map((promotion, i) => ({
-        ...promotion,
-        index: i + 1,
-        started: this._datePipe.transform(promotion.startedAt),
-        ended: promotion.endedAt ? this._datePipe.transform(promotion.endedAt) : '-',
-        shortName: this._langPipe.transform(promotion.name),
-        shortDescription: this._langPipe.transform(promotion.description)
-      }))));
+  private transformPromotions(promo: Promotion): PromotionRecord {
+    return {
+      original: promo,
+      started: this._datePipe.transform(promo.startedAt),
+      ended: promo.endedAt ? this._datePipe.transform(promo.endedAt) : '-',
+      name: this._langPipe.transform(promo.name),
+      description: this._langPipe.transform(promo.description),
+    }
   }
+
+  promotions = rxResource({
+    request: () => ({ page: this.page(), rows: this.rows() }),
+    loader: ({ request }) => this._ps.getData({ page: request.page, limit: request.rows }).pipe(
+      map((response) => response.result),
+      map((records) => records.map((r) => this.transformPromotions(r)))
+    )
+  });
 }

@@ -1,53 +1,46 @@
-<div class="promotion__container" *ngIf="promotion$ | async as promo">
+@if (promotion(); as promo) {
+<div class="promotion__container">
   <div class="promotion__content">
-    <img
-      class="promotion__image"
-      [src]="promo.image"
-      alt="noopener noreferrer"
-    />
-    <div class="promotion__details" [ngSwitch]="promo.status">
-      <span
-        class="promotion__date promotion__date--active"
-        *ngSwitchCase="status.Active"
-      >
-        <ng-container *ngIf="promo.endedAt; else activeFrom">
+    <img class="promotion__image" [src]="promo.image" alt="noopener noreferrer" />
+
+    <div class="promotion__details">
+      @switch (promo.status) {
+
+      @case (status.Active) {
+      <span class="promotion__date promotion__date--active">
+        <ng-container>
+          @if (promo.endedAt) {
           Активна до {{ promo.endedAt | date: "dd.MM.yyyy" }}
-        </ng-container>
-        <ng-template #activeFrom>
+          } @else {
           Активна з {{ promo.startedAt | date: "dd.MM.yyyy" }}
-        </ng-template>
+          }
+        </ng-container>
       </span>
-      <span
-        class="promotion__date promotion__date--finished"
-        *ngSwitchCase="status.Finished"
-        >{{ "Завершена" }}</span
-      >
-      <span class="promotion__date" *ngSwitchCase="status.New">
+      }
+
+      @case(status.New){
+      <span class="promotion__date">
         Незабаром {{ promo.startedAt | date: "dd.MM.yyyy" }}
       </span>
+      }
+      @default {
+      <span class="promotion__date promotion__date--finished">{{ "Завершена" }}</span>
+      }
+      }
+      <h1 class="promotion__title">{{ promo.name }}</h1>
 
-      <h1 class="promotion__title">{{ promo.title }}</h1>
-
-      <article
-        class="promotion__description"
-        [innerHTML]="promo.description"
-      ></article>
+      <article class="promotion__description" [innerHTML]="promo.description"></article>
     </div>
   </div>
 
-  <div class="promotion__other" *ngIf="promotions$ | async as promos">
-    <div class="promotion__other-label" *ngIf="promos.length > 0">
-      Інші акції:
-    </div>
+  @if (promotions(); as promotions) {
+  <div class="promotion__other">
+    <div class="promotion__other-label"> Інші акції: </div>
 
-    <!-- <div class="swiper-container" [swiper]="config">
-      <div class="swiper-wrapper">
-        <app-card-news
-          class="swiper-slide"
-          *ngFor="let promo of promos"
-          [news]="promo"
-        ></app-card-news>
-      </div>
-    </div> -->
+    @for (promotion of promotions; track promotion.id ) {
+    <app-card-news class="swiper-slide" [promo]="promotion" />
+    }
   </div>
+  }
 </div>
+}

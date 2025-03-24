@@ -1,64 +1,104 @@
-@for ( validation of list; track validation) {
-<div>
+@for (validation of errors(); track $index) {
+<ng-container>
+  @if (withError(validation)) {
+  <div [class]="styleClass()" ngClass="error">
 
-  @if (withError()) {
-  <div class="error">
+    <ng-container>
+      @switch (validation.type) {
 
-    @switch (validation.type) {
-    @case ('required') {
-    {{ "validation.required" | translate: { field: field } }}
-    }
-    @case ('mismatch') {
-    "{{ field }}" must be equal to "{{ otherField }}".
-    }
+      @case ('required') {
+      <ng-container>
+        {{
+        field()
+        ? ("validations.required" | translate: { field: field() })
+        : ("validations.general.required" | translate)
+        }}
+      </ng-container>
+      }
 
-    @case('minlength'){
-    "{{ field }}" should contain at least
-    {{ control().errors.minlength.requiredLength | i18nPlural: { "=1": "1 character", other: "# characters" } }}.
-    }
+      @case ('minlength') {
 
-    @case ('maxlength') {
-    "{{ field }}" should contain at most
-    {{ control().errors.maxlength.requiredLength| i18nPlural: { "=1": "1 character", other: "# characters" } }}.
-    }
+      <ng-container>
+        {{ field()
+        ? ("validations.minlength" | translate : { field: field(), value: control().errors?.minlength?.requiredLength })
+        : ("validations.general.minlength" | translate : { value: control().errors?.minlength?.requiredLength })
+        }}
+      </ng-container>
+      }
 
-    @case ('email') {
-    {{ field }}" is not a valid email address.
-    }
-    @case ('url') {
-    {{ field }}" is not a valid link.
-    }
+      @case ('maxlength') {
+      <ng-container>
+        {{field()
+        ? ("validations.maxlength" | translate: { field: field(), value: control().errors?.maxlength?.requiredLength })
+        : ("validations.general.maxlength" | translate : {field: field(), value:
+        control().errors?.maxlength?.requiredLength
+        })
+        }}
+      </ng-container>
+      }
 
-    @case ('min') {
-    "{{ field }}" must be no less than {{ control().errors.min.min }}
-    }
+      @case ('email') {
+      <ng-container>
+        {{ "validations.email" | translate: { field: field() } }}
+      </ng-container>
+      }
 
-    @case ('max') {
-    "{{ field }}" must be no greater than {{ control().errors.max.max }}
-    }
+      @case('min'){
+      <ng-container>
+        {{
+        field()
+        ? ("validations.min" | translate : { field: field(), value: control().errors?.min?.min })
+        : ("validations.general.min" | translate: { value: control().errors?.min?.min })
+        }}
+      </ng-container>
+      }
 
-    @case ('phoneNumber') {
-    "{{ field }}" is not a valid phone number.
-    }
+      @case ('max') {
+      <ng-container>
+        {{
+        field()
+        ? ("validations.max"| translate : { field: field(), value: control().errors?.max?.max })
+        : ("validations.general.max"| translate: { value: control().errors?.max?.max })
+        }}
+      </ng-container>
+      }
 
-    @case ('password') {
-    "{{ field }}" should contain at least 8 symbols, one upper case, one lowercase and one number
-    }
+      @case('fileExtension'){
+      <ng-container>
+        {{ "validations.fileExtension" | translate: { value: control().errors?.fileExtension?.expected } }}
+      </ng-container>
+      }
 
-    @case ('confirmPasswordError') {
-    "{{ field }}" must be equal to "{{ otherField }}".
-    }
+      @case ('fileSize') {
+      <ng-container>
+        {{ "validations.fileSize"| translate: { value: control().errors?.fileSize?.expected } }}
+      </ng-container>
+      }
 
-    @case('requiredWhen'){
-    "{{ field }}" can't be empty.
-    }
+      @case ('password') {
+      <ng-container> {{ "validations.password" | translate: { field: field() } }} </ng-container>
+      }
 
-    @case('apiValidation'){
-    {{ control().errors.apiValidation }}
-    }
+      @case ('confirmPasswordError') {
+      <ng-container>
+        {{ "validations.confirmPasswordError" | translate: { field:field(), otherField: otherField() } }}
+      </ng-container>
+      }
 
-    }
+      @case ('backendErr') {
+      <ng-container>
+        @for (message of control()?.errors?.backendErr; track $index) {
+        {{"validations.backendErr" | translate: { value: message } }}
+        }
+      </ng-container>
+      }
+
+      @default {
+      <ng-container> {{ validation?.message || "" | translate }} </ng-container>
+      }
+      }
+    </ng-container>
   </div>
   }
-</div>
+</ng-container>
 }

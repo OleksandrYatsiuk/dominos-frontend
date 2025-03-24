@@ -1,23 +1,21 @@
-@import "../../../../styles/helpers/index";
-
-.main-carousel__image {
-  max-width: 1300px;
-  border-radius: 50px;
-  width: 100%;
-  padding: 20px;
-  object-fit: cover;
-  max-height: 60vh;
+.promos-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
-.carousel-caption {
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  left: 0;
-  right: 0;
-  text-align: center;
-  bottom: 4rem;
-  @include mobile {
+.promo {
+  &-slide {
+    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  &-navigation {
+    position: absolute;
     bottom: 2rem;
+    left: 2rem;
   }
 }

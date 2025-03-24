@@ -6,17 +6,16 @@
 
     @switch (item.type) {
     @case ('pizzas') {
-    <ng-container *ngSwitchCase="'pizzas'">
+    <ng-container>
       <h6>{{ "sizesLabels." + [item.size] | translate }}</h6>
       <h6>{{ (item.product?.size)[item.size] }} {{ "gram" | translate }}</h6>
     </ng-container>
     }
     @case ('drinks') {
-    <ng-container *ngSwitchCase="'drinks'">
+    <ng-container>
       <h6>{{ (item.product?.size)[item.size] }} {{ "ml" | translate }}</h6>
     </ng-container>
     }
-
     }
 
     <div class="product-options">

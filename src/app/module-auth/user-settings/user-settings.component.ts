@@ -13,7 +13,7 @@ import { FileOptions, FileUploaderComponent } from '@shared/components/file-uplo
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { TranslateModule } from '@ngx-translate/core';
 import { FormItemComponent } from '@shared/components/form-item/form-item.component';
-import { DatePicker, DatePickerModule } from 'primeng/datepicker';
+import { DatePickerModule } from 'primeng/datepicker';
 import { AsyncPipe } from '@angular/common';
 
 @UntilDestroy()

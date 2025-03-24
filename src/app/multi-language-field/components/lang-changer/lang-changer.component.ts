@@ -1,29 +1,20 @@
-import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
-import { ELanguage } from '@core/models/language';
+import { NgClass } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input, model } from '@angular/core';
 
 @Component({
-    selector: 'app-lang-changer',
-    templateUrl: './lang-changer.component.html',
-    styleUrls: ['./lang-changer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-lang-changer',
+  templateUrl: './lang-changer.component.html',
+  styleUrls: ['./lang-changer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgClass],
+  standalone: true,
 })
 export class LangChangerComponent {
-  @Input() set keys(keys: object) {
-    this._keys = Object.keys(keys);
-  }
+  keys = input<string[]>([]);
 
-  get keys(): string[] {
-    return this._keys;
-  }
-
-  private _keys = Object.keys(ELanguage);
-  @Input() key: string = '';
-  @Output() keyChange = new EventEmitter<string>();
-  constructor() { }
+  key = model<string>('');
 
   onSelect(key: string): void {
-    this.key = key;
-    this.keyChange.emit(key);
+    this.key.set(key);
   }
 }

@@ -23,5 +23,5 @@ export class UpdatePizza {
 
 export class DeletePizza {
   public static readonly type = '[Pizzas] Delete item';
-  constructor(public payload: string) { }
+  constructor(public id: string) { }
 }

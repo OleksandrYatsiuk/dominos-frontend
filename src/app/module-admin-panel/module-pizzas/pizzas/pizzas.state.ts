@@ -4,6 +4,7 @@ import { PizzaDataService } from '@core/services/pizza-data.service';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { of, tap } from 'rxjs';
 import { CreateNewPizza, DeletePizza, FetchAllPizzas, GetPizzaItem, UpdatePizza } from './pizzas.actions';
+import { patch, removeItem } from '@ngxs/store/operators';
 
 export interface PizzasStateModel {
   pizzas: Pizza[];
@@ -21,7 +22,7 @@ export interface PizzasStateModel {
 @Injectable()
 export class PizzasState {
   constructor(
-    private _pizzaDataService: PizzaDataService,
+    private pizzaDataService: PizzaDataService,
   ) { }
 
   @Selector()
@@ -41,52 +42,43 @@ export class PizzasState {
 
     const pizza = stateModel.pizzas.find(p => p.id === payload);
 
-    const pizza$ = pizza ? of(pizza) : this._pizzaDataService.getPizza(payload);
+    const pizza$ = pizza ? of(pizza) : this.pizzaDataService.getPizza(payload);
 
     return pizza$.pipe(tap(pizza => { ctx.setState({ ...stateModel, pizza }); }))
   }
 
   @Action(FetchAllPizzas)
-  getAllPizzas({ getState, setState }: StateContext<PizzasStateModel>, { payload }: FetchAllPizzas) {
-    return this._pizzaDataService.getPizzas(payload).pipe(tap(pizzas => {
-      setState({
-        ...getState(),
-        pizzas: pizzas.result
-      });
-    }))
+  getAllPizzas(ctx: StateContext<PizzasStateModel>, { payload }: FetchAllPizzas) {
+    return this.pizzaDataService.getPizzas(payload)
+      .pipe(tap((pizzas) => ctx.patchState({ pizzas: pizzas.result })));
   }
 
   @Action(CreateNewPizza)
-  create({ getState, setState, dispatch }: StateContext<PizzasStateModel>, { payload }: CreateNewPizza) {
-
-    return this._pizzaDataService.create(payload).pipe(tap((pizza) => {
-      const stateModel = getState();
-      setState({ ...stateModel, pizza: pizza });
-      dispatch(FetchAllPizzas)
-    }));
-
+  create(ctx: StateContext<PizzasStateModel>, { payload }: CreateNewPizza) {
+    return this.pizzaDataService.create(payload)
+      .pipe(tap((pizza) => {
+        ctx.patchState({ pizza: pizza });
+        ctx.dispatch(new FetchAllPizzas());
+      }));
   }
 
 
   @Action(UpdatePizza)
-  update({ getState, setState, dispatch }: StateContext<PizzasStateModel>, { payload }: UpdatePizza) {
+  update(ctx: StateContext<PizzasStateModel>, { payload }: UpdatePizza) {
 
-    return this._pizzaDataService.edit(payload.id, payload).pipe(tap((pizza) => {
-      const stateModel = getState();
-      setState({ ...stateModel, pizza: pizza });
-      dispatch(FetchAllPizzas)
+    return this.pizzaDataService.edit(payload.id, payload).pipe(tap((pizza) => {
+      ctx.patchState({ pizza })
+      ctx.dispatch(new FetchAllPizzas());
     }));
 
   }
 
   @Action(DeletePizza)
-  delete({ getState, setState }: StateContext<PizzasStateModel>, { payload }: DeletePizza) {
+  delete(ctx: StateContext<PizzasStateModel>, payload: DeletePizza) {
 
-    return this._pizzaDataService.remove(payload).pipe(tap(() => {
-      const stateModel = getState();
-      setState({
-        ...stateModel, pizzas: stateModel.pizzas.filter(p => p.id !== payload)
-      })
-    }));
+    return this.pizzaDataService.remove(payload.id)
+      .pipe(tap(() => {
+        ctx.setState(patch({ pizzas: removeItem((item) => item.id === payload.id) }))
+      }));
   }
 }

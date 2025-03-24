@@ -5,14 +5,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { stubImage } from 'src/utils/stubs';
-import { BasketInModule } from '../basket-in/basket-in/basket-in.module';
+import { BasketInComponent } from '../basket-in/basket-in/basket-in.component';
 
 @Component({
   selector: 'app-basket-card-item',
   templateUrl: './basket-card-item.component.html',
   styleUrls: ['./basket-card-item.component.scss'],
   standalone: true,
-  imports: [LangPipe, TranslateModule, BasketInModule]
+  imports: [LangPipe, TranslateModule, BasketInComponent]
 })
 export class BasketCardItemComponent {
   item = input.required<BasketProductItem>();

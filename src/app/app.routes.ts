@@ -10,4 +10,12 @@ export const routes: Routes = [
         path: 'auth',
         loadChildren: () => import('./module-auth/auth.router'),
     },
+    {
+        path: 'admin',
+        loadChildren: () => import('./module-admin-panel/admin.router'),
+    },
+    {
+        path: 'promotions',
+        loadChildren: () => import('./module-promotions/promotions.router'),
+    },
 ];

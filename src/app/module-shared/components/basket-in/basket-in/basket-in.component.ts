@@ -1,27 +1,34 @@
-import { Component, ChangeDetectionStrategy, Input, EventEmitter, Output } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, ChangeDetectionStrategy, input, output, computed, effect } from '@angular/core';
 import { BasketItem } from '@core/basket/basket.state';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
-    selector: 'app-basket-in',
-    templateUrl: './basket-in.component.html',
-    styleUrls: ['./basket-in.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-basket-in',
+  templateUrl: './basket-in.component.html',
+  styleUrls: ['./basket-in.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [NgClass, TranslateModule],
 })
 export class BasketInComponent {
-  @Input() size: string;
-  @Input() productId: string;
-  @Input() products: BasketItem[];
-  @Output() onChange = new EventEmitter<number>();
+
+  size = input<string>();
+
+  productId = input<string>();
+
+  products = input<BasketItem[]>([]);
+
+  onChange = output<number>();
+
   constructor() { }
 
   hasDrinkInBasket(items: BasketItem[]): boolean {
-    items = items?.filter(item => item.id === this.productId && item.size === this.size);
+    items = items?.filter((item) => item.id === this.productId() && item.size === this.size());
     return items?.length ? true : false;
   }
-  calculateCount(items: BasketItem[]): number {
-    return items?.find(item => item.size === this.size)?.count || 0
-  }
+
+  count = computed(() => this.products()?.find((item) => item.size === this.size())?.count || 0);
 
   addToBasket(): void {
     this.onChange.emit(1);
@@ -31,9 +38,5 @@ export class BasketInComponent {
     this.onChange.emit(-1);
   }
 
-
-  get hasProducts(): boolean {
-    return this.products?.find(item => item.size === this.size)?.count ? true : false;
-  }
-
+  hasProducts = computed(() => this.products()?.find((item) => item.size === this.size())?.count ? true : false)
 }

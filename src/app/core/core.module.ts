@@ -1,4 +1,4 @@
-import { NgModule, SkipSelf, Optional } from '@angular/core';
+import { NgModule, SkipSelf, Optional, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -7,8 +7,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ParamInterceptor, ErrorInterceptor } from './interceptors';
 import { LangInterceptor } from './interceptors/lang.interceptor';
 import { ApiUrlInterceptor } from './interceptors/api-url/api-url.interceptor';
+import { provideStore } from '@ngxs/store';
+import { PizzasState } from '../module-admin-panel/module-pizzas/pizzas/pizzas.state';
+import { BasketState } from './basket/basket.state';
+import { AuthState } from '../module-auth/state/auth.state';
+import { environment } from '@environments/environment';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmService } from './services/confirm.service';
+import { PromotionsState } from '../module-promotions/state/promotions.state';
+import { LangService } from './services/lang.service';
 
-const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) => new TranslateHttpLoader(http, '/assets/i18n/', '.json');
+const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: HttpClient) => new TranslateHttpLoader(http, '/i18n/', '.json');
 
 @NgModule({
   imports: [
@@ -43,9 +52,15 @@ const httpLoaderFactory: (http: HttpClient) => TranslateHttpLoader = (http: Http
       provide: HTTP_INTERCEPTORS,
       useClass: ApiUrlInterceptor,
       multi: true
-    }
+    },
+    MessageService, ConfirmService, ConfirmationService,
+    {
+      provide: LOCALE_ID,
+      deps: [LangService],
+      useFactory: (langService: LangService) => langService.getLang(),
+    },
+    provideStore([PizzasState, PromotionsState, BasketState, AuthState], { developmentMode: !environment.production })
   ],
-  exports: []
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

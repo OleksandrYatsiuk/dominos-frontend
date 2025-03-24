@@ -1,16 +1,6 @@
 <section class="d-table__wrapper">
-  <p-table
-    #dt
-    *ngIf="shops$ | async as shops"
-    [value]="shops"
-    [columns]="cols"
-    responsiveLayout="stack"
-    [rowHover]="true"
-    [rows]="100"
-    scrollHeight="65vh"
-    [virtualScroll]="true"
-    [virtualRowHeight]="20"
-  >
+  <p-table #dt *ngIf="shops$ | async as shops" [value]="shops" [columns]="cols" responsiveLayout="stack"
+    [rowHover]="true" [rows]="100" scrollHeight="65vh" [virtualScroll]="true">
     <ng-template pTemplate="caption">
       <div class="d-table__caption pt-table__caption--external">
         <div class="caption-actions">
@@ -21,47 +11,28 @@
         </div>
         <div class="global-search icon-input">
           <em class="icon" [inlineSVG]="'search.svg'"></em>
-          <input
-            pInputText
-            type="text"
-            class="input"
-            (input)="dt.filterGlobal($event.target.value, 'contains')"
-            [placeholder]="'labels.search' | translate"
-          />
+          <input pInputText type="text" class="input" (input)="dt.filterGlobal($event.target.value, 'contains')"
+            [placeholder]="'labels.search' | translate" />
         </div>
       </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
       <tr class="d-table__header">
-        <th
-          *ngFor="let col of columns"
-          scope="col"
-          class="d-table__title"
-          [ngStyle]="{ width: col?.width ? col.width : 'auto' }"
-          [pSortableColumn]="col.field"
-        >
+        <th *ngFor="let col of columns" scope="col" class="d-table__title"
+          [ngStyle]="{ width: col?.width ? col.width : 'auto' }" [pSortableColumn]="col.field">
           <span>{{ col.header | translate }}</span>
           <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
         </th>
       </tr>
     </ng-template>
-    <ng-template
-      pTemplate="body"
-      let-rowData
-      let-columns="columns"
-      let-rowIndex="rowIndex"
-    >
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
       <tr class="d-table__row">
         <ng-container *ngFor="let col of columns">
           <td [ngSwitch]="col.field" class="d-table__cell">
             <span class="p-column-title">{{ col.header | translate }}</span>
 
             <ng-container *ngSwitchCase="'image'">
-              <img
-                [lazyLoad]="rowData[col.field]"
-                [alt]="rowData['name'] | lang"
-                style="width:75px;height:50px"
-              />
+              <img [lazyLoad]="rowData[col.field]" [alt]="rowData['name'] | lang" style="width:75px;height:50px" />
             </ng-container>
 
             <ng-container *ngSwitchCase="'options'">
@@ -71,16 +42,12 @@
                   [inlineSVG]="'edit.svg'"
                   (click)="onEditShop(rowData)"
                 ></em> -->
-                <em
-                  class="icon"
-                  [inlineSVG]="'trash.svg'"
-                  (click)="onDelete(rowData)"
-                ></em>
+                <em class="icon" [inlineSVG]="'trash.svg'" (click)="onDelete(rowData)"></em>
               </div>
             </ng-container>
             <ng-container *ngSwitchDefault>{{
               rowData[col.field] | translate
-            }}</ng-container>
+              }}</ng-container>
           </td>
         </ng-container>
       </tr>

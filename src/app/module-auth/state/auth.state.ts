@@ -34,7 +34,6 @@ export class AuthState {
     return state;
   }
 
-
   @Selector()
   public static current(state: AuthStateModel): User {
     return state.user;

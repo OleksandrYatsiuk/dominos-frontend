@@ -1,18 +1,16 @@
-<div class="basket-in" [ngClass]="{ 'basket-in--filled': hasProducts }">
-  <button
-    class="button"
-    *ngIf="!hasProducts; else changeButtons"
-    (click)="addToBasket()"
-  >
+<div class="basket-in" [ngClass]="{ 'basket-in--filled': hasProducts() }">
+
+  @if (hasProducts()) {
+  <button class="button" (click)="removeFromBasket()">
+    <span class="button__text button__text--big">-</span>
+  </button>
+  <span class="basket-in__count">{{ count() }}</span>
+  <button class="button" (click)="addToBasket()">
+    <span class="button__text button__text--big">+</span>
+  </button>
+  } @else {
+  <button class="button" (click)="addToBasket()">
     <span class="button__text"> {{ "inBasket" | translate }}</span>
   </button>
-  <ng-template #changeButtons>
-    <button class="button" (click)="removeFromBasket()">
-      <span class="button__text button__text--big">-</span>
-    </button>
-    <span class="basket-in__count">{{ calculateCount(products) }}</span>
-    <button class="button" (click)="addToBasket()">
-      <span class="button__text button__text--big">+</span>
-    </button>
-  </ng-template>
+  }
 </div>

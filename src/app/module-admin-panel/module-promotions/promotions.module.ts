@@ -5,9 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PromotionResolver } from 'src/app/module-promotions/promotion.resolver';
 import { SharedModule } from '@shared/shared.module';
 import { CalendarModule } from 'primeng/calendar';
-import { MultiLanguageFieldModule } from 'src/app/multi-language-field/multi-language-field.module';
 import { InputSwitchModule } from 'primeng/inputswitch';
-import { PromotionFormComponent } from './components/promotion-form/promotion-form.component';
 import { PromotionEditComponent } from './containers/promotion-edit/promotion-edit.component';
 
 const routes: Routes = [
@@ -22,12 +20,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PromotionCreateComponent, PromotionEditComponent, PromotionFormComponent],
+  declarations: [],
   imports: [
     CommonModule,
     SharedModule,
     CalendarModule,
-    MultiLanguageFieldModule,
     InputSwitchModule,
     RouterModule.forChild(routes)
   ],

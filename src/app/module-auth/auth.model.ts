@@ -1,4 +1,4 @@
-import { UserRoles } from "@core/models/user.model";
+import { UserRoles } from '@core/models/user.model';
 
 export interface UserLogin {
   username: string;

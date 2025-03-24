@@ -92,8 +92,24 @@
       "Пятниця",
       "Субота"
     ],
-    "dayNamesShort": ["Ндл", "Пнд", "Втр", "Срд", "Чтв", "Птн", "Сбт"],
-    "dayNamesMin": ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+    "dayNamesShort": [
+      "Ндл",
+      "Пнд",
+      "Втр",
+      "Срд",
+      "Чтв",
+      "Птн",
+      "Сбт"
+    ],
+    "dayNamesMin": [
+      "Нд",
+      "Пн",
+      "Вт",
+      "Ср",
+      "Чт",
+      "Пт",
+      "Сб"
+    ],
     "monthNames": [
       "Cічень",
       "Лютий",
@@ -125,6 +141,26 @@
     "today": "Сьогодні",
     "weekHeader": "Тиждень"
   },
+	"validations": {
+		"backendErr": "{{value}}",
+		"confirmPasswordError": "Field \"{{ field }}\" must be equal to \"{{ otherField }}\"",
+		"email": "Field \"{{ field }}\" contains invalid format.",
+		"fileExtension": "The file format must be {{value}}",
+		"fileSize": "File size should be no more {{value}}",
+		"general": {
+			"max": "This field should be no more than {{value}}.",
+			"maxlength": "This field should contain no more {{value}} character(s).",
+			"min": "This field must be at least {{value}}.",
+			"minlength": "This field should contain at least {{value}} character(s).",
+			"required": "This field is required."
+		},
+		"max": "Field \"{{ field }}\" should be no more than {{value}}.",
+		"maxlength": "Field \"{{ field }}\" should contain no more {{value}} character(s).",
+		"min": "Field \"{{ field }}\" must be at least {{value}}.",
+		"minlength": "Field \"{{ field }}\" should contain at least {{value}} character(s).",
+		"password": "Field \"{{ field }}\" contains invalid format.",
+		"required": "Field \"{{ field }}\" is required."
+	},
   "validation": {
     "required": "Поле \"{{field}}\" обов'язкове для заповнення."
   },

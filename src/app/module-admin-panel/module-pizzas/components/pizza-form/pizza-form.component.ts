@@ -1,20 +1,30 @@
+import { AsyncPipe } from '@angular/common';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Pizza } from '@core/models/pizza.interface';
 import { CategoriesService } from '@core/services/categories/categories/categories.service';
 import { IngredientsService } from '@core/services/ingredients.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileUploaderComponent } from '@shared/components/file-uploader/file-uploader.component';
+import { SpinButtonComponent } from '@shared/components/spin-button/spin-button.component';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { SelectItem } from 'primeng/api';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { SelectModule } from 'primeng/select';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { MultiLanguageFieldComponent } from 'src/app/multi-language-field/components/multi-language-field/multi-language-field.component';
 
 @Component({
-    selector: 'app-pizza-form',
-    templateUrl: './pizza-form.component.html',
-    styleUrls: ['./pizza-form.component.scss'],
-    providers: [LangPipe],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-pizza-form',
+  templateUrl: './pizza-form.component.html',
+  styleUrls: ['./pizza-form.component.scss'],
+  providers: [LangPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    AsyncPipe, ReactiveFormsModule, SpinButtonComponent, FileUploaderComponent, MultiLanguageFieldComponent,
+    TranslateModule, SelectModule, MultiSelectModule],
 })
 export class PizzaFormComponent implements OnInit {
   @Input() loading: boolean;
@@ -32,8 +42,9 @@ export class PizzaFormComponent implements OnInit {
 
   ngOnInit(): void {
     this._initForm(this.pizza);
+
     this.ingredients$ = this._ingredientsService.getIngredientsList({ page: 1, limit: 20, sort: 'name' }).pipe(map(ingredients => ingredients.map(i => ({ label: this._lang.transform(i.name), value: i.id }))));
-    this.categories$ = this._categoriesService.queryPizzaCategories().pipe(map(categories => categories.map(c => ({ label: this._lang.transform(c.name), value: c.status }))));
+    this.categories$ = this._categoriesService.queryPizzaCategories().pipe(map((categories) => categories.map(c => ({ label: this._lang.transform(c.name), value: c.status }))));
   }
 
 

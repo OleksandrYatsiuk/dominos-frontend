@@ -17,7 +17,7 @@
 // @import "./styles/dialog";
 // @import "./styles/select-button";
 // @import "./styles/calendar";
-// @import "./styles/buttons";
+@forward "./styles/buttons";
 // @import "./styles/tab-view";
 // @import "./styles/icons";
 // @import "./styles/toast";
@@ -48,4 +48,11 @@ body {
   height: 100%;
   padding: 0;
   font-size: 15px;
+}
+
+textarea {
+  width: 100%;
+  outline: none;
+  border-radius: 8px;
+  padding: 4px;
 }

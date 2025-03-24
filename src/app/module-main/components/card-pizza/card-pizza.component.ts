@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit, Input, ChangeDetectionStrategy, input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, input, computed, signal, untracked } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AddPizzaToBasket, DeletePizzaFromBasket } from '@core/basket/basket.actions';
 import { BasketItem, BasketState } from '@core/basket/basket.state';
@@ -7,7 +7,7 @@ import { Pizza } from '@core/models/pizza.interface';
 import { Size } from '@core/models/size.interface';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngxs/store';
-import { BasketInModule } from '@shared/components/basket-in/basket-in/basket-in.module';
+import { BasketInComponent } from '@shared/components/basket-in/basket-in/basket-in.component';
 import { LangPipe } from '@shared/pipe/lang.pipe';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SelectItem } from 'primeng/api';
@@ -20,7 +20,10 @@ import { stubImage } from 'src/utils/stubs';
   styleUrls: ['./card-pizza.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgClass, BasketInModule, SelectButtonModule, LazyLoadImageModule, TranslateModule, RouterModule, LangPipe],
+  imports: [
+    NgClass, BasketInComponent, SelectButtonModule,
+    LazyLoadImageModule, TranslateModule, RouterModule, LangPipe,
+  ],
 })
 
 export class CardPizzaComponent implements OnInit {
@@ -32,9 +35,8 @@ export class CardPizzaComponent implements OnInit {
   public size: number;
   options: SelectItem[] = [];
   defaultImage = stubImage;
-  pizzas = this.store.selectSignal<BasketItem[]>(BasketState.selectedPizza(this.item().id));
 
-  selectedSize: string = 'small';
+  selectedSize = signal<string>('small');
   constructor(
     private store: Store,
     private _translateService: TranslateService
@@ -42,36 +44,34 @@ export class CardPizzaComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
     this.options = [
       { label: 'Стандарт', value: 'Стандарт' },
       { label: 'Тонке', value: 'Тонке' },
       { label: 'Філадельфія', value: 'Філадельфія' },
       { label: 'Борт Хот-Дог', value: 'Борт Хот-Дог' },
-    ]
-
-
+    ];
   }
 
+  pizzas = computed(() => this.store.selectSignal(BasketState.selectedPizza(this.item().id))());
 
-  convertToArray(size: Size): SelectItem[] {
-    const sizes = Object.entries(size)
-      .filter(([key, value]) => value)
-      .map(([key, value]) => ({ value: key, label: this._translateService.instant(`sizesLabels.${key}`) }));
-    if (!this.selectedSize && sizes.length > 0) {
-      this.selectedSize = sizes[0].value;
+  sizes = computed(() => {
+    const size = this.item().size;
+    if (size) {
+      const sizes = Object.entries(size).filter(([key, value]) => value).map(([key, value]) => ({ value: key, label: this._translateService.instant(`sizesLabels.${key}`) }));
+      if (!this.selectedSize()) {
+        untracked(() => this.selectedSize.set(sizes[0].value));
+      }
     }
-    return sizes;
-  }
+
+    return [];
+  });
 
   onManageBasket(direction: number): void {
     if (direction === 1) {
-      this.store.dispatch(new AddPizzaToBasket(this.item(), this.selectedSize));
+      this.store.dispatch(new AddPizzaToBasket(this.item(), this.selectedSize()));
     } else {
-      this.store.dispatch(new DeletePizzaFromBasket(this.item(), this.selectedSize));
+      this.store.dispatch(new DeletePizzaFromBasket(this.item(), this.selectedSize()));
     }
-
   }
 }
 

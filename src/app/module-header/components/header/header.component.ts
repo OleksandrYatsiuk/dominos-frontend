@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, importProvidersFrom, Inject, Injector, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { GeolocationService } from 'src/app/core/services/geolocation.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AsyncPipe, isPlatformBrowser, NgClass, UpperCasePipe } from '@angular/common';
 import { MenuItem, SelectItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
@@ -27,9 +27,10 @@ import { SelectModule } from 'primeng/select';
   standalone: true,
   imports: [
     NgClass, UpperCasePipe, AsyncPipe,
-    FormsModule, TranslateModule,
+    FormsModule, TranslateModule, RouterModule,
     TranslateOptionsPipe, SelectModule, Menu,
   ],
+  providers: [DialogService],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 

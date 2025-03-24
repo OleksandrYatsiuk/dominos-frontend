@@ -1,27 +1,41 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, input, output } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModelPromotion } from '@core/models/promotions/promotions.model';
+import { TranslateModule } from '@ngx-translate/core';
+import { FileUploaderComponent } from '@shared/components/file-uploader/file-uploader.component';
+import { SpinButtonComponent } from '@shared/components/spin-button/spin-button.component';
+import { ValidationErrorComponent } from '@shared/components/validation-error/validation-error.component';
+import { DatePickerModule } from 'primeng/datepicker';
+import { InputSwitchModule } from 'primeng/inputswitch';
+import { MultiLanguageFieldComponent } from 'src/app/multi-language-field/components/multi-language-field/multi-language-field.component';
 
 @Component({
-    selector: 'app-promotion-form',
-    templateUrl: './promotion-form.component.html',
-    styleUrls: ['./promotion-form.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-promotion-form',
+  templateUrl: './promotion-form.component.html',
+  styleUrls: ['./promotion-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    TranslateModule, ReactiveFormsModule, MultiLanguageFieldComponent, DatePickerModule,
+    FileUploaderComponent, InputSwitchModule, ValidationErrorComponent, SpinButtonComponent,
+  ],
+  standalone: true
 })
 export class PromotionFormComponent implements OnInit {
-  @Input() loading: boolean;
-  @Input() promotion: ModelPromotion;
-  @Output() save = new EventEmitter<ModelPromotion>();
-  form: UntypedFormGroup;
-  constructor(private _fb: UntypedFormBuilder) { }
+  loading = input<boolean>(false);
+  promo = input<ModelPromotion>();
+
+  save = output<ModelPromotion>();
+
+  form: FormGroup;
+
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
-    this._initForm(this.promotion);
+    this.initForm(this.promo());
   }
 
-  private _initForm(promotion: ModelPromotion): void {
-    this.form = this._fb.group({
+  private initForm(promotion: ModelPromotion): void {
+    this.form = this.formBuilder.group({
       id: [promotion?.id, []],
       name: [promotion?.name, [Validators.required]],
       description: [promotion?.description, [Validators.required]],

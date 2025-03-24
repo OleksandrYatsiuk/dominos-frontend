@@ -1,22 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ModelPromotionPublic } from '@core/models/promotions/promotions-public.model';
-import { PromotionsState } from '../../promotions/promotions.state';
-import { Select, Store } from '@ngxs/store';
-import { FetchAllPromotions } from '../../promotions/promotions.actions';
+import { PromotionsState } from '../../state/promotions.state';
+import { Store } from '@ngxs/store';
+import { FetchAllPromotions } from '../../state/promotions.actions';
+import { CardNewsComponent } from '@shared/components/card-news/card-news.component';
 
 @Component({
-    selector: 'app-promotions-list',
-    templateUrl: './promotions-list.component.html',
-    styleUrls: ['./promotions-list.component.scss'],
-    standalone: false
+  selector: 'app-promotions-list',
+  templateUrl: './promotions-list.component.html',
+  styleUrls: ['./promotions-list.component.scss'],
+  standalone: true,
+  imports: [CardNewsComponent],
 })
 export class PromotionsListComponent implements OnInit {
-
-  @Select(PromotionsState.promotions)
-  promotions$: Observable<ModelPromotionPublic[]>;
+  promotions = this.store.selectSignal(PromotionsState.promotions);
 
   constructor(private store: Store) { }
+
   ngOnInit(): void {
     this.store.dispatch(new FetchAllPromotions({ sort: '-startedAt' }));
   }

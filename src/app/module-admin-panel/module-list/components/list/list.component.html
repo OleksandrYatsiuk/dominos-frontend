@@ -1,16 +1,16 @@
 <section>
   <p-tabView>
-    <p-tabPanel [header]="'pageTitles.pizzas' | translate">
+    <!-- <p-tabPanel [header]="'pageTitles.pizzas' | translate">
       <ng-template pTemplate="content">
         <app-pizza-list></app-pizza-list>
       </ng-template>
-    </p-tabPanel>
+    </p-tabPanel> -->
     <p-tabPanel [header]="'pageTitles.promotions' | translate">
-      <ng-template pTemplate="content">
-        <app-promotion-list></app-promotion-list>
+      <ng-template #content>
+        <app-promotion-list />
       </ng-template>
     </p-tabPanel>
-    <p-tabPanel [header]="'pageTitles.users' | translate">
+    <!-- <p-tabPanel [header]="'pageTitles.users' | translate">
       <ng-template pTemplate="content">
         <app-users-list></app-users-list>
       </ng-template>
@@ -34,6 +34,6 @@
       <ng-template pTemplate="content">
         <app-drinks-list></app-drinks-list>
       </ng-template>
-    </p-tabPanel>
+    </p-tabPanel> -->
   </p-tabView>
 </section>

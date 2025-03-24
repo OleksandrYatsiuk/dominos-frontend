@@ -1,53 +1,66 @@
-import { Component, ChangeDetectionStrategy, Input, forwardRef, ViewEncapsulation, ChangeDetectorRef, ViewChild, AfterContentInit, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  Component, ChangeDetectionStrategy, forwardRef, ViewEncapsulation,
+  AfterContentInit, OnDestroy, input, viewChild, model, effect, signal, computed
+} from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ELanguage } from '@core/models/language';
-import { AngularEditorComponent } from '@kolkov/angular-editor';
+import { AngularEditorComponent, AngularEditorModule } from '@kolkov/angular-editor';
 import { AngularEditorConfig } from '@kolkov/angular-editor/lib/config';
+import { LangChangerComponent } from '../lang-changer/lang-changer.component';
+import { ModeChangerComponent } from '../mode-changer/mode-changer.component';
 
 export type EWidgetMode = 'input' | 'textarea' | 'vcvic';
 
 @Component({
-    selector: 'd-multi-language-field',
-    templateUrl: './multi-language-field.component.html',
-    styleUrls: ['./multi-language-field.component.scss'],
-    providers: [{
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => MultiLanguageFieldComponent),
-            multi: true
-        }],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'd-multi-language-field',
+  templateUrl: './multi-language-field.component.html',
+  styleUrls: ['./multi-language-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => MultiLanguageFieldComponent),
+    multi: true
+  }],
+  imports: [FormsModule, AngularEditorModule, LangChangerComponent, ModeChangerComponent],
+
 })
 export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterContentInit, OnDestroy {
-  @Input() set type(t: EWidgetMode) {
-    this._type = t;
-    this._decodeCyrillic(this.textarea);
-  };
-  get type(): EWidgetMode {
-    return this._type;
+  type = model<EWidgetMode>('input');
+
+  key = model<ELanguage | string>(ELanguage.uk);
+
+  disabled = model<boolean>(false);
+
+  placeholder = input<string | null>(null);
+
+  showLang = input(true);
+  showMode = input(false);
+  styleClass = input<string | null>(null);
+
+  value = signal<object>({ uk: '', en: '' });
+
+  keys = computed(() => this.value() ? Object.keys(this.value()) : []);
+
+  text = computed<string>(() => this.value() ? this.value()[this.key()] : '');
+
+  angularEditor = viewChild(AngularEditorComponent);
+
+  constructor() {
+    effect(() => {
+      this._decodeCyrillic(this.textarea);
+    })
   }
-  @Input() key: string = ELanguage.uk;
-  @Input() disabled = false;
-  @Input() placeholder: string;
-  @Input() showLang = true;
-  @Input() showMode = false;
-  @Input() styleClass: string;
-  @ViewChild('angularEditor') angularEditor: AngularEditorComponent;
-  private _value: object = { uk: '', en: '' };
-  private _type: EWidgetMode = 'input';
+
   editorConfig: AngularEditorConfig = {
     editable: true,
     sanitize: false
   }
-  constructor(
-    private _cd: ChangeDetectorRef) { }
-
 
   ngOnDestroy(): void {
     this.textarea?.removeEventListener('focusout', () => { });
   }
-
 
   ngAfterContentInit(): void {
     this.textarea?.addEventListener('focusout', (ev) => this._decodeCyrillic(this.textarea));
@@ -57,13 +70,12 @@ export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterC
   onTouched: any = () => { };
 
   writeValue(v: object): void {
-    this._value = v;
+    this.value.set(v);
     if (typeof v === 'object' && v !== null) {
-      this.key = Object.keys(v)[0];
+      this.key.set(Object.keys(v)[0]);
     } else {
-      this.key = ELanguage.uk;
+      this.key.set(ELanguage.uk);
     }
-    this._cd.detectChanges();
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -72,35 +84,23 @@ export class MultiLanguageFieldComponent implements ControlValueAccessor, AfterC
     this.onTouched = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
-  eventChange(v: string): void {
-    this.value = { ...this.value, ...{ [this.key]: v } };
-  }
-
-  get value(): object {
-    return this._value ? this._value : { uk: '', en: '' }
-  }
-
-  set value(v: object) {
-    this.onChange(v);
-    this.onTouched(v);
-    this._value = v;
+  eventChange(value: string): void {
+    this.value.update((v) => ({ ...v, ...{ [this.key()]: value } }));
+    this.onChange(this.value());
+    this.onTouched(this.value());
   }
 
   private _decodeCyrillic(textarea: HTMLDivElement): void {
     if (textarea) {
       this.eventChange(textarea.innerHTML);
-      this.onChange(this.value);
-
+      this.onChange(this.value());
     }
-
   }
 
   get textarea(): HTMLDivElement {
-    return this.angularEditor?.textArea?.nativeElement as HTMLDivElement;
+    return this.angularEditor()?.textArea?.nativeElement as HTMLDivElement;
   }
-
-
 }

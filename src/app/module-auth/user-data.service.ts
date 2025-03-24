@@ -3,9 +3,7 @@ import { UserLogin, User, AuthResponse, ChangePassword, GeoLocation, UpdateUserP
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class UserDataService {
   constructor(private _http: HttpClient) { }
 

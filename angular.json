@@ -31,6 +31,13 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "outputPath": "dist/dominos",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/styles/"
@@ -39,15 +46,11 @@
             "allowedCommonJsDependencies": [
               "@core/services/map.service"
             ],
-            "outputPath": {
-              "base": "dist/dominos"
-            },
-            "index": "src/index.html",
-            "polyfills": [
-              "src/polyfills.ts"
-            ],
-            "tsConfig": "tsconfig.app.json",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
               "src/favicon.ico",
               "src/assets"
             ],
@@ -60,12 +63,11 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "browser": "src/main.ts",
             "server": "src/main.server.ts",
+            "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            },
-            "outputMode": "server"
+            }
           },
           "configurations": {
             "production": {
@@ -121,6 +123,10 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              },
               "src/favicon.ico",
               "src/assets"
             ],

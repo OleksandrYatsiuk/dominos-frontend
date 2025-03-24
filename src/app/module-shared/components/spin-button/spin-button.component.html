@@ -1,4 +1,7 @@
-<button [type]="type" [class]="class">
-    <div *ngIf="loading" class="spinner-border" role="status"></div>
-    <span *ngIf="!loading">{{name}}</span>
+<button [type]="type()" [ngClass]="class()" [disabled]="loading()">
+    @if (loading()) {
+    <div class="spinner-border" role="status"></div>
+    } @else {
+    <span>{{name()}}</span>
+    }
 </button>

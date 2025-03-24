@@ -1,7 +1,4 @@
 <section>
   <h1>Створити Акцію</h1>
-  <app-promotion-form
-    (save)="onSave($event)"
-    [loading]="loading"
-  ></app-promotion-form>
+  <app-promotion-form (save)="onSave($event)" [loading]="loading()" />
 </section>

@@ -1,30 +1,33 @@
+@if (item(); as pizza) {
 <div class="product-block">
   <div class="item">
     <div class="product-row">
       <div class="product_image">
-        <img class="photo" [lazyLoad]="item().image" [defaultImage]="defaultImage" alt="Замовити піцу" />
+        <img class="photo" [lazyLoad]="pizza.image" [defaultImage]="defaultImage" alt="Замовити піцу" />
         <div class="product_weight">
-          <span>{{ item().size[selectedSize]?.toLocaleString("uk") }}
+          <span>{{ pizza.size[selectedSize()]?.toLocaleString("uk") }}
             {{ "gram" | translate }}</span>
         </div>
       </div>
     </div>
     <div class="product-row">
-      <a [routerLink]="['/pizza/', item().id]" class="product_name">
-        {{ item().name | lang }}</a>
+      <a [routerLink]="['/pizza/', pizza.id]" class="product_name">
+        {{ pizza.name | lang }}</a>
     </div>
     <div class="product-row">
       <div class="product_ingredients">
         <!-- <span *ngFor="let ingredient of item.ingredients; let last = last">
-          {{ ingredient }}<ng-container *ngIf="!last">, </ng-container>
-        </span> -->
+            {{ ingredient }}<ng-container *ngIf="!last">, </ng-container>
+          </span> -->
       </div>
     </div>
     <div class="sizes">
-      <div class="sizes__item" *ngFor="let size of convertToArray(item.size)"
-        [ngClass]="{ 'sizes__item--selected': size.value === selectedSize }" (click)="selectedSize = size.value">
+      @for (size of sizes(); track size ) {
+      <div class="sizes__item" [ngClass]="{ 'sizes__item--selected': size.value === selectedSize() }"
+        (click)="selectedSize.set(size.value)">
         {{ size.label }}
       </div>
+      }
     </div>
 
     <div class="product-row product-row--centered">
@@ -32,12 +35,13 @@
     </div>
     <div class="product-row">
       <div class="price">
-        <span>{{ item().price[selectedSize].toLocaleString("uk") }} </span>
+        <span>{{ pizza.price[selectedSize()].toLocaleString("uk") }} </span>
         <span class="currency"> {{ "uah" | translate }}</span>
       </div>
 
-      <app-basket-in style="flex:1" [size]="selectedSize" [productId]="item().id" [products]="pizzas()"
+      <app-basket-in style="flex:1" [size]="selectedSize()" [productId]="pizza.id" [products]="pizzas()"
         (onChange)="onManageBasket($event)" />
     </div>
   </div>
 </div>
+}
