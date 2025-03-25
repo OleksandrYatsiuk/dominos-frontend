@@ -1,68 +1,67 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { ConfirmService } from '@core/services/confirm.service';
-import { IDictionary, IMultiLanguageDictionary } from '@core/models/dictionary';
-import { Observable, pluck, tap } from 'rxjs';
+import { IMultiLanguageDictionary } from '@core/models/dictionary';
+import { Observable } from 'rxjs';
 import { IngredientsService } from '@core/services/ingredients.service';
-import { TableItem } from '@core/models/table.interface';
+import { TableComponent } from '@shared/components/table/table.component';
+import { GlobalTableSearchComponent } from '@shared/components/table/global-search/global-search.component';
+import { ActionsComponent, ActionsFn } from '@shared/components/actions/actions.component';
+import { ITableColumn } from '@shared/components/table/interfaces';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { RouterModule } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { LangPipe } from '@shared/pipe/lang.pipe';
 
 @Component({
-    selector: 'app-ingredient-list',
-    templateUrl: './ingredient-list.component.html',
-    styleUrls: ['./ingredient-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-ingredient-list',
+  templateUrl: './ingredient-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [DatePipe, LangPipe, TableComponent, GlobalTableSearchComponent, ActionsComponent, RouterModule],
 })
-export class IngredientListComponent implements OnInit {
+export class IngredientListComponent {
   ingredients$: Observable<IMultiLanguageDictionary[]>;
-  currentPage = 1
-  totalRecords: number;
-  rows = 10;
-  pageSizeOptions: number[] = [5, 10, 20];
-  cols: TableItem[];
+  page = signal(1);
+
+  rows = signal(10);
+
+  cols = signal<ITableColumn[]>([
+    { field: 'id', header: 'ID' },
+    { field: 'name', header: 'Name' },
+    { field: 'createdAt', header: 'createdAt' },
+    { field: 'updatedAt', header: 'updatedAt' },
+    { field: 'actions', header: '', width: '100px' },
+  ]);
 
   constructor(
     private _is: IngredientsService,
     private _cs: ConfirmService,
-    private _cd: ChangeDetectorRef,
     private _ms: MessageService
   ) { }
 
-  ngOnInit(): void {
-    this.cols = [
-      { field: 'index', header: '#' },
-      { field: 'id', header: 'ID' },
-      { field: 'name', header: 'Name' },
-      { field: 'createdAt', header: 'createdAt' },
-      { field: 'updatedAt', header: 'updatedAt' }
-    ];
-    this.ingredients$ = this._queryIngredientsList(this.currentPage);
-  }
 
-  onDelete(item: IDictionary): void {
-    this._cs.delete().subscribe(res => {
-      if (res) {
-        this.ingredients$ = this._queryIngredientsList(this.currentPage);
-        // this._ms.add({ severity: 'success', detail: `Ingredient "${item.name}" was deleted successfully`)
-        this._ms.add({ severity: 'error', detail: 'Delete ingredient was not realise!' })
+  actions: ActionsFn<IMultiLanguageDictionary> = (record) => [
+    {
+      id: 'delete',
+      icon: 'icon icon-trash',
+      label: 'Delete',
+      command: () => {
+        this.onDelete(record);
       }
+    }
+  ];
+
+  onDelete(item: IMultiLanguageDictionary): void {
+    this._cs.delete().subscribe(() => {
+      this.ingredients.reload();
+      this._ms.add({ severity: 'success', detail: `Ingredient "${item.name}" was deleted successfully` });
     });
   }
 
-  onPageChange(page: number): void {
-    this.currentPage = page + 1;
-    this.ingredients$ = this._queryIngredientsList(this.currentPage);
-  }
-
-  private _queryIngredientsList(page: number): Observable<IMultiLanguageDictionary[]> {
-    return this._is.getIngredientsList({ page, limit: this.rows }).pipe(
-      // tap(({ result, _meta }) => {
-      //   const { page, total } = _meta.pagination;
-      //   this.currentPage = page;
-      //   this.totalRecords = total;
-      // }),
-      // pluck('result')
-    );
-  }
+  ingredients = rxResource({
+    request: () => ({ page: this.page(), rows: this.rows() }),
+    loader: ({ request }) => this._is.getIngredientsList({ page: request.page, limit: request.rows }),
+  });
 
 }

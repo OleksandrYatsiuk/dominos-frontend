@@ -1,0 +1,13 @@
+.actions-control {
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    width: auto;
+    border: 0;
+    padding: 4px;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: #e5e5e6;
+    }
+}

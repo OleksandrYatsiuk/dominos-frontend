@@ -51,7 +51,6 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -96,7 +95,7 @@
               ]
             }
           },
-          "defaultConfiguration": ""
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -119,7 +118,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
@@ -159,12 +161,6 @@
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "b72b2eca-c0f5-4a92-9e7f-254d83d42952",
-    "schematicCollections": [
-      "@ngxs/schematics"
-    ]
   },
   "schematics": {
     "@angular-eslint/schematics:application": {

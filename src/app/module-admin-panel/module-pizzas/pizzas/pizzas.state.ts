@@ -4,7 +4,7 @@ import { PizzaDataService } from '@core/services/pizza-data.service';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { of, tap } from 'rxjs';
 import { CreateNewPizza, DeletePizza, FetchAllPizzas, GetPizzaItem, UpdatePizza } from './pizzas.actions';
-import { patch, removeItem } from '@ngxs/store/operators';
+import { insertItem, patch, removeItem, updateItem } from '@ngxs/store/operators';
 
 export interface PizzasStateModel {
   pizzas: Pizza[];
@@ -35,7 +35,6 @@ export class PizzasState {
     return state.pizza;
   }
 
-
   @Action(GetPizzaItem)
   getPizza(ctx: StateContext<PizzasStateModel>, { payload }: GetPizzaItem) {
     const stateModel = ctx.getState();
@@ -57,25 +56,24 @@ export class PizzasState {
   create(ctx: StateContext<PizzasStateModel>, { payload }: CreateNewPizza) {
     return this.pizzaDataService.create(payload)
       .pipe(tap((pizza) => {
-        ctx.patchState({ pizza: pizza });
-        ctx.dispatch(new FetchAllPizzas());
+        ctx.setState(patch({ pizza, pizzas: insertItem(pizza) }))
       }));
   }
 
 
   @Action(UpdatePizza)
   update(ctx: StateContext<PizzasStateModel>, { payload }: UpdatePizza) {
-
-    return this.pizzaDataService.edit(payload.id, payload).pipe(tap((pizza) => {
-      ctx.patchState({ pizza })
-      ctx.dispatch(new FetchAllPizzas());
-    }));
+    return this.pizzaDataService.edit(payload.id, payload)
+      .pipe(tap((pizza) => ctx.setState(patch({
+        pizza,
+        pizzas: updateItem((item) => item.id === pizza.id, pizza),
+      }))
+      ));
 
   }
 
   @Action(DeletePizza)
   delete(ctx: StateContext<PizzasStateModel>, payload: DeletePizza) {
-
     return this.pizzaDataService.remove(payload.id)
       .pipe(tap(() => {
         ctx.setState(patch({ pizzas: removeItem((item) => item.id === payload.id) }))

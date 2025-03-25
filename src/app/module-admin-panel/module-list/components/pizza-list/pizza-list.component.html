@@ -1,88 +1,54 @@
-<section class="d-table__wrapper">
-  <p-table #dt [value]="pizzas()" [columns]="cols" responsiveLayout="stack" [rowHover]="true" [rows]="100"
-    scrollHeight="65vh" [virtualScroll]="true">
-    <ng-template #caption>
-      <div class="d-table__caption pt-table__caption--external">
-        <div class="caption-actions">
-          <button class="button button-icon" (click)="onManagePizza()">
-            <!-- <em [inlineSVG]="'add.svg'"></em> -->
-            <span class="button-text"> {{ "labels.add" | translate }}</span>
-          </button>
+<section class="table-container">
+
+  <div class="table-caption">
+
+    <app-global-table-search [table]="dt" [searchId]="'pizzas-search'" />
+
+    <button class="btn btn-outline" (click)="onManagePizza()">
+      <em class="icon icon-plus"></em>
+      <span>Add</span>
+    </button>
+  </div>
+
+  <app-table #dt [value]="pizzas()" [columns]="cols()" scrollHeight="65vh" [cellTemplate]="cellTemplate">
+
+    <ng-template #cellTemplate let-rowData let-col="column">
+      @switch (col.field) {
+
+      @case ('name') {
+      <ng-container>
+        <div class="promotion__name" [innerHTML]="rowData[col.field]"></div>
+      </ng-container>
+      }
+
+      @case('size'){
+      <ng-container>
+        {{ "from" | translate : { count: rowData[col.field], label: "gram" | translate } }}
+      </ng-container>
+      }
+
+      @case ('price') {
+
+      <ng-container>
+        {{ "from" | translate : { count: rowData[col.field], label: "uah" | translate } }}
+      </ng-container>
+      }
+
+      @case('options'){
+      <ng-container>
+        <div class="table-actions">
+          <app-actions [data]="rowData" [actions]="actions" />
         </div>
-        <div class="global-search icon-input">
-          <!-- <em class="icon" [inlineSVG]="'search.svg'"></em> -->
-          <input pInputText type="text" class="input" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            [placeholder]="'labels.search' | translate" />
-        </div>
-      </div>
+      </ng-container>
+      }
+
+      @default {
+      <ng-container>
+        <span>{{ rowData[col.field]||'-' }}</span>
+      </ng-container>
+      }
+      }
     </ng-template>
-    <ng-template #header let-columns>
-      <tr class="d-table__header">
 
-        @for (col of columns; track col) {
-        <th scope="col" class="d-table__title" [ngStyle]="col?.style || {}"
-          [pSortableColumn]="col.sortable ? col.field : ''">
-          <span>{{ col.header | translate }}</span>
-
-          @if (col.sortable) {
-          <p-sortIcon [field]="col.field" />
-          }
-        </th>
-
-        }
-      </tr>
-    </ng-template>
-    <ng-template #body let-rowData let-columns="columns" let-rowIndex="rowIndex">
-      <tr class="d-table__row">
-        @for (col of columns; track col) {
-
-        <ng-container>
-
-          <td class="d-table__cell">
-            @switch (col.field) {
-            @case ('name') {
-            <div class="promotion__name" [innerHTML]="rowData[col.field]"></div>
-            }
-
-            @case('size'){
-            {{ "from" | translate : { count: rowData[col.field], label: "gram" | translate } }}
-            }
-
-            @case ('price') {
-            {{ "from" | translate : { count: rowData[col.field], label: "uah" | translate } }}
-            }
-
-            @case('category'){
-            {{ rowData[col.field] }}
-            }
-
-            @case('options'){
-            <div class="d-table-options">
-              <button class="button" (click)="onManagePizza(rowData)">
-                EDIT
-                <!-- <em class="icon" [inlineSVG]="'edit.svg'"></em> -->
-              </button>
-              <button class="button">
-                <em class="icon" (click)="onDelete(rowData)">Del</em>
-              </button>
-            </div>
-            }
-
-            @default {
-            {{ rowData[col.field] }}
-            }
-            }
-          </td>
-        </ng-container>
-        }
-      </tr>
-    </ng-template>
-    <ng-template #emptymessage let-columns>
-      <tr>
-        <td [attr.colspan]="columns.length" class="d-table__empty-message">
-          {{ "messages.noRecords" | translate }}
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  </app-table>
 </section>

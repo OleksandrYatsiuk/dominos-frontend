@@ -15,6 +15,10 @@ export const routes: Routes = [
         loadChildren: () => import('./module-admin-panel/admin.router'),
     },
     {
+        path: 'pizzas',
+        loadChildren: () => import('./module-pizzas/pizzas.router'),
+    },
+    {
         path: 'promotions',
         loadChildren: () => import('./module-promotions/promotions.router'),
     },

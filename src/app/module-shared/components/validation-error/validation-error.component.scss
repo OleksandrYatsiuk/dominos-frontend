@@ -1,6 +1,4 @@
-@import "../../../../styles/helpers/index";
-
 .error {
-  margin-top: 2px;
-  @include genText(0.8rem, 1, 300, $c-red);
+  font-size: var(--validators-size);
+  color: var(--validators-color);
 }

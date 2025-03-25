@@ -1,12 +1,14 @@
-@if (isBrowser) {
-<app-header />
-}
-<div class="dashboard">
-  <router-outlet />
+<div class="dominos">
+  @if (isBrowser) {
+  <app-header class="header" />
+  }
+  <div class="dashboard">
+    <router-outlet />
+  </div>
+  <app-footer />
+
+  <p-toast></p-toast>
+
+  <p-confirmDialog key="dangerous" styleClass="d-confirm-dialog d-confirm-dialog--dangerous" />
+  <p-confirmDialog key="warning" styleClass="d-confirm-dialog d-confirm-dialog--warning" />
 </div>
-<app-footer />
-
-<p-toast></p-toast>
-
-<p-confirmDialog key="dangerous" styleClass="d-confirm-dialog d-confirm-dialog--dangerous" />
-<p-confirmDialog key="warning" styleClass="d-confirm-dialog d-confirm-dialog--warning" />

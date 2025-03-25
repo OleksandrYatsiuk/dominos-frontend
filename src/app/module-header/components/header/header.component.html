@@ -7,7 +7,7 @@
     <button class="nav" (click)="userMenu.toggle($event)">
       {{ user.firstName }} {{ user.lastName }}
     </button>
-    <p-menu #userMenu [popup]="true" [model]="items | translateOptions" />
+    <p-menu #userMenu [popup]="true" [model]="userActions$|async" />
     <p-select [options]="languagesOpt" [ngModel]="lang" class="d-dropdown d-language-dropdown"
       (onChange)="onChangeLang($event.value)" />
   </div>
@@ -29,26 +29,24 @@
         <button class="nav" (click)="mainMenu.toggle($event)">
           Menu
         </button>
-        <p-menu #mainMenu [popup]="true" [model]="pagesItems | translateOptions"></p-menu>
+        <p-menu #mainMenu [popup]="true" [model]="menuItems$|async"></p-menu>
       </div>
 
       <div class="nav menu">
-        <span routerLink="/promotions">{{ "pageTitles.promotions" | translate }}</span>
-        <span routerLink="/pizzas">{{ "pageTitles.pizzas" | translate }}</span>
-        <span routerLink="/drinks">{{ "pageTitles.drinks" | translate }}</span>
-        <span routerLink="/">{{ "pageTitles.sides" | translate }}</span>
-        <span routerLink="/">{{ "pageTitles.desserts" | translate }}</span>
+        @for (page of menuItems$|async; track page) {
+        <a class="navigation-item" [routerLink]="page.routerLink">{{page.label}}</a>
+        }
       </div>
 
-      <div class="market" [ngClass]="{ disabled: (count$ | async) === 0 }">
+      <div class="market" [ngClass]="{ disabled: count() === 0 }">
 
-        @if (count$|async;as count) {
+        @if (count();as count) {
         <div class="count">{{ count }}</div>
         }
 
-        @if (summa$|async; as summa) {
+        @if (summa(); as summa) {
         <div class="total-price">
-          <span>{{ summa.toLocaleString() }} {{ "uah" | translate | uppercase }}
+          <span>{{ summa.toLocaleString() }} {{ "uah" | translate }}
           </span>
         </div>
         }

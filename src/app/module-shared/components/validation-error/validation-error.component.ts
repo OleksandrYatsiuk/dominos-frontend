@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, input, signal } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
@@ -13,7 +14,7 @@ export interface Error {
   templateUrl: './validation-error.component.html',
   styleUrls: ['./validation-error.component.scss'],
   standalone: true,
-  imports: [TranslateModule]
+  imports: [TranslateModule, NgClass]
 })
 export class ValidationErrorComponent {
   control = input.required<AbstractControl>();

@@ -1,10 +1,12 @@
-<h2>Pizza: {{ pizza.name }}</h2>
-<div class="action" *ngxPermissionsOnly="canEditPizza"></div>
+@if (pizza$|async; as pizza) {
+<h2>Pizza: {{ pizza.name|lang }}</h2>
 <div class="product">
   <div class="options">
+    @if (pizza.image) {
     <div class="pizza-image">
-      <img [src]="url" />
+      <img [src]="pizza.image" />
     </div>
+    }
     <div class="params">
       <h3>Category:</h3>
       {{ pizza.category }}
@@ -13,22 +15,26 @@
       <h3>Price - Weight</h3>
       <p>
         {{ pizza.price.small | currency: "UAH":"symbol-narrow" }} -
-        {{ pizza.weight.small }} g
+        {{ pizza.size.small }} g
       </p>
       <p>
         {{ pizza.price.middle | currency: "UAH":"symbol-narrow" }} -
-        {{ pizza.weight.middle }} g
+        {{ pizza.size.middle }} g
       </p>
       <p>
         {{ pizza.price.big | currency: "UAH":"symbol-narrow" }} -
-        {{ pizza.weight.big }} g
+        {{ pizza.size.big }} g
       </p>
     </div>
     <div class="params">
       <h3>Ingredients:</h3>
-      <div *ngFor="let ingredient of pizza.ingredients">
+
+      <ul>
+        @for (ingredient of pizza.ingredients; track ingredient) {
         <li>{{ ingredient.name }}</li>
-      </div>
+        }
+      </ul>
     </div>
   </div>
 </div>
+}

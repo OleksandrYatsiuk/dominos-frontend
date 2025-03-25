@@ -1,0 +1,4 @@
+@if (table(); as table) {
+<app-search [inputId]="searchId()" (onChange)="table.filterGlobal($event, 'contains')"
+    [placeholder]="'labels.search'|translate" />
+}

@@ -1,1 +1,1 @@
-export const stubImage = '/assets/img/stub-image.png';
+export const stubImage = 'images/stub-image.webp';

@@ -1,0 +1,18 @@
+.p-menu-overlay {
+    --p-menu-background: white;
+    --p-menu-border-radius: 8px;
+    --p-menu-transition-duration: 0.3s;
+
+    --p-menu-list-padding: 4px;
+    --p-menu-list-gap: 8px;
+    --p-menu-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+
+    --p-menu-item-border-radius: 8px;
+
+    --p-menu-item-focus-background: #eceaea;
+
+    .p-menu-item-link {
+        --p-menu-item-padding: 4px 8px;
+        --p-menu-item-gap: 8px;
+    }
+}

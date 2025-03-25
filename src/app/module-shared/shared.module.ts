@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PizzaFilterPipe } from './pipe/pizza-filter.pipe';
 import { RouterModule } from '@angular/router';
 import { BasketCardItemComponent } from './components/basket-card-item/basket-card-item.component';
 import { CustomLabelPipe } from './pipe/custom-label.pipe';
@@ -19,7 +18,6 @@ import { ToastModule } from 'primeng/toast';
     declarations: [
         // components
         // pipes
-        PizzaFilterPipe,
         CustomLabelPipe,
         ExtractPipe,
         // directives
@@ -37,7 +35,6 @@ import { ToastModule } from 'primeng/toast';
         ToastModule,
         MainModule,
         //pipes
-        PizzaFilterPipe,
         ExtractPipe,
         //directives
         MobilePhoneDirective,

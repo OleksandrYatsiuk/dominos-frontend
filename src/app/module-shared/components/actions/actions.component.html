@@ -1,0 +1,9 @@
+@if (template(); as template) {
+<ng-container [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ toggleFn }" />
+} @else {
+<button class="actions-control" (click)="toggle($event)" #trigger>
+    <em class="icon icon-more"></em>
+</button>
+}
+
+<p-menu #menu [model]="(options$|async) || []" [popup]="true" appendTo="body" />

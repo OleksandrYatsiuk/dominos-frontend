@@ -1,24 +1,24 @@
 <div class="login__wrapper">
   <form [formGroup]="form" (ngSubmit)="login()" class="login__form">
     <div class="form-control">
-      <span class="form-control__label">{{
-        "labels.username" | translate
-        }}</span>
-      <input type="text" class="input" formControlName="username" placeholder="Enter Username" />
+      <span class="form-control__label">{{ "labels.username" | translate }}</span>
+      <div class="input-field">
+        <input type="text" pInputText class="input stretch" formControlName="username" placeholder="Enter Username" />
+      </div>
       <validation-error [control]="form.controls.username" [field]="'labels.username' | translate"></validation-error>
     </div>
 
     <div class="form-control">
-      <span class="form-control__label">{{
-        "labels.password" | translate
-        }}</span>
-      <input type="password" class="input" formControlName="password" placeholder="Enter Password" />
+      <span class="form-control__label">{{ "labels.password" | translate }}</span>
+
+      <div class="input-field">
+        <input type="password" pInputText class="input stretch" formControlName="password"
+          placeholder="Enter Password" />
+      </div>
       <validation-error [control]="form.controls.password" [field]="'labels.password' | translate"></validation-error>
     </div>
 
-    <button type="submit" class="button button--blue button--maximize">
-      {{ "loginLabel" | translate }}
-    </button>
+    <app-spin-button type="submit" [name]="'loginLabel' | translate" [loading]="loading$|async" />
 
     <span class="login__message">
       Have not account yet? Please,

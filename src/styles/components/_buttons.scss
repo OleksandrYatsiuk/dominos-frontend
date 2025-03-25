@@ -1,0 +1,64 @@
+.btn {
+    align-self: stretch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+    border-radius: 8px;
+    padding: 4px 8px;
+    border-width: 0px;
+    transition: all 0.3s;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+
+    &:hover:not(:disabled) {
+        background-color: lightgray;
+    }
+    &:disabled:not(.loading) {
+        background-color: transparent;
+    }
+
+    &-outline {
+        border: 1px solid #d7d7d7;
+    }
+
+    &-primary {
+        background-color: #222;
+        border-color: transparent;
+        color: white;
+
+        &:hover {
+            background-color: rgba(#222, 0.7);
+        }
+    }
+
+    &.loading {
+        opacity: 0.7;
+
+        .icon-load {
+            display: block;
+            -webkit-animation: spin 3s linear infinite;
+            -moz-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+    }
+}
+
+@-moz-keyframes spin {
+    100% {
+        -moz-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}

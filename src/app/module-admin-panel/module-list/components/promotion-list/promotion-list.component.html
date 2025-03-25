@@ -1,81 +1,50 @@
-<section class="d-table__wrapper">
-  @if (promotions.value(); as promotions) {
-  <p-table #dt [value]="promotions" [columns]="cols" responsiveLayout="stack" [rowHover]="true" [rows]="100"
-    scrollHeight="65vh" [virtualScroll]="true">
+<section class="table-container">
 
-    <ng-template #caption>
-      <div class="d-table__caption">
-        <div class="caption-actions">
-          <button class="button button-icon" [routerLink]="['/admin/promotions/create']">
-            <em>+</em>
-            <span class="button-text"> {{ "labels.add" | translate }}</span>
-          </button>
-        </div>
-        <div class="global-search icon-input">
-          <!-- <em class="icon" [inlineSVG]="'search.svg'"></em> -->
-          <input pInputText type="text" class="input" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            [placeholder]="'labels.search' | translate" />
-        </div>
+  <div class="table-caption">
+    <app-global-table-search [table]="t" [searchId]="'promotions-search'" />
+
+    <button class="btn btn-outline" [routerLink]="['/admin/promotions/create']">
+      <em class="icon icon-plus"></em>
+      <span class="button-text"> {{ "labels.add" | translate }}</span>
+    </button>
+  </div>
+
+  <app-table #t [value]="promotions.value()" [columns]="columns()" scrollHeight="65vh" [cellTemplate]="cellTemplate">
+
+    <ng-template #cellTemplate let-rowData let-col="column">
+      @switch (col.field) {
+
+      @case ('name') {
+      <a [routerLink]="[rowData.original.id, 'edit']" [innerHTML]="rowData[col.field]"></a>
+      }
+      @case ('image') {
+      <img style="width:75px;height:50px" [lazyLoad]="rowData.image" [alt]="rowData.name | lang" />
+      }
+      @case ('description') {
+      <div class="promotion__description" [innerHTML]="rowData[col.field]"></div>
+      }
+
+      @case ('options') {
+      <div class="d-table-options">
+        <em class="icon" (click)="onDelete(rowData)">Del</em>
       </div>
+      }
+
+      @case('actions'){
+      <ng-container>
+        <div class="table-actions">
+          <app-actions [data]="rowData" [actions]="actions" />
+        </div>
+      </ng-container>
+      }
+
+      @default {
+      <ng-container>
+        <span>{{ rowData[col.field]||'-' }}</span>
+      </ng-container>
+      }
+      }
     </ng-template>
-    <ng-template #header let-columns>
-      <tr class="d-table__header">
-        @for (col of columns; track col) {
-        <th scope="col" class="d-table__title" [ngStyle]="col?.style || {}" [pSortableColumn]="col.field">
-          <span>{{ col.header | translate }}</span>
 
-          @if (col.sortable) {
-          <p-sortIcon [field]="col.field"></p-sortIcon>
-          }
-        </th>
-
-        }
-      </tr>
-    </ng-template>
-    <ng-template #body let-rowData let-columns="columns" let-rowIndex="rowIndex">
-      <tr class="d-table__row">
-
-        @for (col of columns; track col) {
-
-        <ng-container>
-
-          <td class="d-table__cell">
-
-            @switch (col.field) {
-
-            @case ('name') {
-            <a [routerLink]="[rowData.original.id, 'edit']" [innerHTML]="rowData[col.field]"></a>
-            }
-            @case ('image') {
-            <img style="width:75px;height:50px" [lazyLoad]="rowData.image" [alt]="rowData.name | lang" />
-            }
-            @case ('description') {
-            <div class="promotion__description" [innerHTML]="rowData[col.field]"></div>
-            }
-
-            @case ('options') {
-            <div class="d-table-options">
-              <em class="icon" (click)="onDelete(rowData)">Del</em>
-            </div>
-            }
-            @default {
-            <span> {{rowData[col.field]||'-'}} </span>
-            }
-            }
-
-          </td>
-        </ng-container>
-        }
-
-      </tr>
-    </ng-template>
-    <ng-template #emptymessage let-columns>
-      <tr>
-        <td [attr.colspan]="columns.length" class="d-table__empty-message">
-          {{ "messages.noRecords" | translate }}
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
-  }
+  </app-table>
 </section>

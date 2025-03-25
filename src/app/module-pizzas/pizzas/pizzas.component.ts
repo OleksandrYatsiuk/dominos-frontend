@@ -5,14 +5,14 @@ import { PizzasState } from 'src/app/module-admin-panel/module-pizzas/pizzas/piz
 import { CardPizzaComponent } from 'src/app/module-main/components/card-pizza/card-pizza.component';
 
 @Component({
-  selector: 'app-pizza',
-  templateUrl: './pizza.component.html',
-  styleUrls: ['./pizza.component.scss'],
+  selector: 'app-pizzas',
+  templateUrl: './pizzas.component.html',
+  styleUrls: ['./pizzas.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [CardPizzaComponent],
 })
-export class PizzaComponent implements OnInit {
+export class PizzasComponent implements OnInit {
   pizzas = this._store.selectSignal(PizzasState.pizzas);
 
   constructor(private _store: Store) { }
@@ -20,5 +20,4 @@ export class PizzaComponent implements OnInit {
   ngOnInit(): void {
     this._store.dispatch(new FetchAllPizzas())
   }
-
 }

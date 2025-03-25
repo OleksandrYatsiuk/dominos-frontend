@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/module-shared/shared.module';
   declarations: [],
   imports: [
     CommonModule,
-    AdminPanelRoutingModule,
+    // AdminPanelRoutingModule,
     SharedModule,
   ],
   providers: []

@@ -1,0 +1,85 @@
+<p-table #dt [value]="value() || loaderRowCount" [columns]="cols()" responsiveLayout="stack" [rowHover]="true"
+    [rowExpandMode]="rowExpandMode()" [globalFilterFields]="globalFilterFields()" [scrollHeight]="scrollHeight()"
+    [scrollable]="true" [dataKey]="dataKey()" [rowTrackBy]="rowTrackBy" (onRowExpand)="onRowExpand.emit($event.data)"
+    (onRowCollapse)="onRowCollapse.emit($event.data)">
+
+    <ng-template #header let-columns>
+        <tr class="table-header-row">
+            @for(col of columns; track $index) {
+            @if (col.sortable; as sortable) {
+            <th scope="col" [style.width]="col.width || 'auto'" [pSortableColumn]="col.field"
+                [alignFrozen]="col.alignFrozen" pFrozenColumn [frozen]="col.frozen" class="table-header">
+                {{ col.header | translate }}
+                @if (sortable) {
+                <p-sortIcon [field]="col.field" />
+                }
+            </th>
+            } @else {
+            <th scope="col" [style.width]="col.width || 'auto'" class="table-header"> {{ col.header | translate }}
+            </th> }
+            }
+        </tr>
+    </ng-template>
+    <ng-template #body let-rowData let-columns="columns" let-rowIndex="rowIndex" let-expanded="expanded">
+        <tr class="table-body-row">
+            @if(rowData[columns[0].field] !== undefined) {
+            <ng-container>
+                @for(col of columns; track $index) {
+                <td class="table-cell" [style.width]="col.width || 'auto'">
+
+                    @if (col.field === 'expand') {
+                    <button type="button" class="btn icon-only default skinny" [pRowToggler]="rowData">
+                        <em class="icon icon-arrow" [ngClass]="{ expanded }"></em>
+                    </button>
+                    } @else if (cellTemplate()) {
+                    <ng-container [ngTemplateOutlet]="cellTemplate()"
+                        [ngTemplateOutletContext]="{ $implicit: rowData, rowIndex, column: col, expanded }"></ng-container>
+                    } @else {
+                    <span>{{ rowData[col.field] || '-' }}</span>
+                    }
+                </td>
+                }
+            </ng-container>
+            } @else{
+            <td [attr.colspan]="columns?.length">
+                <span>......</span>
+                <!-- <pt-i-skeleton-loader [withBorder]="false" [rowSettings]="[{ height: '2rem' }]" /> -->
+            </td>
+            }
+        </tr>
+    </ng-template>
+
+    <ng-template #expandedrow let-rowData>
+        <tr class="table-body-row expanded">
+            <td [attr.colspan]="cols().length">
+                <ng-container [ngTemplateOutlet]="rowExpandTemplate()"
+                    [ngTemplateOutletContext]="{ $implicit: rowData }" />
+            </td>
+        </tr>
+    </ng-template>
+
+    <ng-template #emptymessage let-columns>
+        <tr>
+            <td [attr.colspan]="columns.length">
+                {{ "messages.noRecords" | translate }}
+                <!-- <pt-i-empty-state class="no-records flex-center" [icon]="emptyConfig().icon"
+                    [messageTemplate]="messageTemplate">
+                    <ng-template #messageTemplate>
+                        <div class="flex-col flex-center gap-8">
+                            <span class="sub-1">{{ emptyConfig().message | translate }}</span>
+                            <span class="body-2 color--readonly-label">
+                                {{ emptyConfig().caption | translate }}
+                            </span>
+                        </div>
+                    </ng-template>
+                </pt-i-empty-state> -->
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+<!-- <ng-template #sortIconTemplate let-order>
+    <em class="icon"
+        [ngClass]="{ 'icon-sort-default': order === 0, 'icon-sort-up': order === 1, 'icon-sort-down': order === -1 }"></em>
+</ng-template> -->

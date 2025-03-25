@@ -1,49 +1,29 @@
-<section class="d-table__wrapper">
-  <p-table #dt *ngIf="users$ | async as users" [value]="users" [columns]="cols" responsiveLayout="stack"
-    [rowHover]="true" [rows]="100" scrollHeight="65vh" [virtualScroll]="true">
-    <ng-template pTemplate="caption">
-      <div class="d-table__caption pt-table__caption--external">
-        <div class="caption-actions"></div>
-        <div class="global-search icon-input">
-          <em class="icon" [inlineSVG]="'search.svg'"></em>
-          <input pInputText type="text" class="input" (input)="dt.filterGlobal($event.target.value, 'contains')"
-            [placeholder]="'labels.search' | translate" />
-        </div>
-      </div>
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-      <tr class="d-table__header">
-        <th *ngFor="let col of columns" scope="col" class="d-table__title"
-          [ngStyle]="{ width: col?.width ? col.width : 'auto' }" [pSortableColumn]="col.field">
-          <span>{{ col.header | translate }}</span>
-          <p-sortIcon *ngIf="col.sortable" [field]="col.field"></p-sortIcon>
-        </th>
-      </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
-      <tr class="d-table__row">
-        <ng-container *ngFor="let col of columns">
-          <td [ngSwitch]="col.field" class="d-table__cell">
-            <span class="p-column-title">{{ col.header | translate }}</span>
+<section class="table-container">
 
-            <ng-container *ngSwitchCase="'options'">
-              <div class="d-table-options">
-                <em class="icon" [inlineSVG]="'trash.svg'" (click)="onDelete(rowData)"></em>
-              </div>
-            </ng-container>
-            <ng-container *ngSwitchDefault>{{
-              rowData[col.field]
-              }}</ng-container>
-          </td>
-        </ng-container>
-      </tr>
+  <div class="table-caption">
+    <app-global-table-search [table]="t" [searchId]="'users-search'" />
+  </div>
+
+  <app-table #t [value]="users.value()" [columns]="columns()" scrollHeight="65vh" [cellTemplate]="cellTemplate">
+
+    <ng-template #cellTemplate let-rowData let-col="column">
+      @switch (col.field) {
+
+      @case('actions'){
+      <ng-container>
+        <div class="table-actions">
+          <app-actions [data]="rowData" [actions]="actions" />
+        </div>
+      </ng-container>
+      }
+
+      @default {
+      <ng-container>
+        <span>{{ rowData[col.field]||'-' }}</span>
+      </ng-container>
+      }
+      }
     </ng-template>
-    <ng-template pTemplate="emptymessage" let-columns>
-      <tr>
-        <td [attr.colspan]="columns.length" class="d-table__empty-message">
-          {{ "messages.noRecords" | translate }}
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+
+  </app-table>
 </section>

@@ -1,24 +1,45 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, signal } from '@angular/core';
 import { UserManagementDataService } from 'src/app/core/services/user-management-data.service';
 import { MessageService } from 'primeng/api';
 import { User } from 'src/app/module-auth/auth.model';
 import { ConfirmService } from '@core/services/confirm.service';
-import { catchError, EMPTY, filter, map, mergeMap, Observable } from 'rxjs';
-import { pluck } from 'rxjs';
+import { catchError, EMPTY, filter, map, mergeMap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { TableItem } from '@core/models/table.interface';
+import { TableComponent } from '@shared/components/table/table.component';
+import { GlobalTableSearchComponent } from '@shared/components/table/global-search/global-search.component';
+import { ActionsComponent, ActionsFn } from '@shared/components/actions/actions.component';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { ITableColumn } from '@shared/components/table/interfaces';
+
+interface UsersRecord {
+  original: User;
+  id: string;
+  username: string;
+  email: string;
+  fullName: string;
+  role: string;
+}
 
 @Component({
-    selector: 'app-users-list',
-    templateUrl: './users-list.component.html',
-    styleUrls: ['./users-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'app-users-list',
+  templateUrl: './users-list.component.html',
+  styleUrls: ['./users-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [TableComponent, GlobalTableSearchComponent, ActionsComponent],
 })
-export class UsersListComponent implements OnInit {
-  currentPage = 1;
-  users$: Observable<User[]>;
-  cols: TableItem[];
+export class UsersListComponent {
+  page = signal(1);
+
+  rows = signal(10);
+
+  columns = signal<ITableColumn[]>([
+    { field: 'username', header: 'labels.username', sortable: true },
+    { field: 'fullName', header: 'labels.fullName', sortable: true },
+    { field: 'role', header: 'labels.role', sortable: true },
+    { field: 'email', header: 'labels.email', sortable: true },
+    { field: 'actions', header: '', width: '100px' }
+  ]);
 
   constructor(
     private _us: UserManagementDataService,
@@ -28,48 +49,48 @@ export class UsersListComponent implements OnInit {
     private _translateService: TranslateService
   ) { }
 
-  ngOnInit() {
-    this.users$ = this._queryUserList(this.currentPage);
+  actions: ActionsFn<UsersRecord> = (record) => [
+    {
+      id: 'delete',
+      icon: 'icon icon-trash',
+      label: 'Delete',
+      command: () => {
+        this.onDelete(record);
+      }
+    }
+  ];
 
-    this.cols = [
-      { field: 'index', header: '#', sortable: true, style: { with: '100px' } },
-      { field: 'username', header: 'labels.username', sortable: true },
-      { field: 'fullName', header: 'labels.fullName', sortable: true },
-      { field: 'role', header: 'labels.role', sortable: true },
-      { field: 'email', header: 'labels.email', sortable: true },
-      { field: 'options', header: 'labels.options', style: { with: '100px' } }
-    ];
-  }
-
-  onPageChange(page: number): void {
-    this.currentPage = page + 1;
-    this.users$ = this._queryUserList(this.currentPage);
-
-  }
-
-  onDelete(item: User): void {
+  onDelete(user: UsersRecord): void {
     this._cs.delete().pipe(
       filter(result => result),
-      mergeMap(() => this._us.deleteItem(item.id)),
+      mergeMap(() => this._us.deleteItem(user.id)),
       catchError(e => {
         this._ms.add({ severity: 'error', detail: e.result });
         return EMPTY;
       }))
-      .subscribe(res => {
-        this.users$ = this._queryUserList(this.currentPage);
-        this._ms.add({ severity: 'success', detail: `User "${item.username}" was deleted successfully!` });
+      .subscribe(() => {
+        this.users.reload();
+        this._ms.add({ severity: 'success', detail: `User "${user.username}" was deleted successfully!` });
         this._cd.detectChanges();
       })
   }
 
-  private _queryUserList(page: number): Observable<User[]> {
-    return this._us.getUsers({ page, sort: 'email' }).pipe(
-      pluck('result'),
-      map(users => users.map((user, i) => ({
-        ...user,
-        index: i + 1,
-        fullName: `${user.firstName} ${user.lastName}`.trim(),
-        role: this._translateService.instant(`userRoles.${user.role}`)
-      }))));
+  private transformUsers(user: User): UsersRecord {
+    return {
+      original: user,
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      fullName: `${user.firstName} ${user.lastName}`.trim(),
+      role: this._translateService.instant(`userRoles.${user.role}`),
+    }
   }
+
+  users = rxResource({
+    request: () => ({ page: this.page(), rows: this.rows() }),
+    loader: ({ request }) => this._us.getUsers({ page: request.page, limit: request.rows, sort: 'email' }).pipe(
+      map((response) => response.result),
+      map((records) => records.map((r) => this.transformUsers(r)))
+    )
+  });
 }

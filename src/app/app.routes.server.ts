@@ -14,7 +14,15 @@ export const serverRoutes: ServerRoute[] = [
     renderMode: RenderMode.Client,
   },
   {
+    path: 'admin/users',
+    renderMode: RenderMode.Client,
+  },
+  {
     path: 'promotions/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'pizzas/:id',
     renderMode: RenderMode.Client,
   }
 ];

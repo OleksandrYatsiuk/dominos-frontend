@@ -1,7 +1,8 @@
-<button [type]="type()" [ngClass]="class()" [disabled]="loading()">
+<button [type]="type()" [ngClass]="buttonClass()" [disabled]="loading()" (click)="onClick.emit($event)">
     @if (loading()) {
-    <div class="spinner-border" role="status"></div>
+    <em class="icon icon-load"></em>
     } @else {
-    <span>{{name()}}</span>
+    <em [class]="icon()"></em>
+    <span class="button-text">{{name()}}</span>
     }
 </button>

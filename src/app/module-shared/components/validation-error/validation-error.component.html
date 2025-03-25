@@ -1,7 +1,7 @@
 @for (validation of errors(); track $index) {
 <ng-container>
   @if (withError(validation)) {
-  <div [class]="styleClass()" ngClass="error">
+  <div class="error" [ngClass]="styleClass()">
 
     <ng-container>
       @switch (validation.type) {
